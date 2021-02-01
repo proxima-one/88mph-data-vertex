@@ -1,6 +1,6 @@
 'use strict';
 const { ApolloClient, InMemoryCache} = require('@apollo/client');
-const Subgraph = require("./Subgraph/index.js");
+const Subgraph = require("./subgraph/index.js");
 
 class VertexClient extends Subgraph {
   constructor(name, serverURI, queries, args = {}) {
