@@ -1,0 +1,14 @@
+{
+  "DPoolLists": {
+    "get": "query {DPoolList(id: $id, prove: $prove) {id}}",
+    "getAll": "query {DPoolLists(first: $first, last: $last, limit: $limit, prove: $prove) {id}}",
+    "search": "query { DPoolListSearch(queryText: $queryText, prove: $prove) { id } }",
+    "put": "mutation {putDPoolList(input: $input)}"
+  },
+  "DPools": {
+    "get": "query { DPool(id: $id, prove: $prove) {id} }",
+    "getAll": "query { DPools(first: $first , last: $last, limit: $limit, prove: $prove) {id}}",
+    "search": "query {DPoolSearch(queryText: $queryText, prove: $prove) { id }}",
+    "put": "mutation {putDPool(input: $input) }"
+  }
+}

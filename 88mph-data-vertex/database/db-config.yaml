@@ -1,0 +1,11 @@
+name: DefaultDB
+id: None  
+owner: None
+version: 0.0.0
+config:
+ cache: undefined
+ compression: undefined
+ batching: undefined
+ sleep: undefined
+tables:
+undefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefined

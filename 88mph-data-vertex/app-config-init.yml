@@ -1,0 +1,30 @@
+id: null
+name: 88mph-data-vertex
+repo: null
+description: null
+schema:
+  file: ./schema/schema.graphql
+  dir: 88mph-data-vertex/schema
+datasources:
+  - datasource:
+      name: null
+      client:
+        name: ethereum
+        network: testnet
+        startBlock: 10634502
+      template:
+        abi: CONTRACT_NAME
+      source:
+        address: null
+        abi: CONTRACT_NAME
+      handlers:
+        - dir: null
+        - functionHandlers: functionHandlers.js
+        - eventHandlers: eventHandlers.js
+        - transactionHandlers: transactionHandlers.js
+        - blockHandlers: blockHandlers.js
+        - functionPolls: functionPolls.js
+      contracts:
+        - name: CONTRACT_NAME
+          file: null
+version: 0.0.1
