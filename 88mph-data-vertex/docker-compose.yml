@@ -16,15 +16,15 @@ services:
       - '/tmp/opt/binance-data:/opt/bnbchaind'
     ports:
       - '50051:50051'
-  data_aggregator:
-    build: ./DataAggregator
-    restart: unless-stopped
-    ports:
-      - '4000:4000'
-      - '27146:27146'
-      - '27147:27147'
-    depends_on:
-      - data_vertex_node
-    environment:
-      - DATA_VERTEX_NODE_ADDRESS=data_vertex_node
-      - DATA_VERTEX_NODE_PORT=4000
+  # data_aggregator:
+  #   build: ./DataAggregator
+  #   restart: unless-stopped
+  #   ports:
+  #     - '4000:4000'
+  #     - '27146:27146'
+  #     - '27147:27147'
+  #   depends_on:
+  #     - data_vertex_node
+  #   environment:
+  #     - DATA_VERTEX_NODE_ADDRESS=data_vertex_node
+  #     - DATA_VERTEX_NODE_PORT=4000
