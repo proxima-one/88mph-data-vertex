@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "outDir": "./dist/",
+    "lib": ["es2019", "dom", "es5"],
+    "composite": true,
+    "declaration": true,
+    "declarationMap": true,
+    "module": "commonjs",
+    "allowJs": true,
+    "importHelpers": true,
+    "esModuleInterop": true,
+    "strict": true,
+    "sourceMap": true,
+    "target": "es5",
+    "allowSyntheticDefaultImports": true,
+    "typeRoots": ["node_modules/@types"]
+  },
+  "exclude": ["node_modules"],
+  "includes": [
+    "./src/lib/*",
+    "src/generated/contracts/*",
+    "./src/index.ts",
+    "./test/index-test.ts"
+  ]
+}

@@ -25,8 +25,8 @@ tables:
     header: Root
     compression: 36h
     batching: 5s
-    sleep: 10m
-    cacheExpiration: 5m
+    sleep: 1m
+    cacheExpiration: 5s
   - name: Users
     id: DefaultDB-Users
     version: 0.0.0
@@ -34,8 +34,8 @@ tables:
     header: Root
     compression: 36h
     batching: 5s
-    sleep: 10m
-    cacheExpiration: 5m
+    sleep: 1m
+    cacheExpiration: 5s
   - name: UserTotalDeposits
     id: DefaultDB-UserTotalDeposits
     version: 0.0.0
@@ -43,7 +43,7 @@ tables:
     header: Root
     compression: 36h
     batching: 5s
-    sleep: 10m
+    sleep: 1m
     cacheExpiration: 5m
   - name: Deposits
     id: DefaultDB-Deposits
@@ -52,7 +52,7 @@ tables:
     header: Root
     compression: 36h
     batching: 5s
-    sleep: 10m
+    sleep: 1m
     cacheExpiration: 5m
   - name: Funders
     id: DefaultDB-Funders
@@ -61,7 +61,7 @@ tables:
     header: Root
     compression: 36h
     batching: 5s
-    sleep: 10m
+    sleep: 1m
     cacheExpiration: 5m
   - name: FunderTotalInterests
     id: DefaultDB-FunderTotalInterests
@@ -70,7 +70,7 @@ tables:
     header: Root
     compression: 36h
     batching: 5s
-    sleep: 10m
+    sleep: 1m
     cacheExpiration: 5m
   - name: Fundings
     id: DefaultDB-Fundings
@@ -79,7 +79,7 @@ tables:
     header: Root
     compression: 36h
     batching: 5s
-    sleep: 10m
+    sleep: 1m
     cacheExpiration: 5m
   - name: MPHHolders
     id: DefaultDB-MPHHolders
@@ -88,8 +88,8 @@ tables:
     header: Root
     compression: 36h
     batching: 5s
-    sleep: 10m
-    cacheExpiration: 5m
+    sleep: 1m
+    cacheExpiration: 5s
   - name: MPHs
     id: DefaultDB-MPHs
     version: 0.0.0
@@ -97,5 +97,5 @@ tables:
     header: Root
     compression: 36h
     batching: 5s
-    sleep: 10m
-    cacheExpiration: 5m
+    sleep: 1m
+    cacheExpiration: 5s

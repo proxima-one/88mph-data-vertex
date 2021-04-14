@@ -1,0 +1,17 @@
+{
+  "extends": "@tsconfig/node12/tsconfig.json",
+
+  "compilerOptions": {
+    "module": "system",
+    "moduleResolution": "node",
+    "lib": ["esnext"],
+    "strict": true,
+    "sourceMap": true,
+    "removeComments": true,
+    "declaration": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "typeRoots": ["node_modules/@types"]
+  },
+  "exclude": ["node_modules"]
+}

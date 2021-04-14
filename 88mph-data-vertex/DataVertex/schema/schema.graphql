@@ -33,16 +33,16 @@ MPHSearch(queryText: String!, prove: Boolean): [MPH!]!
 }
 
 type Mutation {
-putDPoolList(input: DPoolListInput!): Boolean 
-putDPool(input: DPoolInput!): Boolean 
-putUser(input: UserInput!): Boolean 
-putUserTotalDeposit(input: UserTotalDepositInput!): Boolean 
-putDeposit(input: DepositInput!): Boolean 
-putFunder(input: FunderInput!): Boolean 
-putFunderTotalInterest(input: FunderTotalInterestInput!): Boolean 
-putFunding(input: FundingInput!): Boolean 
-putMPHHolder(input: MPHHolderInput!): Boolean 
-putMPH(input: MPHInput!): Boolean 
+putDPoolList(input: DPoolListInput!): Boolean
+putDPool(input: DPoolInput!): Boolean
+putUser(input: UserInput!): Boolean
+putUserTotalDeposit(input: UserTotalDepositInput!): Boolean
+putDeposit(input: DepositInput!): Boolean
+putFunder(input: FunderInput!): Boolean
+putFunderTotalInterest(input: FunderTotalInterestInput!): Boolean
+putFunding(input: FundingInput!): Boolean
+putMPHHolder(input: MPHHolderInput!): Boolean
+putMPH(input: MPHInput!): Boolean
 
 }
 
@@ -53,7 +53,7 @@ numPools: Int
 numUsers: Int
 numActiveUsers: Int
 numFunders: Int
-} 
+}
 
 input DPoolListInput {
 id: ID
@@ -94,7 +94,7 @@ oneYearInterestRate: Float
 surplus: String
 moneyMarketIncomeIndex: String
 oracleInterestRate: String
-} 
+}
 
 input DPoolInput {
 id: ID
@@ -102,18 +102,18 @@ address: String
 moneyMarket: String
 stablecoin: String
 interestModel: String
-users: [UserInput]
+userIds: [String]
 numUsers: Int
-deposits: [DepositInput]
+depositIds: [String]
 numDeposits: Int
 numActiveDeposits: String
 totalActiveDeposit: String
 totalHistoricalDeposit: String
 totalInterestPaid: String
 unfundedDepositAmount: String
-funders: [FunderInput]
+funderIds: [String]
 numFunders: String
-fundings: [FundingInput]
+fundingIds: [String]
 numFundings: String
 MinDepositPeriod: Float
 MaxDepositPeriod: Float
@@ -139,17 +139,17 @@ numActiveDeposits: String
 totalDepositByPool: [UserTotalDeposit]
 totalMPHEarned: String
 totalMPHPaidBack: String
-} 
+}
 
 input UserInput {
 id: ID
 address: String
-pools: [DPoolInput]
+pools: [ID]
 numPools: String
-deposits: [DepositInput]
+deposits: [ID]
 numDeposits: String
 numActiveDeposits: String
-totalDepositByPool: [UserTotalDepositInput]
+totalDepositByPool: [ID]
 totalMPHEarned: String
 totalMPHPaidBack: String
 }
@@ -162,7 +162,7 @@ totalActiveDeposit: String
 totalHistoricalDeposit: String
 totalInterestEarned: String
 totalHistoricalInterestEarned: String
-} 
+}
 
 input UserTotalDepositInput {
 id: ID
@@ -188,7 +188,7 @@ fundingID: String
 mintMPHAmount: String
 takeBackMPHAmount: String
 initialMoneyMarketIncomeIndex: String
-} 
+}
 
 input DepositInput {
 id: ID
@@ -215,7 +215,7 @@ fundings: [Funding]
 numFundings: String
 totalMPHEarned: String
 totalInterestByPool: [FunderTotalInterest]
-} 
+}
 
 input FunderInput {
 id: ID
@@ -237,7 +237,7 @@ totalHistoricalDeficitFunded: String
 totalInterestEarned: String
 totalHistoricalInterestEarned: String
 totalRecordedFundedDepositAmount: String
-} 
+}
 
 input FunderTotalInterestInput {
 id: ID
@@ -264,7 +264,7 @@ initialFundedDepositAmount: String
 fundedDeficitAmount: String
 totalInterestEarned: String
 mintMPHAmount: String
-} 
+}
 
 input FundingInput {
 id: ID
@@ -288,7 +288,7 @@ address: String
 mphBalance: String
 stakedMPHBalance: String
 totalHistoricalReward: String
-} 
+}
 
 input MPHHolderInput {
 id: ID
@@ -305,7 +305,7 @@ totalStakedMPHBalance: String
 totalHistoricalReward: String
 rewardPerSecond: String
 rewardPerMPHPerSecond: String
-} 
+}
 
 input MPHInput {
 id: ID
@@ -315,4 +315,3 @@ totalHistoricalReward: String
 rewardPerSecond: String
 rewardPerMPHPerSecond: String
 }
-

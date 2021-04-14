@@ -80,8 +80,8 @@ func TestDataVertexResolvers(t *testing.T) {
 	var dbConfigFilePath string = "../../database/db-config.yaml"
 
 
-	var testConfigFilePath string = "../../testdata/vertex_queries.json"
-	var testAppQueriesFilePath string = "../../testdata/vertex_entities.json"
+	var testConfigFilePath string = "../../testdata/vertex_entities.json"
+	var testAppQueriesFilePath string = "../../testdata/vertex_queries.json"
 
 	applicationVertex, err := LoadDataVertex(configFilePath, dbConfigFilePath)
 	if err != nil {
@@ -106,8 +106,8 @@ func BenchmarkVertexResolvers(b *testing.B) {
 	b.StopTimer()
 	var configFilePath string = "../../app-config.yml"
 	var dbConfigFilePath string = "../../database/db-config.yaml"
-	var testConfigFilePath string = "../../../test-structs/88mph-data-vertex_test.json"
-	var testAppQueriesFilePath string = "../../../test-structs/app_queries_test.json"
+	var testConfigFilePath string = "../../testdata/vertex_entities.json"
+	var testAppQueriesFilePath string = "../../testdata/vertex_queries.json"
 
 	applicationVertex, err := LoadDataVertex(configFilePath, dbConfigFilePath)
 	if err != nil {

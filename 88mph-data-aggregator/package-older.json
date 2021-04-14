@@ -1,0 +1,47 @@
+{
+  "name": "88mph-data-vertex",
+  "description": "This repository is responsible for the auto-generation within the Proxima Network. It encapsulates processing of smart contracts for the DApp aggregators, creation of models, resolvers, and Data Vertices for the Proxima Node, and the building of the Proxima Vertex node itself.",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "start": "node ./index.js",
+    "test": "mocha",
+    "tsc": "rm -r ./dist && tsc -p tsconfig.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/proxima-one/proxima-autogen.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/proxima-one/proxima-autogen/issues"
+  },
+  "homepage": "https://github.com/proxima-one/proxima-autogen#readme",
+  "dependencies": {
+    "@ethersproject/shims": "^5.1.0",
+    "ethers": "^5.1.0",
+    "fs-extra": "^9.1.0",
+    "graphql": "^15.4.0",
+    "js-yaml": "^4.0.0",
+    "mocha": "^8.2.1",
+    "tslib": "^2.1.0"
+  },
+  "devDependencies": {
+    "@apollo/client": "^3.3.13",
+    "@babel/core": "^7.13.14",
+    "@babel/runtime": "^7.13.10",
+    "@ethersproject/abi": "^5.1.0",
+    "@ethersproject/bytes": "^5.1.0",
+    "@ethersproject/contracts": "^5.1.0",
+    "@ethersproject/providers": "^5.1.0",
+    "@types/fs-extra": "^9.0.10",
+    "@types/js-yaml": "^4.0.0",
+    "@types/react": "^17.0.3",
+    "ethers": "^5.1.0",
+    "react": "^17.0.2",
+    "typescript": "^4.2.3"
+  }
+}

@@ -1,0 +1,28 @@
+import { DPoolList, DPool, User, Funder, MPH, MPHHolder } from "../generated/models/models";
+import { BigNumber, BigNumberish } from "ethers";
+export declare let DPOOLLIST_ID: string;
+export declare let MPH_ID: string;
+export declare let ZERO_DEC: BigNumber;
+export declare let ONE_DEC: BigNumber;
+export declare let NEGONE_DEC: BigNumber;
+export declare let ZERO_INT: bigint;
+export declare let ONE_INT: bigint;
+export declare let YEAR: bigint;
+export declare let ZERO_ADDR: string;
+export declare let MPH_ISSUANCE_MODEL_ADDR: string;
+export declare let DELIMITER: string;
+export declare let BLOCK_HANDLER_START_BLOCK: bigint;
+export declare let BLOCK_HANDLER_INTERVAL: bigint;
+export declare let POOL_ADDRESSES: string[];
+export declare let POOL_DEPLOY_BLOCKS: number[];
+export declare function tenPow(exponent: number): BigNumberish;
+export declare function normalize(i: BigInt, decimals?: number): BigNumber;
+export declare function keccak256(s: string): string;
+export declare function stringEqual(s1: string, s2: string): boolean;
+export declare function getPoolList(): DPoolList;
+export declare function getPool(poolAddress: string): Promise<DPool>;
+export declare function getUser(address: string, pool: DPool): Promise<User>;
+export declare function getFunder(address: string, pool: DPool): Promise<Funder>;
+export declare function getMPH(): MPH;
+export declare function getMPHHolder(address: string): MPHHolder | null;
+//# sourceMappingURL=utils.d.ts.map

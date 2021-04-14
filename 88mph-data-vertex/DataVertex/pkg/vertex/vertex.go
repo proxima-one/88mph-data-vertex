@@ -2,12 +2,12 @@ package vertex
 
 import (
 	proxima "github.com/proxima-one/proxima-db-client-go/pkg/database"
-	resolver "github.com/proxima-one/proxima-data-vertex/pkg/resolvers"
-	dataloader "github.com/proxima-one/proxima-data-vertex/pkg/dataloaders"
+	resolver "github.com/proxima-one/88mph-data-vertex/pkg/resolvers"
+	dataloader "github.com/proxima-one/88mph-data-vertex/pkg/dataloaders"
 	"github.com/99designs/gqlgen/handler"
 	"github.com/99designs/gqlgen/graphql"
 	"github.com/gin-gonic/gin"
-	gql "github.com/proxima-one/proxima-data-vertex/pkg/gql"
+	gql "github.com/proxima-one/88mph-data-vertex/pkg/gql"
 	"io/ioutil"
 	//yaml "gopkg.in/yaml.v2"
 	yaml "github.com/ghodss/yaml"
@@ -130,6 +130,8 @@ func CreateResolvers(db *proxima.ProximaDatabase) (gql.Config, error) {
 		Resolvers: resolver.NewResolver(loader, db),
 	}, nil
 }
+
+//create middleware
 
 func CreateDataloaders(db *proxima.ProximaDatabase) (*dataloader.Dataloader, error) {
   loader , err := dataloader.NewDataloader(db)
