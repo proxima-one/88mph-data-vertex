@@ -12,6 +12,7 @@ function useFetch(operation, variables) {
     //block until this returns right?
     var vertex = new VertexClient("default", "http://0.0.0.0:4000/query");
     var result;
+    console.log("Variables and definitions");
     console.log(variables);
     console.log(operation);
     return vertex.Fetch(operation, variables).then(function (data) {

@@ -21,6 +21,269 @@ export type Scalars = {
   BigDecimal: BigNumber | BigNumberish;
   BigInt: BigInt;
 };
+//
+// type ReturnTypeName<T> = T extends Scalars["String"]
+//   ? "string"
+//   : T extends Scalars["Int"]
+//   ? "number"
+//   : T extends Scalars["Boolean"]
+//   ? "boolean"
+//   : T extends undefined
+//   ? "undefined"
+//   : T extends Function
+//   ? "function"
+//   : "object";
+
+//get type name
+
+type Proxy<T, U> = {
+  setLoadArgs(value: T): void;
+  setSaveArgs(value: U): void;
+  getSaveArgs(): U;
+  getLoadArgs(): T;
+  //extra values
+  //
+};
+
+// static fromLoadArgs(vaue: U): Proxi {
+//   this.loadArgs = value;
+//   //convert
+// }
+// static getProxySaveArgs(value: T): void {
+//   this.saveArgs = value;
+// }
+
+declare function pick<T, K extends keyof T>(obj: T, ...keys: K[]): Pick<T, K>;
+
+type Filter<T, U> = T extends U ? T : never;
+
+type NonFunctionPropertyNames<T> = {
+  [K in keyof T]: T[K] extends Function ? never : K
+}[keyof T];
+
+type NonFunctionProperties<T> = Pick<T, NonFunctionPropertyNames<T>>;
+
+type Proxify<T, U> = {
+  [P in keyof T]?: P extends keyof U ? Proxy<T[P], U[P]> : never
+};
+
+function parse<T, U>(o: T, opname?: string): Proxify<T, U> {
+  let result = {} as Proxify<T, U>;
+
+  let u = {} as U;
+  let t = {} as T;
+  const entries = Object.entries(o);
+
+  for (const p of entries) {
+    //check that it is in proxy, and results
+    if (p[0] && p[1]) {
+      type M = InstanceType<typeof T>;
+      type L = InstanceType<typeof U>;
+      //let L pick
+      //ThisParameterType<typeof toHex>
+      //if there are any opcodes
+      var pVal: Proxy<L, M> = parseProxy<L, M>(p[1]);
+      setProperty(result, p[0] as keyof T, pVal);
+    }
+  }
+  return result;
+}
+
+//function parseRecords<Record<...>>()
+
+function parseProxy<L, M>(o: L | M, opname?: string): Proxy<L, M> {
+  let m = {} as M;
+  let l = {} as L;
+  let parsed = {} as Proxy<L, M>;
+  parsed.getLoadArgs = (): L => l;
+  parsed.getSaveArgs = (): M => m;
+  parsed.setLoadArgs = (l: L) => {
+    l = l;
+    m = convert<L, M>(l) as M;
+  };
+  parsed.setSaveArgs = (m: M) => {
+    m = m;
+    l = convert<M, L>(m) as L;
+  };
+  if (opname != undefined) {
+    parsed.setLoadArgs(o as L);
+  } else {
+    parsed.setSaveArgs(o as M);
+  }
+  return parsed;
+}
+
+//getTypeFromScalars(T, "loadOrSave") {
+//load is the integers/numbers
+//save is the strings
+//
+//}
+
+function convert<F, T>(from: F): Maybe<T> {
+  //type
+  let to = "string";
+  switch (to) {
+    case "string":
+      return parseString(from) as Maybe<T>;
+    case "bigint":
+      return parseBigInt(from) as Maybe<T>;
+    case "number":
+      return parseNumber(from) as Maybe<T>;
+    case "float":
+      return parseNumber(from) as Maybe<T>;
+    default:
+      return null;
+  }
+}
+
+function parseNumber(val: any): Maybe<BigNumberish> {
+  switch (typeof val) {
+    case "string":
+      return BigNumber.from(val);
+    case "bigint":
+      return BigNumber.from(val); //int
+    case "number":
+      return BigNumber.from(val);
+    case "boolean":
+      return BigNumber.from(val);
+    default:
+      return null;
+  }
+}
+
+function parseString(val: any): Maybe<String> {
+  switch (typeof val) {
+    case "string":
+      return val;
+    case "bigint":
+      return val.toString(); //int
+    case "number":
+      return val.toString();
+    case "object":
+      return val.toString();
+    default:
+      return null;
+  }
+}
+
+function parseBigInt(val: any): Maybe<bigint> {
+  switch (typeof val) {
+    case "string":
+      let c = BigInt(val);
+      return c;
+    case "bigint":
+      return val; //int
+    case "number":
+      return BigInt(val);
+    default:
+      return null;
+  }
+}
+
+//
+// const parseInteger = (s: string): CellParse<number> => {
+//   const n = Number(s);
+//   if (Number.isNaN(n)) {
+//     return { parsed: false, reason: "does not contain a number" };
+//   }
+//   if (!Number.isInteger(n)) {
+//     return { parsed: false, reason: "must be a whole number" };
+//   }
+//   return { parsed: true, value: n };
+// };
+
+//convert
+
+///
+
+// //parse to proxy,
+
+function toSaveArgs<T, U>(o: Proxify<T, U>): U {
+  let result = {} as U;
+  //filtered keys
+  for (const k in o) {
+    result[k] = o[k].getSaveArgs();
+  }
+  return result;
+}
+
+function toLoadArgs<T, U>(o: Proxify<T, U>): T {
+  let result = {} as T;
+  //filtered keys
+  for (const k in o) {
+    result[k] = o[k].getLoadArgs();
+  }
+  return result;
+}
+//parse
+// //const parse : (row: ProductStrings) => ProductParsing = (row) => {
+//   return {
+//     name: parseName(row.name),
+//     price: parsePrice(row.price),
+//     unitOfMeasure: parseUnitOfMeasure(row.unitOfMeasure),
+//     quantityPerUnit: parseInteger(row.quantityPerUnit),
+//     brandName: parseString(row.brandName),
+//     productType: parseString(row.productType),
+//     category: parseString(row.category),
+//   };
+// };
+
+// function convertArray<T, U>(valueArr: Array<T>, newValue: Array<U>): Array<U> {
+//   return (valueArr.map(prop => {
+//     convert<T, U>(prop) as U;
+//   }) as unknown) as Array<U>;
+// }
+
+// function convert<T, U>(value: T, newValue?: U): U {
+//   // if (value instanceof Array) {
+//   //   return convertArray(value, newValue)
+//   // }
+//   console.log("Values");
+//   console.log(value);
+//   //check if new value is a class
+//   if (value) {
+//     return newValue as U;
+//   }
+//
+//   type K1 = keyof U;
+//
+//   //check if value has id
+//   //if value has id
+//
+//   //convert to string
+//   //if type is string
+//   //toString
+//
+//   //check numbers
+//   //
+//
+//   //check
+//   return (null as unknown) as U;
+// }
+//
+// function getNameInSaveArgs<T>(name: string, args: T): string {
+//   //name
+//   //determine the name and type that the value should be.
+//   //convert to the type needed...
+//   let plural = "";
+//   if (name.lastIndexOf("s") == name.length - 1) {
+//     plural = "s";
+//     name = name.slice(name.length - 1);
+//   }
+//   //get new name and set plural
+//   let fieldIdName = lowercaseFirstLetter(name + "ID" + plural);
+//   let fieldIDName = lowercaseFirstLetter(name + "Id" + plural);
+//   let fieldReplaceIdwithID = lowercaseFirstLetter(name.replace("Id", "ID"));
+//   let names = [name, fieldIdName, fieldIDName, fieldReplaceIdwithID];
+//   //add to the save args value
+//   //right here
+//   for (const n of names) {
+//     if (n in args) {
+//       return n;
+//     }
+//   }
+//   return "";
+// }
 
 export interface Query {
   __typename?: "Query";
@@ -345,6 +608,8 @@ export class DPoolList {
     gqlFetch(operationDocument, saveVariables);
   }
 
+  //hasOwnProperty
+
   _getSaveArgs(): DPoolListInput {
     //input
     let saveArgs: DPoolListInput = {};
@@ -390,7 +655,7 @@ export class DPoolList {
 
 export type DPoolListInput = {
   id?: Maybe<Scalars["ID"]>;
-  DPoolIDs?: Maybe<Array<Maybe<Scalars["String"]>>>;
+  //DPoolIDs?: Maybe<Array<Maybe<Scalars["String"]>>>;
   numPools?: Maybe<Scalars["Int"]>;
   numUsers?: Maybe<Scalars["Int"]>;
   numActiveUsers?: Maybe<Scalars["Int"]>;
@@ -429,8 +694,8 @@ export class DPool {
   moneyMarketIncomeIndex?: Maybe<Scalars["String"]>;
   oracleInterestRate?: Maybe<Scalars["String"]>;
   proof?: Maybe<Proof>;
-  mphDepositorRewardMintMultiplier!: BigNumber;
-  mphDepositorRewardTakeBackMultiplier!: BigNumber;
+  mphDepositorRewardMintMultiplier!: Maybe<Scalars["Float"]>;
+  mphDepositorRewardTakeBackMultiplier!: Maybe<Scalars["Float"]>;
 
   constructor(id?: string) {
     if (id) {
@@ -449,54 +714,90 @@ export class DPool {
   save(): void {
     var operationDocument = UpdateDPoolDocument;
     var saveVariables = { input: this._getSaveArgs() };
+    console.log(saveVariables, this._getSaveArgs());
     gqlFetch(operationDocument, saveVariables);
   }
 
+  // convertToType(type, type, value) {}
+  // let valueIds: Array<any> = [];
+  // (value as Array<{ [x: string]: any }>).map(
+  //   (v: { [x: string]: any }) => {
+  //     if ("id" in v) {
+  //       valueIds.push(v["id"]);
+  //     }
+  //   }
+  //else (
+  //   hasFieldId &&
+  //   !isList &&
+  //   value.hasOwnProperty("id") &&
+  //   saveArgs.hasOwnProperty(fieldIdName)
+  // ) {
+  //   saveArgs[fieldIdName as keyof DPoolInput] = value.id;
+  // }
+  // //convert array type
+  //
+
   _getSaveArgs(): DPoolInput {
     //input
-    let saveArgs: DPoolInput = {};
+
     console.log("This");
     console.log(Object.entries(this));
-    for (const [name, value] of Object.entries(this)) {
-      console.log("Name");
-      //console.log(name);
-      let hasField = saveArgs.hasOwnProperty(name);
-      let fieldIdName = lowercaseFirstLetter(name.replace("Id", ""));
-      let hasFieldId = saveArgs.hasOwnProperty(name);
+    let saveArgs = {} as DPoolInput;
+    //pick the parsed type
+    console.log(Object.keys(saveArgs));
 
-      if (!hasFieldId && !hasField) {
+    type ProxifiedDPool = Proxify<DPool>; //proxy type
+    //map object entries to proxy type, proxify
+
+    //deproxify (convert, saveArgs)
+
+    //get the union of the type and the input, then infer input
+
+    for (const key in this) {
+      console.log("Key");
+      console.log(key);
+      //console.log("Value");
+
+      //console.log(value);
+      let value = this[key];
+      type valType = typeof value;
+      let name = getNameInSaveArgs(key, saveArgs);
+      console.log("Names");
+      console.log(name);
+      if (name == "") {
         continue;
       }
-      let isList = value instanceof Array;
-      if (
-        hasFieldId &&
-        isList &&
-        value instanceof Array &&
-        saveArgs.hasOwnProperty(fieldIdName)
-      ) {
-        let valueIds: Array<any> = [];
-        (value as Array<{ [x: string]: any }>).map(
-          (v: { [x: string]: any }) => {
-            if ("id" in v) {
-              valueIds.push(v["id"]);
-            }
-          }
-        );
-        saveArgs[fieldIdName as keyof DPoolInput] = valueIds as any;
-      } else if (
-        hasFieldId &&
-        !isList &&
-        value.hasOwnProperty("id") &&
-        saveArgs.hasOwnProperty(fieldIdName)
-      ) {
-        saveArgs[fieldIdName as keyof DPoolInput] = value.id;
-      } else {
-        saveArgs[name as keyof DPoolInput] = value;
+      let v = getProperty(saveArgs, name as keyof DPoolInput);
+      type inputType = typeof v;
+      console.log(typeof v);
+      console.log(v);
+      if (value == undefined || v == undefined) {
+        continue;
       }
+
+      if (value instanceof Array) {
+        //newValue
+        //setProperty
+        //v = convertArray(value);
+        console.log(value);
+      } else {
+        v = convert(value);
+      }
+      setProperty(saveArgs, name as keyof DPoolInput, v);
+      //set value //
     }
-    return saveArgs;
+    return saveArgs as DPoolInput;
   }
 }
+
+// function map<T>(values: Partial<T>, ctor: new () => T): T {
+//     const instance = new ctor();
+//
+//     return Object.keys(instance).reduce((acc, key): {} => {
+//         acc[key] = values[key];
+//         return acc;
+//     }, {}) as T;
+//  }
 
 export type DPoolInput = {
   id?: Maybe<Scalars["ID"]>;
@@ -505,9 +806,9 @@ export type DPoolInput = {
   stablecoin?: Maybe<Scalars["String"]>;
   interestModel?: Maybe<Scalars["String"]>;
   UserIDs?: Maybe<Array<Maybe<Scalars["String"]>>>;
-  numUsers?: Maybe<Scalars["Int"]>;
+  numUsers?: Maybe<Scalars["String"]>;
   DepositIDs?: Maybe<Array<Maybe<Scalars["String"]>>>;
-  numDeposits?: Maybe<Scalars["Int"]>;
+  numDeposits?: Maybe<Scalars["String"]>;
   numActiveDeposits?: Maybe<Scalars["String"]>;
   totalActiveDeposit?: Maybe<Scalars["String"]>;
   totalHistoricalDeposit?: Maybe<Scalars["String"]>;
@@ -517,14 +818,14 @@ export type DPoolInput = {
   numFunders?: Maybe<Scalars["String"]>;
   FundingIDs?: Maybe<Array<Maybe<Scalars["String"]>>>;
   numFundings?: Maybe<Scalars["String"]>;
-  MinDepositPeriod?: Maybe<Scalars["Float"]>;
-  MaxDepositPeriod?: Maybe<Scalars["Float"]>;
-  MinDepositAmount?: Maybe<Scalars["Float"]>;
-  MaxDepositAmount?: Maybe<Scalars["Float"]>;
-  mphMintingMultiplier?: Maybe<Scalars["Float"]>;
-  mphDepositorRewardMultiplier?: Maybe<Scalars["Float"]>;
-  mphFunderRewardMultiplier?: Maybe<Scalars["Float"]>;
-  oneYearInterestRate?: Maybe<Scalars["Float"]>;
+  MinDepositPeriod?: Maybe<Scalars["String"]>;
+  MaxDepositPeriod?: Maybe<Scalars["String"]>;
+  MinDepositAmount?: Maybe<Scalars["String"]>;
+  MaxDepositAmount?: Maybe<Scalars["String"]>;
+  mphMintingMultiplier?: Maybe<Scalars["String"]>;
+  mphDepositorRewardMultiplier?: Maybe<Scalars["String"]>;
+  mphFunderRewardMultiplier?: Maybe<Scalars["String"]>;
+  oneYearInterestRate?: Maybe<Scalars["String"]>;
   surplus?: Maybe<Scalars["String"]>;
   moneyMarketIncomeIndex?: Maybe<Scalars["String"]>;
   oracleInterestRate?: Maybe<Scalars["String"]>;
@@ -3520,3 +3821,13 @@ function setProperty<T, K extends keyof T>(obj: T, key: K, value: T[K]) {
 function lowercaseFirstLetter(str: string): string {
   return str.charAt(0).toLowerCase() + str.slice(1);
 }
+// function arr<T, U>(
+//   arr: any,
+//   arg1: any,
+//   idKey: any,
+//   TK: any,
+//   titleKey: any,
+//   TK: any
+// ) {
+//   throw new Error("Function not implemented.");
+// }

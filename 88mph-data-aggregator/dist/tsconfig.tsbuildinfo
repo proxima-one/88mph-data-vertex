@@ -1807,7 +1807,7 @@
         "affectsGlobalScope": false
       },
       "../src/lib/datavertexclient.ts": {
-        "version": "89571bdd8b1b2f5cb036dbae694ad9a76325613139c92f3a1466f3f19ce1ee95",
+        "version": "dd2cbe96e22eb0f312dee73e6749e32f5ed9f0223f80d1bac9159b10058d5831",
         "signature": "09a6a154f0e0e9a745706dbc2e055cf3121925d63108f6fd29d32587a8389b32",
         "affectsGlobalScope": false
       },
@@ -1937,8 +1937,8 @@
         "affectsGlobalScope": false
       },
       "../src/generated/models/models.ts": {
-        "version": "76d4943ae37b10cfff0a445df368ef83669e3288c68a27b092ced7aa68484dfc",
-        "signature": "475770dccb9f2463092c07df05cdb580d01a2f5fa52e78c42c72f0031ad09460",
+        "version": "33b73ef17d19659c0a5525ef75c14c889eee9d0dc579bfae0e05cd5370700ce2",
+        "signature": "4f97d5bbd701b9fd2f1a04cb25ea6c4a7cc468eb3dc494650fd55c64d8900637",
         "affectsGlobalScope": false
       },
       "../src/generated/models/queries.ts": {
@@ -5890,13 +5890,444 @@
       "../src/generated/models/queries.ts",
       "../src/handlers-test/ausdcpool.ts",
       "../src/handlers-test/cunipool.ts",
-      "../src/handlers-test/cusdcpool.ts",
+      [
+        "../src/handlers-test/cusdcpool.ts",
+        [
+          {
+            "file": "../src/handlers-test/cusdcpool.ts",
+            "start": 1469,
+            "length": 14,
+            "code": 2322,
+            "category": 1,
+            "messageText": "Type 'BigNumber' is not assignable to type 'string'."
+          },
+          {
+            "file": "../src/handlers-test/cusdcpool.ts",
+            "start": 1784,
+            "length": 22,
+            "code": 2322,
+            "category": 1,
+            "messageText": "Type 'BigNumber' is not assignable to type 'string'."
+          },
+          {
+            "file": "../src/handlers-test/cusdcpool.ts",
+            "start": 1883,
+            "length": 17,
+            "code": 2322,
+            "category": 1,
+            "messageText": "Type 'bigint' is not assignable to type 'Maybe<string> | undefined'."
+          },
+          {
+            "file": "../src/handlers-test/cusdcpool.ts",
+            "start": 1915,
+            "length": 21,
+            "code": 2322,
+            "category": 1,
+            "messageText": "Type 'BigNumber' is not assignable to type 'string'."
+          },
+          {
+            "file": "../src/handlers-test/cusdcpool.ts",
+            "start": 1980,
+            "length": 25,
+            "code": 2322,
+            "category": 1,
+            "messageText": "Type 'BigNumber' is not assignable to type 'string'."
+          },
+          {
+            "file": "../src/handlers-test/cusdcpool.ts",
+            "start": 2274,
+            "length": 34,
+            "messageText": "This condition will always return 'false' since the types 'Maybe<string> | undefined' and 'bigint' have no overlap.",
+            "category": 1,
+            "code": 2367
+          },
+          {
+            "file": "../src/handlers-test/cusdcpool.ts",
+            "start": 3949,
+            "length": 41,
+            "code": 2322,
+            "category": 1,
+            "messageText": "Type 'BigNumber' is not assignable to type 'string'."
+          },
+          {
+            "file": "../src/handlers-test/cusdcpool.ts",
+            "start": 4007,
+            "length": 45,
+            "code": 2322,
+            "category": 1,
+            "messageText": "Type 'BigNumber' is not assignable to type 'string'."
+          },
+          {
+            "file": "../src/handlers-test/cusdcpool.ts",
+            "start": 4069,
+            "length": 42,
+            "code": 2322,
+            "category": 1,
+            "messageText": "Type 'BigNumber' is not assignable to type 'string'."
+          },
+          {
+            "file": "../src/handlers-test/cusdcpool.ts",
+            "start": 4128,
+            "length": 52,
+            "code": 2322,
+            "category": 1,
+            "messageText": "Type 'BigNumber' is not assignable to type 'string'."
+          },
+          {
+            "file": "../src/handlers-test/cusdcpool.ts",
+            "start": 6098,
+            "length": 27,
+            "code": 2322,
+            "category": 1,
+            "messageText": "Type 'BigNumber' is not assignable to type 'string'."
+          },
+          {
+            "file": "../src/handlers-test/cusdcpool.ts",
+            "start": 6201,
+            "length": 27,
+            "code": 2322,
+            "category": 1,
+            "messageText": "Type 'BigNumber' is not assignable to type 'string'."
+          },
+          {
+            "file": "../src/handlers-test/cusdcpool.ts",
+            "start": 7848,
+            "length": 44,
+            "code": 2322,
+            "category": 1,
+            "messageText": "Type 'BigNumber' is not assignable to type 'string'."
+          },
+          {
+            "file": "../src/handlers-test/cusdcpool.ts",
+            "start": 7909,
+            "length": 54,
+            "code": 2322,
+            "category": 1,
+            "messageText": "Type 'BigNumber' is not assignable to type 'string'."
+          },
+          {
+            "file": "../src/handlers-test/cusdcpool.ts",
+            "start": 7980,
+            "length": 45,
+            "code": 2322,
+            "category": 1,
+            "messageText": "Type 'BigNumber' is not assignable to type 'string'."
+          },
+          {
+            "file": "../src/handlers-test/cusdcpool.ts",
+            "start": 8042,
+            "length": 55,
+            "code": 2322,
+            "category": 1,
+            "messageText": "Type 'BigNumber' is not assignable to type 'string'."
+          },
+          {
+            "file": "../src/handlers-test/cusdcpool.ts",
+            "start": 8114,
+            "length": 58,
+            "code": 2322,
+            "category": 1,
+            "messageText": "Type 'BigNumber' is not assignable to type 'string'."
+          }
+        ]
+      ],
       "../src/handlers-test/fractionaldeposit.ts",
       "../src/handlers-test/mphissuancemodel01.ts",
       "../src/handlers-test/mphtoken.ts",
       "../src/handlers-test/nft.ts",
-      "../src/handlers-test/rewards.ts",
-      "../src/handlers-test/utils.ts",
+      [
+        "../src/handlers-test/rewards.ts",
+        [
+          {
+            "file": "../src/handlers-test/rewards.ts",
+            "start": 793,
+            "length": 19,
+            "code": 2322,
+            "category": 1,
+            "messageText": "Type 'BigNumber' is not assignable to type 'string'."
+          },
+          {
+            "file": "../src/handlers-test/rewards.ts",
+            "start": 1059,
+            "length": 19,
+            "messageText": "Object is possibly 'null' or 'undefined'.",
+            "category": 1,
+            "code": 2533
+          },
+          {
+            "file": "../src/handlers-test/rewards.ts",
+            "start": 1079,
+            "length": 3,
+            "code": 2339,
+            "category": 1,
+            "messageText": "Property 'div' does not exist on type 'string'."
+          },
+          {
+            "file": "../src/handlers-test/rewards.ts",
+            "start": 1109,
+            "length": 25,
+            "code": 2322,
+            "category": 1,
+            "messageText": "Type 'BigNumber' is not assignable to type 'string'."
+          },
+          {
+            "file": "../src/handlers-test/rewards.ts",
+            "start": 1544,
+            "length": 31,
+            "code": 2322,
+            "category": 1,
+            "messageText": "Type 'BigNumber' is not assignable to type 'string'."
+          },
+          {
+            "file": "../src/handlers-test/rewards.ts",
+            "start": 2026,
+            "length": 19,
+            "code": 2322,
+            "category": 1,
+            "messageText": "Type 'BigNumber' is not assignable to type 'string'."
+          },
+          {
+            "file": "../src/handlers-test/rewards.ts",
+            "start": 2134,
+            "length": 19,
+            "messageText": "Object is possibly 'null' or 'undefined'.",
+            "category": 1,
+            "code": 2533
+          },
+          {
+            "file": "../src/handlers-test/rewards.ts",
+            "start": 2154,
+            "length": 3,
+            "code": 2339,
+            "category": 1,
+            "messageText": "Property 'div' does not exist on type 'string'."
+          },
+          {
+            "file": "../src/handlers-test/rewards.ts",
+            "start": 2492,
+            "length": 19,
+            "code": 2322,
+            "category": 1,
+            "messageText": "Type 'BigNumber' is not assignable to type 'string'."
+          },
+          {
+            "file": "../src/handlers-test/rewards.ts",
+            "start": 2663,
+            "length": 19,
+            "messageText": "Object is possibly 'null' or 'undefined'.",
+            "category": 1,
+            "code": 2533
+          },
+          {
+            "file": "../src/handlers-test/rewards.ts",
+            "start": 2683,
+            "length": 3,
+            "code": 2339,
+            "category": 1,
+            "messageText": "Property 'div' does not exist on type 'string'."
+          }
+        ]
+      ],
+      [
+        "../src/handlers-test/utils.ts",
+        [
+          {
+            "file": "../src/handlers-test/utils.ts",
+            "start": 5521,
+            "length": 22,
+            "code": 2322,
+            "category": 1,
+            "messageText": "Type 'bigint' is not assignable to type 'Maybe<string> | undefined'."
+          },
+          {
+            "file": "../src/handlers-test/utils.ts",
+            "start": 5560,
+            "length": 23,
+            "code": 2322,
+            "category": 1,
+            "messageText": "Type 'BigNumber' is not assignable to type 'string'."
+          },
+          {
+            "file": "../src/handlers-test/utils.ts",
+            "start": 5600,
+            "length": 27,
+            "code": 2322,
+            "category": 1,
+            "messageText": "Type 'BigNumber' is not assignable to type 'string'."
+          },
+          {
+            "file": "../src/handlers-test/utils.ts",
+            "start": 5644,
+            "length": 15,
+            "code": 2322,
+            "category": 1,
+            "messageText": "Type 'bigint' is not assignable to type 'Maybe<string> | undefined'."
+          },
+          {
+            "file": "../src/handlers-test/utils.ts",
+            "start": 5676,
+            "length": 16,
+            "code": 2322,
+            "category": 1,
+            "messageText": "Type 'bigint' is not assignable to type 'Maybe<string> | undefined'."
+          },
+          {
+            "file": "../src/handlers-test/utils.ts",
+            "start": 5709,
+            "length": 22,
+            "code": 2322,
+            "category": 1,
+            "messageText": "Type 'BigNumber' is not assignable to type 'string'."
+          },
+          {
+            "file": "../src/handlers-test/utils.ts",
+            "start": 5748,
+            "length": 26,
+            "code": 2322,
+            "category": 1,
+            "messageText": "Type 'BigNumber' is not assignable to type 'string'."
+          },
+          {
+            "file": "../src/handlers-test/utils.ts",
+            "start": 5990,
+            "length": 12,
+            "code": 2322,
+            "category": 1,
+            "messageText": "Type 'BigNumber' is not assignable to type 'string'."
+          },
+          {
+            "file": "../src/handlers-test/utils.ts",
+            "start": 6019,
+            "length": 27,
+            "code": 2322,
+            "category": 1,
+            "messageText": "Type 'bigint' is not assignable to type 'Maybe<string> | undefined'."
+          },
+          {
+            "file": "../src/handlers-test/utils.ts",
+            "start": 8712,
+            "length": 13,
+            "code": 2322,
+            "category": 1,
+            "messageText": "Type 'bigint' is not assignable to type 'Maybe<string> | undefined'."
+          },
+          {
+            "file": "../src/handlers-test/utils.ts",
+            "start": 8742,
+            "length": 16,
+            "code": 2322,
+            "category": 1,
+            "messageText": "Type 'bigint' is not assignable to type 'Maybe<string> | undefined'."
+          },
+          {
+            "file": "../src/handlers-test/utils.ts",
+            "start": 8775,
+            "length": 22,
+            "code": 2322,
+            "category": 1,
+            "messageText": "Type 'bigint' is not assignable to type 'Maybe<string> | undefined'."
+          },
+          {
+            "file": "../src/handlers-test/utils.ts",
+            "start": 8814,
+            "length": 19,
+            "code": 2322,
+            "category": 1,
+            "messageText": "Type 'BigNumber' is not assignable to type 'string'."
+          },
+          {
+            "file": "../src/handlers-test/utils.ts",
+            "start": 8850,
+            "length": 21,
+            "code": 2322,
+            "category": 1,
+            "messageText": "Type 'BigNumber' is not assignable to type 'string'."
+          },
+          {
+            "file": "../src/handlers-test/utils.ts",
+            "start": 9362,
+            "length": 13,
+            "code": 2322,
+            "category": 1,
+            "messageText": "Type 'bigint' is not assignable to type 'Maybe<string> | undefined'."
+          },
+          {
+            "file": "../src/handlers-test/utils.ts",
+            "start": 9392,
+            "length": 16,
+            "code": 2322,
+            "category": 1,
+            "messageText": "Type 'bigint' is not assignable to type 'Maybe<string> | undefined'."
+          },
+          {
+            "file": "../src/handlers-test/utils.ts",
+            "start": 9425,
+            "length": 19,
+            "code": 2322,
+            "category": 1,
+            "messageText": "Type 'BigNumber' is not assignable to type 'string'."
+          },
+          {
+            "file": "../src/handlers-test/utils.ts",
+            "start": 9479,
+            "length": 15,
+            "code": 2322,
+            "category": 1,
+            "messageText": "Type 'bigint' is not assignable to type 'Maybe<string> | undefined'."
+          },
+          {
+            "file": "../src/handlers-test/utils.ts",
+            "start": 9498,
+            "length": 25,
+            "code": 2352,
+            "category": 1,
+            "messageText": {
+              "messageText": "Conversion of type 'Maybe<string> | undefined' to type 'bigint' may be a mistake because neither type sufficiently overlaps with the other. If this was intentional, convert the expression to 'unknown' first.",
+              "category": 1,
+              "code": 2352,
+              "next": [
+                {
+                  "messageText": "Type 'string' is not comparable to type 'bigint'.",
+                  "category": 1,
+                  "code": 2678
+                }
+              ]
+            }
+          },
+          {
+            "file": "../src/handlers-test/utils.ts",
+            "start": 9833,
+            "length": 28,
+            "code": 2322,
+            "category": 1,
+            "messageText": "Type 'BigNumber' is not assignable to type 'string'."
+          },
+          {
+            "file": "../src/handlers-test/utils.ts",
+            "start": 9878,
+            "length": 28,
+            "code": 2322,
+            "category": 1,
+            "messageText": "Type 'BigNumber' is not assignable to type 'string'."
+          },
+          {
+            "file": "../src/handlers-test/utils.ts",
+            "start": 9923,
+            "length": 22,
+            "code": 2322,
+            "category": 1,
+            "messageText": "Type 'BigNumber' is not assignable to type 'string'."
+          },
+          {
+            "file": "../src/handlers-test/utils.ts",
+            "start": 10260,
+            "length": 28,
+            "code": 2322,
+            "category": 1,
+            "messageText": "Type 'BigNumber' is not assignable to type 'string'."
+          }
+        ]
+      ],
       "../src/handlers-test/vesting.ts",
       "../src/handlers-test/ycrvsbtcpool.ts",
       "../src/handlers-test/yycrvpool.ts",

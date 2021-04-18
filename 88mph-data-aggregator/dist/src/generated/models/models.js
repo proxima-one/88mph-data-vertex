@@ -2,6 +2,54 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UpdateMPHDocument = exports.MPHDocument = exports.UpdateMPHHolderDocument = exports.MPHHolderDocument = exports.UpdateFundingDocument = exports.FundingDocument = exports.UpdateFunderTotalInterestDocument = exports.FunderTotalInterestDocument = exports.UpdateFunderDocument = exports.FunderDocument = exports.UpdateDepositDocument = exports.DepositDocument = exports.UpdateUserTotalDepositDocument = exports.UserTotalDepositDocument = exports.UpdateUserDocument = exports.UserDocument = exports.UpdateDPoolDocument = exports.DPoolDocument = exports.UpdateDPoolListDocument = exports.DPoolListDocument = exports.dpoolsLatestDepositsDocument = exports.dpoolsLatestDocument = exports.funderDocument = exports.dpoolsDocument = exports.userDocument = exports.Funder = exports.Proof = exports.MPH = exports.MPHHolder = exports.Funding = exports.FunderTotalInterest = exports.Deposit = exports.UserTotalDeposit = exports.User = exports.DPool = exports.DPoolList = exports.Mutation = void 0;
 var DataVertexClient_1 = require("../../lib/DataVertexClient");
+function convertArray(valueArr, newValue) {
+    return valueArr.map(function (prop) {
+        convert(prop);
+    });
+}
+function convert(value, newValue) {
+    // if (value instanceof Array) {
+    //   return convertArray(value, newValue)
+    // }
+    console.log("Values");
+    console.log(value);
+    //check if new value is a class
+    if (value) {
+        return newValue;
+    }
+    //check if value has id
+    //if value has id
+    //convert to string
+    //if type is string
+    //toString
+    //check numbers
+    //
+    //check
+    return null;
+}
+function getNameInSaveArgs(name, args) {
+    //name
+    //determine the name and type that the value should be.
+    //convert to the type needed...
+    var plural = "";
+    if (name.lastIndexOf("s") == name.length - 1) {
+        plural = "s";
+        name = name.slice(name.length - 1);
+    }
+    //get new name and set plural
+    var fieldIdName = lowercaseFirstLetter(name + "ID" + plural);
+    var fieldIDName = lowercaseFirstLetter(name + "Id" + plural);
+    var fieldReplaceIdwithID = lowercaseFirstLetter(name.replace("Id", "ID"));
+    var names = [name, fieldIdName, fieldIDName, fieldReplaceIdwithID];
+    //add to the save args value
+    for (var _i = 0, names_1 = names; _i < names_1.length; _i++) {
+        var n = names_1[_i];
+        if (n in args) {
+            return n;
+        }
+    }
+    return "";
+}
 var Mutation = /** @class */ (function () {
     function Mutation() {
     }
@@ -31,6 +79,7 @@ var DPoolList = /** @class */ (function () {
         var saveVariables = { input: this._getSaveArgs() };
         gqlFetch(operationDocument, saveVariables);
     };
+    //hasOwnProperty
     DPoolList.prototype._getSaveArgs = function () {
         //input
         var saveArgs = {};
@@ -92,48 +141,67 @@ var DPool = /** @class */ (function () {
     DPool.prototype.save = function () {
         var operationDocument = exports.UpdateDPoolDocument;
         var saveVariables = { input: this._getSaveArgs() };
+        console.log(saveVariables, this._getSaveArgs());
         gqlFetch(operationDocument, saveVariables);
     };
+    // convertToType(type, type, value) {}
+    // let valueIds: Array<any> = [];
+    // (value as Array<{ [x: string]: any }>).map(
+    //   (v: { [x: string]: any }) => {
+    //     if ("id" in v) {
+    //       valueIds.push(v["id"]);
+    //     }
+    //   }
+    //else (
+    //   hasFieldId &&
+    //   !isList &&
+    //   value.hasOwnProperty("id") &&
+    //   saveArgs.hasOwnProperty(fieldIdName)
+    // ) {
+    //   saveArgs[fieldIdName as keyof DPoolInput] = value.id;
+    // }
+    // //convert array type
+    //
     DPool.prototype._getSaveArgs = function () {
         //input
-        var saveArgs = {};
         console.log("This");
         console.log(Object.entries(this));
-        var _loop_2 = function (name_2, value) {
-            console.log("Name");
-            //console.log(name);
-            var hasField = saveArgs.hasOwnProperty(name_2);
-            var fieldIdName = lowercaseFirstLetter(name_2.replace("Id", ""));
-            var hasFieldId = saveArgs.hasOwnProperty(name_2);
-            if (!hasFieldId && !hasField) {
-                return "continue";
+        var saveArgs = {};
+        //pick the parsed type
+        console.log(Object.keys(saveArgs));
+        //for all of the object entries that are in dpoolinput, but not in dpool
+        //ids,
+        //if it is in
+        //for all of the names in the object check for the names
+        for (var key in this) {
+            console.log("Key");
+            console.log(key);
+            //console.log("Value");
+            //console.log(value);
+            var value = this[key];
+            var name_2 = getNameInSaveArgs(key, saveArgs);
+            console.log("Names");
+            console.log(name_2);
+            if (name_2 == "") {
+                continue;
             }
-            var isList = value instanceof Array;
-            if (hasFieldId &&
-                isList &&
-                value instanceof Array &&
-                saveArgs.hasOwnProperty(fieldIdName)) {
-                var valueIds_2 = [];
-                value.map(function (v) {
-                    if ("id" in v) {
-                        valueIds_2.push(v["id"]);
-                    }
-                });
-                saveArgs[fieldIdName] = valueIds_2;
+            var v = getProperty(saveArgs, name_2);
+            console.log(typeof v);
+            console.log(v);
+            if (value == undefined || v == undefined) {
+                continue;
             }
-            else if (hasFieldId &&
-                !isList &&
-                value.hasOwnProperty("id") &&
-                saveArgs.hasOwnProperty(fieldIdName)) {
-                saveArgs[fieldIdName] = value.id;
+            if (value instanceof Array) {
+                //newValue
+                //setProperty
+                //v = convertArray(value);
+                console.log(value);
             }
             else {
-                saveArgs[name_2] = value;
+                v = convert(value);
             }
-        };
-        for (var _i = 0, _a = Object.entries(this); _i < _a.length; _i++) {
-            var _b = _a[_i], name_2 = _b[0], value = _b[1];
-            _loop_2(name_2, value);
+            setProperty(saveArgs, name_2, v);
+            //set value //
         }
         return saveArgs;
     };
@@ -167,7 +235,7 @@ var User = /** @class */ (function () {
         var saveArgs = {};
         console.log("This");
         console.log(Object.entries(this));
-        var _loop_3 = function (name_3, value) {
+        var _loop_2 = function (name_3, value) {
             var hasField = saveArgs.hasOwnProperty(name_3);
             var fieldIdName = lowercaseFirstLetter(name_3.replace("Id", ""));
             var hasFieldId = saveArgs.hasOwnProperty(name_3);
@@ -179,13 +247,13 @@ var User = /** @class */ (function () {
                 isList &&
                 value instanceof Array &&
                 saveArgs.hasOwnProperty(fieldIdName)) {
-                var valueIds_3 = [];
+                var valueIds_2 = [];
                 value.map(function (v) {
                     if ("id" in v) {
-                        valueIds_3.push(v["id"]);
+                        valueIds_2.push(v["id"]);
                     }
                 });
-                saveArgs[fieldIdName] = valueIds_3;
+                saveArgs[fieldIdName] = valueIds_2;
             }
             else if (hasFieldId &&
                 !isList &&
@@ -199,7 +267,7 @@ var User = /** @class */ (function () {
         };
         for (var _i = 0, _a = Object.entries(this); _i < _a.length; _i++) {
             var _b = _a[_i], name_3 = _b[0], value = _b[1];
-            _loop_3(name_3, value);
+            _loop_2(name_3, value);
         }
         return saveArgs;
     };
@@ -232,7 +300,7 @@ var UserTotalDeposit = /** @class */ (function () {
     UserTotalDeposit.prototype._getSaveArgs = function () {
         //input
         var saveArgs = {};
-        var _loop_4 = function (name_4, value) {
+        var _loop_3 = function (name_4, value) {
             var hasField = saveArgs.hasOwnProperty(name_4);
             var fieldIdName = lowercaseFirstLetter(name_4.replace("Id", ""));
             var hasFieldId = saveArgs.hasOwnProperty(name_4);
@@ -244,13 +312,13 @@ var UserTotalDeposit = /** @class */ (function () {
                 isList &&
                 value instanceof Array &&
                 saveArgs.hasOwnProperty(fieldIdName)) {
-                var valueIds_4 = [];
+                var valueIds_3 = [];
                 value.map(function (v) {
                     if ("id" in v) {
-                        valueIds_4.push(v["id"]);
+                        valueIds_3.push(v["id"]);
                     }
                 });
-                saveArgs[fieldIdName] = valueIds_4;
+                saveArgs[fieldIdName] = valueIds_3;
             }
             else if (hasFieldId &&
                 !isList &&
@@ -264,7 +332,7 @@ var UserTotalDeposit = /** @class */ (function () {
         };
         for (var _i = 0, _a = Object.entries(this); _i < _a.length; _i++) {
             var _b = _a[_i], name_4 = _b[0], value = _b[1];
-            _loop_4(name_4, value);
+            _loop_3(name_4, value);
         }
         return saveArgs;
     };
@@ -295,7 +363,7 @@ var Deposit = /** @class */ (function () {
     Deposit.prototype._getSaveArgs = function () {
         //input
         var saveArgs = {};
-        var _loop_5 = function (name_5, value) {
+        var _loop_4 = function (name_5, value) {
             var hasField = saveArgs.hasOwnProperty(name_5);
             var fieldIdName = lowercaseFirstLetter(name_5.replace("Id", ""));
             var hasFieldId = saveArgs.hasOwnProperty(name_5);
@@ -307,13 +375,13 @@ var Deposit = /** @class */ (function () {
                 isList &&
                 value instanceof Array &&
                 saveArgs.hasOwnProperty(fieldIdName)) {
-                var valueIds_5 = [];
+                var valueIds_4 = [];
                 value.map(function (v) {
                     if ("id" in v) {
-                        valueIds_5.push(v["id"]);
+                        valueIds_4.push(v["id"]);
                     }
                 });
-                saveArgs[fieldIdName] = valueIds_5;
+                saveArgs[fieldIdName] = valueIds_4;
             }
             else if (hasFieldId &&
                 !isList &&
@@ -327,7 +395,7 @@ var Deposit = /** @class */ (function () {
         };
         for (var _i = 0, _a = Object.entries(this); _i < _a.length; _i++) {
             var _b = _a[_i], name_5 = _b[0], value = _b[1];
-            _loop_5(name_5, value);
+            _loop_4(name_5, value);
         }
         return saveArgs;
     };
@@ -360,7 +428,7 @@ var FunderTotalInterest = /** @class */ (function () {
     FunderTotalInterest.prototype._getSaveArgs = function () {
         //input
         var saveArgs = {};
-        var _loop_6 = function (name_6, value) {
+        var _loop_5 = function (name_6, value) {
             var hasField = saveArgs.hasOwnProperty(name_6);
             var fieldIdName = lowercaseFirstLetter(name_6.replace("Id", ""));
             var hasFieldId = saveArgs.hasOwnProperty(name_6);
@@ -372,13 +440,13 @@ var FunderTotalInterest = /** @class */ (function () {
                 isList &&
                 value instanceof Array &&
                 saveArgs.hasOwnProperty(fieldIdName)) {
-                var valueIds_6 = [];
+                var valueIds_5 = [];
                 value.map(function (v) {
                     if ("id" in v) {
-                        valueIds_6.push(v["id"]);
+                        valueIds_5.push(v["id"]);
                     }
                 });
-                saveArgs[fieldIdName] = valueIds_6;
+                saveArgs[fieldIdName] = valueIds_5;
             }
             else if (hasFieldId &&
                 !isList &&
@@ -392,7 +460,7 @@ var FunderTotalInterest = /** @class */ (function () {
         };
         for (var _i = 0, _a = Object.entries(this); _i < _a.length; _i++) {
             var _b = _a[_i], name_6 = _b[0], value = _b[1];
-            _loop_6(name_6, value);
+            _loop_5(name_6, value);
         }
         return saveArgs;
     };
@@ -425,7 +493,7 @@ var Funding = /** @class */ (function () {
         //input
         var saveArgs = {};
         console.log(this);
-        var _loop_7 = function (name_7, value) {
+        var _loop_6 = function (name_7, value) {
             console.log(name_7.toString());
             console.log(value);
             var hasField = saveArgs.hasOwnProperty(name_7);
@@ -439,13 +507,13 @@ var Funding = /** @class */ (function () {
                 isList &&
                 value instanceof Array &&
                 saveArgs.hasOwnProperty(fieldIdName)) {
-                var valueIds_7 = [];
+                var valueIds_6 = [];
                 value.map(function (v) {
                     if ("id" in v) {
-                        valueIds_7.push(v["id"]);
+                        valueIds_6.push(v["id"]);
                     }
                 });
-                saveArgs[fieldIdName] = valueIds_7;
+                saveArgs[fieldIdName] = valueIds_6;
             }
             else if (hasFieldId &&
                 !isList &&
@@ -459,7 +527,7 @@ var Funding = /** @class */ (function () {
         };
         for (var _i = 0, _a = Object.entries(this); _i < _a.length; _i++) {
             var _b = _a[_i], name_7 = _b[0], value = _b[1];
-            _loop_7(name_7, value);
+            _loop_6(name_7, value);
         }
         return saveArgs;
     };
@@ -492,7 +560,7 @@ var MPHHolder = /** @class */ (function () {
     MPHHolder.prototype._getSaveArgs = function () {
         //input
         var saveArgs = {};
-        var _loop_8 = function (name_8, value) {
+        var _loop_7 = function (name_8, value) {
             var hasField = saveArgs.hasOwnProperty(name_8);
             var fieldIdName = lowercaseFirstLetter(name_8.replace("Id", ""));
             var hasFieldId = saveArgs.hasOwnProperty(name_8);
@@ -504,13 +572,13 @@ var MPHHolder = /** @class */ (function () {
                 isList &&
                 value instanceof Array &&
                 saveArgs.hasOwnProperty(fieldIdName)) {
-                var valueIds_8 = [];
+                var valueIds_7 = [];
                 value.map(function (v) {
                     if ("id" in v) {
-                        valueIds_8.push(v["id"]);
+                        valueIds_7.push(v["id"]);
                     }
                 });
-                saveArgs[fieldIdName] = valueIds_8;
+                saveArgs[fieldIdName] = valueIds_7;
             }
             else if (hasFieldId &&
                 !isList &&
@@ -524,7 +592,7 @@ var MPHHolder = /** @class */ (function () {
         };
         for (var _i = 0, _a = Object.entries(this); _i < _a.length; _i++) {
             var _b = _a[_i], name_8 = _b[0], value = _b[1];
-            _loop_8(name_8, value);
+            _loop_7(name_8, value);
         }
         return saveArgs;
     };
@@ -555,7 +623,7 @@ var MPH = /** @class */ (function () {
     MPH.prototype._getSaveArgs = function () {
         //input
         var saveArgs = {};
-        var _loop_9 = function (name_9, value) {
+        var _loop_8 = function (name_9, value) {
             var hasField = saveArgs.hasOwnProperty(name_9);
             var fieldIdName = lowercaseFirstLetter(name_9.replace("Id", ""));
             var hasFieldId = saveArgs.hasOwnProperty(name_9);
@@ -567,13 +635,13 @@ var MPH = /** @class */ (function () {
                 isList &&
                 value instanceof Array &&
                 saveArgs.hasOwnProperty(fieldIdName)) {
-                var valueIds_9 = [];
+                var valueIds_8 = [];
                 value.map(function (v) {
                     if ("id" in v) {
-                        valueIds_9.push(v["id"]);
+                        valueIds_8.push(v["id"]);
                     }
                 });
-                saveArgs[fieldIdName] = valueIds_9;
+                saveArgs[fieldIdName] = valueIds_8;
             }
             else if (hasFieldId &&
                 !isList &&
@@ -587,7 +655,7 @@ var MPH = /** @class */ (function () {
         };
         for (var _i = 0, _a = Object.entries(this); _i < _a.length; _i++) {
             var _b = _a[_i], name_9 = _b[0], value = _b[1];
-            _loop_9(name_9, value);
+            _loop_8(name_9, value);
         }
         return saveArgs;
     };
@@ -624,7 +692,7 @@ var Funder = /** @class */ (function () {
     Funder.prototype._getSaveArgs = function () {
         //input
         var saveArgs = {};
-        var _loop_10 = function (name_10, value) {
+        var _loop_9 = function (name_10, value) {
             var hasField = saveArgs.hasOwnProperty(name_10);
             var fieldIdName = lowercaseFirstLetter(name_10.replace("Id", ""));
             var hasFieldId = saveArgs.hasOwnProperty(name_10);
@@ -636,13 +704,13 @@ var Funder = /** @class */ (function () {
                 isList &&
                 value instanceof Array &&
                 saveArgs.hasOwnProperty(fieldIdName)) {
-                var valueIds_10 = [];
+                var valueIds_9 = [];
                 value.map(function (v) {
                     if ("id" in v) {
-                        valueIds_10.push(v["id"]);
+                        valueIds_9.push(v["id"]);
                     }
                 });
-                saveArgs[fieldIdName] = valueIds_10;
+                saveArgs[fieldIdName] = valueIds_9;
             }
             else if (hasFieldId &&
                 !isList &&
@@ -656,7 +724,7 @@ var Funder = /** @class */ (function () {
         };
         for (var _i = 0, _a = Object.entries(this); _i < _a.length; _i++) {
             var _b = _a[_i], name_10 = _b[0], value = _b[1];
-            _loop_10(name_10, value);
+            _loop_9(name_10, value);
         }
         return saveArgs;
     };
@@ -2399,4 +2467,14 @@ function setProperty(obj, key, value) {
 function lowercaseFirstLetter(str) {
     return str.charAt(0).toLowerCase() + str.slice(1);
 }
+// function arr<T, U>(
+//   arr: any,
+//   arg1: any,
+//   idKey: any,
+//   TK: any,
+//   titleKey: any,
+//   TK: any
+// ) {
+//   throw new Error("Function not implemented.");
+// }
 //# sourceMappingURL=models.js.map

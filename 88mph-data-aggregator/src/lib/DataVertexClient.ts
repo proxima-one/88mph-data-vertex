@@ -25,6 +25,7 @@ export function useFetch<TData = any, TVariables = Record<string, any>>(
   //block until this returns right?
   const vertex = new VertexClient("default", "http://0.0.0.0:4000/query");
   var result: GqlFetchResult<TData>;
+  console.log("Variables and definitions");
   console.log(variables);
   console.log(operation);
   return vertex.Fetch<TData, TVariables>(operation, variables).then(data => {

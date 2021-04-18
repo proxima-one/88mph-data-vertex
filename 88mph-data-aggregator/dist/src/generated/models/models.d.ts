@@ -15,7 +15,7 @@ export declare type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
 /** All built-in and custom scalars, mapped to their actual values */
 export declare type Scalars = {
     ID: string;
-    String: string | BigInt | BigNumber | BigNumberish;
+    String: string;
     Boolean: boolean;
     Int: BigInt | BigNumberish | number;
     Float: number | BigNumber | BigNumberish;
@@ -285,7 +285,6 @@ export declare class DPoolList {
 }
 export declare type DPoolListInput = {
     id?: Maybe<Scalars["ID"]>;
-    DPoolIDs?: Maybe<Array<Maybe<Scalars["String"]>>>;
     numPools?: Maybe<Scalars["Int"]>;
     numUsers?: Maybe<Scalars["Int"]>;
     numActiveUsers?: Maybe<Scalars["Int"]>;
@@ -337,9 +336,9 @@ export declare type DPoolInput = {
     stablecoin?: Maybe<Scalars["String"]>;
     interestModel?: Maybe<Scalars["String"]>;
     UserIDs?: Maybe<Array<Maybe<Scalars["String"]>>>;
-    numUsers?: Maybe<Scalars["Int"]>;
+    numUsers?: Maybe<Scalars["String"]>;
     DepositIDs?: Maybe<Array<Maybe<Scalars["String"]>>>;
-    numDeposits?: Maybe<Scalars["Int"]>;
+    numDeposits?: Maybe<Scalars["String"]>;
     numActiveDeposits?: Maybe<Scalars["String"]>;
     totalActiveDeposit?: Maybe<Scalars["String"]>;
     totalHistoricalDeposit?: Maybe<Scalars["String"]>;
@@ -349,14 +348,14 @@ export declare type DPoolInput = {
     numFunders?: Maybe<Scalars["String"]>;
     FundingIDs?: Maybe<Array<Maybe<Scalars["String"]>>>;
     numFundings?: Maybe<Scalars["String"]>;
-    MinDepositPeriod?: Maybe<Scalars["Float"]>;
-    MaxDepositPeriod?: Maybe<Scalars["Float"]>;
-    MinDepositAmount?: Maybe<Scalars["Float"]>;
-    MaxDepositAmount?: Maybe<Scalars["Float"]>;
-    mphMintingMultiplier?: Maybe<Scalars["Float"]>;
-    mphDepositorRewardMultiplier?: Maybe<Scalars["Float"]>;
-    mphFunderRewardMultiplier?: Maybe<Scalars["Float"]>;
-    oneYearInterestRate?: Maybe<Scalars["Float"]>;
+    MinDepositPeriod?: Maybe<Scalars["String"]>;
+    MaxDepositPeriod?: Maybe<Scalars["String"]>;
+    MinDepositAmount?: Maybe<Scalars["String"]>;
+    MaxDepositAmount?: Maybe<Scalars["String"]>;
+    mphMintingMultiplier?: Maybe<Scalars["String"]>;
+    mphDepositorRewardMultiplier?: Maybe<Scalars["String"]>;
+    mphFunderRewardMultiplier?: Maybe<Scalars["String"]>;
+    oneYearInterestRate?: Maybe<Scalars["String"]>;
     surplus?: Maybe<Scalars["String"]>;
     moneyMarketIncomeIndex?: Maybe<Scalars["String"]>;
     oracleInterestRate?: Maybe<Scalars["String"]>;
