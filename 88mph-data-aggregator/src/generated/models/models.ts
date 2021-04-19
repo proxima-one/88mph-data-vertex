@@ -49,6 +49,8 @@ declare function pick<T, K extends keyof T>(obj: T, ...keys: K[]): Pick<T, K>;
 
 type Filter<T, U> = T extends U ? T : never;
 
+type ProxyValue<T> = NonNullable<T>;
+
 type NonFunctionPropertyNames<T> = {
   [K in keyof T]: T[K] extends Function ? never : K
 }[keyof T];
@@ -56,11 +58,15 @@ type NonFunctionPropertyNames<T> = {
 type NonFunctionProperties<T> = Pick<T, NonFunctionPropertyNames<T>>;
 
 type Proxify<T, U> = {
-  [P in keyof T]?: P extends keyof U ? Proxy<T[P], U[P]> : never
+  [P in keyof T]?: P extends keyof U
+    ? Proxy<NonNullable<T[P]>, NonNullable<U[P]>>
+    : never
 };
 
 function parse<T, U>(o: T, opname?: string): Proxify<T, U> {
   let result = {} as Proxify<T, U>;
+  let u = {} as U;
+  //new Proxify
 
   let u = {} as U;
   let t = {} as T;
@@ -69,12 +75,22 @@ function parse<T, U>(o: T, opname?: string): Proxify<T, U> {
   for (const p of entries) {
     //check that it is in proxy, and results
     if (p[0] && p[1]) {
-      type M = typeof T[p[0]];
-      type L = typeof U[p[0]];
+      let m = u[p[0] as keyof U]; //pick
+      type M = typeof m;
+      let l = t[p[0] as keyof T];
+      type L = typeof l;
+
+      //check if nonnullable != never
+      //type P = ReturnType<f>;
+      //filter non nullable and defined
       //let L pick
       //ThisParameterType<typeof toHex>
+      //ReturnType<>
       //if there are any opcodes
-      var pVal: Proxy<L, M> = parseProxy<L, M>(p[1]);
+      var pVal: Proxy<NonNullable<L>, NonNullable<M>> = parseProxy<
+        NonNullable<L>,
+        NonNullable<M>
+      >(p[1]);
       setProperty(result, p[0] as keyof T, pVal);
     }
   }
