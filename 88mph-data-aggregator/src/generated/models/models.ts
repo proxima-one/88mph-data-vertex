@@ -45,14 +45,6 @@ type Proxy<T, U> = {
   //
 };
 
-// static fromLoadArgs(vaue: U): Proxi {
-//   this.loadArgs = value;
-//   //convert
-// }
-// static getProxySaveArgs(value: T): void {
-//   this.saveArgs = value;
-// }
-
 declare function pick<T, K extends keyof T>(obj: T, ...keys: K[]): Pick<T, K>;
 
 type Filter<T, U> = T extends U ? T : never;
@@ -77,8 +69,8 @@ function parse<T, U>(o: T, opname?: string): Proxify<T, U> {
   for (const p of entries) {
     //check that it is in proxy, and results
     if (p[0] && p[1]) {
-      type M = InstanceType<typeof T>;
-      type L = InstanceType<typeof U>;
+      type M = typeof T[p[0]];
+      type L = typeof U[p[0]];
       //let L pick
       //ThisParameterType<typeof toHex>
       //if there are any opcodes

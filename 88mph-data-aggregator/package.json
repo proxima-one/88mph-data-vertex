@@ -7,7 +7,7 @@
   },
   "scripts": {
     "start": "rm -r dist && tsc && node ./index",
-    "test": "ts-mocha -p tsconfig.json test/**-test.ts",
+    "test": "ts-mocha -p tsconfig.json test/utils-test.ts",
     "tsc": "rm -r ./dist && tsc -p tsconfig.json"
   },
   "repository": {

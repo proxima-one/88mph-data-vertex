@@ -5,6 +5,8 @@ import { GraphQLClient } from "graphql-request";
 
 import { getSdk } from "../src/generated/models/queries";
 
+//https://github.com/ardeois/graphql-codegen-typescript-mock-data
+
 describe("data vertex test for modules", async () => {
   describe("Should be able to get queries", async function() {
     //client
