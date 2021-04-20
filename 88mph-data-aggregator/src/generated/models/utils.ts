@@ -38,17 +38,6 @@ function lowercaseFirstLetter(str: string): string {
   return str.charAt(0).toLowerCase() + str.slice(1);
 }
 //
-// type ReturnTypeName<T> = T extends Scalars["String"]
-//   ? "string"
-//   : T extends Scalars["Int"]
-//   ? "number"
-//   : T extends Scalars["Boolean"]
-//   ? "boolean"
-//   : T extends undefined
-//   ? "undefined"
-//   : T extends Function
-//   ? "function"
-//   : "object";
 
 //get type name
 
@@ -113,25 +102,27 @@ function parse<T, U>(o: T, opname?: string): Proxify<T, U> {
 
 //function parseRecords<Record<...>>()
 
-function parseProxy<L, M>(o: L | M, opname?: string): Proxy<L, M> {
+export function parseProxy<L, M>(o: L | M, opname?: string): Proxy<L, M> {
   let m = {} as M;
   let l = {} as L;
   let parsed = {} as Proxy<L, M>;
-  parsed.getLoadArgs = (): L => l;
-  parsed.getSaveArgs = (): M => m;
   parsed.setLoadArgs = (l: L) => {
-    l = l;
-    m = convert<L, M>(l) as M;
+    m = convert<L, M>(l, "string") as M;
+    l = l as L;
   };
   parsed.setSaveArgs = (m: M) => {
-    m = m;
-    l = convert<M, L>(m) as L;
+    l = convert<M, L>(m, "object") as L;
+    m = m as M;
   };
+  parsed.getLoadArgs = (): L => l;
+  parsed.getSaveArgs = (): M => m;
   if (opname != undefined) {
     parsed.setLoadArgs(o as L);
+    parsed.setSaveArgs(convert<L, M>(o as L, "string") as M);
   } else {
     parsed.setSaveArgs(o as M);
   }
+
   return parsed;
 }
 
@@ -141,10 +132,42 @@ function parseProxy<L, M>(o: L | M, opname?: string): Proxy<L, M> {
 //
 //}
 
-export function convert<F, T>(from: F): Maybe<T> {
+// function getTypeName<T>(): string {
+//   //get/filter the type of T
+//   //get
+//   //if BigInt
+//   //if BigNumber
+//   //if BigDecimal
+//   //if () return "object";
+// }
+
+type ReturnTypeName<T> = T extends String
+  ? "string"
+  : T extends BigInt
+  ? "bigint"
+  : T extends Scalars["Float"]
+  ? "object"
+  : T extends Scalars["Boolean"]
+  ? "boolean"
+  : T extends undefined
+  ? "undefined"
+  : T extends Function
+  ? "function"
+  : "object";
+
+export function convert<F, T>(from: F, toType?: string): Maybe<T> {
   //type
-  let to = instanceof T;
-  let desiredType = getTypeName(to);
+  type returnType = ReturnTypeName<T>;
+
+  //doesn't work
+  let desiredType = (typeof {} as returnType) as string;
+
+  if (toType != undefined) {
+    desiredType = toType;
+  }
+
+  console.log("Convert from ", from);
+  console.log("Type to ", desiredType);
   switch (desiredType) {
     case "string":
       return parseString(from) as Maybe<T>;
@@ -159,7 +182,7 @@ export function convert<F, T>(from: F): Maybe<T> {
   }
 }
 
-function parseNumber(val: any): Maybe<BigNumberish> {
+function parseNumber(val: any): Maybe<BigNumber> {
   switch (typeof val) {
     case "string":
       return BigNumber.from(val);
@@ -169,15 +192,17 @@ function parseNumber(val: any): Maybe<BigNumberish> {
       return BigNumber.from(val);
     case "boolean":
       return BigNumber.from(val);
+    case "object":
+      return BigNumber.from(val) || null;
     default:
       return null;
   }
 }
 
 function parseString(val: any): Maybe<String> {
-  console.log("parsing string");
-  console.log(val);
-  console.log(typeof val);
+  //console.log("parsing string");
+  //console.log(val);
+  //console.log(typeof val);
   switch (typeof val) {
     case "string":
       return val as string;
@@ -200,7 +225,13 @@ function parseBigInt(val: any): Maybe<bigint> {
     case "bigint":
       return val; //int
     case "number":
-      return BigInt(val);
+      return BigInt(val) || null;
+    case "object":
+      if (val instanceof BigNumber) {
+        return BigInt(val.toNumber());
+      } else {
+        return null;
+      }
     default:
       return null;
   }
