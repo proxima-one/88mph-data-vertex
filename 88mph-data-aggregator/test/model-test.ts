@@ -108,6 +108,9 @@ describe("testing utils for conversions", async function() {
     });
 
     it("Should be able to get the save args from DPool", async function() {
+      dpoolList = makeDefaultDPoolList();
+      dpoolListInput = makeDefaultDPoolListInput();
+      dpoolListInputQuery = makeDefaultDPoolListInputQuery();
       let resultDPoolListInput = toDPoolListInput(dpoolList);
       assert(isDPoolListInput(resultDPoolListInput));
 
@@ -116,6 +119,9 @@ describe("testing utils for conversions", async function() {
     });
 
     it("Should be able to get the load args from DPoolInput and entries", async function() {
+      dpoolList = makeDefaultDPoolList();
+      dpoolListInput = makeDefaultDPoolListInput();
+      dpoolListInputQuery = makeDefaultDPoolListInputQuery();
       let resultDPoolList = toDPoolList(dpoolListInput);
       assert(isDPoolList(resultDPoolList));
 
@@ -127,6 +133,9 @@ describe("testing utils for conversions", async function() {
     });
 
     it("Should be able to use .save(), and load()", async function() {
+      dpoolList = makeDefaultDPoolList();
+      dpoolListInput = makeDefaultDPoolListInput();
+      dpoolListInputQuery = makeDefaultDPoolListInputQuery();
       let resultDPoolListInput = dpoolList._getSaveArgs();
       assert(isDPoolListInput(resultDPoolListInput));
     });

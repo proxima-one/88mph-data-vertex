@@ -67,62 +67,62 @@ type Proxify<T, U> = {
     ? Proxy<NonNullable<T[P]>, NonNullable<U[P]>>
     : never
 };
-
-function parse<T, U>(o: T, opname?: string): Proxify<T, U> {
-  let result = {} as Proxify<T, U>;
-  let u = {} as U;
-  //new Proxify
-  let t = {} as T;
-  const entries = Object.entries(o);
-
-  for (const p of entries) {
-    //check that it is in proxy, and results
-    if (p[0] && p[1]) {
-      let m = u[p[0] as keyof U]; //pick
-      type M = typeof m;
-      let l = t[p[0] as keyof T];
-      type L = typeof l;
-
-      //check if nonnullable != never
-      //type P = ReturnType<f>;
-      //filter non nullable and defined
-      //let L pick
-      //ThisParameterType<typeof toHex>
-      //ReturnType<>
-      //if there are any opcodes
-      var pVal: Proxy<NonNullable<L>, NonNullable<M>> = parseProxy<
-        NonNullable<L>,
-        NonNullable<M>
-      >(p[1]);
-      setProperty(result, p[0] as keyof T, pVal);
-    }
-  }
-  return result;
-}
-
-//function parseRecords<Record<...>>()
-
-// export function parseProxy<L, M>(o: L | M, opname?: string): Proxy<L, M> {
-//   let m = {} as M;
-//   let l = {} as L;
-//   let parsed = {} as Proxy<L, M>;
-//   parsed.setLoadArgs = (l: L) => {
-//     m = convert<L, M>(l, opname || "string") as M;
-//     l = l as L;
-//   };
-//   parsed.setSaveArgs = (m: M) => {
-//     l = convert<M, L>(m, opname || "object") as L;
-//     m = m as M;
-//   };
-//   parsed.getLoadArgs = (): L => l;
-//   parsed.getSaveArgs = (): M => m;
-//   if (opname != undefined) {
-//     parsed.setLoadArgs(o as L);
-//     parsed.setSaveArgs(convert<L, M>(o as L, "string") as M);
-//   } else {
-//     parsed.setSaveArgs(o as M);
-//   }
 //
+// function parse<T, U>(o: T, opname?: string): Proxify<T, U> {
+//   let result = {} as Proxify<T, U>;
+//   let u = {} as U;
+//   //new Proxify
+//   let t = {} as T;
+//   const entries = Object.entries(o);
+//
+//   for (const p of entries) {
+//     //check that it is in proxy, and results
+//     if (p[0] && p[1]) {
+//       let m = u[p[0] as keyof U]; //pick
+//       type M = typeof m;
+//       let l = t[p[0] as keyof T];
+//       type L = typeof l;
+//
+//       //check if nonnullable != never
+//       //type P = ReturnType<f>;
+//       //filter non nullable and defined
+//       //let L pick
+//       //ThisParameterType<typeof toHex>
+//       //ReturnType<>
+//       //if there are any opcodes
+//       var pVal: Proxy<NonNullable<L>, NonNullable<M>> = parseProxy<
+//         NonNullable<L>,
+//         NonNullable<M>
+//       >(p[1]);
+//       setProperty(result, p[0] as keyof T, pVal);
+//     }
+//   }
+//   return result;
+// }
+//
+// //function parseRecords<Record<...>>()
+//
+// // export function parseProxy<L, M>(o: L | M, opname?: string): Proxy<L, M> {
+// //   let m = {} as M;
+// //   let l = {} as L;
+// //   let parsed = {} as Proxy<L, M>;
+// //   parsed.setLoadArgs = (l: L) => {
+// //     m = convert<L, M>(l, opname || "string") as M;
+// //     l = l as L;
+// //   };
+// //   parsed.setSaveArgs = (m: M) => {
+// //     l = convert<M, L>(m, opname || "object") as L;
+// //     m = m as M;
+// //   };
+// //   parsed.getLoadArgs = (): L => l;
+// //   parsed.getSaveArgs = (): M => m;
+// //   if (opname != undefined) {
+// //     parsed.setLoadArgs(o as L);
+// //     parsed.setSaveArgs(convert<L, M>(o as L, "string") as M);
+// //   } else {
+// //     parsed.setSaveArgs(o as M);
+// //   }
+// //
 //   return parsed;
 // }
 
@@ -168,30 +168,59 @@ export function convert<F, T>(from: F, toType?: string): Maybe<T> {
 
   console.log("Convert from ", from);
   console.log("Type to ", desiredType);
+  if (from == null) {
+    return null;
+  }
   switch (desiredType) {
     case "string":
       return parseString(from) as Maybe<T>;
+    case "int":
+      return parseNumber(from) as Maybe<T>;
     case "bigint":
       return parseBigInt(from) as Maybe<T>;
+    case "BigNumber":
+      return parseBigNumber(from) as Maybe<T>;
+    case "float":
+      return parseBigNumber(from) as Maybe<T>;
     case "number":
       return parseNumber(from) as Maybe<T>;
     case "object":
-      return parseNumber(from) as Maybe<T>;
+      return parseBigNumber(from) as Maybe<T>;
     default:
       return null;
   }
 }
 
-function parseNumber(val: any): Maybe<BigNumber> {
+export function parseNumber(val: any): Maybe<number> {
+  let result = parseBigNumber(val);
+  if (result != null && result instanceof BigNumber) {
+    return result.toNumber();
+  } else {
+    return null;
+  }
+}
+
+export function parseInt(val: any): Maybe<number> {
+  let result = parseNumber(val);
+  if (result != null) {
+    return Math.floor(result);
+  }
+  return null;
+}
+
+export function parseBigNumber(val: any): Maybe<BigNumber> {
+  if (val == null) {
+    return null;
+  }
   switch (typeof val) {
     case "string":
-      return BigNumber.from(val);
+      return BigNumber.from(val) || null;
     case "bigint":
-      return BigNumber.from(val); //int
+      return BigNumber.from(val) || null; //int
     case "number":
-      return BigNumber.from(val);
+      return BigNumber.from(val) || null;
     case "boolean":
-      return BigNumber.from(val);
+      return BigNumber.from(val) || null;
     case "object":
       return BigNumber.from(val) || null;
     default:
@@ -199,7 +228,7 @@ function parseNumber(val: any): Maybe<BigNumber> {
   }
 }
 
-function parseString(val: any): Maybe<String> {
+export function parseString(val: any): Maybe<String> {
   //console.log("parsing string");
   //console.log(val);
   //console.log(typeof val);
@@ -217,7 +246,7 @@ function parseString(val: any): Maybe<String> {
   }
 }
 
-function parseBigInt(val: any): Maybe<bigint> {
+export function parseBigInt(val: any): Maybe<bigint> {
   switch (typeof val) {
     case "string":
       let c = BigInt(val);

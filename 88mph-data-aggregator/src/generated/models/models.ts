@@ -1,6 +1,15 @@
 import { useFetch } from "../../lib/DataVertexClient";
 import { TypedDocumentNode } from "@graphql-typed-document-node/core";
 import { TypedDocumentNode as DocumentNode } from "@graphql-typed-document-node/core";
+
+import {
+  convert,
+  parseBigInt,
+  parseInt,
+  parseNumber,
+  parseBigNumber,
+  parseString
+} from "./utils";
 //import { BigDecimal, BigInt } from "@graphprotocol/graph-ts";
 import { BigNumber, BigNumberish } from "ethers";
 export type Maybe<T> = T | null;
@@ -601,31 +610,35 @@ export type DPoolListInput = {
 //pick and convert
 
 export function toDPoolListInput(pool: DPoolList): DPoolListInput {
-  let inputPoolList: DPoolListInput = pool;
-  //pick args and convert to correct type
-  //inputPoolList.id = convertID
-  //numPools convert to Int
-  //numUsers convert to Int
-  //dpool.numActiveUsers = parseInt(poolInput, "save"),
-  //dpool.numActiveDeposits = parseInt(poolInput, "save"),
-  //numActiveUsers convert to Int
-  //numFunders  = numFunders convert to Int
-  //DPoolIDs = poolIds
-  return inputPoolList;
+  let dpoolListInput: DPoolListInput = {
+    __typename: "DPoolListInput",
+    id: pool.id,
+    numActiveUsers: parseInt(pool.numActiveUsers) || null,
+    numPools: parseInt(pool.numPools), //int
+    numUsers: parseInt(pool.numUsers), // convert to Int
+    numFunders: parseInt(pool.numFunders),
+    DPoolIDs: pool.poolIds
+  };
+  return dpoolListInput as DPoolListInput;
 }
 
 export function toDPoolList(poolInput: DPoolListInput): DPoolList {
   //pick args, and convert to the correct number
-  let dpool: DPoolList = new DPoolList();
-  //inputPoolList
-  dpool.id = poolInput.id;
+  let dpoolList: DPoolList = new DPoolList();
+  //inputPoolList if isInput
+  dpoolList.__typename = "DPoolList";
+  dpoolList.id = poolInput.id;
+  dpoolList.numActiveUsers = parseBigInt(poolInput.numActiveUsers);
+  dpoolList.numUsers = parseBigInt(poolInput.numUsers);
+  dpoolList.numFunders = parseBigInt(poolInput.numFunders);
+  dpoolList.numPools = parseBigInt(poolInput.numFunders);
+  dpoolList.poolIds = poolInput.DPoolIDs;
 
+  //load
   //dpool.numActiveUsers = parseInt(poolInput, "load"),
   //dpool.numActiveDeposits = parseInt(poolInput, "load"),
   //"save"
-
-  dpool.poolIds = poolInput.DPoolIDs;
-  return dpool;
+  return dpoolList;
 }
 
 export class DPoolList {
@@ -640,72 +653,36 @@ export class DPoolList {
   poolIds?: Maybe<Array<Maybe<Scalars["String"]>>>;
 
   constructor(id?: string) {
+    this.__typename = "DPoolList";
     if (id) {
       this.id = id;
     }
   }
+
   static load(id: string, prove: boolean = false): Maybe<DPoolList> {
     var operationDocument = DPoolListDocument;
     const loadVariables = { id: id, prove: prove };
     var result = gqlFetch(operationDocument, loadVariables);
     if (
       result &&
-      result.data &&
-      result.data.DPoolList.__typename == "DPoolList"
+      result.data != undefined &&
+      result.data.DPoolList != undefined
     ) {
-      //entries
-      return result.data.DPoolList;
+      //entries &&
+      let value = result.data.DPoolList;
+      //value.__typename = "DPoolListInput";
+      return toDPoolList(value) || null;
     }
     return null;
   }
+
   save(): void {
     var operationDocument = UpdateDPoolListDocument;
     var saveVariables = { input: this._getSaveArgs() };
     gqlFetch(operationDocument, saveVariables);
   }
-
-  //hasOwnProperty
-
   _getSaveArgs(): DPoolListInput {
-    //input
-    let saveArgs: DPoolListInput = {};
-
-    for (const [name, value] of Object.entries(this)) {
-      let hasField = saveArgs.hasOwnProperty(name);
-      let fieldIdName = lowercaseFirstLetter(name.replace("Id", ""));
-      let hasFieldId = saveArgs.hasOwnProperty(name);
-
-      if (!hasFieldId && !hasField) {
-        continue;
-      }
-      let isList = value instanceof Array;
-      if (
-        hasFieldId &&
-        isList &&
-        value instanceof Array &&
-        saveArgs.hasOwnProperty(fieldIdName)
-      ) {
-        let valueIds: Array<any> = [];
-        (value as Array<{ [x: string]: any }>).map(
-          (v: { [x: string]: any }) => {
-            if ("id" in v) {
-              valueIds.push(v["id"]);
-            }
-          }
-        );
-        saveArgs[fieldIdName as keyof DPoolListInput] = valueIds as any;
-      } else if (
-        hasFieldId &&
-        !isList &&
-        value.hasOwnProperty("id") &&
-        saveArgs.hasOwnProperty(fieldIdName)
-      ) {
-        saveArgs[fieldIdName as keyof DPoolListInput] = value.id;
-      } else {
-        saveArgs[name as keyof DPoolListInput] = value;
-      }
-    }
-    return saveArgs;
+    return toDPoolListInput(this) || ({} as DPoolListInput);
   }
 }
 
@@ -1795,7 +1772,7 @@ export type DPoolListQueryVariables = Exact<{
 }>;
 
 export type DPoolListQuery = { __typename?: "Query" } & {
-  DPoolList: { __typename?: "DPoolList" } & Pick<
+  DPoolList: { __typename?: "DPoolListInput" } & Pick<
     DPoolList,
     "id" | "numPools" | "numUsers" | "numActiveUsers" | "numFunders"
   >;

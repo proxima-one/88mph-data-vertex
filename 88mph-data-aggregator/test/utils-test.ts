@@ -5,7 +5,7 @@ import { expect } from "chai";
 
 import { ethers } from "ethers";
 //import { getSdk } from "../src/generated/models/queries";
-import { convert, parseProxy } from "../src/generated/models/utils";
+import { convert } from "../src/generated/models/utils";
 import { BigNumber, BigNumberish } from "ethers";
 
 //https://github.com/ardeois/graphql-codegen-typescript-mock-data
@@ -71,21 +71,21 @@ describe("testing utils for conversions", async () => {
       const bigInt = BigInt(randNum);
       let expectedInt = bigInt.toString();
 
-      let proxy1 = parseProxy<BigNumber, string>(expectedTo);
-      assert.equal(typeof proxy1.getLoadArgs(), typeof amount);
-      assert(amount.eq(proxy1.getLoadArgs()));
-      console.log("Load args ", proxy1.getLoadArgs());
-      assert.equal(typeof proxy1.getSaveArgs(), typeof expectedTo);
-      assert.equal(proxy1.getSaveArgs(), expectedTo);
-
-      let proxy = parseProxy<BigNumber, string>(amount, "load");
-      //let amountStr = amount as string;
-      //check this
-      //assert.equal(typeof proxy.getLoadArgs(), typeof amount);
+      // let proxy1 = parseProxy<BigNumber, string>(expectedTo);
+      // assert.equal(typeof proxy1.getLoadArgs(), typeof amount);
+      // assert(amount.eq(proxy1.getLoadArgs()));
+      // console.log("Load args ", proxy1.getLoadArgs());
+      // assert.equal(typeof proxy1.getSaveArgs(), typeof expectedTo);
+      // assert.equal(proxy1.getSaveArgs(), expectedTo);
+      //
+      // let proxy = parseProxy<BigNumber, string>(amount, "load");
+      // //let amountStr = amount as string;
+      // //check this
+      // //assert.equal(typeof proxy.getLoadArgs(), typeof amount);
       //assert(amount.eq(proxy.getLoadArgs()));
 
       //assert.equal(typeof proxy.getSaveArgs(), typeof expectedTo);
-      assert.equal(proxy.getSaveArgs(), expectedTo);
+      //assert.equal(proxy.getSaveArgs(), expectedTo);
       //  console.log(proxy.getSaveArgs());
       //CONVERSIONS with scalar values
 
