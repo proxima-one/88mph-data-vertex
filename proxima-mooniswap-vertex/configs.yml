@@ -1,0 +1,49 @@
+id: Project id
+name: Name of Project
+repo:
+description:
+schema:
+  file: ./schema/schema.graphql
+datasources:
+  - datasource:
+      name: MooniSwapMain
+      client: Ethereum/Mainnet
+      source:
+        address: '0x71CD6666064C3A1354a3B4dca5fA1E2D3ee7D303'
+        abi: MooniswapFactory
+        startBlock: 10634502
+        mintable: false
+      handlers:
+        dir: ./handlers/MooniswapFactory
+          - functionHandlers: functionHandlers.js
+          - eventHandlers: eventHandlers.js
+          - transactionHandlers: transactionHandlers.js
+          - blockHandlers: blockHandlers.js
+          - functionPolls:  functionPolls.js
+      contracts:
+        - name: MooniswapFactory
+          file: ./abis/mooniswap-factory.json
+        - name: ERC20
+          file: ./abis/ERC20.json
+        - name: ERC20SymbolBytes
+          file: ./abis/ERC20SymbolBytes.json
+        - name: ERC20NameBytes
+          file: ./abis/ERC20NameBytes.json
+    - datasource:
+        name: MooniSwapPair
+        client: Ethereum/Mainnet
+        source:
+          abi: Pair
+          mintable: true
+        handlers:
+          dir: ./handlers/Pair
+            - functionHandlers: functionHandlers.js
+            - eventHandlers: eventHandlers.js
+            - transactionHandlers: transactionHandlers.js
+            - blockHandlers: blockHandlers.js
+            - functionPolls:  functionPolls.js
+        contracts:
+          - name: Pair
+            file: ./contracts/mooniswap.json
+          - name: ERC20
+            file: ./abis/ERC20.json

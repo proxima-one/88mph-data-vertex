@@ -1,4 +1,4 @@
-package main//proxima_data_vertex
+package proxima_data_vertex
 
 import (
   "testing"

@@ -14,11 +14,11 @@ export type MakeMaybe<T, K extends keyof T> = Omit<T, K> &
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
-  String: string | BigInt | BigNumber | BigNumberish;
+  String: string;
   Boolean: boolean;
-  Int: BigInt | BigNumberish | number;
+  Int: BigInt | BigNumberish;
   Float: number | BigNumber | BigNumberish;
-  BigDecimal: BigNumber | BigNumberish;
+  BigDecimal: BigNumberish;
   BigInt: BigInt;
 };
 //
@@ -36,14 +36,14 @@ export type Scalars = {
 
 //get type name
 
-type Proxy<T, U> = {
-  setLoadArgs(value: T): void;
-  setSaveArgs(value: U): void;
-  getSaveArgs(): U;
-  getLoadArgs(): T;
-  //extra values
-  //
-};
+// type Proxy<T, U> = {
+//   setLoadArgs(value: T): void;
+//   setSaveArgs(value: U): void;
+//   getSaveArgs(): U;
+//   getLoadArgs(): T;
+//   //extra values
+//   //
+// };
 
 declare function pick<T, K extends keyof T>(obj: T, ...keys: K[]): Pick<T, K>;
 
@@ -57,69 +57,76 @@ type NonFunctionPropertyNames<T> = {
 
 type NonFunctionProperties<T> = Pick<T, NonFunctionPropertyNames<T>>;
 
-type Proxify<T, U> = {
-  [P in keyof T]?: P extends keyof U
-    ? Proxy<NonNullable<T[P]>, NonNullable<U[P]>>
-    : never
-};
+//toDPoolLoadArgs {
+//map all of the values in DPool
+//parseInt()
+//}
 
-function parse<T, U>(o: T, opname?: string): Proxify<T, U> {
-  let result = {} as Proxify<T, U>;
-  let u = {} as U;
-  //new Proxify
+//toDPoolInput
 
-  let u = {} as U;
-  let t = {} as T;
-  const entries = Object.entries(o);
-
-  for (const p of entries) {
-    //check that it is in proxy, and results
-    if (p[0] && p[1]) {
-      let m = u[p[0] as keyof U]; //pick
-      type M = typeof m;
-      let l = t[p[0] as keyof T];
-      type L = typeof l;
-
-      //check if nonnullable != never
-      //type P = ReturnType<f>;
-      //filter non nullable and defined
-      //let L pick
-      //ThisParameterType<typeof toHex>
-      //ReturnType<>
-      //if there are any opcodes
-      var pVal: Proxy<NonNullable<L>, NonNullable<M>> = parseProxy<
-        NonNullable<L>,
-        NonNullable<M>
-      >(p[1]);
-      setProperty(result, p[0] as keyof T, pVal);
-    }
-  }
-  return result;
-}
+// type Proxify<T, U> = {
+//   [P in keyof T]?: P extends keyof U
+//     ? Proxy<NonNullable<T[P]>, NonNullable<U[P]>>
+//     : never
+// };
+//
+// function parse<T, U>(o: T, opname?: string): Proxify<T, U> {
+//   let result = {} as Proxify<T, U>;
+//   let u = {} as U;
+//   //new Proxify
+//
+//   let u = {} as U;
+//   let t = {} as T;
+//   const entries = Object.entries(o);
+//
+//   for (const p of entries) {
+//     //check that it is in proxy, and results
+//     if (p[0] && p[1]) {
+//       let m = u[p[0] as keyof U]; //pick
+//       type M = typeof m;
+//       let l = t[p[0] as keyof T];
+//       type L = typeof l;
+//
+//       //check if nonnullable != never
+//       //type P = ReturnType<f>;
+//       //filter non nullable and defined
+//       //let L pick
+//       //ThisParameterType<typeof toHex>
+//       //ReturnType<>
+//       //if there are any opcodes
+//       var pVal: Proxy<NonNullable<L>, NonNullable<M>> = parseProxy<
+//         NonNullable<L>,
+//         NonNullable<M>
+//       >(p[1]);
+//       setProperty(result, p[0] as keyof T, pVal);
+//     }
+//   }
+//   return result;
+// }
 
 //function parseRecords<Record<...>>()
-
-function parseProxy<L, M>(o: L | M, opname?: string): Proxy<L, M> {
-  let m = {} as M;
-  let l = {} as L;
-  let parsed = {} as Proxy<L, M>;
-  parsed.getLoadArgs = (): L => l;
-  parsed.getSaveArgs = (): M => m;
-  parsed.setLoadArgs = (l: L) => {
-    l = l;
-    m = convert<L, M>(l) as M;
-  };
-  parsed.setSaveArgs = (m: M) => {
-    m = m;
-    l = convert<M, L>(m) as L;
-  };
-  if (opname != undefined) {
-    parsed.setLoadArgs(o as L);
-  } else {
-    parsed.setSaveArgs(o as M);
-  }
-  return parsed;
-}
+//
+// function parseProxy<L, M>(o: L | M, opname?: string): Proxy<L, M> {
+//   let m = {} as M;
+//   let l = {} as L;
+//   let parsed = {} as Proxy<L, M>;
+//   parsed.getLoadArgs = (): L => l;
+//   parsed.getSaveArgs = (): M => m;
+//   parsed.setLoadArgs = (l: L) => {
+//     l = l;
+//     m = convert<L, M>(l) as M;
+//   };
+//   parsed.setSaveArgs = (m: M) => {
+//     m = m;
+//     l = convert<M, L>(m) as L;
+//   };
+//   if (opname != undefined) {
+//     parsed.setLoadArgs(o as L);
+//   } else {
+//     parsed.setSaveArgs(o as M);
+//   }
+//   return parsed;
+// }
 
 //getTypeFromScalars(T, "loadOrSave") {
 //load is the integers/numbers
@@ -127,66 +134,66 @@ function parseProxy<L, M>(o: L | M, opname?: string): Proxy<L, M> {
 //
 //}
 
-function convert<F, T>(from: F): Maybe<T> {
-  //type
-  let to = "string";
-  switch (to) {
-    case "string":
-      return parseString(from) as Maybe<T>;
-    case "bigint":
-      return parseBigInt(from) as Maybe<T>;
-    case "number":
-      return parseNumber(from) as Maybe<T>;
-    case "float":
-      return parseNumber(from) as Maybe<T>;
-    default:
-      return null;
-  }
-}
-
-function parseNumber(val: any): Maybe<BigNumberish> {
-  switch (typeof val) {
-    case "string":
-      return BigNumber.from(val);
-    case "bigint":
-      return BigNumber.from(val); //int
-    case "number":
-      return BigNumber.from(val);
-    case "boolean":
-      return BigNumber.from(val);
-    default:
-      return null;
-  }
-}
-
-function parseString(val: any): Maybe<String> {
-  switch (typeof val) {
-    case "string":
-      return val;
-    case "bigint":
-      return val.toString(); //int
-    case "number":
-      return val.toString();
-    case "object":
-      return val.toString();
-    default:
-      return null;
-  }
-}
-
-function parseBigInt(val: any): Maybe<bigint> {
-  switch (typeof val) {
-    case "string":
-      let c = BigInt(val);
-      return c;
-    case "bigint":
-      return val; //int
-    case "number":
-      return BigInt(val);
-    default:
-      return null;
-  }
-}
+// function convert<F, T>(from: F): Maybe<T> {
+//   //type
+//   let to = "string";
+//   switch (to) {
+//     case "string":
+//       return parseString(from) as Maybe<T>;
+//     case "bigint":
+//       return parseBigInt(from) as Maybe<T>;
+//     case "number":
+//       return parseNumber(from) as Maybe<T>;
+//     case "float":
+//       return parseNumber(from) as Maybe<T>;
+//     default:
+//       return null;
+//   }
+// }
+//
+// function parseNumber(val: any): Maybe<BigNumberish> {
+//   switch (typeof val) {
+//     case "string":
+//       return BigNumber.from(val);
+//     case "bigint":
+//       return BigNumber.from(val); //int
+//     case "number":
+//       return BigNumber.from(val);
+//     case "boolean":
+//       return BigNumber.from(val);
+//     default:
+//       return null;
+//   }
+// }
+//
+// function parseString(val: any): Maybe<String> {
+//   switch (typeof val) {
+//     case "string":
+//       return val;
+//     case "bigint":
+//       return val.toString(); //int
+//     case "number":
+//       return val.toString();
+//     case "object":
+//       return val.toString();
+//     default:
+//       return null;
+//   }
+// }
+//
+// function parseBigInt(val: any): Maybe<bigint> {
+//   switch (typeof val) {
+//     case "string":
+//       let c = BigInt(val);
+//       return c;
+//     case "bigint":
+//       return val; //int
+//     case "number":
+//       return BigInt(val);
+//     default:
+//       return null;
+//   }
+// }
 
 //
 // const parseInteger = (s: string): CellParse<number> => {
@@ -206,23 +213,23 @@ function parseBigInt(val: any): Maybe<bigint> {
 
 // //parse to proxy,
 
-function toSaveArgs<T, U>(o: Proxify<T, U>): U {
-  let result = {} as U;
-  //filtered keys
-  for (const k in o) {
-    result[k] = o[k].getSaveArgs();
-  }
-  return result;
-}
+// function toSaveArgs<T extends Scalars>(o: ): U {
+//   let result = {} as U;
+//   //filtered keys
+//   for (const k in o) {
+//     result[k] = o[k].getSaveArgs();
+//   }
+//   return result;
+// }
 
-function toLoadArgs<T, U>(o: Proxify<T, U>): T {
-  let result = {} as T;
-  //filtered keys
-  for (const k in o) {
-    result[k] = o[k].getLoadArgs();
-  }
-  return result;
-}
+// function toLoadArgs<T, U>(o: Proxify<T, U>): T {
+//   let result = {} as T;
+//   //filtered keys
+//   for (const k in o) {
+//     result[k] = o[k].getLoadArgs();
+//   }
+//   return result;
+// }
 //parse
 // //const parse : (row: ProductStrings) => ProductParsing = (row) => {
 //   return {
@@ -581,6 +588,46 @@ export type MutationupdateMPHArgs = {
   input: MPHInput;
 };
 
+export type DPoolListInput = {
+  __typename?: "DPoolListInput";
+  id?: Maybe<Scalars["ID"]>;
+  DPoolIDs?: Maybe<Array<Maybe<Scalars["String"]>>>;
+  numPools?: Maybe<Scalars["Int"]>;
+  numUsers?: Maybe<Scalars["Int"]>;
+  numActiveUsers?: Maybe<Scalars["Int"]>;
+  numFunders?: Maybe<Scalars["Int"]>;
+};
+
+//pick and convert
+
+export function toDPoolListInput(pool: DPoolList): DPoolListInput {
+  let inputPoolList: DPoolListInput = pool;
+  //pick args and convert to correct type
+  //inputPoolList.id = convertID
+  //numPools convert to Int
+  //numUsers convert to Int
+  //dpool.numActiveUsers = parseInt(poolInput, "save"),
+  //dpool.numActiveDeposits = parseInt(poolInput, "save"),
+  //numActiveUsers convert to Int
+  //numFunders  = numFunders convert to Int
+  //DPoolIDs = poolIds
+  return inputPoolList;
+}
+
+export function toDPoolList(poolInput: DPoolListInput): DPoolList {
+  //pick args, and convert to the correct number
+  let dpool: DPoolList = new DPoolList();
+  //inputPoolList
+  dpool.id = poolInput.id;
+
+  //dpool.numActiveUsers = parseInt(poolInput, "load"),
+  //dpool.numActiveDeposits = parseInt(poolInput, "load"),
+  //"save"
+
+  dpool.poolIds = poolInput.DPoolIDs;
+  return dpool;
+}
+
 export class DPoolList {
   __typename?: "DPoolList";
   id?: Maybe<Scalars["ID"]>;
@@ -590,7 +637,7 @@ export class DPoolList {
   numActiveUsers?: Maybe<Scalars["Int"]>;
   numFunders?: Maybe<Scalars["Int"]>;
   proof?: Maybe<Proof>;
-  poolIds!: Maybe<Array<Scalars["String"]>>;
+  poolIds?: Maybe<Array<Maybe<Scalars["String"]>>>;
 
   constructor(id?: string) {
     if (id) {
@@ -606,7 +653,8 @@ export class DPoolList {
       result.data &&
       result.data.DPoolList.__typename == "DPoolList"
     ) {
-      return result.data.DPoolList as DPoolList;
+      //entries
+      return result.data.DPoolList;
     }
     return null;
   }
@@ -660,15 +708,6 @@ export class DPoolList {
     return saveArgs;
   }
 }
-
-export type DPoolListInput = {
-  id?: Maybe<Scalars["ID"]>;
-  //DPoolIDs?: Maybe<Array<Maybe<Scalars["String"]>>>;
-  numPools?: Maybe<Scalars["Int"]>;
-  numUsers?: Maybe<Scalars["Int"]>;
-  numActiveUsers?: Maybe<Scalars["Int"]>;
-  numFunders?: Maybe<Scalars["Int"]>;
-};
 
 export class DPool {
   __typename?: "DPool";

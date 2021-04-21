@@ -102,29 +102,29 @@ function parse<T, U>(o: T, opname?: string): Proxify<T, U> {
 
 //function parseRecords<Record<...>>()
 
-export function parseProxy<L, M>(o: L | M, opname?: string): Proxy<L, M> {
-  let m = {} as M;
-  let l = {} as L;
-  let parsed = {} as Proxy<L, M>;
-  parsed.setLoadArgs = (l: L) => {
-    m = convert<L, M>(l, "string") as M;
-    l = l as L;
-  };
-  parsed.setSaveArgs = (m: M) => {
-    l = convert<M, L>(m, "object") as L;
-    m = m as M;
-  };
-  parsed.getLoadArgs = (): L => l;
-  parsed.getSaveArgs = (): M => m;
-  if (opname != undefined) {
-    parsed.setLoadArgs(o as L);
-    parsed.setSaveArgs(convert<L, M>(o as L, "string") as M);
-  } else {
-    parsed.setSaveArgs(o as M);
-  }
-
-  return parsed;
-}
+// export function parseProxy<L, M>(o: L | M, opname?: string): Proxy<L, M> {
+//   let m = {} as M;
+//   let l = {} as L;
+//   let parsed = {} as Proxy<L, M>;
+//   parsed.setLoadArgs = (l: L) => {
+//     m = convert<L, M>(l, opname || "string") as M;
+//     l = l as L;
+//   };
+//   parsed.setSaveArgs = (m: M) => {
+//     l = convert<M, L>(m, opname || "object") as L;
+//     m = m as M;
+//   };
+//   parsed.getLoadArgs = (): L => l;
+//   parsed.getSaveArgs = (): M => m;
+//   if (opname != undefined) {
+//     parsed.setLoadArgs(o as L);
+//     parsed.setSaveArgs(convert<L, M>(o as L, "string") as M);
+//   } else {
+//     parsed.setSaveArgs(o as M);
+//   }
+//
+//   return parsed;
+// }
 
 //getTypeFromScalars(T, "loadOrSave") {
 //load is the integers/numbers

@@ -1,7 +1,7 @@
 package vertex
 
 import (
-	"bytes"
+	_ "bytes"
 	"context"
 	"encoding/json"
 	"math/rand"
@@ -54,7 +54,6 @@ func NewGQLTest(schema gql.ExecutableSchema, queryString, operationName string, 
 
 func LoadEntityTestCases(applicationVertex *ProximaDataVertex, fileName string, queryFileName string) (map[string]*EntityTestCase, error){
 	queryStringMap, err := LoadEntityQueryStrings(queryFileName)
-	fmt.Println(queryStringMap)
 	if err != nil {
 		return nil, err
 	}
@@ -87,7 +86,7 @@ func  LoadEntityQueryStrings(queryFileName string) (map[string]interface{}, erro
 	json.Unmarshal([]byte(data), &queryStringMap)
 	var queryStrings map[string]interface{}
 	for entityName, qStrings := range queryStringMap {
-
+		//fmt.Println(entityName)
 		queryStrings = qStrings.(map[string]interface{})
 
 		//queryName := entityName[:len(entityName)-1]
@@ -96,30 +95,16 @@ func  LoadEntityQueryStrings(queryFileName string) (map[string]interface{}, erro
 			entityName = entityName[:length-1]
 			//fmt.Println(queryName)
 		}
-		fmt.Println(entityName)
-		fmt.Println(queryStrings)
-		queryStringMap[entityName], err = parseQueryStrings(queryStrings)
-		if err != nil {
-			fmt.Println(entityName)
-			fmt.Println(queryStrings)
-			fmt.Println(err)
-			return nil, err
-		}
+		queryStringMap[entityName], _ = parseQueryStrings(queryStrings)
 	}
 	return queryStringMap, nil
 }
 
 func parseQueryStrings(entityQueryStrings map[string]interface{}) (map[string]interface{}, error) {
 	queryStrings := make(map[string]interface{})
-	var err error;
 	for queryName, queryStr := range entityQueryStrings {
-		queryStrings[queryName], err = parseQueryString(queryStr.(string))
-		//fmt.Println(queryStr)
-		if err != nil {
-			fmt.Println(queryName)
-			fmt.Println(err)
-			return nil, err
-		}
+
+		queryStrings[queryName], _ = parseQueryString(queryStr.(string))
 		//previous queryName
 	}
 	return queryStrings, nil
@@ -169,8 +154,8 @@ func RunEntityTestCases(c *client.Client, t *testing.T, tests map[string]*Entity
 }
 
 func RunEntityTestCase(c *client.Client, t *testing.T, entityTestCase *EntityTestCase, n int) {
-	entityTestCase.generateTests(n)
 
+	entityTestCase.generateTests(n)
 
 	t.Run("Put Tests", func(t *testing.T) {
 		RunGQLTests(c, t, entityTestCase.putTests)
@@ -180,14 +165,14 @@ func RunEntityTestCase(c *client.Client, t *testing.T, entityTestCase *EntityTes
 		RunGQLTests(c, t, entityTestCase.getTests)
 	})
 
-// // //go test -cpu 1,2,4,8 -benchmem -run=^$ -bench . benchmark_test.go
-	// t.Run("Get All Test", func(t *testing.T) {
-	// 	RunGQLTests(c, t, entityTestCase.getAllTests)
-	// })
+//go test -cpu 1,2,4,8 -benchmem -run=^$ -bench . benchmark_test.go
+	t.Run("Get All Test", func(t *testing.T) {
+		RunGQLTests(c, t, entityTestCase.getAllTests)
+	})
 	//
-	// t.Run("Search Test", func(t *testing.T) {
-	// 	RunGQLTests(c, t, entityTestCase.searchTests)
-	// })
+	t.Run("Search Test", func(t *testing.T) {
+		RunGQLTests(c, t, entityTestCase.searchTests)
+	})
 
 }
 
@@ -230,9 +215,9 @@ func RunEntityBenchmarkCase(c *client.Client, b *testing.B, entityTestCase *Enti
 		RunGQLBenchmarks(c, b, entityTestCase.getAllTests)
 	})
 	//
-	b.Run("Search Benchmarks", func(b *testing.B) {
-		RunGQLBenchmarks(c, b, entityTestCase.searchTests)
-	})
+	// b.Run("Search Benchmarks", func(b *testing.B) {
+	// 	RunGQLBenchmarks(c, b, entityTestCase.searchTests)
+	// })
 }
 
 func RunGQLBenchmarks(c *client.Client, b *testing.B, tests []*GQLTest) {
@@ -260,7 +245,6 @@ func RunGQLTest(c *client.Client, t *testing.T, test *GQLTest) {
 		test.Context = context.Background()
 	}
 	result := RunTestResolverOperation(c, test)
-	fmt.Println(result)
 	//resultErrors := result.Errors
 	//checkErrors(t, test.ExpectedErrors, resultErrors)
 	//data := result.Data
@@ -304,10 +288,7 @@ func RunTestResolverOperation(c *client.Client, test *GQLTest) (*client.Response
 	//print query string
 	//fmt.Println(test.Query)
 	resp, err := c.RawPost(test.Query)
-	//fmt.Println(resp)
-	//fmt.Println(err)
 	if err != nil {
-		fmt.Println(resp)
 		fmt.Println(err)
 	}
 
@@ -384,12 +365,10 @@ func (entityTest *EntityTestCase) generateTests(num int) {
 	entityTest.getTests = make([]*GQLTest, 0)
 	entityTest.getAllTests = make([]*GQLTest, 0)
 	entityTest.searchTests = make([]*GQLTest, 0)
-		//fmt.Println(entityTest.queryStrings)
 	var putQueryString string  = entityTest.queryStrings["put"].(string)
 	var getQueryString string  = entityTest.queryStrings["get"].(string)
 	var getAllQueryString string  = entityTest.queryStrings["getAll"].(string)
 	var searchQueryString string  = entityTest.queryStrings["search"].(string)
-
 	//var searchQueryString string
 	//var getAllQueryString string
 
@@ -407,7 +386,7 @@ func (entityTest *EntityTestCase) generateGetTest(queryString string, entityMap 
 	schema := entityTest.schema
 	operation := entityTest.operations["get"].(map[string]interface{})
 	//queryStr := operation["type"]
-	var operationName string = operation["type"].(string)
+	var operationName string = operation["name"].(string)
 
 	entity := entityMap["entityInput"].(map[string]interface{})
 
@@ -424,8 +403,8 @@ func makeQueryString(queryString string, variables map[string]interface{}) (stri
 	var encodedValue []byte;
 	for name, value := range variables {
 		valueType := fmt.Sprintf("%T", value)
-		//fmt.Println(name)
-		//fmt.Println(value)
+		//fmt.Println("Value Type")
+		//fmt.Println(valueType)
 		if name == "input" {
 			encodedValue, _ = json.Marshal(value)
 			queryString = strings.ReplaceAll(queryString, "$"+ name, string(encodedValue))
@@ -434,12 +413,7 @@ func makeQueryString(queryString string, variables map[string]interface{}) (stri
 				varName := fmt.Sprintf("\"%s\"", na)
 				queryString = strings.ReplaceAll(queryString, varName, na)
 			}
-		} else if name == "queryText" {
-				// QUESTION: Query
-				varValue := fmt.Sprintf(`%q`, value)
-				queryString = strings.ReplaceAll(queryString, "$"+ name, varValue)
-				//fmt.Println(queryString)
-			} else if valueType == "string" || valueType == "String" {
+		} else if valueType == "string" {
 			varValue := fmt.Sprintf("\"%s\"", fmt.Sprint(value))
 			//type
 			queryString = strings.ReplaceAll(queryString, "$"+ name, varValue)
@@ -505,16 +479,13 @@ func (entityTest *EntityTestCase) generateSearchTest(queryString string, entitie
 	operation := entityTest.operations["search"].(map[string]interface{})
 	//queryStr := operation["type"]
 	var operationName string = operation["type"].(string)
-	//entity := entityMap["entityInput"].(map[string]interface{})
 	vars := make(map[string]interface{})
 	//entityTest.entity == map[string]interface{}
-	//fmt.Println(entityTest.entity)
-	queryText, _ := GenerateRandomSearchQueryText(entityTest.entity)
+	vars["queryText"], _ = GenerateRandomSearchQueryText(entityTest.entity)
 
-	vars["queryText"] = queryText
-	vars["prove"] = false
-	expectedResult := "[]"
-	queryString = makeQueryString(queryString, vars)
+	vars["proof"] = false
+	expectedResult := ""
+		queryString = makeQueryString(queryString, vars)
 	expectedErrors  := gqlerror.List{}
 	return NewGQLTest(schema, queryString, operationName, vars, expectedResult, expectedErrors)
 }
@@ -522,33 +493,24 @@ func (entityTest *EntityTestCase) generateSearchTest(queryString string, entitie
 func GenerateRandomSearchQueryText(entityMap map[string]interface{}) (string, error){
 	//for  Float, int,
 		//generate  filters
-		//randomEntity := make(map[string]interface{})
+		randomEntity := make(map[string]interface{})
 		var filterExpressions = []string{">", ">=", "<", "<="}
 		var name string
 		var varType string
-		//list
-		filters := make([]interface{}, 0)
 		var entityVar map[string]interface{}
-
-
 		for _, eVar := range entityMap {
 			entityVar = eVar.(map[string]interface{})
 			varType = entityVar["type"].(string)
 
-
-			if varType == "Int" || varType == "int" || varType == "Float" {
+			if varType == "Int" || varType == "Float" {
 
 			name = entityVar["name"].(string)
-			value, _ := GenerateRandomOfType(varType)
-			//fmt.Println(randomVar)
-			if value != nil && (rand.Intn(4) > 2) {
-				filterMap := make(map[string]interface{})
-				filterMap["name"] = name
-				filterMap["value"] = value
-				filterExpressionIndex := rand.Intn(len(filterExpressions))
-				filterMap["expression"] = filterExpressions[filterExpressionIndex]
-				filters = append(filters, filterMap)
-				break
+			filterExpressionIndex := rand.Intn(len(filterExpressions))
+			filterExpression := filterExpressions[filterExpressionIndex]
+			fmt.Println(filterExpression)
+			randomVar, _ := GenerateRandomOfType(varType)
+			if randomVar != nil {
+				randomEntity[name] = randomVar
 			}
 		}
 			//fmt.Println(name)
@@ -561,23 +523,7 @@ func GenerateRandomSearchQueryText(entityMap map[string]interface{}) (string, er
 	// 	client.Var("text", "Very important"),
 	// )
 		}
-		filterString , err := JSONMarshal(filters)
-		if err != nil {
-			fmt.Println(filterString)
-			fmt.Println(err)
-			return "", err
-		}
-		//convert to JSON string...
-		//fmt.Println(string(filterString))
-		return string(filterString), nil
-}
-
-func JSONMarshal(t interface{}) ([]byte, error) {
-    buffer := &bytes.Buffer{}
-    encoder := json.NewEncoder(buffer)
-    encoder.SetEscapeHTML(false)
-    err := encoder.Encode(t)
-    return buffer.Bytes(), err
+		return fmt.Sprintf(" %v",randomEntity), nil
 }
 
 
@@ -626,19 +572,16 @@ func GenerateRandomOfType(varType string) (interface{}, error) {
 			return RandomString(32), nil
 		case "Float":
 			//range
-			val := float64(20.0)
-
-			return float64(val), nil
+			return rand.NormFloat64(), nil
 		case "ID":
 			return RandomString(32), nil
 		case "Int":
 			//range
-
-			return rand.Intn(300), nil
-		case "Boolean":
+			return rand.Int(), nil
+		case "Bool":
 			return (rand.Intn(2) != 0), nil
 		default:
-			return "", nil
+			return nil, nil
 	}
 }
 

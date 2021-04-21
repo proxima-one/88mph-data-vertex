@@ -1,0 +1,155 @@
+//import
+import assert from "assert";
+import { expect } from "chai";
+//import { GraphQLClient } from "graphql-request";
+
+import { ethers } from "ethers";
+//import { getSdk } from "../src/generated/models/queries";
+import { convert } from "../src/generated/models/utils";
+import {
+  DPoolList,
+  DPoolListInput,
+  toDPoolListInput,
+  toDPoolList
+} from "../src/generated/models/models";
+import { BigNumber, BigNumberish } from "ethers";
+
+//https://github.com/ardeois/graphql-codegen-typescript-mock-data
+
+//list of type conversion pairings
+//BigInt, Number, String, BigNumber, Boolean (return value, if you don't narrow down type), Object, Array
+//
+const randNum = Math.floor(Math.random() * 100000);
+const amount = ethers.utils.parseUnits(randNum.toString(), 18);
+let generatedFromValue = amount;
+let expectedTo = amount.toString();
+let test_array: any[] = [];
+let against: string[] = [];
+
+var dpoolList: DPoolList;
+var dpoolListInput: DPoolListInput;
+var dpoolListInputQuery: DPoolListInput;
+
+function makeDefaultDPoolList(): DPoolList {
+  //class DPoolList
+  let dpoolList: DPoolList = new DPoolList("dpoolListID");
+  dpoolList.numActiveUsers = BigInt(0);
+  dpoolList.numUsers = BigInt(0);
+  dpoolList.numFunders = BigInt(0);
+  dpoolList.numPools = BigInt(1);
+  dpoolList.poolIds = ["dpoolID"];
+  dpoolList.__typename = "DPoolList";
+  //dpoolList.numActiveDeposits = 0;
+  return dpoolList;
+}
+
+function makeDefaultDPoolListInput(): DPoolListInput {
+  let dpoolListInput: DPoolListInput = {
+    __typename: "DPoolListInput",
+    id: "dpoolListID",
+    numActiveUsers: 0,
+    numPools: 0,
+    //numPools convert to Int
+    numUsers: 0, // convert to Int
+    numFunders: 0,
+    DPoolIDs: ["dpoolID"]
+    //numFunders  = numFunders convert to Int
+    //DPoolIDs = poolIds
+  };
+
+  return dpoolListInput as DPoolListInput;
+}
+
+function makeDefaultDPoolListInputQuery(): DPoolListInput {
+  let dpoolListInput: DPoolListInput = {
+    __typename: "DPoolListInput",
+    id: "dpoolListID",
+    numActiveUsers: 0,
+    numPools: 0,
+    //numPools convert to Int
+    numUsers: 0, // convert to Int
+    numFunders: 0,
+    DPoolIDs: ["dpoolID"]
+    //numFunders  = numFunders convert to Int
+    //DPoolIDs = poolIds
+  };
+
+  return dpoolListInput as DPoolListInput;
+}
+
+function isDPoolList(obj: any): boolean {
+  //check class
+
+  //check type
+  return obj && obj.__typename && obj.__typename == "DPoolList";
+}
+
+function isDPoolListInput(obj: any): boolean {
+  return obj && obj.__typename && obj.__typename == "DPoolListInput";
+}
+
+describe("testing utils for conversions", async function() {
+  describe("Converting between DPoolList and DPoolListInput", async function() {
+    // before(() => {
+    //   dpoolList = makeDefaultDPoolList();
+    //   dpoolListInput = makeDefaultDPoolListInput();
+    //   dpoolListInputQuery = makeDefaultDPoolListInputQuery();
+    // });
+    //for ... in
+    it("Should be able to create DPoolList and DPoolList Input", async function() {
+      dpoolList = makeDefaultDPoolList();
+      dpoolListInput = makeDefaultDPoolListInput();
+      dpoolListInputQuery = makeDefaultDPoolListInputQuery();
+      //console.log(dpoolList.__typename);
+      //console.log(dpoolListInput.__typename);
+      assert(isDPoolList(dpoolList));
+      assert(isDPoolListInput(dpoolListInput));
+      //load args
+    });
+
+    it("Should be able to get the save args from DPool", async function() {
+      let resultDPoolListInput = toDPoolListInput(dpoolList);
+      assert(isDPoolListInput(resultDPoolListInput));
+
+      let resultDPoolList = toDPoolList(resultDPoolListInput);
+      assert(isDPoolList(resultDPoolList));
+    });
+
+    it("Should be able to get the load args from DPoolInput and entries", async function() {
+      let resultDPoolList = toDPoolList(dpoolListInput);
+      assert(isDPoolList(resultDPoolList));
+
+      let resultDPoolListQueryResp = toDPoolList(dpoolListInputQuery);
+      assert(isDPoolList(resultDPoolListQueryResp));
+
+      let resultDPoolListInput = toDPoolListInput(resultDPoolList);
+      //assert(isDPoolListInput(resultDPoolListInput));
+    });
+
+    it("Should be able to use .save(), and load()", async function() {
+      let resultDPoolListInput = dpoolList._getSaveArgs();
+      assert(isDPoolListInput(resultDPoolListInput));
+    });
+  });
+});
+
+// function generateRandom(typeA: string) [typeA, typeB] {
+//
+// }
+
+// function randomString(length) {
+//     var result           = [];
+//     var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+//     var charactersLength = characters.length;
+//     for ( var i = 0; i < length; i++ ) {
+//       result.push(characters.charAt(Math.floor(Math.random() *
+//  charactersLength)));
+//    }
+//    return result.join('');
+// }
+
+//random of type
+
+//function Proxy
+
+//assertion

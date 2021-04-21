@@ -1,22 +1,22 @@
-version: '3'
+version: "3"
 services:
   data_vertex_node:
-    #build: './DataVertex'
-    image: chasesmith95/88mph-data-vertex_data_vertex_node:latest
+    build: "./DataVertex"
+    #image: chasesmith95/88mph-data-vertex_data_vertex_node:latest
     ports:
-      - '4000:4000'
+      - "4000:4000"
     depends_on:
       - db
     environment:
       - DB_ADDRESS=db
       - DB_PORT=50051
   db:
-    image: 'chasesmith95/proxima-db-server:latest'
+    image: "chasesmith95/proxima-db-server:latest"
     restart: unless-stopped
     volumes:
-      - '/tmp/opt/binance-data:/opt/bnbchaind'
+      - "/tmp/opt/binance-data:/opt/bnbchaind"
     ports:
-      - '50051:50051'
+      - "50051:50051"
   # data_aggregator:
   #   build: ./DataAggregator
   #   restart: unless-stopped

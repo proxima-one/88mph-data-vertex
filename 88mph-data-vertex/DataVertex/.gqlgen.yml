@@ -17,8 +17,6 @@ model:
   filename: pkg/models/models_gen.go
   package: models
 
-
-
 # Where should the resolver implementations go?
 resolver:
   layout: follow-schema
@@ -57,7 +55,7 @@ models:
       - github.com/99designs/gqlgen/graphql.Int32
   Float:
     model:
-      c
+      - github.com/99designs/gqlgen/graphql.Float
   Time:
     model:
       - github.com/99designs/gqlgen/graphql.Time
@@ -76,9 +74,5 @@ models:
       - github.com/99designs/gqlgen/graphql.Float
   #   model:
   #     - github.com/99designs/gqlgen/graphql.
-  DPool:
-    model: github.com/proxima-one/88mph-data-vertex/pkg/models/models.DPool # go import path to the User
-  DPoolInput:
-    model:  github.com/proxima-one/88mph-data-vertex/pkg/models/models.DPoolInput # go import path to the User
 #uint
 #BigInt
