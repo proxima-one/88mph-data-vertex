@@ -229,7 +229,7 @@ export function parseBigNumber(val: any): Maybe<BigNumber> {
 }
 
 export function parseString(val: any): Maybe<String> {
-  //console.log("parsing string");
+  console.log("parsing string");
   //console.log(val);
   //console.log(typeof val);
   switch (typeof val) {

@@ -12,7 +12,7 @@ query DPoolList($id: ID!, $prove: Boolean) {
 
 
 mutation UpdateDPoolList($input: DPoolListInput!) {
-  updateDPoolList(input: $input)
+  UpdateDPoolList(input: $input)
 }
 query DPool($id: ID!, $prove: Boolean) {
   DPool(id: $id, prove: $prove) {

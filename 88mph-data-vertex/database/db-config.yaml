@@ -7,6 +7,7 @@ config:
   compression: 36h
   batching: 5s
   sleep: 10m
+  cacheExpiration: 5m
 tables:
   - name: DPoolLists
     id: DefaultDB-DPoolLists

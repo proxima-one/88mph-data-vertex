@@ -212,12 +212,32 @@ func (r *fundingResolver) Pool(ctx context.Context, obj *models.Funding) (*model
 }
 
 func (r *mutationResolver) UpdateDPoolList(ctx context.Context, input models.DPoolListInput) (*bool, error) {
-
 	args := DefaultInputs
-	table, _ := r.db.GetTable("DefaultDB-DPoolLists")
-	_, err := table.Put(*input.ID, input, args["prove"].(bool), args)
+	fmt.Println("input id")
+
+	fmt.Println(fmt.Sprintf(*input.ID))
+	jsonMarshal, marshalErr := json.Marshal(input)
+	if marshalErr != nil {
+		fmt.Println("Marhsal Error")
+		fmt.Println(marshalErr)
+	}
+	fmt.Println(string(jsonMarshal))
 	boolResult := true
+	table, tableErr := r.db.GetTable("DefaultDB-DPoolLists")
+	if tableErr != nil || table == nil {
+		boolResult = false
+		fmt.Println("Table Error")
+		fmt.Println(tableErr)
+		fmt.Println(table)
+		return &boolResult, tableErr
+	}
+	//marshal the input into JSON/clean the input
+	//json.Marshal(input)
+	_, err := table.Put(*input.ID, string(jsonMarshal), args["prove"].(bool), args)
+
 	if err != nil {
+		fmt.Println("Error with input")
+		fmt.Println(err)
 		boolResult = false
 	}
 	return &boolResult, err
@@ -351,13 +371,20 @@ func (r *queryResolver) DPoolList(ctx context.Context, id string, prove *bool) (
 		args["prove"] = *prove
 	}
 	args["id"] = id
-	//table, _ := r.db.GetTable("DPoolLists")
-	result, err := r.db.Get("DefaultDB-DPoolLists", id, args)
-	fmt.Println("result")
-	fmt.Println(result)
+	table, tableErr := r.db.GetTable("DefaultDB-DPoolLists")
+	if tableErr != nil || table == nil {
+		fmt.Println("Table Error")
+		fmt.Println(tableErr)
+		return nil, tableErr
+	}
+	result, err := table.Get(id, args["prove"].(bool))
 	if err != nil {
+		fmt.Println("Result Error")
+		fmt.Println(err)
 		return nil, err
 	}
+	fmt.Println("Result get ")
+	fmt.Println(result)
 	data := result.GetValue()
 	var val models.DPoolList
 	err = json.Unmarshal(data, &val)
@@ -397,6 +424,7 @@ func (r *queryResolver) DPoolLists(ctx context.Context, where *string, orderBy *
 	if where != nil {
 		args["where"] = *where
 	}
+
 	table, _ := r.db.GetTable("DPoolLists")
 	result, err := table.Search(args["where"].(string), args["order_by"].(string), args["direction"].(bool), args["first"].(int), args["last"].(int), args["prove"].(bool), args)
 	if err != nil {

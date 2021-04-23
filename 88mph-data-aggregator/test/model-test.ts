@@ -4,7 +4,7 @@ import { expect } from "chai";
 //import { GraphQLClient } from "graphql-request";
 
 import { ethers } from "ethers";
-//import { getSdk } from "../src/generated/models/queries";
+import { getSdk } from "../src/generated/models/queries";
 import { convert } from "../src/generated/models/utils";
 import {
   DPoolList,
@@ -13,6 +13,7 @@ import {
   toDPoolList
 } from "../src/generated/models/models";
 import { BigNumber, BigNumberish } from "ethers";
+import { GraphQLClient } from "graphql-request";
 
 //https://github.com/ardeois/graphql-codegen-typescript-mock-data
 
@@ -136,8 +137,42 @@ describe("testing utils for conversions", async function() {
       dpoolList = makeDefaultDPoolList();
       dpoolListInput = makeDefaultDPoolListInput();
       dpoolListInputQuery = makeDefaultDPoolListInputQuery();
+      //console.log(dpoolListInput.id);
+      //console.log(typeof dpoolListInput.id);
       let resultDPoolListInput = dpoolList._getSaveArgs();
       assert(isDPoolListInput(resultDPoolListInput));
+    });
+  });
+
+  describe("Converting between DPoolList and DPoolListInput", async function() {
+    it("Should be able to load and save from the data vertex", async function() {
+      //connect to client
+      let endpoint = "http://0.0.0.0:4000/query";
+      const client = new GraphQLClient(endpoint, { headers: {} });
+      //test client connection
+      console.log(client);
+      const sdk = getSdk(client);
+
+      dpoolList = makeDefaultDPoolList();
+      dpoolListInput = makeDefaultDPoolListInput();
+      dpoolListInputQuery = makeDefaultDPoolListInputQuery();
+      //dpoolList.save();
+      //let dpoolQuery = await sdk.UpdateDPoolList({ input: {} });
+      //console.log(dpoolQuery);
+      let dpoolQuery1 = await sdk.UpdateDPoolList({
+        input: {
+          id: dpoolListInput.id,
+          numPools: dpoolListInput.numPools,
+          numFunders: dpoolListInput.numFunders
+          //numUsers: dpoolListInput.numUsers,
+          //DPoolIDs: dpoolListInput.DPoolIDs
+        }
+        //dpoolListInput
+      });
+      console.log(dpoolQuery1);
+      let dpoolResult = DPoolList.load("dpoolListID");
+      assert(dpoolResult != null);
+      console.log(dpoolResult.__typename);
     });
   });
 });

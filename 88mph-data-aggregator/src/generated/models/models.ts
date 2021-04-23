@@ -545,7 +545,7 @@ export type QueryMPHSearchArgs = {
 
 export class Mutation {
   __typename?: "Mutation";
-  updateDPoolList?: Maybe<Scalars["Boolean"]>;
+  UpdateDPoolList?: Maybe<Scalars["Boolean"]>;
   updateDPool?: Maybe<Scalars["Boolean"]>;
   updateUser?: Maybe<Scalars["Boolean"]>;
   updateUserTotalDeposit?: Maybe<Scalars["Boolean"]>;
@@ -557,7 +557,7 @@ export class Mutation {
   updateMPH?: Maybe<Scalars["Boolean"]>;
 }
 
-export type MutationupdateDPoolListArgs = {
+export type MutationUpdateDPoolListArgs = {
   input: DPoolListInput;
 };
 
@@ -613,7 +613,7 @@ export function toDPoolListInput(pool: DPoolList): DPoolListInput {
   let dpoolListInput: DPoolListInput = {
     __typename: "DPoolListInput",
     id: pool.id,
-    numActiveUsers: parseInt(pool.numActiveUsers) || null,
+    numActiveUsers: parseInt(pool.numActiveUsers),
     numPools: parseInt(pool.numPools), //int
     numUsers: parseInt(pool.numUsers), // convert to Int
     numFunders: parseInt(pool.numFunders),
@@ -671,7 +671,7 @@ export class DPoolList {
       //entries &&
       let value = result.data.DPoolList;
       //value.__typename = "DPoolListInput";
-      return toDPoolList(value) || null;
+      return toDPoolList(value);
     }
     return null;
   }
@@ -682,7 +682,7 @@ export class DPoolList {
     gqlFetch(operationDocument, saveVariables);
   }
   _getSaveArgs(): DPoolListInput {
-    return toDPoolListInput(this) || ({} as DPoolListInput);
+    return toDPoolListInput(this);
   }
 }
 
@@ -738,7 +738,7 @@ export class DPool {
   save(): void {
     var operationDocument = UpdateDPoolDocument;
     var saveVariables = { input: this._getSaveArgs() };
-    console.log(saveVariables, this._getSaveArgs());
+    console.log(saveVariables);
     gqlFetch(operationDocument, saveVariables);
   }
 
@@ -1779,12 +1779,15 @@ export type DPoolListQuery = { __typename?: "Query" } & {
 };
 
 export type UpdateDPoolListMutationVariables = Exact<{
-  input: DPoolListInput;
+  input: Pick<
+    DPoolListInput,
+    "id" | "numPools" | "numUsers" | "numActiveUsers" | "numFunders"
+  >;
 }>;
 
 export type UpdateDPoolListMutation = { __typename?: "Mutation" } & Pick<
   Mutation,
-  "updateDPoolList"
+  "UpdateDPoolList"
 >;
 
 export type DPoolQueryVariables = Exact<{

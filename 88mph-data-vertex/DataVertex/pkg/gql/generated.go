@@ -1756,16 +1756,16 @@ MPHSearch(queryText: String!, prove: Boolean): [MPH]!
 }
 
 type Mutation {
-updateDPoolList(input: DPoolListInput!): Boolean 
-updateDPool(input: DPoolInput!): Boolean 
-updateUser(input: UserInput!): Boolean 
-updateUserTotalDeposit(input: UserTotalDepositInput!): Boolean 
-updateDeposit(input: DepositInput!): Boolean 
-updateFunder(input: FunderInput!): Boolean 
-updateFunderTotalInterest(input: FunderTotalInterestInput!): Boolean 
-updateFunding(input: FundingInput!): Boolean 
-updateMPHHolder(input: MPHHolderInput!): Boolean 
-updateMPH(input: MPHInput!): Boolean 
+updateDPoolList(input: DPoolListInput!): Boolean
+updateDPool(input: DPoolInput!): Boolean
+updateUser(input: UserInput!): Boolean
+updateUserTotalDeposit(input: UserTotalDepositInput!): Boolean
+updateDeposit(input: DepositInput!): Boolean
+updateFunder(input: FunderInput!): Boolean
+updateFunderTotalInterest(input: FunderTotalInterestInput!): Boolean
+updateFunding(input: FundingInput!): Boolean
+updateMPHHolder(input: MPHHolderInput!): Boolean
+updateMPH(input: MPHInput!): Boolean
 
 }
 
@@ -1777,11 +1777,10 @@ numUsers: Int
 numActiveUsers: Int
 numFunders: Int
 proof: Proof
-} 
+}
 
 input DPoolListInput {
 id: ID
-
 numPools: Int
 numUsers: Int
 numActiveUsers: Int
@@ -1820,7 +1819,7 @@ surplus: String
 moneyMarketIncomeIndex: String
 oracleInterestRate: String
 proof: Proof
-} 
+}
 
 input DPoolInput {
 id: ID
@@ -1867,7 +1866,7 @@ totalDepositByPool: [UserTotalDeposit]  @goField(forceResolver: true)
 totalMPHEarned: String
 totalMPHPaidBack: String
 proof: Proof
-} 
+}
 
 input UserInput {
 id: ID
@@ -1892,7 +1891,7 @@ totalHistoricalDeposit: String
 totalInterestEarned: String
 totalHistoricalInterestEarned: String
 proof: Proof
-} 
+}
 
 input UserTotalDepositInput {
 id: ID
@@ -1920,7 +1919,7 @@ mintMPHAmount: String
 takeBackMPHAmount: String
 initialMoneyMarketIncomeIndex: String
 proof: Proof
-} 
+}
 
 input DepositInput {
 id: ID
@@ -1949,7 +1948,7 @@ numFundings: String
 totalMPHEarned: String
 totalInterestByPool: [FunderTotalInterest]  @goField(forceResolver: true)
 proof: Proof
-} 
+}
 
 input FunderInput {
 id: ID
@@ -1973,7 +1972,7 @@ totalInterestEarned: String
 totalHistoricalInterestEarned: String
 totalRecordedFundedDepositAmount: String
 proof: Proof
-} 
+}
 
 input FunderTotalInterestInput {
 id: ID
@@ -2002,7 +2001,7 @@ fundedDeficitAmount: String
 totalInterestEarned: String
 mintMPHAmount: String
 proof: Proof
-} 
+}
 
 input FundingInput {
 id: ID
@@ -2028,7 +2027,7 @@ mphBalance: String
 stakedMPHBalance: String
 totalHistoricalReward: String
 proof: Proof
-} 
+}
 
 input MPHHolderInput {
 id: ID
@@ -2047,7 +2046,7 @@ totalHistoricalReward: String
 rewardPerSecond: String
 rewardPerMPHPerSecond: String
 proof: Proof
-} 
+}
 
 input MPHInput {
 id: ID
@@ -10157,14 +10156,6 @@ func (ec *executionContext) unmarshalInputDPoolListInput(ctx context.Context, ob
 
 			ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("numFunders"))
 			it.NumFunders, err = ec.unmarshalOInt2ᚖint(ctx, v)
-			if err != nil {
-				return it, err
-			}
-		case "ProofID":
-			var err error
-
-			ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("ProofID"))
-			it.ProofID, err = ec.unmarshalOString2ᚖstring(ctx, v)
 			if err != nil {
 				return it, err
 			}

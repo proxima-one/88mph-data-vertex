@@ -79,11 +79,7 @@ export const aDPoolListInput = (
     numFunders:
       overrides && overrides.hasOwnProperty("numFunders")
         ? overrides.numFunders!
-        : 8048,
-    ProofID:
-      overrides && overrides.hasOwnProperty("ProofID")
-        ? overrides.ProofID!
-        : "dolor"
+        : 8048
   };
 };
 

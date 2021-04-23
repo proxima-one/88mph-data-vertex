@@ -3,17 +3,17 @@
 package models
 
 type DPool struct {
-  UserIDs    []string    `json:"userIds"`
-  DepositIDs    []string    `json:"depositIds"`
-  FunderIDs    []string    `json:"funderIds"`
-  FundingIDs    []string    `json:"fundingIds"`
+	UserIDs    []string `json:"userIds"`
+	DepositIDs []string `json:"depositIds"`
+	FunderIDs  []string `json:"funderIds"`
+	FundingIDs []string `json:"fundingIds"`
 
 	ID                           *string    `json:"id"`
 	Address                      *string    `json:"address"`
 	MoneyMarket                  *string    `json:"moneyMarket"`
 	Stablecoin                   *string    `json:"stablecoin"`
 	InterestModel                *string    `json:"interestModel"`
-	Users                        []*User//  `json:"users"`
+	Users                        []*User    //  `json:"users"`
 	NumUsers                     *int       `json:"numUsers"`
 	Deposits                     []*Deposit `json:"deposits"`
 	NumDeposits                  *int       `json:"numDeposits"`
@@ -22,7 +22,7 @@ type DPool struct {
 	TotalHistoricalDeposit       *string    `json:"totalHistoricalDeposit"`
 	TotalInterestPaid            *string    `json:"totalInterestPaid"`
 	UnfundedDepositAmount        *string    `json:"unfundedDepositAmount"`
-	Funders                      []*Funder//`json:"funders"`
+	Funders                      []*Funder  //`json:"funders"`
 	NumFunders                   *string    `json:"numFunders"`
 	Fundings                     []*Funding `json:"fundings"`
 	NumFundings                  *string    `json:"numFundings"`
@@ -37,7 +37,7 @@ type DPool struct {
 	Surplus                      *string    `json:"surplus"`
 	MoneyMarketIncomeIndex       *string    `json:"moneyMarketIncomeIndex"`
 	OracleInterestRate           *string    `json:"oracleInterestRate"`
-	Proof                        *Proof//     `json:"proof"`
+	Proof                        *Proof     //     `json:"proof"`
 }
 
 type DPoolInput struct {
@@ -70,34 +70,34 @@ type DPoolInput struct {
 }
 
 type DPoolList struct {
-  DPoolIDs    []string    `json:"dPoolIds"`
+	DPoolIDs []string `json:"dPoolIds,omitempty"`
 
 	ID             *string  `json:"id"`
-	Pools          []*DPool `json:"pools"`
-	NumPools       *int     `json:"numPools"`
-	NumUsers       *int     `json:"numUsers"`
-	NumActiveUsers *int     `json:"numActiveUsers"`
-	NumFunders     *int     `json:"numFunders"`
-	Proof          *Proof//   `json:"proof"`
+	Pools          []*DPool //`json:"pools"`
+	NumPools       *int     `json:"numPools,omitempty"`
+	NumUsers       *int     `json:"numUsers,omitempty"`
+	NumActiveUsers *int     `json:"numActiveUsers,omitempty"`
+	NumFunders     *int     `json:"numFunders,omitempty"`
+	Proof          *Proof   //   `json:"proof"`
 }
 
 type DPoolListInput struct {
 	ID             *string `json:"id"`
-	NumPools       *int    `json:"numPools"`
-	NumUsers       *int    `json:"numUsers"`
-	NumActiveUsers *int    `json:"numActiveUsers"`
-	NumFunders     *int    `json:"numFunders"`
-	ProofID        *string `json:"ProofID"`
+	NumPools       *int    `json:"numPools,omitempty"`
+	NumUsers       *int    `json:"numUsers,omitempty"`
+	NumActiveUsers *int    `json:"numActiveUsers,omitempty"`
+	NumFunders     *int    `json:"numFunders,omitempty"`
+	//DPoolIDs       []string `json:"dPoolIds"`
 }
 
 type Deposit struct {
-  UserID    string    `json:"userId"`
-  DPoolID    string    `json:"dPoolId"`
+	UserID  string `json:"userId"`
+	DPoolID string `json:"dPoolId"`
 
 	ID                            *string `json:"id"`
 	NftID                         *string `json:"nftID"`
-	User                          *User// `json:"user"`
-	Pool                          *DPool//`json:"pool"`
+	User                          *User   // `json:"user"`
+	Pool                          *DPool  //`json:"pool"`
 	Amount                        *string `json:"amount"`
 	MaturationTimestamp           *string `json:"maturationTimestamp"`
 	Active                        *bool   `json:"active"`
@@ -107,7 +107,7 @@ type Deposit struct {
 	MintMPHAmount                 *string `json:"mintMPHAmount"`
 	TakeBackMPHAmount             *string `json:"takeBackMPHAmount"`
 	InitialMoneyMarketIncomeIndex *string `json:"initialMoneyMarketIncomeIndex"`
-	Proof                         *Proof//  `json:"proof"`
+	Proof                         *Proof  //  `json:"proof"`
 }
 
 type DepositInput struct {
@@ -126,19 +126,19 @@ type DepositInput struct {
 }
 
 type Funder struct {
-  DPoolIDs    []string    `json:"dPoolIds"`
-  FundingIDs    []string    `json:"fundingIds"`
-  FunderTotalInterestIDs    []string    `json:"funderTotalInterestIds"`
+	DPoolIDs               []string `json:"dPoolIds"`
+	FundingIDs             []string `json:"fundingIds"`
+	FunderTotalInterestIDs []string `json:"funderTotalInterestIds"`
 
 	ID                  *string                `json:"id"`
 	Address             *string                `json:"address"`
-	Pools               []*DPool//             `json:"pools"`
+	Pools               []*DPool               //             `json:"pools"`
 	NumPools            *string                `json:"numPools"`
-	Fundings            []*Funding//           `json:"fundings"`
+	Fundings            []*Funding             //           `json:"fundings"`
 	NumFundings         *string                `json:"numFundings"`
 	TotalMPHEarned      *string                `json:"totalMPHEarned"`
 	TotalInterestByPool []*FunderTotalInterest `json:"totalInterestByPool"`
-	Proof               *Proof//                 `json:"proof"`
+	Proof               *Proof                 //                 `json:"proof"`
 }
 
 type FunderInput struct {
@@ -151,18 +151,18 @@ type FunderInput struct {
 }
 
 type FunderTotalInterest struct {
-  FunderID    string    `json:"funderId"`
-  DPoolID    string    `json:"dPoolId"`
+	FunderID string `json:"funderId"`
+	DPoolID  string `json:"dPoolId"`
 
 	ID                               *string `json:"id"`
 	Funder                           *Funder `json:"funder"`
-	Pool                             *DPool//`json:"pool"`
+	Pool                             *DPool  //`json:"pool"`
 	TotalDeficitFunded               *string `json:"totalDeficitFunded"`
 	TotalHistoricalDeficitFunded     *string `json:"totalHistoricalDeficitFunded"`
 	TotalInterestEarned              *string `json:"totalInterestEarned"`
 	TotalHistoricalInterestEarned    *string `json:"totalHistoricalInterestEarned"`
 	TotalRecordedFundedDepositAmount *string `json:"totalRecordedFundedDepositAmount"`
-	Proof                            *Proof//  `json:"proof"`
+	Proof                            *Proof  //  `json:"proof"`
 }
 
 type FunderTotalInterestInput struct {
@@ -176,13 +176,13 @@ type FunderTotalInterestInput struct {
 }
 
 type Funding struct {
-  FunderID    string    `json:"funderId"`
-  DPoolID    string    `json:"dPoolId"`
+	FunderID string `json:"funderId"`
+	DPoolID  string `json:"dPoolId"`
 
 	ID                             *string `json:"id"`
 	NftID                          *string `json:"nftID"`
 	Funder                         *Funder `json:"funder"`
-	Pool                           *DPool//`json:"pool"`
+	Pool                           *DPool  //`json:"pool"`
 	FromDepositID                  *string `json:"fromDepositID"`
 	ToDepositID                    *string `json:"toDepositID"`
 	Active                         *bool   `json:"active"`
@@ -192,7 +192,7 @@ type Funding struct {
 	FundedDeficitAmount            *string `json:"fundedDeficitAmount"`
 	TotalInterestEarned            *string `json:"totalInterestEarned"`
 	MintMPHAmount                  *string `json:"mintMPHAmount"`
-	Proof                          *Proof//  `json:"proof"`
+	Proof                          *Proof  //  `json:"proof"`
 }
 
 type FundingInput struct {
@@ -217,17 +217,16 @@ type Mph struct {
 	TotalHistoricalReward *string `json:"totalHistoricalReward"`
 	RewardPerSecond       *string `json:"rewardPerSecond"`
 	RewardPerMPHPerSecond *string `json:"rewardPerMPHPerSecond"`
-	Proof                 *Proof//  `json:"proof"`
+	Proof                 *Proof  //  `json:"proof"`
 }
 
 type MPHHolder struct {
-
 	ID                    *string `json:"id"`
 	Address               *string `json:"address"`
 	MphBalance            *string `json:"mphBalance"`
 	StakedMPHBalance      *string `json:"stakedMPHBalance"`
 	TotalHistoricalReward *string `json:"totalHistoricalReward"`
-	Proof                 *Proof//  `json:"proof"`
+	Proof                 *Proof  //  `json:"proof"`
 }
 
 type MPHHolderInput struct {
@@ -255,21 +254,21 @@ type Proof struct {
 }
 
 type User struct {
-  DPoolIDs    []string    `json:"dPoolIds"`
-  DepositIDs    []string    `json:"depositIds"`
-  UserTotalDepositIDs    []string    `json:"userTotalDepositIds"`
+	DPoolIDs            []string `json:"dPoolIds"`
+	DepositIDs          []string `json:"depositIds"`
+	UserTotalDepositIDs []string `json:"userTotalDepositIds"`
 
 	ID                 *string             `json:"id"`
 	Address            *string             `json:"address"`
-	Pools              []*DPool//          `json:"pools"`
+	Pools              []*DPool            //          `json:"pools"`
 	NumPools           *string             `json:"numPools"`
-	Deposits           []*Deposit//        `json:"deposits"`
+	Deposits           []*Deposit          //        `json:"deposits"`
 	NumDeposits        *string             `json:"numDeposits"`
 	NumActiveDeposits  *string             `json:"numActiveDeposits"`
 	TotalDepositByPool []*UserTotalDeposit `json:"totalDepositByPool"`
 	TotalMPHEarned     *string             `json:"totalMPHEarned"`
 	TotalMPHPaidBack   *string             `json:"totalMPHPaidBack"`
-	Proof              *Proof//              `json:"proof"`
+	Proof              *Proof              //              `json:"proof"`
 }
 
 type UserInput struct {
@@ -284,17 +283,17 @@ type UserInput struct {
 }
 
 type UserTotalDeposit struct {
-  UserID    string    `json:"userId"`
-  DPoolID    string    `json:"dPoolId"`
+	UserID  string `json:"userId"`
+	DPoolID string `json:"dPoolId"`
 
 	ID                            *string `json:"id"`
-	User                          *User// `json:"user"`
-	Pool                          *DPool//`json:"pool"`
+	User                          *User   // `json:"user"`
+	Pool                          *DPool  //`json:"pool"`
 	TotalActiveDeposit            *string `json:"totalActiveDeposit"`
 	TotalHistoricalDeposit        *string `json:"totalHistoricalDeposit"`
 	TotalInterestEarned           *string `json:"totalInterestEarned"`
 	TotalHistoricalInterestEarned *string `json:"totalHistoricalInterestEarned"`
-	Proof                         *Proof//  `json:"proof"`
+	Proof                         *Proof  //  `json:"proof"`
 }
 
 type UserTotalDepositInput struct {

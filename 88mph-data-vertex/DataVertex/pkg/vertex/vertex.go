@@ -1,7 +1,6 @@
 package vertex
 
 import (
-	"context"
 	"io/ioutil"
 
 	"github.com/99designs/gqlgen/graphql"
@@ -76,7 +75,7 @@ func ConvertMapTo(inputMap map[interface{}]interface{}) map[string]interface{} {
 		valueType := fmt.Sprintf("%T", value)
 		newValue := value
 		if valueType == "map[interface  {}]interface {}" {
-			fmt.Println(value)
+			//fmt.Println(value)
 			var strMap map[string]interface{} = ConvertMapTo(value.(map[interface{}]interface{}))
 			configMap[key] = strMap
 			//fmt.Println(fmt.Sprintf("Value of map: %T", strMap))
@@ -174,13 +173,13 @@ func LoadDirectives(c gql.Config) gql.Config {
 	// directive @useDefaultArgs on MUTATION | SUBSCRIPTION | QUERY
 	// directive @hasRole(role: Role!) on MUTATION
 
-	c.Directives.HasAuthentication = func(ctx context.Context, obj interface{}, next graphql.Resolver) (interface{}, error) {
-		// 	if !getCurrentUser(ctx).HasRole(role) {
-		// // 		// block calling the next resolver
-		// 		return nil, fmt.Errorf("Access denied")
-		// 	}
-		return next(ctx)
-	}
+	// c.Directives.HasAuthentication = func(ctx context.Context, obj interface{}, next graphql.Resolver) (interface{}, error) {
+	// 	if !getCurrentUser(ctx).HasRole(role) {
+	// // 		// block calling the next resolver
+	// 		return nil, fmt.Errorf("Access denied")
+	// 	}
+	// 	return next(ctx)
+	// }
 	return c
 }
 
@@ -199,7 +198,11 @@ func CreateApplicationDatabase(db_config map[string]interface{}) (*proxima.Proxi
 		fmt.Println(err)
 		return nil, err
 	}
-	proximaDB.Open()
+	_, err = proximaDB.Open()
+	if err != nil {
+		fmt.Println(err)
+		return nil, err
+	}
 	//proximaDB.Sync()
 	return proximaDB, nil
 }
