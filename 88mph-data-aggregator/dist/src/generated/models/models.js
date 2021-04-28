@@ -1,63 +1,75 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UpdateMPHDocument = exports.MPHDocument = exports.UpdateMPHHolderDocument = exports.MPHHolderDocument = exports.UpdateFundingDocument = exports.FundingDocument = exports.UpdateFunderTotalInterestDocument = exports.FunderTotalInterestDocument = exports.UpdateFunderDocument = exports.FunderDocument = exports.UpdateDepositDocument = exports.DepositDocument = exports.UpdateUserTotalDepositDocument = exports.UserTotalDepositDocument = exports.UpdateUserDocument = exports.UserDocument = exports.UpdateDPoolDocument = exports.DPoolDocument = exports.UpdateDPoolListDocument = exports.DPoolListDocument = exports.dpoolsLatestDepositsDocument = exports.dpoolsLatestDocument = exports.funderDocument = exports.dpoolsDocument = exports.userDocument = exports.Funder = exports.Proof = exports.MPH = exports.MPHHolder = exports.Funding = exports.FunderTotalInterest = exports.Deposit = exports.UserTotalDeposit = exports.User = exports.DPool = exports.DPoolList = exports.Mutation = void 0;
-var DataVertexClient_1 = require("../../lib/DataVertexClient");
-function convertArray(valueArr, newValue) {
-    return valueArr.map(function (prop) {
-        convert(prop);
-    });
-}
-function convert(value, newValue) {
-    // if (value instanceof Array) {
-    //   return convertArray(value, newValue)
-    // }
-    console.log("Values");
-    console.log(value);
-    //check if new value is a class
-    if (value) {
-        return newValue;
-    }
-    //check if value has id
-    //if value has id
-    //convert to string
-    //if type is string
-    //toString
-    //check numbers
-    //
-    //check
-    return null;
-}
-function getNameInSaveArgs(name, args) {
-    //name
-    //determine the name and type that the value should be.
-    //convert to the type needed...
-    var plural = "";
-    if (name.lastIndexOf("s") == name.length - 1) {
-        plural = "s";
-        name = name.slice(name.length - 1);
-    }
-    //get new name and set plural
-    var fieldIdName = lowercaseFirstLetter(name + "ID" + plural);
-    var fieldIDName = lowercaseFirstLetter(name + "Id" + plural);
-    var fieldReplaceIdwithID = lowercaseFirstLetter(name.replace("Id", "ID"));
-    var names = [name, fieldIdName, fieldIDName, fieldReplaceIdwithID];
-    //add to the save args value
-    for (var _i = 0, names_1 = names; _i < names_1.length; _i++) {
-        var n = names_1[_i];
-        if (n in args) {
-            return n;
+exports.FunderDocument = exports.UpdateDepositDocument = exports.DepositDocument = exports.UpdateUserTotalDepositDocument = exports.UserTotalDepositDocument = exports.UpdateUserDocument = exports.UserDocument = exports.UpdateDPoolDocument = exports.DPoolDocument = exports.UpdateDPoolListDocument = exports.DPoolListDocument = exports.toVestInput = exports.toVest = exports.Vest = exports.toUserTotalDepositInput = exports.toUserTotalDeposit = exports.UserTotalDeposit = exports.toUserInput = exports.toUser = exports.User = exports.Query = exports.Proof = exports.Mutation = exports.toMPHHolderInput = exports.toMPHHolder = exports.MPHHolder = exports.toMPHInput = exports.toMPH = exports.MPH = exports.toFundingInput = exports.toFunding = exports.Funding = exports.toFunderTotalInterestInput = exports.toFunderTotalInterest = exports.FunderTotalInterest = exports.toFunderInput = exports.toFunder = exports.Funder = exports.toFractionalDepositInput = exports.toFractionalDeposit = exports.FractionalDeposit = exports.toDepositInput = exports.toDeposit = exports.Deposit = exports.toDPoolListInput = exports.toDPoolList = exports.DPoolList = exports.toDPoolInput = exports.toDPool = exports.DPool = void 0;
+exports.UpdateFractionalDepositDocument = exports.FractionalDepositDocument = exports.UpdateVestDocument = exports.VestDocument = exports.UpdateMPHDocument = exports.MPHDocument = exports.UpdateMPHHolderDocument = exports.MPHHolderDocument = exports.UpdateFundingDocument = exports.FundingDocument = exports.UpdateFunderTotalInterestDocument = exports.FunderTotalInterestDocument = exports.UpdateFunderDocument = void 0;
+//import {useFetch} from "../../lib/DataVertexClient";
+//import { TypedDocumentNode } from "@graphql-typed-document-node/core";
+// import { TypedDocumentNode } from "@graphql-typed-document-node/core";
+// import { TypedDocumentNode as DocumentNode } from "@graphql-typed-document-node/core";
+var utils_1 = require("./utils");
+var DPool = /** @class */ (function () {
+    function DPool(id) {
+        this.__typename = "DPool";
+        if (id) {
+            this.id = id;
         }
     }
-    return "";
-}
-var Mutation = /** @class */ (function () {
-    function Mutation() {
-    }
-    return Mutation;
+    DPool.load = function (id, prove) {
+        if (prove === void 0) { prove = false; }
+        var operationDocument = exports.DPoolDocument;
+        var loadVariables = { id: id, prove: prove };
+        var result = gqlFetch(operationDocument, loadVariables);
+        if (result && result.data != undefined && result.data.DPool != undefined) {
+            var value = result.data.DPool;
+            return toDPool(value);
+        }
+        return null;
+    };
+    DPool.prototype.save = function () {
+        var operationDocument = exports.UpdateDPoolDocument;
+        var saveVariables = { input: this._getSaveArgs() };
+        gqlFetch(operationDocument, saveVariables);
+    };
+    DPool.prototype._getSaveArgs = function () {
+        return toDPoolInput(this);
+    };
+    return DPool;
 }());
-exports.Mutation = Mutation;
+exports.DPool = DPool;
+function toDPool(objInput) {
+    var obj = new DPool();
+    obj.__typename = "DPool";
+    obj.id = objInput.id;
+    obj.address = objInput.address;
+    obj.moneyMarket = utils_1.parseString(objInput.moneyMarket);
+    obj.stablecoin = utils_1.parseString(objInput.stablecoin);
+    obj.interestModel = utils_1.parseString(objInput.interestModel);
+    obj.UserIDs = objInput.UserIDs;
+    obj.DepositIDs = objInput.DepositIDs;
+    obj.FunderIDs = objInput.FunderIDs;
+    obj.FundingIDs = objInput.FundingIDs;
+    return obj;
+}
+exports.toDPool = toDPool;
+function toDPoolInput(obj) {
+    var objInput = {
+        __typename: "DPoolInput",
+        id: obj.id,
+        address: obj.address,
+        moneyMarket: utils_1.parseString(obj.moneyMarket),
+        stablecoin: utils_1.parseString(obj.stablecoin),
+        interestModel: utils_1.parseString(obj.interestModel),
+        UserIDs: obj.UserIDs,
+        DepositIDs: obj.DepositIDs,
+        FunderIDs: obj.FunderIDs,
+        FundingIDs: obj.FundingIDs
+    };
+    return objInput;
+}
+exports.toDPoolInput = toDPoolInput;
 var DPoolList = /** @class */ (function () {
     function DPoolList(id) {
+        this.__typename = "DPoolList";
         if (id) {
             this.id = id;
         }
@@ -68,9 +80,10 @@ var DPoolList = /** @class */ (function () {
         var loadVariables = { id: id, prove: prove };
         var result = gqlFetch(operationDocument, loadVariables);
         if (result &&
-            result.data &&
-            result.data.DPoolList.__typename == "DPoolList") {
-            return result.data.DPoolList;
+            result.data != undefined &&
+            result.data.DPoolList != undefined) {
+            var value = result.data.DPoolList;
+            return toDPoolList(value);
         }
         return null;
     };
@@ -79,268 +92,32 @@ var DPoolList = /** @class */ (function () {
         var saveVariables = { input: this._getSaveArgs() };
         gqlFetch(operationDocument, saveVariables);
     };
-    //hasOwnProperty
     DPoolList.prototype._getSaveArgs = function () {
-        //input
-        var saveArgs = {};
-        var _loop_1 = function (name_1, value) {
-            var hasField = saveArgs.hasOwnProperty(name_1);
-            var fieldIdName = lowercaseFirstLetter(name_1.replace("Id", ""));
-            var hasFieldId = saveArgs.hasOwnProperty(name_1);
-            if (!hasFieldId && !hasField) {
-                return "continue";
-            }
-            var isList = value instanceof Array;
-            if (hasFieldId &&
-                isList &&
-                value instanceof Array &&
-                saveArgs.hasOwnProperty(fieldIdName)) {
-                var valueIds_1 = [];
-                value.map(function (v) {
-                    if ("id" in v) {
-                        valueIds_1.push(v["id"]);
-                    }
-                });
-                saveArgs[fieldIdName] = valueIds_1;
-            }
-            else if (hasFieldId &&
-                !isList &&
-                value.hasOwnProperty("id") &&
-                saveArgs.hasOwnProperty(fieldIdName)) {
-                saveArgs[fieldIdName] = value.id;
-            }
-            else {
-                saveArgs[name_1] = value;
-            }
-        };
-        for (var _i = 0, _a = Object.entries(this); _i < _a.length; _i++) {
-            var _b = _a[_i], name_1 = _b[0], value = _b[1];
-            _loop_1(name_1, value);
-        }
-        return saveArgs;
+        return toDPoolListInput(this);
     };
     return DPoolList;
 }());
 exports.DPoolList = DPoolList;
-var DPool = /** @class */ (function () {
-    function DPool(id) {
-        if (id) {
-            this.id = id;
-        }
-    }
-    DPool.load = function (id, prove) {
-        if (prove === void 0) { prove = false; }
-        var operationDocument = exports.DPoolDocument;
-        var loadVariables = { id: id, prove: prove };
-        var result = gqlFetch(operationDocument, loadVariables);
-        if (result && result.data && result.data.DPool.__typename == "DPool") {
-            return result.data.DPool;
-        }
-        return null;
+function toDPoolList(objInput) {
+    var obj = new DPoolList();
+    obj.__typename = "DPoolList";
+    obj.id = objInput.id;
+    obj.DPoolIDs = objInput.DPoolIDs;
+    return obj;
+}
+exports.toDPoolList = toDPoolList;
+function toDPoolListInput(obj) {
+    var objInput = {
+        __typename: "DPoolListInput",
+        id: obj.id,
+        DPoolIDs: obj.DPoolIDs
     };
-    DPool.prototype.save = function () {
-        var operationDocument = exports.UpdateDPoolDocument;
-        var saveVariables = { input: this._getSaveArgs() };
-        console.log(saveVariables, this._getSaveArgs());
-        gqlFetch(operationDocument, saveVariables);
-    };
-    // convertToType(type, type, value) {}
-    // let valueIds: Array<any> = [];
-    // (value as Array<{ [x: string]: any }>).map(
-    //   (v: { [x: string]: any }) => {
-    //     if ("id" in v) {
-    //       valueIds.push(v["id"]);
-    //     }
-    //   }
-    //else (
-    //   hasFieldId &&
-    //   !isList &&
-    //   value.hasOwnProperty("id") &&
-    //   saveArgs.hasOwnProperty(fieldIdName)
-    // ) {
-    //   saveArgs[fieldIdName as keyof DPoolInput] = value.id;
-    // }
-    // //convert array type
-    //
-    DPool.prototype._getSaveArgs = function () {
-        //input
-        console.log("This");
-        console.log(Object.entries(this));
-        var saveArgs = {};
-        //pick the parsed type
-        console.log(Object.keys(saveArgs));
-        //for all of the object entries that are in dpoolinput, but not in dpool
-        //ids,
-        //if it is in
-        //for all of the names in the object check for the names
-        for (var key in this) {
-            console.log("Key");
-            console.log(key);
-            //console.log("Value");
-            //console.log(value);
-            var value = this[key];
-            var name_2 = getNameInSaveArgs(key, saveArgs);
-            console.log("Names");
-            console.log(name_2);
-            if (name_2 == "") {
-                continue;
-            }
-            var v = getProperty(saveArgs, name_2);
-            console.log(typeof v);
-            console.log(v);
-            if (value == undefined || v == undefined) {
-                continue;
-            }
-            if (value instanceof Array) {
-                //newValue
-                //setProperty
-                //v = convertArray(value);
-                console.log(value);
-            }
-            else {
-                v = convert(value);
-            }
-            setProperty(saveArgs, name_2, v);
-            //set value //
-        }
-        return saveArgs;
-    };
-    return DPool;
-}());
-exports.DPool = DPool;
-var User = /** @class */ (function () {
-    function User(id) {
-        if (id) {
-            this.id = id;
-        }
-    }
-    User.load = function (id, prove) {
-        if (prove === void 0) { prove = false; }
-        var operationDocument = exports.UserDocument;
-        var loadVariables = { id: id, prove: prove };
-        var result = gqlFetch(operationDocument, loadVariables);
-        if (result && result.data && result.data.User.__typename == "User") {
-            return result.data.User;
-        }
-        return null;
-    };
-    User.prototype.save = function () {
-        var operationDocument = exports.UpdateUserDocument;
-        var saveArgs = this._getSaveArgs();
-        var saveVariables = { input: saveArgs };
-        gqlFetch(operationDocument, saveVariables);
-    };
-    User.prototype._getSaveArgs = function () {
-        //input
-        var saveArgs = {};
-        console.log("This");
-        console.log(Object.entries(this));
-        var _loop_2 = function (name_3, value) {
-            var hasField = saveArgs.hasOwnProperty(name_3);
-            var fieldIdName = lowercaseFirstLetter(name_3.replace("Id", ""));
-            var hasFieldId = saveArgs.hasOwnProperty(name_3);
-            if (!hasFieldId && !hasField) {
-                return "continue";
-            }
-            var isList = value instanceof Array;
-            if (hasFieldId &&
-                isList &&
-                value instanceof Array &&
-                saveArgs.hasOwnProperty(fieldIdName)) {
-                var valueIds_2 = [];
-                value.map(function (v) {
-                    if ("id" in v) {
-                        valueIds_2.push(v["id"]);
-                    }
-                });
-                saveArgs[fieldIdName] = valueIds_2;
-            }
-            else if (hasFieldId &&
-                !isList &&
-                value.hasOwnProperty("id") &&
-                saveArgs.hasOwnProperty(fieldIdName)) {
-                saveArgs[fieldIdName] = value.id;
-            }
-            else {
-                saveArgs[name_3] = value;
-            }
-        };
-        for (var _i = 0, _a = Object.entries(this); _i < _a.length; _i++) {
-            var _b = _a[_i], name_3 = _b[0], value = _b[1];
-            _loop_2(name_3, value);
-        }
-        return saveArgs;
-    };
-    return User;
-}());
-exports.User = User;
-var UserTotalDeposit = /** @class */ (function () {
-    function UserTotalDeposit(id) {
-        if (id) {
-            this.id = id;
-        }
-    }
-    UserTotalDeposit.load = function (id, prove) {
-        if (prove === void 0) { prove = false; }
-        var operationDocument = exports.UserTotalDepositDocument;
-        var loadVariables = { id: id, prove: prove };
-        var result = gqlFetch(operationDocument, loadVariables);
-        if (result &&
-            result.data &&
-            result.data.UserTotalDeposit.__typename == "UserTotalDeposit") {
-            return result.data.UserTotalDeposit;
-        }
-        return null;
-    };
-    UserTotalDeposit.prototype.save = function () {
-        var operationDocument = exports.UpdateUserTotalDepositDocument;
-        var saveVariables = { input: this._getSaveArgs() };
-        gqlFetch(operationDocument, saveVariables);
-    };
-    UserTotalDeposit.prototype._getSaveArgs = function () {
-        //input
-        var saveArgs = {};
-        var _loop_3 = function (name_4, value) {
-            var hasField = saveArgs.hasOwnProperty(name_4);
-            var fieldIdName = lowercaseFirstLetter(name_4.replace("Id", ""));
-            var hasFieldId = saveArgs.hasOwnProperty(name_4);
-            if (!hasFieldId && !hasField) {
-                return "continue";
-            }
-            var isList = value instanceof Array;
-            if (hasFieldId &&
-                isList &&
-                value instanceof Array &&
-                saveArgs.hasOwnProperty(fieldIdName)) {
-                var valueIds_3 = [];
-                value.map(function (v) {
-                    if ("id" in v) {
-                        valueIds_3.push(v["id"]);
-                    }
-                });
-                saveArgs[fieldIdName] = valueIds_3;
-            }
-            else if (hasFieldId &&
-                !isList &&
-                value.hasOwnProperty("id") &&
-                saveArgs.hasOwnProperty(fieldIdName)) {
-                saveArgs[fieldIdName] = value.id;
-            }
-            else {
-                saveArgs[name_4] = value;
-            }
-        };
-        for (var _i = 0, _a = Object.entries(this); _i < _a.length; _i++) {
-            var _b = _a[_i], name_4 = _b[0], value = _b[1];
-            _loop_3(name_4, value);
-        }
-        return saveArgs;
-    };
-    return UserTotalDeposit;
-}());
-exports.UserTotalDeposit = UserTotalDeposit;
+    return objInput;
+}
+exports.toDPoolListInput = toDPoolListInput;
 var Deposit = /** @class */ (function () {
     function Deposit(id) {
+        this.__typename = "Deposit";
         if (id) {
             this.id = id;
         }
@@ -350,8 +127,11 @@ var Deposit = /** @class */ (function () {
         var operationDocument = exports.DepositDocument;
         var loadVariables = { id: id, prove: prove };
         var result = gqlFetch(operationDocument, loadVariables);
-        if (result && result.data && result.data.Deposit.__typename == "Deposit") {
-            return result.data.Deposit;
+        if (result &&
+            result.data != undefined &&
+            result.data.Deposit != undefined) {
+            var value = result.data.Deposit;
+            return toDeposit(value);
         }
         return null;
     };
@@ -361,49 +141,143 @@ var Deposit = /** @class */ (function () {
         gqlFetch(operationDocument, saveVariables);
     };
     Deposit.prototype._getSaveArgs = function () {
-        //input
-        var saveArgs = {};
-        var _loop_4 = function (name_5, value) {
-            var hasField = saveArgs.hasOwnProperty(name_5);
-            var fieldIdName = lowercaseFirstLetter(name_5.replace("Id", ""));
-            var hasFieldId = saveArgs.hasOwnProperty(name_5);
-            if (!hasFieldId && !hasField) {
-                return "continue";
-            }
-            var isList = value instanceof Array;
-            if (hasFieldId &&
-                isList &&
-                value instanceof Array &&
-                saveArgs.hasOwnProperty(fieldIdName)) {
-                var valueIds_4 = [];
-                value.map(function (v) {
-                    if ("id" in v) {
-                        valueIds_4.push(v["id"]);
-                    }
-                });
-                saveArgs[fieldIdName] = valueIds_4;
-            }
-            else if (hasFieldId &&
-                !isList &&
-                value.hasOwnProperty("id") &&
-                saveArgs.hasOwnProperty(fieldIdName)) {
-                saveArgs[fieldIdName] = value.id;
-            }
-            else {
-                saveArgs[name_5] = value;
-            }
-        };
-        for (var _i = 0, _a = Object.entries(this); _i < _a.length; _i++) {
-            var _b = _a[_i], name_5 = _b[0], value = _b[1];
-            _loop_4(name_5, value);
-        }
-        return saveArgs;
+        return toDepositInput(this);
     };
     return Deposit;
 }());
 exports.Deposit = Deposit;
+function toDeposit(objInput) {
+    var obj = new Deposit();
+    obj.__typename = "Deposit";
+    obj.id = objInput.id;
+    obj.UserID = utils_1.parseString(objInput.UserID);
+    obj.DPoolID = utils_1.parseString(objInput.DPoolID);
+    obj.active = objInput.active;
+    return obj;
+}
+exports.toDeposit = toDeposit;
+function toDepositInput(obj) {
+    var objInput = {
+        __typename: "DepositInput",
+        id: obj.id,
+        UserID: utils_1.parseString(obj.UserID),
+        DPoolID: utils_1.parseString(obj.DPoolID),
+        active: obj.active
+    };
+    return objInput;
+}
+exports.toDepositInput = toDepositInput;
+var FractionalDeposit = /** @class */ (function () {
+    function FractionalDeposit(id) {
+        this.__typename = "FractionalDeposit";
+        if (id) {
+            this.id = id;
+        }
+    }
+    FractionalDeposit.load = function (id, prove) {
+        if (prove === void 0) { prove = false; }
+        var operationDocument = exports.FractionalDepositDocument;
+        var loadVariables = { id: id, prove: prove };
+        var result = gqlFetch(operationDocument, loadVariables);
+        if (result &&
+            result.data != undefined &&
+            result.data.FractionalDeposit != undefined) {
+            var value = result.data.FractionalDeposit;
+            return toFractionalDeposit(value);
+        }
+        return null;
+    };
+    FractionalDeposit.prototype.save = function () {
+        var operationDocument = exports.UpdateFractionalDepositDocument;
+        var saveVariables = { input: this._getSaveArgs() };
+        gqlFetch(operationDocument, saveVariables);
+    };
+    FractionalDeposit.prototype._getSaveArgs = function () {
+        return toFractionalDepositInput(this);
+    };
+    return FractionalDeposit;
+}());
+exports.FractionalDeposit = FractionalDeposit;
+function toFractionalDeposit(objInput) {
+    var obj = new FractionalDeposit();
+    obj.__typename = "FractionalDeposit";
+    obj.id = objInput.id;
+    obj.address = objInput.address;
+    obj.zeroCouponBondAddress = objInput.zeroCouponBondAddress;
+    obj.ownerAddress = objInput.ownerAddress;
+    obj.active = objInput.active;
+    obj.DepositID = utils_1.parseString(objInput.DepositID);
+    return obj;
+}
+exports.toFractionalDeposit = toFractionalDeposit;
+function toFractionalDepositInput(obj) {
+    var objInput = {
+        __typename: "FractionalDepositInput",
+        id: obj.id,
+        address: obj.address,
+        zeroCouponBondAddress: obj.zeroCouponBondAddress,
+        ownerAddress: obj.ownerAddress,
+        active: obj.active,
+        DepositID: utils_1.parseString(obj.DepositID)
+    };
+    return objInput;
+}
+exports.toFractionalDepositInput = toFractionalDepositInput;
+var Funder = /** @class */ (function () {
+    function Funder(id) {
+        this.__typename = "Funder";
+        if (id) {
+            this.id = id;
+        }
+    }
+    Funder.load = function (id, prove) {
+        if (prove === void 0) { prove = false; }
+        var operationDocument = exports.FunderDocument;
+        var loadVariables = { id: id, prove: prove };
+        var result = gqlFetch(operationDocument, loadVariables);
+        if (result && result.data != undefined && result.data.Funder != undefined) {
+            var value = result.data.Funder;
+            return toFunder(value);
+        }
+        return null;
+    };
+    Funder.prototype.save = function () {
+        var operationDocument = exports.UpdateFunderDocument;
+        var saveVariables = { input: this._getSaveArgs() };
+        gqlFetch(operationDocument, saveVariables);
+    };
+    Funder.prototype._getSaveArgs = function () {
+        return toFunderInput(this);
+    };
+    return Funder;
+}());
+exports.Funder = Funder;
+function toFunder(objInput) {
+    var obj = new Funder();
+    obj.__typename = "Funder";
+    obj.id = objInput.id;
+    obj.address = objInput.address;
+    obj.DPoolIDs = objInput.DPoolIDs;
+    obj.FundingIDs = objInput.FundingIDs;
+    obj.FunderTotalInterestIDs = objInput.FunderTotalInterestIDs;
+    return obj;
+}
+exports.toFunder = toFunder;
+function toFunderInput(obj) {
+    var objInput = {
+        __typename: "FunderInput",
+        id: obj.id,
+        address: obj.address,
+        DPoolIDs: obj.DPoolIDs,
+        FundingIDs: obj.FundingIDs,
+        FunderTotalInterestIDs: obj.FunderTotalInterestIDs
+    };
+    return objInput;
+}
+exports.toFunderInput = toFunderInput;
 var FunderTotalInterest = /** @class */ (function () {
     function FunderTotalInterest(id) {
+        this.__typename = "FunderTotalInterest";
         if (id) {
             this.id = id;
         }
@@ -414,9 +288,10 @@ var FunderTotalInterest = /** @class */ (function () {
         var loadVariables = { id: id, prove: prove };
         var result = gqlFetch(operationDocument, loadVariables);
         if (result &&
-            result.data &&
-            result.data.FunderTotalInterest.__typename == "FunderTotalInterest") {
-            return result.data.FunderTotalInterest;
+            result.data != undefined &&
+            result.data.FunderTotalInterest != undefined) {
+            var value = result.data.FunderTotalInterest;
+            return toFunderTotalInterest(value);
         }
         return null;
     };
@@ -426,49 +301,33 @@ var FunderTotalInterest = /** @class */ (function () {
         gqlFetch(operationDocument, saveVariables);
     };
     FunderTotalInterest.prototype._getSaveArgs = function () {
-        //input
-        var saveArgs = {};
-        var _loop_5 = function (name_6, value) {
-            var hasField = saveArgs.hasOwnProperty(name_6);
-            var fieldIdName = lowercaseFirstLetter(name_6.replace("Id", ""));
-            var hasFieldId = saveArgs.hasOwnProperty(name_6);
-            if (!hasFieldId && !hasField) {
-                return "continue";
-            }
-            var isList = value instanceof Array;
-            if (hasFieldId &&
-                isList &&
-                value instanceof Array &&
-                saveArgs.hasOwnProperty(fieldIdName)) {
-                var valueIds_5 = [];
-                value.map(function (v) {
-                    if ("id" in v) {
-                        valueIds_5.push(v["id"]);
-                    }
-                });
-                saveArgs[fieldIdName] = valueIds_5;
-            }
-            else if (hasFieldId &&
-                !isList &&
-                value.hasOwnProperty("id") &&
-                saveArgs.hasOwnProperty(fieldIdName)) {
-                saveArgs[fieldIdName] = value.id;
-            }
-            else {
-                saveArgs[name_6] = value;
-            }
-        };
-        for (var _i = 0, _a = Object.entries(this); _i < _a.length; _i++) {
-            var _b = _a[_i], name_6 = _b[0], value = _b[1];
-            _loop_5(name_6, value);
-        }
-        return saveArgs;
+        return toFunderTotalInterestInput(this);
     };
     return FunderTotalInterest;
 }());
 exports.FunderTotalInterest = FunderTotalInterest;
+function toFunderTotalInterest(objInput) {
+    var obj = new FunderTotalInterest();
+    obj.__typename = "FunderTotalInterest";
+    obj.id = objInput.id;
+    obj.FunderID = utils_1.parseString(objInput.FunderID);
+    obj.DPoolID = utils_1.parseString(objInput.DPoolID);
+    return obj;
+}
+exports.toFunderTotalInterest = toFunderTotalInterest;
+function toFunderTotalInterestInput(obj) {
+    var objInput = {
+        __typename: "FunderTotalInterestInput",
+        id: obj.id,
+        FunderID: utils_1.parseString(obj.FunderID),
+        DPoolID: utils_1.parseString(obj.DPoolID)
+    };
+    return objInput;
+}
+exports.toFunderTotalInterestInput = toFunderTotalInterestInput;
 var Funding = /** @class */ (function () {
     function Funding(id) {
+        this.__typename = "Funding";
         if (id) {
             this.id = id;
         }
@@ -478,64 +337,93 @@ var Funding = /** @class */ (function () {
         var operationDocument = exports.FundingDocument;
         var loadVariables = { id: id, prove: prove };
         var result = gqlFetch(operationDocument, loadVariables);
-        if (result && result.data && result.data.Funding.__typename == "Funding") {
-            return result.data.Funding;
+        if (result &&
+            result.data != undefined &&
+            result.data.Funding != undefined) {
+            var value = result.data.Funding;
+            return toFunding(value);
         }
         return null;
     };
     Funding.prototype.save = function () {
         var operationDocument = exports.UpdateFundingDocument;
-        var args = this._getSaveArgs();
-        var saveVariables = { input: args };
+        var saveVariables = { input: this._getSaveArgs() };
         gqlFetch(operationDocument, saveVariables);
     };
     Funding.prototype._getSaveArgs = function () {
-        //input
-        var saveArgs = {};
-        console.log(this);
-        var _loop_6 = function (name_7, value) {
-            console.log(name_7.toString());
-            console.log(value);
-            var hasField = saveArgs.hasOwnProperty(name_7);
-            var fieldIdName = lowercaseFirstLetter(name_7.replace("Id", ""));
-            var hasFieldId = saveArgs.hasOwnProperty(name_7);
-            if (!hasFieldId && !hasField) {
-                return "continue";
-            }
-            var isList = value instanceof Array;
-            if (hasFieldId &&
-                isList &&
-                value instanceof Array &&
-                saveArgs.hasOwnProperty(fieldIdName)) {
-                var valueIds_6 = [];
-                value.map(function (v) {
-                    if ("id" in v) {
-                        valueIds_6.push(v["id"]);
-                    }
-                });
-                saveArgs[fieldIdName] = valueIds_6;
-            }
-            else if (hasFieldId &&
-                !isList &&
-                value.hasOwnProperty("id") &&
-                saveArgs.hasOwnProperty(fieldIdName)) {
-                saveArgs[fieldIdName] = value.id;
-            }
-            else {
-                saveArgs[name_7] = value;
-            }
-        };
-        for (var _i = 0, _a = Object.entries(this); _i < _a.length; _i++) {
-            var _b = _a[_i], name_7 = _b[0], value = _b[1];
-            _loop_6(name_7, value);
-        }
-        return saveArgs;
+        return toFundingInput(this);
     };
     return Funding;
 }());
 exports.Funding = Funding;
+function toFunding(objInput) {
+    var obj = new Funding();
+    obj.__typename = "Funding";
+    obj.id = objInput.id;
+    obj.FunderID = utils_1.parseString(objInput.FunderID);
+    obj.DPoolID = utils_1.parseString(objInput.DPoolID);
+    obj.active = objInput.active;
+    return obj;
+}
+exports.toFunding = toFunding;
+function toFundingInput(obj) {
+    var objInput = {
+        __typename: "FundingInput",
+        id: obj.id,
+        FunderID: utils_1.parseString(obj.FunderID),
+        DPoolID: utils_1.parseString(obj.DPoolID),
+        active: obj.active
+    };
+    return objInput;
+}
+exports.toFundingInput = toFundingInput;
+var MPH = /** @class */ (function () {
+    function MPH(id) {
+        this.__typename = "MPH";
+        if (id) {
+            this.id = id;
+        }
+    }
+    MPH.load = function (id, prove) {
+        if (prove === void 0) { prove = false; }
+        var operationDocument = exports.MPHDocument;
+        var loadVariables = { id: id, prove: prove };
+        var result = gqlFetch(operationDocument, loadVariables);
+        if (result && result.data != undefined && result.data.MPH != undefined) {
+            var value = result.data.MPH;
+            return toMPH(value);
+        }
+        return null;
+    };
+    MPH.prototype.save = function () {
+        var operationDocument = exports.UpdateMPHDocument;
+        var saveVariables = { input: this._getSaveArgs() };
+        gqlFetch(operationDocument, saveVariables);
+    };
+    MPH.prototype._getSaveArgs = function () {
+        return toMPHInput(this);
+    };
+    return MPH;
+}());
+exports.MPH = MPH;
+function toMPH(objInput) {
+    var obj = new MPH();
+    obj.__typename = "MPH";
+    obj.id = objInput.id;
+    return obj;
+}
+exports.toMPH = toMPH;
+function toMPHInput(obj) {
+    var objInput = {
+        __typename: "MPHInput",
+        id: obj.id
+    };
+    return objInput;
+}
+exports.toMPHInput = toMPHInput;
 var MPHHolder = /** @class */ (function () {
     function MPHHolder(id) {
+        this.__typename = "MPHHolder";
         if (id) {
             this.id = id;
         }
@@ -546,9 +434,10 @@ var MPHHolder = /** @class */ (function () {
         var loadVariables = { id: id, prove: prove };
         var result = gqlFetch(operationDocument, loadVariables);
         if (result &&
-            result.data &&
-            result.data.MPHHolder.__typename == "MPHHolder") {
-            return result.data.MPHHolder;
+            result.data != undefined &&
+            result.data.MPHHolder != undefined) {
+            var value = result.data.MPHHolder;
+            return toMPHHolder(value);
         }
         return null;
     };
@@ -558,641 +447,194 @@ var MPHHolder = /** @class */ (function () {
         gqlFetch(operationDocument, saveVariables);
     };
     MPHHolder.prototype._getSaveArgs = function () {
-        //input
-        var saveArgs = {};
-        var _loop_7 = function (name_8, value) {
-            var hasField = saveArgs.hasOwnProperty(name_8);
-            var fieldIdName = lowercaseFirstLetter(name_8.replace("Id", ""));
-            var hasFieldId = saveArgs.hasOwnProperty(name_8);
-            if (!hasFieldId && !hasField) {
-                return "continue";
-            }
-            var isList = value instanceof Array;
-            if (hasFieldId &&
-                isList &&
-                value instanceof Array &&
-                saveArgs.hasOwnProperty(fieldIdName)) {
-                var valueIds_7 = [];
-                value.map(function (v) {
-                    if ("id" in v) {
-                        valueIds_7.push(v["id"]);
-                    }
-                });
-                saveArgs[fieldIdName] = valueIds_7;
-            }
-            else if (hasFieldId &&
-                !isList &&
-                value.hasOwnProperty("id") &&
-                saveArgs.hasOwnProperty(fieldIdName)) {
-                saveArgs[fieldIdName] = value.id;
-            }
-            else {
-                saveArgs[name_8] = value;
-            }
-        };
-        for (var _i = 0, _a = Object.entries(this); _i < _a.length; _i++) {
-            var _b = _a[_i], name_8 = _b[0], value = _b[1];
-            _loop_7(name_8, value);
-        }
-        return saveArgs;
+        return toMPHHolderInput(this);
     };
     return MPHHolder;
 }());
 exports.MPHHolder = MPHHolder;
-var MPH = /** @class */ (function () {
-    function MPH(id) {
-        if (id) {
-            this.id = id;
-        }
+function toMPHHolder(objInput) {
+    var obj = new MPHHolder();
+    obj.__typename = "MPHHolder";
+    obj.id = objInput.id;
+    obj.address = objInput.address;
+    return obj;
+}
+exports.toMPHHolder = toMPHHolder;
+function toMPHHolderInput(obj) {
+    var objInput = {
+        __typename: "MPHHolderInput",
+        id: obj.id,
+        address: obj.address
+    };
+    return objInput;
+}
+exports.toMPHHolderInput = toMPHHolderInput;
+var Mutation = /** @class */ (function () {
+    function Mutation() {
     }
-    MPH.load = function (id, prove) {
-        if (prove === void 0) { prove = false; }
-        var operationDocument = exports.MPHDocument;
-        var loadVariables = { id: id, prove: prove };
-        var result = gqlFetch(operationDocument, loadVariables);
-        if (result && result.data && result.data.MPH.__typename == "MPH") {
-            return result.data.MPH;
-        }
-        return null;
-    };
-    MPH.prototype.save = function () {
-        var operationDocument = exports.UpdateMPHDocument;
-        var saveVariables = { input: this._getSaveArgs() };
-        gqlFetch(operationDocument, saveVariables);
-    };
-    MPH.prototype._getSaveArgs = function () {
-        //input
-        var saveArgs = {};
-        var _loop_8 = function (name_9, value) {
-            var hasField = saveArgs.hasOwnProperty(name_9);
-            var fieldIdName = lowercaseFirstLetter(name_9.replace("Id", ""));
-            var hasFieldId = saveArgs.hasOwnProperty(name_9);
-            if (!hasFieldId && !hasField) {
-                return "continue";
-            }
-            var isList = value instanceof Array;
-            if (hasFieldId &&
-                isList &&
-                value instanceof Array &&
-                saveArgs.hasOwnProperty(fieldIdName)) {
-                var valueIds_8 = [];
-                value.map(function (v) {
-                    if ("id" in v) {
-                        valueIds_8.push(v["id"]);
-                    }
-                });
-                saveArgs[fieldIdName] = valueIds_8;
-            }
-            else if (hasFieldId &&
-                !isList &&
-                value.hasOwnProperty("id") &&
-                saveArgs.hasOwnProperty(fieldIdName)) {
-                saveArgs[fieldIdName] = value.id;
-            }
-            else {
-                saveArgs[name_9] = value;
-            }
-        };
-        for (var _i = 0, _a = Object.entries(this); _i < _a.length; _i++) {
-            var _b = _a[_i], name_9 = _b[0], value = _b[1];
-            _loop_8(name_9, value);
-        }
-        return saveArgs;
-    };
-    return MPH;
+    return Mutation;
 }());
-exports.MPH = MPH;
+exports.Mutation = Mutation;
 var Proof = /** @class */ (function () {
     function Proof() {
     }
     return Proof;
 }());
 exports.Proof = Proof;
-var Funder = /** @class */ (function () {
-    function Funder(id) {
+var Query = /** @class */ (function () {
+    function Query() {
+    }
+    return Query;
+}());
+exports.Query = Query;
+var User = /** @class */ (function () {
+    function User(id) {
+        this.__typename = "User";
         if (id) {
             this.id = id;
         }
     }
-    Funder.load = function (id, prove) {
+    User.load = function (id, prove) {
         if (prove === void 0) { prove = false; }
-        var operationDocument = exports.FunderDocument;
+        var operationDocument = exports.UserDocument;
         var loadVariables = { id: id, prove: prove };
         var result = gqlFetch(operationDocument, loadVariables);
-        if (result && result.data && result.data.Funder.__typename == "Funder") {
-            return result.data.Funder;
+        if (result && result.data != undefined && result.data.User != undefined) {
+            var value = result.data.User;
+            return toUser(value);
         }
         return null;
     };
-    Funder.prototype.save = function () {
-        var operationDocument = exports.UpdateFunderDocument;
+    User.prototype.save = function () {
+        var operationDocument = exports.UpdateUserDocument;
         var saveVariables = { input: this._getSaveArgs() };
         gqlFetch(operationDocument, saveVariables);
     };
-    Funder.prototype._getSaveArgs = function () {
-        //input
-        var saveArgs = {};
-        var _loop_9 = function (name_10, value) {
-            var hasField = saveArgs.hasOwnProperty(name_10);
-            var fieldIdName = lowercaseFirstLetter(name_10.replace("Id", ""));
-            var hasFieldId = saveArgs.hasOwnProperty(name_10);
-            if (!hasFieldId && !hasField) {
-                return "continue";
-            }
-            var isList = value instanceof Array;
-            if (hasFieldId &&
-                isList &&
-                value instanceof Array &&
-                saveArgs.hasOwnProperty(fieldIdName)) {
-                var valueIds_9 = [];
-                value.map(function (v) {
-                    if ("id" in v) {
-                        valueIds_9.push(v["id"]);
-                    }
-                });
-                saveArgs[fieldIdName] = valueIds_9;
-            }
-            else if (hasFieldId &&
-                !isList &&
-                value.hasOwnProperty("id") &&
-                saveArgs.hasOwnProperty(fieldIdName)) {
-                saveArgs[fieldIdName] = value.id;
-            }
-            else {
-                saveArgs[name_10] = value;
-            }
-        };
-        for (var _i = 0, _a = Object.entries(this); _i < _a.length; _i++) {
-            var _b = _a[_i], name_10 = _b[0], value = _b[1];
-            _loop_9(name_10, value);
-        }
-        return saveArgs;
+    User.prototype._getSaveArgs = function () {
+        return toUserInput(this);
     };
-    return Funder;
+    return User;
 }());
-exports.Funder = Funder;
-exports.userDocument = {
-    kind: "Document",
-    definitions: [
-        {
-            kind: "OperationDefinition",
-            operation: "query",
-            name: { kind: "Name", value: "user" },
-            variableDefinitions: [
-                {
-                    kind: "VariableDefinition",
-                    variable: { kind: "Variable", name: { kind: "Name", value: "id" } },
-                    type: {
-                        kind: "NonNullType",
-                        type: { kind: "NamedType", name: { kind: "Name", value: "ID" } }
-                    }
-                }
-            ],
-            selectionSet: {
-                kind: "SelectionSet",
-                selections: [
-                    {
-                        kind: "Field",
-                        name: { kind: "Name", value: "User" },
-                        arguments: [
-                            {
-                                kind: "Argument",
-                                name: { kind: "Name", value: "id" },
-                                value: { kind: "Variable", name: { kind: "Name", value: "id" } }
-                            }
-                        ],
-                        selectionSet: {
-                            kind: "SelectionSet",
-                            selections: [
-                                {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "totalMPHEarned" }
-                                },
-                                {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "totalMPHPaidBack" }
-                                },
-                                {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "pools" },
-                                    selectionSet: {
-                                        kind: "SelectionSet",
-                                        selections: [
-                                            { kind: "Field", name: { kind: "Name", value: "id" } },
-                                            {
-                                                kind: "Field",
-                                                name: { kind: "Name", value: "address" }
-                                            },
-                                            {
-                                                kind: "Field",
-                                                name: {
-                                                    kind: "Name",
-                                                    value: "mphDepositorRewardMultiplier"
-                                                }
-                                            }
-                                        ]
-                                    }
-                                },
-                                {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "totalDepositByPool" },
-                                    selectionSet: {
-                                        kind: "SelectionSet",
-                                        selections: [
-                                            {
-                                                kind: "Field",
-                                                name: { kind: "Name", value: "pool" },
-                                                selectionSet: {
-                                                    kind: "SelectionSet",
-                                                    selections: [
-                                                        {
-                                                            kind: "Field",
-                                                            name: { kind: "Name", value: "address" }
-                                                        },
-                                                        {
-                                                            kind: "Field",
-                                                            name: { kind: "Name", value: "stablecoin" }
-                                                        }
-                                                    ]
-                                                }
-                                            },
-                                            {
-                                                kind: "Field",
-                                                name: { kind: "Name", value: "totalActiveDeposit" }
-                                            },
-                                            {
-                                                kind: "Field",
-                                                name: { kind: "Name", value: "totalInterestEarned" }
-                                            }
-                                        ]
-                                    }
-                                }
-                            ]
-                        }
-                    }
-                ]
-            }
+exports.User = User;
+function toUser(objInput) {
+    var obj = new User();
+    obj.__typename = "User";
+    obj.id = objInput.id;
+    obj.address = objInput.address;
+    obj.DPoolIDs = objInput.DPoolIDs;
+    obj.DepositIDs = objInput.DepositIDs;
+    obj.UserTotalDepositIDs = objInput.UserTotalDepositIDs;
+    return obj;
+}
+exports.toUser = toUser;
+function toUserInput(obj) {
+    var objInput = {
+        __typename: "UserInput",
+        id: obj.id,
+        address: obj.address,
+        DPoolIDs: obj.DPoolIDs,
+        DepositIDs: obj.DepositIDs,
+        UserTotalDepositIDs: obj.UserTotalDepositIDs
+    };
+    return objInput;
+}
+exports.toUserInput = toUserInput;
+var UserTotalDeposit = /** @class */ (function () {
+    function UserTotalDeposit(id) {
+        this.__typename = "UserTotalDeposit";
+        if (id) {
+            this.id = id;
         }
-    ]
-};
-exports.dpoolsDocument = {
-    kind: "Document",
-    definitions: [
-        {
-            kind: "OperationDefinition",
-            operation: "query",
-            name: { kind: "Name", value: "dpools" },
-            selectionSet: {
-                kind: "SelectionSet",
-                selections: [
-                    {
-                        kind: "Field",
-                        name: { kind: "Name", value: "DPools" },
-                        selectionSet: {
-                            kind: "SelectionSet",
-                            selections: [
-                                { kind: "Field", name: { kind: "Name", value: "id" } },
-                                { kind: "Field", name: { kind: "Name", value: "address" } },
-                                {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "totalActiveDeposit" }
-                                },
-                                {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "oneYearInterestRate" }
-                                },
-                                {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "mphDepositorRewardMultiplier" }
-                                }
-                            ]
-                        }
-                    }
-                ]
-            }
+    }
+    UserTotalDeposit.load = function (id, prove) {
+        if (prove === void 0) { prove = false; }
+        var operationDocument = exports.UserTotalDepositDocument;
+        var loadVariables = { id: id, prove: prove };
+        var result = gqlFetch(operationDocument, loadVariables);
+        if (result &&
+            result.data != undefined &&
+            result.data.UserTotalDeposit != undefined) {
+            var value = result.data.UserTotalDeposit;
+            return toUserTotalDeposit(value);
         }
-    ]
-};
-exports.funderDocument = {
-    kind: "Document",
-    definitions: [
-        {
-            kind: "OperationDefinition",
-            operation: "query",
-            name: { kind: "Name", value: "funder" },
-            variableDefinitions: [
-                {
-                    kind: "VariableDefinition",
-                    variable: { kind: "Variable", name: { kind: "Name", value: "id" } },
-                    type: {
-                        kind: "NonNullType",
-                        type: { kind: "NamedType", name: { kind: "Name", value: "ID" } }
-                    }
-                }
-            ],
-            selectionSet: {
-                kind: "SelectionSet",
-                selections: [
-                    {
-                        kind: "Field",
-                        name: { kind: "Name", value: "Funder" },
-                        arguments: [
-                            {
-                                kind: "Argument",
-                                name: { kind: "Name", value: "id" },
-                                value: { kind: "Variable", name: { kind: "Name", value: "id" } }
-                            }
-                        ],
-                        selectionSet: {
-                            kind: "SelectionSet",
-                            selections: [
-                                {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "totalMPHEarned" }
-                                },
-                                {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "pools" },
-                                    selectionSet: {
-                                        kind: "SelectionSet",
-                                        selections: [
-                                            { kind: "Field", name: { kind: "Name", value: "id" } },
-                                            {
-                                                kind: "Field",
-                                                name: { kind: "Name", value: "address" }
-                                            },
-                                            {
-                                                kind: "Field",
-                                                name: { kind: "Name", value: "fundings" },
-                                                selectionSet: {
-                                                    kind: "SelectionSet",
-                                                    selections: [
-                                                        {
-                                                            kind: "Field",
-                                                            name: { kind: "Name", value: "id" }
-                                                        },
-                                                        {
-                                                            kind: "Field",
-                                                            name: { kind: "Name", value: "pool" },
-                                                            selectionSet: {
-                                                                kind: "SelectionSet",
-                                                                selections: [
-                                                                    {
-                                                                        kind: "Field",
-                                                                        name: { kind: "Name", value: "address" }
-                                                                    },
-                                                                    {
-                                                                        kind: "Field",
-                                                                        name: {
-                                                                            kind: "Name",
-                                                                            value: "oracleInterestRate"
-                                                                        }
-                                                                    },
-                                                                    {
-                                                                        kind: "Field",
-                                                                        name: {
-                                                                            kind: "Name",
-                                                                            value: "moneyMarketIncomeIndex"
-                                                                        }
-                                                                    }
-                                                                ]
-                                                            }
-                                                        },
-                                                        {
-                                                            kind: "Field",
-                                                            name: { kind: "Name", value: "fromDepositID" }
-                                                        },
-                                                        {
-                                                            kind: "Field",
-                                                            name: { kind: "Name", value: "toDepositID" }
-                                                        },
-                                                        {
-                                                            kind: "Field",
-                                                            name: { kind: "Name", value: "nftID" }
-                                                        },
-                                                        {
-                                                            kind: "Field",
-                                                            name: {
-                                                                kind: "Name",
-                                                                value: "recordedFundedDepositAmount"
-                                                            }
-                                                        },
-                                                        {
-                                                            kind: "Field",
-                                                            name: {
-                                                                kind: "Name",
-                                                                value: "recordedMoneyMarketIncomeIndex"
-                                                            }
-                                                        },
-                                                        {
-                                                            kind: "Field",
-                                                            name: {
-                                                                kind: "Name",
-                                                                value: "initialFundedDepositAmount"
-                                                            }
-                                                        },
-                                                        {
-                                                            kind: "Field",
-                                                            name: {
-                                                                kind: "Name",
-                                                                value: "fundedDeficitAmount"
-                                                            }
-                                                        },
-                                                        {
-                                                            kind: "Field",
-                                                            name: {
-                                                                kind: "Name",
-                                                                value: "totalInterestEarned"
-                                                            }
-                                                        }
-                                                    ]
-                                                }
-                                            }
-                                        ]
-                                    }
-                                },
-                                {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "totalInterestByPool" },
-                                    selectionSet: {
-                                        kind: "SelectionSet",
-                                        selections: [
-                                            {
-                                                kind: "Field",
-                                                name: { kind: "Name", value: "pool" },
-                                                selectionSet: {
-                                                    kind: "SelectionSet",
-                                                    selections: [
-                                                        {
-                                                            kind: "Field",
-                                                            name: { kind: "Name", value: "id" }
-                                                        },
-                                                        {
-                                                            kind: "Field",
-                                                            name: { kind: "Name", value: "stablecoin" }
-                                                        }
-                                                    ]
-                                                }
-                                            },
-                                            {
-                                                kind: "Field",
-                                                name: { kind: "Name", value: "totalDeficitFunded" }
-                                            },
-                                            {
-                                                kind: "Field",
-                                                name: {
-                                                    kind: "Name",
-                                                    value: "totalRecordedFundedDepositAmount"
-                                                }
-                                            },
-                                            {
-                                                kind: "Field",
-                                                name: { kind: "Name", value: "totalInterestEarned" }
-                                            }
-                                        ]
-                                    }
-                                }
-                            ]
-                        }
-                    }
-                ]
-            }
+        return null;
+    };
+    UserTotalDeposit.prototype.save = function () {
+        var operationDocument = exports.UpdateUserTotalDepositDocument;
+        var saveVariables = { input: this._getSaveArgs() };
+        gqlFetch(operationDocument, saveVariables);
+    };
+    UserTotalDeposit.prototype._getSaveArgs = function () {
+        return toUserTotalDepositInput(this);
+    };
+    return UserTotalDeposit;
+}());
+exports.UserTotalDeposit = UserTotalDeposit;
+function toUserTotalDeposit(objInput) {
+    var obj = new UserTotalDeposit();
+    obj.__typename = "UserTotalDeposit";
+    obj.id = objInput.id;
+    obj.UserID = utils_1.parseString(objInput.UserID);
+    obj.DPoolID = utils_1.parseString(objInput.DPoolID);
+    return obj;
+}
+exports.toUserTotalDeposit = toUserTotalDeposit;
+function toUserTotalDepositInput(obj) {
+    var objInput = {
+        __typename: "UserTotalDepositInput",
+        id: obj.id,
+        UserID: utils_1.parseString(obj.UserID),
+        DPoolID: utils_1.parseString(obj.DPoolID)
+    };
+    return objInput;
+}
+exports.toUserTotalDepositInput = toUserTotalDepositInput;
+var Vest = /** @class */ (function () {
+    function Vest(id) {
+        this.__typename = "Vest";
+        if (id) {
+            this.id = id;
         }
-    ]
-};
-exports.dpoolsLatestDocument = {
-    kind: "Document",
-    definitions: [
-        {
-            kind: "OperationDefinition",
-            operation: "query",
-            name: { kind: "Name", value: "dpoolsLatest" },
-            selectionSet: {
-                kind: "SelectionSet",
-                selections: [
-                    {
-                        kind: "Field",
-                        name: { kind: "Name", value: "DPools" },
-                        selectionSet: {
-                            kind: "SelectionSet",
-                            selections: [
-                                { kind: "Field", name: { kind: "Name", value: "id" } },
-                                { kind: "Field", name: { kind: "Name", value: "address" } },
-                                { kind: "Field", name: { kind: "Name", value: "surplus" } },
-                                {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "unfundedDepositAmount" }
-                                },
-                                {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "oneYearInterestRate" }
-                                },
-                                {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "oracleInterestRate" }
-                                },
-                                {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "mphFunderRewardMultiplier" }
-                                },
-                                {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "deposits" },
-                                    selectionSet: {
-                                        kind: "SelectionSet",
-                                        selections: [
-                                            { kind: "Field", name: { kind: "Name", value: "nftID" } },
-                                            { kind: "Field", name: { kind: "Name", value: "id" } }
-                                        ]
-                                    }
-                                }
-                            ]
-                        }
-                    }
-                ]
-            }
+    }
+    Vest.load = function (id, prove) {
+        if (prove === void 0) { prove = false; }
+        var operationDocument = exports.VestDocument;
+        var loadVariables = { id: id, prove: prove };
+        var result = gqlFetch(operationDocument, loadVariables);
+        if (result && result.data != undefined && result.data.Vest != undefined) {
+            var value = result.data.Vest;
+            return toVest(value);
         }
-    ]
-};
-exports.dpoolsLatestDepositsDocument = {
-    kind: "Document",
-    definitions: [
-        {
-            kind: "OperationDefinition",
-            operation: "query",
-            name: { kind: "Name", value: "dpoolsLatestDeposits" },
-            variableDefinitions: [
-                {
-                    kind: "VariableDefinition",
-                    variable: { kind: "Variable", name: { kind: "Name", value: "id" } },
-                    type: {
-                        kind: "NonNullType",
-                        type: { kind: "NamedType", name: { kind: "Name", value: "ID" } }
-                    }
-                }
-            ],
-            selectionSet: {
-                kind: "SelectionSet",
-                selections: [
-                    {
-                        kind: "Field",
-                        name: { kind: "Name", value: "DPool" },
-                        arguments: [
-                            {
-                                kind: "Argument",
-                                name: { kind: "Name", value: "id" },
-                                value: { kind: "Variable", name: { kind: "Name", value: "id" } }
-                            }
-                        ],
-                        selectionSet: {
-                            kind: "SelectionSet",
-                            selections: [
-                                { kind: "Field", name: { kind: "Name", value: "id" } },
-                                {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "moneyMarketIncomeIndex" }
-                                },
-                                {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "deposits" },
-                                    selectionSet: {
-                                        kind: "SelectionSet",
-                                        selections: [
-                                            { kind: "Field", name: { kind: "Name", value: "nftID" } },
-                                            {
-                                                kind: "Field",
-                                                name: { kind: "Name", value: "amount" }
-                                            },
-                                            {
-                                                kind: "Field",
-                                                name: { kind: "Name", value: "active" }
-                                            },
-                                            {
-                                                kind: "Field",
-                                                name: { kind: "Name", value: "maturationTimestamp" }
-                                            },
-                                            {
-                                                kind: "Field",
-                                                name: { kind: "Name", value: "interestEarned" }
-                                            },
-                                            {
-                                                kind: "Field",
-                                                name: {
-                                                    kind: "Name",
-                                                    value: "initialMoneyMarketIncomeIndex"
-                                                }
-                                            }
-                                        ]
-                                    }
-                                }
-                            ]
-                        }
-                    }
-                ]
-            }
-        }
-    ]
-};
+        return null;
+    };
+    Vest.prototype.save = function () {
+        var operationDocument = exports.UpdateVestDocument;
+        var saveVariables = { input: this._getSaveArgs() };
+        gqlFetch(operationDocument, saveVariables);
+    };
+    Vest.prototype._getSaveArgs = function () {
+        return toVestInput(this);
+    };
+    return Vest;
+}());
+exports.Vest = Vest;
+function toVest(objInput) {
+    var obj = new Vest();
+    obj.__typename = "Vest";
+    obj.id = objInput.id;
+    obj.user = utils_1.parseString(objInput.user);
+    return obj;
+}
+exports.toVest = toVest;
+function toVestInput(obj) {
+    var objInput = {
+        __typename: "VestInput",
+        id: obj.id,
+        user: utils_1.parseString(obj.user)
+    };
+    return objInput;
+}
+exports.toVestInput = toVestInput;
 exports.DPoolListDocument = {
     kind: "Document",
     definitions: [
@@ -1243,13 +685,7 @@ exports.DPoolListDocument = {
                             kind: "SelectionSet",
                             selections: [
                                 { kind: "Field", name: { kind: "Name", value: "id" } },
-                                { kind: "Field", name: { kind: "Name", value: "numPools" } },
-                                { kind: "Field", name: { kind: "Name", value: "numUsers" } },
-                                {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "numActiveUsers" }
-                                },
-                                { kind: "Field", name: { kind: "Name", value: "numFunders" } }
+                                { kind: "Field", name: { kind: "Name", value: "DPoolIDs" } }
                             ]
                         }
                     }
@@ -1286,7 +722,7 @@ exports.UpdateDPoolListDocument = {
                 selections: [
                     {
                         kind: "Field",
-                        name: { kind: "Name", value: "updateDPoolList" },
+                        name: { kind: "Name", value: "UpdateDPoolList" },
                         arguments: [
                             {
                                 kind: "Argument",
@@ -1360,71 +796,10 @@ exports.DPoolDocument = {
                                     kind: "Field",
                                     name: { kind: "Name", value: "interestModel" }
                                 },
-                                { kind: "Field", name: { kind: "Name", value: "numUsers" } },
-                                { kind: "Field", name: { kind: "Name", value: "numDeposits" } },
-                                {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "numActiveDeposits" }
-                                },
-                                {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "totalActiveDeposit" }
-                                },
-                                {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "totalHistoricalDeposit" }
-                                },
-                                {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "totalInterestPaid" }
-                                },
-                                {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "unfundedDepositAmount" }
-                                },
-                                { kind: "Field", name: { kind: "Name", value: "numFunders" } },
-                                { kind: "Field", name: { kind: "Name", value: "numFundings" } },
-                                {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "MinDepositPeriod" }
-                                },
-                                {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "MaxDepositPeriod" }
-                                },
-                                {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "MinDepositAmount" }
-                                },
-                                {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "MaxDepositAmount" }
-                                },
-                                {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "mphMintingMultiplier" }
-                                },
-                                {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "mphDepositorRewardMultiplier" }
-                                },
-                                {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "mphFunderRewardMultiplier" }
-                                },
-                                {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "oneYearInterestRate" }
-                                },
-                                { kind: "Field", name: { kind: "Name", value: "surplus" } },
-                                {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "moneyMarketIncomeIndex" }
-                                },
-                                {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "oracleInterestRate" }
-                                }
+                                { kind: "Field", name: { kind: "Name", value: "UserIDs" } },
+                                { kind: "Field", name: { kind: "Name", value: "DepositIDs" } },
+                                { kind: "Field", name: { kind: "Name", value: "FunderIDs" } },
+                                { kind: "Field", name: { kind: "Name", value: "FundingIDs" } }
                             ]
                         }
                     }
@@ -1461,7 +836,7 @@ exports.UpdateDPoolDocument = {
                 selections: [
                     {
                         kind: "Field",
-                        name: { kind: "Name", value: "updateDPool" },
+                        name: { kind: "Name", value: "UpdateDPool" },
                         arguments: [
                             {
                                 kind: "Argument",
@@ -1529,19 +904,11 @@ exports.UserDocument = {
                             selections: [
                                 { kind: "Field", name: { kind: "Name", value: "id" } },
                                 { kind: "Field", name: { kind: "Name", value: "address" } },
-                                { kind: "Field", name: { kind: "Name", value: "numPools" } },
-                                { kind: "Field", name: { kind: "Name", value: "numDeposits" } },
+                                { kind: "Field", name: { kind: "Name", value: "DPoolIDs" } },
+                                { kind: "Field", name: { kind: "Name", value: "DepositIDs" } },
                                 {
                                     kind: "Field",
-                                    name: { kind: "Name", value: "numActiveDeposits" }
-                                },
-                                {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "totalMPHEarned" }
-                                },
-                                {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "totalMPHPaidBack" }
+                                    name: { kind: "Name", value: "UserTotalDepositIDs" }
                                 }
                             ]
                         }
@@ -1579,7 +946,7 @@ exports.UpdateUserDocument = {
                 selections: [
                     {
                         kind: "Field",
-                        name: { kind: "Name", value: "updateUser" },
+                        name: { kind: "Name", value: "UpdateUser" },
                         arguments: [
                             {
                                 kind: "Argument",
@@ -1646,22 +1013,8 @@ exports.UserTotalDepositDocument = {
                             kind: "SelectionSet",
                             selections: [
                                 { kind: "Field", name: { kind: "Name", value: "id" } },
-                                {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "totalActiveDeposit" }
-                                },
-                                {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "totalHistoricalDeposit" }
-                                },
-                                {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "totalInterestEarned" }
-                                },
-                                {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "totalHistoricalInterestEarned" }
-                                }
+                                { kind: "Field", name: { kind: "Name", value: "UserID" } },
+                                { kind: "Field", name: { kind: "Name", value: "DPoolID" } }
                             ]
                         }
                     }
@@ -1698,7 +1051,7 @@ exports.UpdateUserTotalDepositDocument = {
                 selections: [
                     {
                         kind: "Field",
-                        name: { kind: "Name", value: "updateUserTotalDeposit" },
+                        name: { kind: "Name", value: "UpdateUserTotalDeposit" },
                         arguments: [
                             {
                                 kind: "Argument",
@@ -1765,34 +1118,9 @@ exports.DepositDocument = {
                             kind: "SelectionSet",
                             selections: [
                                 { kind: "Field", name: { kind: "Name", value: "id" } },
-                                { kind: "Field", name: { kind: "Name", value: "nftID" } },
-                                { kind: "Field", name: { kind: "Name", value: "amount" } },
-                                {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "maturationTimestamp" }
-                                },
-                                { kind: "Field", name: { kind: "Name", value: "active" } },
-                                {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "depositTimestamp" }
-                                },
-                                {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "interestEarned" }
-                                },
-                                { kind: "Field", name: { kind: "Name", value: "fundingID" } },
-                                {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "mintMPHAmount" }
-                                },
-                                {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "takeBackMPHAmount" }
-                                },
-                                {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "initialMoneyMarketIncomeIndex" }
-                                }
+                                { kind: "Field", name: { kind: "Name", value: "UserID" } },
+                                { kind: "Field", name: { kind: "Name", value: "DPoolID" } },
+                                { kind: "Field", name: { kind: "Name", value: "active" } }
                             ]
                         }
                     }
@@ -1829,7 +1157,7 @@ exports.UpdateDepositDocument = {
                 selections: [
                     {
                         kind: "Field",
-                        name: { kind: "Name", value: "updateDeposit" },
+                        name: { kind: "Name", value: "UpdateDeposit" },
                         arguments: [
                             {
                                 kind: "Argument",
@@ -1897,11 +1225,11 @@ exports.FunderDocument = {
                             selections: [
                                 { kind: "Field", name: { kind: "Name", value: "id" } },
                                 { kind: "Field", name: { kind: "Name", value: "address" } },
-                                { kind: "Field", name: { kind: "Name", value: "numPools" } },
-                                { kind: "Field", name: { kind: "Name", value: "numFundings" } },
+                                { kind: "Field", name: { kind: "Name", value: "DPoolIDs" } },
+                                { kind: "Field", name: { kind: "Name", value: "FundingIDs" } },
                                 {
                                     kind: "Field",
-                                    name: { kind: "Name", value: "totalMPHEarned" }
+                                    name: { kind: "Name", value: "FunderTotalInterestIDs" }
                                 }
                             ]
                         }
@@ -1939,7 +1267,7 @@ exports.UpdateFunderDocument = {
                 selections: [
                     {
                         kind: "Field",
-                        name: { kind: "Name", value: "updateFunder" },
+                        name: { kind: "Name", value: "UpdateFunder" },
                         arguments: [
                             {
                                 kind: "Argument",
@@ -2006,29 +1334,8 @@ exports.FunderTotalInterestDocument = {
                             kind: "SelectionSet",
                             selections: [
                                 { kind: "Field", name: { kind: "Name", value: "id" } },
-                                {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "totalDeficitFunded" }
-                                },
-                                {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "totalHistoricalDeficitFunded" }
-                                },
-                                {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "totalInterestEarned" }
-                                },
-                                {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "totalHistoricalInterestEarned" }
-                                },
-                                {
-                                    kind: "Field",
-                                    name: {
-                                        kind: "Name",
-                                        value: "totalRecordedFundedDepositAmount"
-                                    }
-                                }
+                                { kind: "Field", name: { kind: "Name", value: "FunderID" } },
+                                { kind: "Field", name: { kind: "Name", value: "DPoolID" } }
                             ]
                         }
                     }
@@ -2065,7 +1372,7 @@ exports.UpdateFunderTotalInterestDocument = {
                 selections: [
                     {
                         kind: "Field",
-                        name: { kind: "Name", value: "updateFunderTotalInterest" },
+                        name: { kind: "Name", value: "UpdateFunderTotalInterest" },
                         arguments: [
                             {
                                 kind: "Argument",
@@ -2132,40 +1439,9 @@ exports.FundingDocument = {
                             kind: "SelectionSet",
                             selections: [
                                 { kind: "Field", name: { kind: "Name", value: "id" } },
-                                { kind: "Field", name: { kind: "Name", value: "nftID" } },
-                                {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "fromDepositID" }
-                                },
-                                { kind: "Field", name: { kind: "Name", value: "toDepositID" } },
-                                { kind: "Field", name: { kind: "Name", value: "active" } },
-                                {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "recordedFundedDepositAmount" }
-                                },
-                                {
-                                    kind: "Field",
-                                    name: {
-                                        kind: "Name",
-                                        value: "recordedMoneyMarketIncomeIndex"
-                                    }
-                                },
-                                {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "initialFundedDepositAmount" }
-                                },
-                                {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "fundedDeficitAmount" }
-                                },
-                                {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "totalInterestEarned" }
-                                },
-                                {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "mintMPHAmount" }
-                                }
+                                { kind: "Field", name: { kind: "Name", value: "FunderID" } },
+                                { kind: "Field", name: { kind: "Name", value: "DPoolID" } },
+                                { kind: "Field", name: { kind: "Name", value: "active" } }
                             ]
                         }
                     }
@@ -2202,7 +1478,7 @@ exports.UpdateFundingDocument = {
                 selections: [
                     {
                         kind: "Field",
-                        name: { kind: "Name", value: "updateFunding" },
+                        name: { kind: "Name", value: "UpdateFunding" },
                         arguments: [
                             {
                                 kind: "Argument",
@@ -2269,16 +1545,7 @@ exports.MPHHolderDocument = {
                             kind: "SelectionSet",
                             selections: [
                                 { kind: "Field", name: { kind: "Name", value: "id" } },
-                                { kind: "Field", name: { kind: "Name", value: "address" } },
-                                { kind: "Field", name: { kind: "Name", value: "mphBalance" } },
-                                {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "stakedMPHBalance" }
-                                },
-                                {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "totalHistoricalReward" }
-                                }
+                                { kind: "Field", name: { kind: "Name", value: "address" } }
                             ]
                         }
                     }
@@ -2315,7 +1582,7 @@ exports.UpdateMPHHolderDocument = {
                 selections: [
                     {
                         kind: "Field",
-                        name: { kind: "Name", value: "updateMPHHolder" },
+                        name: { kind: "Name", value: "UpdateMPHHolder" },
                         arguments: [
                             {
                                 kind: "Argument",
@@ -2381,24 +1648,7 @@ exports.MPHDocument = {
                         selectionSet: {
                             kind: "SelectionSet",
                             selections: [
-                                { kind: "Field", name: { kind: "Name", value: "id" } },
-                                { kind: "Field", name: { kind: "Name", value: "totalSupply" } },
-                                {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "totalStakedMPHBalance" }
-                                },
-                                {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "totalHistoricalReward" }
-                                },
-                                {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "rewardPerSecond" }
-                                },
-                                {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "rewardPerMPHPerSecond" }
-                                }
+                                { kind: "Field", name: { kind: "Name", value: "id" } }
                             ]
                         }
                     }
@@ -2435,7 +1685,225 @@ exports.UpdateMPHDocument = {
                 selections: [
                     {
                         kind: "Field",
-                        name: { kind: "Name", value: "updateMPH" },
+                        name: { kind: "Name", value: "UpdateMPH" },
+                        arguments: [
+                            {
+                                kind: "Argument",
+                                name: { kind: "Name", value: "input" },
+                                value: {
+                                    kind: "Variable",
+                                    name: { kind: "Name", value: "input" }
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        }
+    ]
+};
+exports.VestDocument = {
+    kind: "Document",
+    definitions: [
+        {
+            kind: "OperationDefinition",
+            operation: "query",
+            name: { kind: "Name", value: "Vest" },
+            variableDefinitions: [
+                {
+                    kind: "VariableDefinition",
+                    variable: { kind: "Variable", name: { kind: "Name", value: "id" } },
+                    type: {
+                        kind: "NonNullType",
+                        type: { kind: "NamedType", name: { kind: "Name", value: "ID" } }
+                    }
+                },
+                {
+                    kind: "VariableDefinition",
+                    variable: {
+                        kind: "Variable",
+                        name: { kind: "Name", value: "prove" }
+                    },
+                    type: { kind: "NamedType", name: { kind: "Name", value: "Boolean" } }
+                }
+            ],
+            selectionSet: {
+                kind: "SelectionSet",
+                selections: [
+                    {
+                        kind: "Field",
+                        name: { kind: "Name", value: "Vest" },
+                        arguments: [
+                            {
+                                kind: "Argument",
+                                name: { kind: "Name", value: "id" },
+                                value: { kind: "Variable", name: { kind: "Name", value: "id" } }
+                            },
+                            {
+                                kind: "Argument",
+                                name: { kind: "Name", value: "prove" },
+                                value: {
+                                    kind: "Variable",
+                                    name: { kind: "Name", value: "prove" }
+                                }
+                            }
+                        ],
+                        selectionSet: {
+                            kind: "SelectionSet",
+                            selections: [
+                                { kind: "Field", name: { kind: "Name", value: "id" } },
+                                { kind: "Field", name: { kind: "Name", value: "user" } }
+                            ]
+                        }
+                    }
+                ]
+            }
+        }
+    ]
+};
+exports.UpdateVestDocument = {
+    kind: "Document",
+    definitions: [
+        {
+            kind: "OperationDefinition",
+            operation: "mutation",
+            name: { kind: "Name", value: "UpdateVest" },
+            variableDefinitions: [
+                {
+                    kind: "VariableDefinition",
+                    variable: {
+                        kind: "Variable",
+                        name: { kind: "Name", value: "input" }
+                    },
+                    type: {
+                        kind: "NonNullType",
+                        type: {
+                            kind: "NamedType",
+                            name: { kind: "Name", value: "VestInput" }
+                        }
+                    }
+                }
+            ],
+            selectionSet: {
+                kind: "SelectionSet",
+                selections: [
+                    {
+                        kind: "Field",
+                        name: { kind: "Name", value: "UpdateVest" },
+                        arguments: [
+                            {
+                                kind: "Argument",
+                                name: { kind: "Name", value: "input" },
+                                value: {
+                                    kind: "Variable",
+                                    name: { kind: "Name", value: "input" }
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        }
+    ]
+};
+exports.FractionalDepositDocument = {
+    kind: "Document",
+    definitions: [
+        {
+            kind: "OperationDefinition",
+            operation: "query",
+            name: { kind: "Name", value: "FractionalDeposit" },
+            variableDefinitions: [
+                {
+                    kind: "VariableDefinition",
+                    variable: { kind: "Variable", name: { kind: "Name", value: "id" } },
+                    type: {
+                        kind: "NonNullType",
+                        type: { kind: "NamedType", name: { kind: "Name", value: "ID" } }
+                    }
+                },
+                {
+                    kind: "VariableDefinition",
+                    variable: {
+                        kind: "Variable",
+                        name: { kind: "Name", value: "prove" }
+                    },
+                    type: { kind: "NamedType", name: { kind: "Name", value: "Boolean" } }
+                }
+            ],
+            selectionSet: {
+                kind: "SelectionSet",
+                selections: [
+                    {
+                        kind: "Field",
+                        name: { kind: "Name", value: "FractionalDeposit" },
+                        arguments: [
+                            {
+                                kind: "Argument",
+                                name: { kind: "Name", value: "id" },
+                                value: { kind: "Variable", name: { kind: "Name", value: "id" } }
+                            },
+                            {
+                                kind: "Argument",
+                                name: { kind: "Name", value: "prove" },
+                                value: {
+                                    kind: "Variable",
+                                    name: { kind: "Name", value: "prove" }
+                                }
+                            }
+                        ],
+                        selectionSet: {
+                            kind: "SelectionSet",
+                            selections: [
+                                { kind: "Field", name: { kind: "Name", value: "id" } },
+                                { kind: "Field", name: { kind: "Name", value: "address" } },
+                                {
+                                    kind: "Field",
+                                    name: { kind: "Name", value: "zeroCouponBondAddress" }
+                                },
+                                {
+                                    kind: "Field",
+                                    name: { kind: "Name", value: "ownerAddress" }
+                                },
+                                { kind: "Field", name: { kind: "Name", value: "active" } },
+                                { kind: "Field", name: { kind: "Name", value: "DepositID" } }
+                            ]
+                        }
+                    }
+                ]
+            }
+        }
+    ]
+};
+exports.UpdateFractionalDepositDocument = {
+    kind: "Document",
+    definitions: [
+        {
+            kind: "OperationDefinition",
+            operation: "mutation",
+            name: { kind: "Name", value: "UpdateFractionalDeposit" },
+            variableDefinitions: [
+                {
+                    kind: "VariableDefinition",
+                    variable: {
+                        kind: "Variable",
+                        name: { kind: "Name", value: "input" }
+                    },
+                    type: {
+                        kind: "NonNullType",
+                        type: {
+                            kind: "NamedType",
+                            name: { kind: "Name", value: "FractionalDepositInput" }
+                        }
+                    }
+                }
+            ],
+            selectionSet: {
+                kind: "SelectionSet",
+                selections: [
+                    {
+                        kind: "Field",
+                        name: { kind: "Name", value: "UpdateFractionalDeposit" },
                         arguments: [
                             {
                                 kind: "Argument",
@@ -2454,9 +1922,7 @@ exports.UpdateMPHDocument = {
 };
 function gqlFetch(operation, variables) {
     //return useGQLFetch(operation, variables);
-    console.log(operation);
-    console.log(variables);
-    return DataVertexClient_1.useFetch(operation, variables);
+    return useFetch(operation, variables);
 }
 function getProperty(obj, key) {
     return obj[key]; // Inferred type is T[K]
@@ -2467,14 +1933,4 @@ function setProperty(obj, key, value) {
 function lowercaseFirstLetter(str) {
     return str.charAt(0).toLowerCase() + str.slice(1);
 }
-// function arr<T, U>(
-//   arr: any,
-//   arg1: any,
-//   idKey: any,
-//   TK: any,
-//   titleKey: any,
-//   TK: any
-// ) {
-//   throw new Error("Function not implemented.");
-// }
 //# sourceMappingURL=models.js.map

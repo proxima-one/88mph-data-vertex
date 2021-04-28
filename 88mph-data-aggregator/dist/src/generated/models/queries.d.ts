@@ -1,5 +1,5 @@
-import { GraphQLClient } from "graphql-request";
-import * as Dom from "graphql-request/dist/types.dom";
+import { GraphQLClient } from 'graphql-request';
+import * as Dom from 'graphql-request/dist/types.dom';
 export declare type Maybe<T> = T | null;
 export declare type Exact<T extends {
     [key: string]: unknown;
@@ -22,8 +22,323 @@ export declare type Scalars = {
     BigDecimal: any;
     BigInt: any;
 };
-export interface Query {
-    __typename?: "Query";
+export declare class DPool {
+    __typename?: 'DPool';
+    id?: Maybe<Scalars['ID']>;
+    address?: Maybe<Scalars['String']>;
+    moneyMarket?: Maybe<Scalars['String']>;
+    stablecoin?: Maybe<Scalars['String']>;
+    interestModel?: Maybe<Scalars['String']>;
+    users?: Maybe<Array<Maybe<User>>>;
+    UserIDs?: Maybe<Array<Maybe<Scalars['String']>>>;
+    numUsers?: Maybe<Scalars['BigInt']>;
+    deposits?: Maybe<Array<Maybe<Deposit>>>;
+    DepositIDs?: Maybe<Array<Maybe<Scalars['String']>>>;
+    numDeposits?: Maybe<Scalars['BigInt']>;
+    numActiveDeposits?: Maybe<Scalars['BigInt']>;
+    totalActiveDeposit?: Maybe<Scalars['BigDecimal']>;
+    totalHistoricalDeposit?: Maybe<Scalars['BigDecimal']>;
+    totalInterestPaid?: Maybe<Scalars['BigDecimal']>;
+    unfundedDepositAmount?: Maybe<Scalars['BigDecimal']>;
+    funders?: Maybe<Array<Maybe<Funder>>>;
+    FunderIDs?: Maybe<Array<Maybe<Scalars['String']>>>;
+    numFunders?: Maybe<Scalars['BigInt']>;
+    fundings?: Maybe<Array<Maybe<Funding>>>;
+    FundingIDs?: Maybe<Array<Maybe<Scalars['String']>>>;
+    numFundings?: Maybe<Scalars['BigInt']>;
+    MinDepositPeriod?: Maybe<Scalars['BigInt']>;
+    MaxDepositPeriod?: Maybe<Scalars['BigInt']>;
+    MinDepositAmount?: Maybe<Scalars['BigDecimal']>;
+    MaxDepositAmount?: Maybe<Scalars['BigDecimal']>;
+    mphDepositorRewardMintMultiplier?: Maybe<Scalars['BigDecimal']>;
+    mphDepositorRewardTakeBackMultiplier?: Maybe<Scalars['BigDecimal']>;
+    mphFunderRewardMultiplier?: Maybe<Scalars['BigDecimal']>;
+    oneYearInterestRate?: Maybe<Scalars['BigDecimal']>;
+    surplus?: Maybe<Scalars['BigDecimal']>;
+    moneyMarketIncomeIndex?: Maybe<Scalars['BigInt']>;
+    oracleInterestRate?: Maybe<Scalars['BigDecimal']>;
+    proof?: Maybe<Proof>;
+}
+export declare type DPoolInput = {
+    id?: Maybe<Scalars['ID']>;
+    address?: Maybe<Scalars['String']>;
+    moneyMarket?: Maybe<Scalars['String']>;
+    stablecoin?: Maybe<Scalars['String']>;
+    interestModel?: Maybe<Scalars['String']>;
+    UserIDs?: Maybe<Array<Maybe<Scalars['String']>>>;
+    numUsers?: Maybe<Scalars['BigInt']>;
+    DepositIDs?: Maybe<Array<Maybe<Scalars['String']>>>;
+    numDeposits?: Maybe<Scalars['BigInt']>;
+    numActiveDeposits?: Maybe<Scalars['BigInt']>;
+    totalActiveDeposit?: Maybe<Scalars['BigDecimal']>;
+    totalHistoricalDeposit?: Maybe<Scalars['BigDecimal']>;
+    totalInterestPaid?: Maybe<Scalars['BigDecimal']>;
+    unfundedDepositAmount?: Maybe<Scalars['BigDecimal']>;
+    FunderIDs?: Maybe<Array<Maybe<Scalars['String']>>>;
+    numFunders?: Maybe<Scalars['BigInt']>;
+    FundingIDs?: Maybe<Array<Maybe<Scalars['String']>>>;
+    numFundings?: Maybe<Scalars['BigInt']>;
+    MinDepositPeriod?: Maybe<Scalars['BigInt']>;
+    MaxDepositPeriod?: Maybe<Scalars['BigInt']>;
+    MinDepositAmount?: Maybe<Scalars['BigDecimal']>;
+    MaxDepositAmount?: Maybe<Scalars['BigDecimal']>;
+    mphDepositorRewardMintMultiplier?: Maybe<Scalars['BigDecimal']>;
+    mphDepositorRewardTakeBackMultiplier?: Maybe<Scalars['BigDecimal']>;
+    mphFunderRewardMultiplier?: Maybe<Scalars['BigDecimal']>;
+    oneYearInterestRate?: Maybe<Scalars['BigDecimal']>;
+    surplus?: Maybe<Scalars['BigDecimal']>;
+    moneyMarketIncomeIndex?: Maybe<Scalars['BigInt']>;
+    oracleInterestRate?: Maybe<Scalars['BigDecimal']>;
+};
+export declare class DPoolList {
+    __typename?: 'DPoolList';
+    id?: Maybe<Scalars['ID']>;
+    pools?: Maybe<Array<Maybe<DPool>>>;
+    DPoolIDs?: Maybe<Array<Maybe<Scalars['String']>>>;
+    numPools?: Maybe<Scalars['BigInt']>;
+    numUsers?: Maybe<Scalars['BigInt']>;
+    numActiveUsers?: Maybe<Scalars['BigInt']>;
+    numFunders?: Maybe<Scalars['BigInt']>;
+    proof?: Maybe<Proof>;
+}
+export declare type DPoolListInput = {
+    id?: Maybe<Scalars['ID']>;
+    DPoolIDs?: Maybe<Array<Maybe<Scalars['String']>>>;
+    numPools?: Maybe<Scalars['BigInt']>;
+    numUsers?: Maybe<Scalars['BigInt']>;
+    numActiveUsers?: Maybe<Scalars['BigInt']>;
+    numFunders?: Maybe<Scalars['BigInt']>;
+};
+export declare class Deposit {
+    __typename?: 'Deposit';
+    id?: Maybe<Scalars['ID']>;
+    nftID?: Maybe<Scalars['BigInt']>;
+    user?: Maybe<User>;
+    UserID?: Maybe<Scalars['String']>;
+    pool?: Maybe<DPool>;
+    DPoolID?: Maybe<Scalars['String']>;
+    amount?: Maybe<Scalars['BigDecimal']>;
+    maturationTimestamp?: Maybe<Scalars['BigInt']>;
+    active?: Maybe<Scalars['Boolean']>;
+    depositTimestamp?: Maybe<Scalars['BigInt']>;
+    depositLength?: Maybe<Scalars['BigInt']>;
+    interestEarned?: Maybe<Scalars['BigDecimal']>;
+    fundingID?: Maybe<Scalars['BigInt']>;
+    mintMPHAmount?: Maybe<Scalars['BigDecimal']>;
+    takeBackMPHAmount?: Maybe<Scalars['BigDecimal']>;
+    initialMoneyMarketIncomeIndex?: Maybe<Scalars['BigInt']>;
+    fundingInterestPaid?: Maybe<Scalars['BigDecimal']>;
+    fundingRefundAmount?: Maybe<Scalars['BigDecimal']>;
+    proof?: Maybe<Proof>;
+}
+export declare type DepositInput = {
+    id?: Maybe<Scalars['ID']>;
+    nftID?: Maybe<Scalars['BigInt']>;
+    UserID?: Maybe<Scalars['String']>;
+    DPoolID?: Maybe<Scalars['String']>;
+    amount?: Maybe<Scalars['BigDecimal']>;
+    maturationTimestamp?: Maybe<Scalars['BigInt']>;
+    active?: Maybe<Scalars['Boolean']>;
+    depositTimestamp?: Maybe<Scalars['BigInt']>;
+    depositLength?: Maybe<Scalars['BigInt']>;
+    interestEarned?: Maybe<Scalars['BigDecimal']>;
+    fundingID?: Maybe<Scalars['BigInt']>;
+    mintMPHAmount?: Maybe<Scalars['BigDecimal']>;
+    takeBackMPHAmount?: Maybe<Scalars['BigDecimal']>;
+    initialMoneyMarketIncomeIndex?: Maybe<Scalars['BigInt']>;
+    fundingInterestPaid?: Maybe<Scalars['BigDecimal']>;
+    fundingRefundAmount?: Maybe<Scalars['BigDecimal']>;
+};
+export declare class FractionalDeposit {
+    __typename?: 'FractionalDeposit';
+    id?: Maybe<Scalars['ID']>;
+    address?: Maybe<Scalars['String']>;
+    zeroCouponBondAddress?: Maybe<Scalars['String']>;
+    ownerAddress?: Maybe<Scalars['String']>;
+    active?: Maybe<Scalars['Boolean']>;
+    deposit?: Maybe<Deposit>;
+    DepositID?: Maybe<Scalars['String']>;
+    proof?: Maybe<Proof>;
+}
+export declare type FractionalDepositInput = {
+    id?: Maybe<Scalars['ID']>;
+    address?: Maybe<Scalars['String']>;
+    zeroCouponBondAddress?: Maybe<Scalars['String']>;
+    ownerAddress?: Maybe<Scalars['String']>;
+    active?: Maybe<Scalars['Boolean']>;
+    DepositID?: Maybe<Scalars['String']>;
+};
+export declare class Funder {
+    __typename?: 'Funder';
+    id?: Maybe<Scalars['ID']>;
+    address?: Maybe<Scalars['String']>;
+    pools?: Maybe<Array<Maybe<DPool>>>;
+    DPoolIDs?: Maybe<Array<Maybe<Scalars['String']>>>;
+    numPools?: Maybe<Scalars['BigInt']>;
+    fundings?: Maybe<Array<Maybe<Funding>>>;
+    FundingIDs?: Maybe<Array<Maybe<Scalars['String']>>>;
+    numFundings?: Maybe<Scalars['BigInt']>;
+    totalMPHEarned?: Maybe<Scalars['BigDecimal']>;
+    totalInterestByPool?: Maybe<Array<Maybe<FunderTotalInterest>>>;
+    FunderTotalInterestIDs?: Maybe<Array<Maybe<Scalars['String']>>>;
+    proof?: Maybe<Proof>;
+}
+export declare type FunderInput = {
+    id?: Maybe<Scalars['ID']>;
+    address?: Maybe<Scalars['String']>;
+    DPoolIDs?: Maybe<Array<Maybe<Scalars['String']>>>;
+    numPools?: Maybe<Scalars['BigInt']>;
+    FundingIDs?: Maybe<Array<Maybe<Scalars['String']>>>;
+    numFundings?: Maybe<Scalars['BigInt']>;
+    totalMPHEarned?: Maybe<Scalars['BigDecimal']>;
+    FunderTotalInterestIDs?: Maybe<Array<Maybe<Scalars['String']>>>;
+};
+export declare class FunderTotalInterest {
+    __typename?: 'FunderTotalInterest';
+    id?: Maybe<Scalars['ID']>;
+    funder?: Maybe<Funder>;
+    FunderID?: Maybe<Scalars['String']>;
+    pool?: Maybe<DPool>;
+    DPoolID?: Maybe<Scalars['String']>;
+    totalDeficitFunded?: Maybe<Scalars['BigDecimal']>;
+    totalHistoricalDeficitFunded?: Maybe<Scalars['BigDecimal']>;
+    totalInterestEarned?: Maybe<Scalars['BigDecimal']>;
+    totalHistoricalInterestEarned?: Maybe<Scalars['BigDecimal']>;
+    totalRecordedFundedDepositAmount?: Maybe<Scalars['BigDecimal']>;
+    proof?: Maybe<Proof>;
+}
+export declare type FunderTotalInterestInput = {
+    id?: Maybe<Scalars['ID']>;
+    FunderID?: Maybe<Scalars['String']>;
+    DPoolID?: Maybe<Scalars['String']>;
+    totalDeficitFunded?: Maybe<Scalars['BigDecimal']>;
+    totalHistoricalDeficitFunded?: Maybe<Scalars['BigDecimal']>;
+    totalInterestEarned?: Maybe<Scalars['BigDecimal']>;
+    totalHistoricalInterestEarned?: Maybe<Scalars['BigDecimal']>;
+    totalRecordedFundedDepositAmount?: Maybe<Scalars['BigDecimal']>;
+};
+export declare class Funding {
+    __typename?: 'Funding';
+    id?: Maybe<Scalars['ID']>;
+    nftID?: Maybe<Scalars['BigInt']>;
+    funder?: Maybe<Funder>;
+    FunderID?: Maybe<Scalars['String']>;
+    pool?: Maybe<DPool>;
+    DPoolID?: Maybe<Scalars['String']>;
+    fromDepositID?: Maybe<Scalars['BigInt']>;
+    toDepositID?: Maybe<Scalars['BigInt']>;
+    active?: Maybe<Scalars['Boolean']>;
+    recordedFundedDepositAmount?: Maybe<Scalars['BigDecimal']>;
+    recordedMoneyMarketIncomeIndex?: Maybe<Scalars['BigInt']>;
+    initialFundedDepositAmount?: Maybe<Scalars['BigDecimal']>;
+    fundedDeficitAmount?: Maybe<Scalars['BigDecimal']>;
+    totalInterestEarned?: Maybe<Scalars['BigDecimal']>;
+    creationTimestamp?: Maybe<Scalars['BigInt']>;
+    mphRewardEarned?: Maybe<Scalars['BigDecimal']>;
+    refundAmount?: Maybe<Scalars['BigDecimal']>;
+    proof?: Maybe<Proof>;
+}
+export declare type FundingInput = {
+    id?: Maybe<Scalars['ID']>;
+    nftID?: Maybe<Scalars['BigInt']>;
+    FunderID?: Maybe<Scalars['String']>;
+    DPoolID?: Maybe<Scalars['String']>;
+    fromDepositID?: Maybe<Scalars['BigInt']>;
+    toDepositID?: Maybe<Scalars['BigInt']>;
+    active?: Maybe<Scalars['Boolean']>;
+    recordedFundedDepositAmount?: Maybe<Scalars['BigDecimal']>;
+    recordedMoneyMarketIncomeIndex?: Maybe<Scalars['BigInt']>;
+    initialFundedDepositAmount?: Maybe<Scalars['BigDecimal']>;
+    fundedDeficitAmount?: Maybe<Scalars['BigDecimal']>;
+    totalInterestEarned?: Maybe<Scalars['BigDecimal']>;
+    creationTimestamp?: Maybe<Scalars['BigInt']>;
+    mphRewardEarned?: Maybe<Scalars['BigDecimal']>;
+    refundAmount?: Maybe<Scalars['BigDecimal']>;
+};
+export declare class MPH {
+    __typename?: 'MPH';
+    id?: Maybe<Scalars['ID']>;
+    totalHistoricalReward?: Maybe<Scalars['BigDecimal']>;
+    rewardPerSecond?: Maybe<Scalars['BigDecimal']>;
+    rewardPerMPHPerSecond?: Maybe<Scalars['BigDecimal']>;
+    proof?: Maybe<Proof>;
+}
+export declare class MPHHolder {
+    __typename?: 'MPHHolder';
+    id?: Maybe<Scalars['ID']>;
+    address?: Maybe<Scalars['String']>;
+    totalHistoricalReward?: Maybe<Scalars['BigDecimal']>;
+    proof?: Maybe<Proof>;
+}
+export declare type MPHHolderInput = {
+    id?: Maybe<Scalars['ID']>;
+    address?: Maybe<Scalars['String']>;
+    totalHistoricalReward?: Maybe<Scalars['BigDecimal']>;
+};
+export declare type MPHInput = {
+    id?: Maybe<Scalars['ID']>;
+    totalHistoricalReward?: Maybe<Scalars['BigDecimal']>;
+    rewardPerSecond?: Maybe<Scalars['BigDecimal']>;
+    rewardPerMPHPerSecond?: Maybe<Scalars['BigDecimal']>;
+};
+export declare class Mutation {
+    __typename?: 'Mutation';
+    UpdateDPoolList?: Maybe<Scalars['Boolean']>;
+    UpdateDPool?: Maybe<Scalars['Boolean']>;
+    UpdateUser?: Maybe<Scalars['Boolean']>;
+    UpdateUserTotalDeposit?: Maybe<Scalars['Boolean']>;
+    UpdateDeposit?: Maybe<Scalars['Boolean']>;
+    UpdateFunder?: Maybe<Scalars['Boolean']>;
+    UpdateFunderTotalInterest?: Maybe<Scalars['Boolean']>;
+    UpdateFunding?: Maybe<Scalars['Boolean']>;
+    UpdateMPHHolder?: Maybe<Scalars['Boolean']>;
+    UpdateMPH?: Maybe<Scalars['Boolean']>;
+    UpdateVest?: Maybe<Scalars['Boolean']>;
+    UpdateFractionalDeposit?: Maybe<Scalars['Boolean']>;
+}
+export declare type MutationUpdateDPoolListArgs = {
+    input: DPoolListInput;
+};
+export declare type MutationUpdateDPoolArgs = {
+    input: DPoolInput;
+};
+export declare type MutationUpdateUserArgs = {
+    input: UserInput;
+};
+export declare type MutationUpdateUserTotalDepositArgs = {
+    input: UserTotalDepositInput;
+};
+export declare type MutationUpdateDepositArgs = {
+    input: DepositInput;
+};
+export declare type MutationUpdateFunderArgs = {
+    input: FunderInput;
+};
+export declare type MutationUpdateFunderTotalInterestArgs = {
+    input: FunderTotalInterestInput;
+};
+export declare type MutationUpdateFundingArgs = {
+    input: FundingInput;
+};
+export declare type MutationUpdateMPHHolderArgs = {
+    input: MPHHolderInput;
+};
+export declare type MutationUpdateMPHArgs = {
+    input: MPHInput;
+};
+export declare type MutationUpdateVestArgs = {
+    input: VestInput;
+};
+export declare type MutationUpdateFractionalDepositArgs = {
+    input: FractionalDepositInput;
+};
+export declare class Proof {
+    __typename?: 'Proof';
+    root?: Maybe<Scalars['String']>;
+    proof?: Maybe<Scalars['String']>;
+}
+export declare class Query {
+    __typename?: 'Query';
     DPoolList: DPoolList;
     DPoolLists: Array<Maybe<DPoolList>>;
     DPoolListSearch: Array<Maybe<DPoolList>>;
@@ -54,758 +369,492 @@ export interface Query {
     MPH: MPH;
     MPHs: Array<Maybe<MPH>>;
     MPHSearch: Array<Maybe<MPH>>;
+    Vest: Vest;
+    Vests: Array<Maybe<Vest>>;
+    VestSearch: Array<Maybe<Vest>>;
+    FractionalDeposit: FractionalDeposit;
+    FractionalDeposits: Array<Maybe<FractionalDeposit>>;
+    FractionalDepositSearch: Array<Maybe<FractionalDeposit>>;
 }
 export declare type QueryDPoolListArgs = {
-    id: Scalars["ID"];
-    prove?: Maybe<Scalars["Boolean"]>;
+    id: Scalars['ID'];
+    prove?: Maybe<Scalars['Boolean']>;
 };
 export declare type QueryDPoolListsArgs = {
-    where?: Maybe<Scalars["String"]>;
-    order_by?: Maybe<Scalars["String"]>;
-    asc?: Maybe<Scalars["Int"]>;
-    first?: Maybe<Scalars["Int"]>;
-    last?: Maybe<Scalars["Int"]>;
-    limit?: Maybe<Scalars["Int"]>;
-    prove?: Maybe<Scalars["Boolean"]>;
+    where?: Maybe<Scalars['String']>;
+    order_by?: Maybe<Scalars['String']>;
+    asc?: Maybe<Scalars['Boolean']>;
+    first?: Maybe<Scalars['Int']>;
+    last?: Maybe<Scalars['Int']>;
+    limit?: Maybe<Scalars['Int']>;
+    prove?: Maybe<Scalars['Boolean']>;
 };
 export declare type QueryDPoolListSearchArgs = {
-    queryText: Scalars["String"];
-    prove?: Maybe<Scalars["Boolean"]>;
+    queryText: Scalars['String'];
+    prove?: Maybe<Scalars['Boolean']>;
 };
 export declare type QueryDPoolArgs = {
-    id: Scalars["ID"];
-    prove?: Maybe<Scalars["Boolean"]>;
+    id: Scalars['ID'];
+    prove?: Maybe<Scalars['Boolean']>;
 };
 export declare type QueryDPoolsArgs = {
-    where?: Maybe<Scalars["String"]>;
-    order_by?: Maybe<Scalars["String"]>;
-    asc?: Maybe<Scalars["Int"]>;
-    first?: Maybe<Scalars["Int"]>;
-    last?: Maybe<Scalars["Int"]>;
-    limit?: Maybe<Scalars["Int"]>;
-    prove?: Maybe<Scalars["Boolean"]>;
+    where?: Maybe<Scalars['String']>;
+    order_by?: Maybe<Scalars['String']>;
+    asc?: Maybe<Scalars['Boolean']>;
+    first?: Maybe<Scalars['Int']>;
+    last?: Maybe<Scalars['Int']>;
+    limit?: Maybe<Scalars['Int']>;
+    prove?: Maybe<Scalars['Boolean']>;
 };
 export declare type QueryDPoolSearchArgs = {
-    queryText: Scalars["String"];
-    prove?: Maybe<Scalars["Boolean"]>;
+    queryText: Scalars['String'];
+    prove?: Maybe<Scalars['Boolean']>;
 };
 export declare type QueryUserArgs = {
-    id: Scalars["ID"];
-    prove?: Maybe<Scalars["Boolean"]>;
+    id: Scalars['ID'];
+    prove?: Maybe<Scalars['Boolean']>;
 };
 export declare type QueryUsersArgs = {
-    where?: Maybe<Scalars["String"]>;
-    order_by?: Maybe<Scalars["String"]>;
-    asc?: Maybe<Scalars["Int"]>;
-    first?: Maybe<Scalars["Int"]>;
-    last?: Maybe<Scalars["Int"]>;
-    limit?: Maybe<Scalars["Int"]>;
-    prove?: Maybe<Scalars["Boolean"]>;
+    where?: Maybe<Scalars['String']>;
+    order_by?: Maybe<Scalars['String']>;
+    asc?: Maybe<Scalars['Boolean']>;
+    first?: Maybe<Scalars['Int']>;
+    last?: Maybe<Scalars['Int']>;
+    limit?: Maybe<Scalars['Int']>;
+    prove?: Maybe<Scalars['Boolean']>;
 };
 export declare type QueryUserSearchArgs = {
-    queryText: Scalars["String"];
-    prove?: Maybe<Scalars["Boolean"]>;
+    queryText: Scalars['String'];
+    prove?: Maybe<Scalars['Boolean']>;
 };
 export declare type QueryUserTotalDepositArgs = {
-    id: Scalars["ID"];
-    prove?: Maybe<Scalars["Boolean"]>;
+    id: Scalars['ID'];
+    prove?: Maybe<Scalars['Boolean']>;
 };
 export declare type QueryUserTotalDepositsArgs = {
-    where?: Maybe<Scalars["String"]>;
-    order_by?: Maybe<Scalars["String"]>;
-    asc?: Maybe<Scalars["Int"]>;
-    first?: Maybe<Scalars["Int"]>;
-    last?: Maybe<Scalars["Int"]>;
-    limit?: Maybe<Scalars["Int"]>;
-    prove?: Maybe<Scalars["Boolean"]>;
+    where?: Maybe<Scalars['String']>;
+    order_by?: Maybe<Scalars['String']>;
+    asc?: Maybe<Scalars['Boolean']>;
+    first?: Maybe<Scalars['Int']>;
+    last?: Maybe<Scalars['Int']>;
+    limit?: Maybe<Scalars['Int']>;
+    prove?: Maybe<Scalars['Boolean']>;
 };
 export declare type QueryUserTotalDepositSearchArgs = {
-    queryText: Scalars["String"];
-    prove?: Maybe<Scalars["Boolean"]>;
+    queryText: Scalars['String'];
+    prove?: Maybe<Scalars['Boolean']>;
 };
 export declare type QueryDepositArgs = {
-    id: Scalars["ID"];
-    prove?: Maybe<Scalars["Boolean"]>;
+    id: Scalars['ID'];
+    prove?: Maybe<Scalars['Boolean']>;
 };
 export declare type QueryDepositsArgs = {
-    where?: Maybe<Scalars["String"]>;
-    order_by?: Maybe<Scalars["String"]>;
-    asc?: Maybe<Scalars["Int"]>;
-    first?: Maybe<Scalars["Int"]>;
-    last?: Maybe<Scalars["Int"]>;
-    limit?: Maybe<Scalars["Int"]>;
-    prove?: Maybe<Scalars["Boolean"]>;
+    where?: Maybe<Scalars['String']>;
+    order_by?: Maybe<Scalars['String']>;
+    asc?: Maybe<Scalars['Boolean']>;
+    first?: Maybe<Scalars['Int']>;
+    last?: Maybe<Scalars['Int']>;
+    limit?: Maybe<Scalars['Int']>;
+    prove?: Maybe<Scalars['Boolean']>;
 };
 export declare type QueryDepositSearchArgs = {
-    queryText: Scalars["String"];
-    prove?: Maybe<Scalars["Boolean"]>;
+    queryText: Scalars['String'];
+    prove?: Maybe<Scalars['Boolean']>;
 };
 export declare type QueryFunderArgs = {
-    id: Scalars["ID"];
-    prove?: Maybe<Scalars["Boolean"]>;
+    id: Scalars['ID'];
+    prove?: Maybe<Scalars['Boolean']>;
 };
 export declare type QueryFundersArgs = {
-    where?: Maybe<Scalars["String"]>;
-    order_by?: Maybe<Scalars["String"]>;
-    asc?: Maybe<Scalars["Int"]>;
-    first?: Maybe<Scalars["Int"]>;
-    last?: Maybe<Scalars["Int"]>;
-    limit?: Maybe<Scalars["Int"]>;
-    prove?: Maybe<Scalars["Boolean"]>;
+    where?: Maybe<Scalars['String']>;
+    order_by?: Maybe<Scalars['String']>;
+    asc?: Maybe<Scalars['Boolean']>;
+    first?: Maybe<Scalars['Int']>;
+    last?: Maybe<Scalars['Int']>;
+    limit?: Maybe<Scalars['Int']>;
+    prove?: Maybe<Scalars['Boolean']>;
 };
 export declare type QueryFunderSearchArgs = {
-    queryText: Scalars["String"];
-    prove?: Maybe<Scalars["Boolean"]>;
+    queryText: Scalars['String'];
+    prove?: Maybe<Scalars['Boolean']>;
 };
 export declare type QueryFunderTotalInterestArgs = {
-    id: Scalars["ID"];
-    prove?: Maybe<Scalars["Boolean"]>;
+    id: Scalars['ID'];
+    prove?: Maybe<Scalars['Boolean']>;
 };
 export declare type QueryFunderTotalInterestsArgs = {
-    where?: Maybe<Scalars["String"]>;
-    order_by?: Maybe<Scalars["String"]>;
-    asc?: Maybe<Scalars["Int"]>;
-    first?: Maybe<Scalars["Int"]>;
-    last?: Maybe<Scalars["Int"]>;
-    limit?: Maybe<Scalars["Int"]>;
-    prove?: Maybe<Scalars["Boolean"]>;
+    where?: Maybe<Scalars['String']>;
+    order_by?: Maybe<Scalars['String']>;
+    asc?: Maybe<Scalars['Boolean']>;
+    first?: Maybe<Scalars['Int']>;
+    last?: Maybe<Scalars['Int']>;
+    limit?: Maybe<Scalars['Int']>;
+    prove?: Maybe<Scalars['Boolean']>;
 };
 export declare type QueryFunderTotalInterestSearchArgs = {
-    queryText: Scalars["String"];
-    prove?: Maybe<Scalars["Boolean"]>;
+    queryText: Scalars['String'];
+    prove?: Maybe<Scalars['Boolean']>;
 };
 export declare type QueryFundingArgs = {
-    id: Scalars["ID"];
-    prove?: Maybe<Scalars["Boolean"]>;
+    id: Scalars['ID'];
+    prove?: Maybe<Scalars['Boolean']>;
 };
 export declare type QueryFundingsArgs = {
-    where?: Maybe<Scalars["String"]>;
-    order_by?: Maybe<Scalars["String"]>;
-    asc?: Maybe<Scalars["Int"]>;
-    first?: Maybe<Scalars["Int"]>;
-    last?: Maybe<Scalars["Int"]>;
-    limit?: Maybe<Scalars["Int"]>;
-    prove?: Maybe<Scalars["Boolean"]>;
+    where?: Maybe<Scalars['String']>;
+    order_by?: Maybe<Scalars['String']>;
+    asc?: Maybe<Scalars['Boolean']>;
+    first?: Maybe<Scalars['Int']>;
+    last?: Maybe<Scalars['Int']>;
+    limit?: Maybe<Scalars['Int']>;
+    prove?: Maybe<Scalars['Boolean']>;
 };
 export declare type QueryFundingSearchArgs = {
-    queryText: Scalars["String"];
-    prove?: Maybe<Scalars["Boolean"]>;
+    queryText: Scalars['String'];
+    prove?: Maybe<Scalars['Boolean']>;
 };
 export declare type QueryMPHHolderArgs = {
-    id: Scalars["ID"];
-    prove?: Maybe<Scalars["Boolean"]>;
+    id: Scalars['ID'];
+    prove?: Maybe<Scalars['Boolean']>;
 };
 export declare type QueryMPHHoldersArgs = {
-    where?: Maybe<Scalars["String"]>;
-    order_by?: Maybe<Scalars["String"]>;
-    asc?: Maybe<Scalars["Int"]>;
-    first?: Maybe<Scalars["Int"]>;
-    last?: Maybe<Scalars["Int"]>;
-    limit?: Maybe<Scalars["Int"]>;
-    prove?: Maybe<Scalars["Boolean"]>;
+    where?: Maybe<Scalars['String']>;
+    order_by?: Maybe<Scalars['String']>;
+    asc?: Maybe<Scalars['Boolean']>;
+    first?: Maybe<Scalars['Int']>;
+    last?: Maybe<Scalars['Int']>;
+    limit?: Maybe<Scalars['Int']>;
+    prove?: Maybe<Scalars['Boolean']>;
 };
 export declare type QueryMPHHolderSearchArgs = {
-    queryText: Scalars["String"];
-    prove?: Maybe<Scalars["Boolean"]>;
+    queryText: Scalars['String'];
+    prove?: Maybe<Scalars['Boolean']>;
 };
 export declare type QueryMPHArgs = {
-    id: Scalars["ID"];
-    prove?: Maybe<Scalars["Boolean"]>;
+    id: Scalars['ID'];
+    prove?: Maybe<Scalars['Boolean']>;
 };
 export declare type QueryMPHsArgs = {
-    where?: Maybe<Scalars["String"]>;
-    order_by?: Maybe<Scalars["String"]>;
-    asc?: Maybe<Scalars["Int"]>;
-    first?: Maybe<Scalars["Int"]>;
-    last?: Maybe<Scalars["Int"]>;
-    limit?: Maybe<Scalars["Int"]>;
-    prove?: Maybe<Scalars["Boolean"]>;
+    where?: Maybe<Scalars['String']>;
+    order_by?: Maybe<Scalars['String']>;
+    asc?: Maybe<Scalars['Boolean']>;
+    first?: Maybe<Scalars['Int']>;
+    last?: Maybe<Scalars['Int']>;
+    limit?: Maybe<Scalars['Int']>;
+    prove?: Maybe<Scalars['Boolean']>;
 };
 export declare type QueryMPHSearchArgs = {
-    queryText: Scalars["String"];
-    prove?: Maybe<Scalars["Boolean"]>;
+    queryText: Scalars['String'];
+    prove?: Maybe<Scalars['Boolean']>;
 };
-export declare class Mutation {
-    __typename?: "Mutation";
-    updateDPoolList?: Maybe<Scalars["Boolean"]>;
-    updateDPool?: Maybe<Scalars["Boolean"]>;
-    updateUser?: Maybe<Scalars["Boolean"]>;
-    updateUserTotalDeposit?: Maybe<Scalars["Boolean"]>;
-    updateDeposit?: Maybe<Scalars["Boolean"]>;
-    updateFunder?: Maybe<Scalars["Boolean"]>;
-    updateFunderTotalInterest?: Maybe<Scalars["Boolean"]>;
-    updateFunding?: Maybe<Scalars["Boolean"]>;
-    updateMPHHolder?: Maybe<Scalars["Boolean"]>;
-    updateMPH?: Maybe<Scalars["Boolean"]>;
-}
-export declare type MutationupdateDPoolListArgs = {
-    input: DPoolListInput;
+export declare type QueryVestArgs = {
+    id: Scalars['ID'];
+    prove?: Maybe<Scalars['Boolean']>;
 };
-export declare type MutationupdateDPoolArgs = {
-    input: DPoolInput;
+export declare type QueryVestsArgs = {
+    where?: Maybe<Scalars['String']>;
+    order_by?: Maybe<Scalars['String']>;
+    asc?: Maybe<Scalars['Boolean']>;
+    first?: Maybe<Scalars['Int']>;
+    last?: Maybe<Scalars['Int']>;
+    limit?: Maybe<Scalars['Int']>;
+    prove?: Maybe<Scalars['Boolean']>;
 };
-export declare type MutationupdateUserArgs = {
-    input: UserInput;
+export declare type QueryVestSearchArgs = {
+    queryText: Scalars['String'];
+    prove?: Maybe<Scalars['Boolean']>;
 };
-export declare type MutationupdateUserTotalDepositArgs = {
-    input: UserTotalDepositInput;
+export declare type QueryFractionalDepositArgs = {
+    id: Scalars['ID'];
+    prove?: Maybe<Scalars['Boolean']>;
 };
-export declare type MutationupdateDepositArgs = {
-    input: DepositInput;
+export declare type QueryFractionalDepositsArgs = {
+    where?: Maybe<Scalars['String']>;
+    order_by?: Maybe<Scalars['String']>;
+    asc?: Maybe<Scalars['Boolean']>;
+    first?: Maybe<Scalars['Int']>;
+    last?: Maybe<Scalars['Int']>;
+    limit?: Maybe<Scalars['Int']>;
+    prove?: Maybe<Scalars['Boolean']>;
 };
-export declare type MutationupdateFunderArgs = {
-    input: FunderInput;
-};
-export declare type MutationupdateFunderTotalInterestArgs = {
-    input: FunderTotalInterestInput;
-};
-export declare type MutationupdateFundingArgs = {
-    input: FundingInput;
-};
-export declare type MutationupdateMPHHolderArgs = {
-    input: MPHHolderInput;
-};
-export declare type MutationupdateMPHArgs = {
-    input: MPHInput;
-};
-export declare class DPoolList {
-    __typename?: "DPoolList";
-    id?: Maybe<Scalars["ID"]>;
-    pools?: Maybe<Array<Maybe<DPool>>>;
-    numPools?: Maybe<Scalars["Int"]>;
-    numUsers?: Maybe<Scalars["Int"]>;
-    numActiveUsers?: Maybe<Scalars["Int"]>;
-    numFunders?: Maybe<Scalars["Int"]>;
-    proof?: Maybe<Proof>;
-}
-export declare type DPoolListInput = {
-    id?: Maybe<Scalars["ID"]>;
-    DPoolIDs?: Maybe<Array<Maybe<Scalars["String"]>>>;
-    numPools?: Maybe<Scalars["Int"]>;
-    numUsers?: Maybe<Scalars["Int"]>;
-    numActiveUsers?: Maybe<Scalars["Int"]>;
-    numFunders?: Maybe<Scalars["Int"]>;
-};
-export declare class DPool {
-    __typename?: "DPool";
-    id?: Maybe<Scalars["ID"]>;
-    address?: Maybe<Scalars["String"]>;
-    moneyMarket?: Maybe<Scalars["String"]>;
-    stablecoin?: Maybe<Scalars["String"]>;
-    interestModel?: Maybe<Scalars["String"]>;
-    users?: Maybe<Array<Maybe<User>>>;
-    numUsers?: Maybe<Scalars["Int"]>;
-    deposits?: Maybe<Array<Maybe<Deposit>>>;
-    numDeposits?: Maybe<Scalars["Int"]>;
-    numActiveDeposits?: Maybe<Scalars["String"]>;
-    totalActiveDeposit?: Maybe<Scalars["String"]>;
-    totalHistoricalDeposit?: Maybe<Scalars["String"]>;
-    totalInterestPaid?: Maybe<Scalars["String"]>;
-    unfundedDepositAmount?: Maybe<Scalars["String"]>;
-    funders?: Maybe<Array<Maybe<Funder>>>;
-    numFunders?: Maybe<Scalars["String"]>;
-    fundings?: Maybe<Array<Maybe<Funding>>>;
-    numFundings?: Maybe<Scalars["String"]>;
-    MinDepositPeriod?: Maybe<Scalars["Float"]>;
-    MaxDepositPeriod?: Maybe<Scalars["Float"]>;
-    MinDepositAmount?: Maybe<Scalars["Float"]>;
-    MaxDepositAmount?: Maybe<Scalars["Float"]>;
-    mphMintingMultiplier?: Maybe<Scalars["Float"]>;
-    mphDepositorRewardMultiplier?: Maybe<Scalars["Float"]>;
-    mphFunderRewardMultiplier?: Maybe<Scalars["Float"]>;
-    oneYearInterestRate?: Maybe<Scalars["Float"]>;
-    surplus?: Maybe<Scalars["String"]>;
-    moneyMarketIncomeIndex?: Maybe<Scalars["String"]>;
-    oracleInterestRate?: Maybe<Scalars["String"]>;
-    proof?: Maybe<Proof>;
-}
-export declare type DPoolInput = {
-    id?: Maybe<Scalars["ID"]>;
-    address?: Maybe<Scalars["String"]>;
-    moneyMarket?: Maybe<Scalars["String"]>;
-    stablecoin?: Maybe<Scalars["String"]>;
-    interestModel?: Maybe<Scalars["String"]>;
-    UserIDs?: Maybe<Array<Maybe<Scalars["String"]>>>;
-    numUsers?: Maybe<Scalars["Int"]>;
-    DepositIDs?: Maybe<Array<Maybe<Scalars["String"]>>>;
-    numDeposits?: Maybe<Scalars["Int"]>;
-    numActiveDeposits?: Maybe<Scalars["String"]>;
-    totalActiveDeposit?: Maybe<Scalars["String"]>;
-    totalHistoricalDeposit?: Maybe<Scalars["String"]>;
-    totalInterestPaid?: Maybe<Scalars["String"]>;
-    unfundedDepositAmount?: Maybe<Scalars["String"]>;
-    FunderIDs?: Maybe<Array<Maybe<Scalars["String"]>>>;
-    numFunders?: Maybe<Scalars["String"]>;
-    FundingIDs?: Maybe<Array<Maybe<Scalars["String"]>>>;
-    numFundings?: Maybe<Scalars["String"]>;
-    MinDepositPeriod?: Maybe<Scalars["Float"]>;
-    MaxDepositPeriod?: Maybe<Scalars["Float"]>;
-    MinDepositAmount?: Maybe<Scalars["Float"]>;
-    MaxDepositAmount?: Maybe<Scalars["Float"]>;
-    mphMintingMultiplier?: Maybe<Scalars["Float"]>;
-    mphDepositorRewardMultiplier?: Maybe<Scalars["Float"]>;
-    mphFunderRewardMultiplier?: Maybe<Scalars["Float"]>;
-    oneYearInterestRate?: Maybe<Scalars["Float"]>;
-    surplus?: Maybe<Scalars["String"]>;
-    moneyMarketIncomeIndex?: Maybe<Scalars["String"]>;
-    oracleInterestRate?: Maybe<Scalars["String"]>;
+export declare type QueryFractionalDepositSearchArgs = {
+    queryText: Scalars['String'];
+    prove?: Maybe<Scalars['Boolean']>;
 };
 export declare class User {
-    __typename?: "User";
-    id?: Maybe<Scalars["ID"]>;
-    address?: Maybe<Scalars["String"]>;
+    __typename?: 'User';
+    id?: Maybe<Scalars['ID']>;
+    address?: Maybe<Scalars['String']>;
     pools?: Maybe<Array<Maybe<DPool>>>;
-    numPools?: Maybe<Scalars["String"]>;
+    DPoolIDs?: Maybe<Array<Maybe<Scalars['String']>>>;
+    numPools?: Maybe<Scalars['BigInt']>;
     deposits?: Maybe<Array<Maybe<Deposit>>>;
-    numDeposits?: Maybe<Scalars["String"]>;
-    numActiveDeposits?: Maybe<Scalars["String"]>;
+    DepositIDs?: Maybe<Array<Maybe<Scalars['String']>>>;
+    numDeposits?: Maybe<Scalars['BigInt']>;
+    numActiveDeposits?: Maybe<Scalars['BigInt']>;
     totalDepositByPool?: Maybe<Array<Maybe<UserTotalDeposit>>>;
-    totalMPHEarned?: Maybe<Scalars["String"]>;
-    totalMPHPaidBack?: Maybe<Scalars["String"]>;
+    UserTotalDepositIDs?: Maybe<Array<Maybe<Scalars['String']>>>;
+    totalMPHEarned?: Maybe<Scalars['BigDecimal']>;
+    totalMPHPaidBack?: Maybe<Scalars['BigDecimal']>;
     proof?: Maybe<Proof>;
 }
 export declare type UserInput = {
-    id?: Maybe<Scalars["ID"]>;
-    address?: Maybe<Scalars["String"]>;
-    DPoolIDs?: Maybe<Array<Maybe<Scalars["String"]>>>;
-    numPools?: Maybe<Scalars["String"]>;
-    DepositIDs?: Maybe<Array<Maybe<Scalars["String"]>>>;
-    numDeposits?: Maybe<Scalars["String"]>;
-    numActiveDeposits?: Maybe<Scalars["String"]>;
-    UserTotalDepositIDs?: Maybe<Array<Maybe<Scalars["String"]>>>;
-    totalMPHEarned?: Maybe<Scalars["String"]>;
-    totalMPHPaidBack?: Maybe<Scalars["String"]>;
+    id?: Maybe<Scalars['ID']>;
+    address?: Maybe<Scalars['String']>;
+    DPoolIDs?: Maybe<Array<Maybe<Scalars['String']>>>;
+    numPools?: Maybe<Scalars['BigInt']>;
+    DepositIDs?: Maybe<Array<Maybe<Scalars['String']>>>;
+    numDeposits?: Maybe<Scalars['BigInt']>;
+    numActiveDeposits?: Maybe<Scalars['BigInt']>;
+    UserTotalDepositIDs?: Maybe<Array<Maybe<Scalars['String']>>>;
+    totalMPHEarned?: Maybe<Scalars['BigDecimal']>;
+    totalMPHPaidBack?: Maybe<Scalars['BigDecimal']>;
 };
 export declare class UserTotalDeposit {
-    __typename?: "UserTotalDeposit";
-    id?: Maybe<Scalars["ID"]>;
+    __typename?: 'UserTotalDeposit';
+    id?: Maybe<Scalars['ID']>;
     user?: Maybe<User>;
+    UserID?: Maybe<Scalars['String']>;
     pool?: Maybe<DPool>;
-    totalActiveDeposit?: Maybe<Scalars["String"]>;
-    totalHistoricalDeposit?: Maybe<Scalars["String"]>;
-    totalInterestEarned?: Maybe<Scalars["String"]>;
-    totalHistoricalInterestEarned?: Maybe<Scalars["String"]>;
+    DPoolID?: Maybe<Scalars['String']>;
+    totalActiveDeposit?: Maybe<Scalars['BigDecimal']>;
+    totalHistoricalDeposit?: Maybe<Scalars['BigDecimal']>;
+    totalInterestEarned?: Maybe<Scalars['BigDecimal']>;
+    totalHistoricalInterestEarned?: Maybe<Scalars['BigDecimal']>;
     proof?: Maybe<Proof>;
 }
 export declare type UserTotalDepositInput = {
-    id?: Maybe<Scalars["ID"]>;
-    UserID?: Maybe<Scalars["String"]>;
-    DPoolID?: Maybe<Scalars["String"]>;
-    totalActiveDeposit?: Maybe<Scalars["String"]>;
-    totalHistoricalDeposit?: Maybe<Scalars["String"]>;
-    totalInterestEarned?: Maybe<Scalars["String"]>;
-    totalHistoricalInterestEarned?: Maybe<Scalars["String"]>;
+    id?: Maybe<Scalars['ID']>;
+    UserID?: Maybe<Scalars['String']>;
+    DPoolID?: Maybe<Scalars['String']>;
+    totalActiveDeposit?: Maybe<Scalars['BigDecimal']>;
+    totalHistoricalDeposit?: Maybe<Scalars['BigDecimal']>;
+    totalInterestEarned?: Maybe<Scalars['BigDecimal']>;
+    totalHistoricalInterestEarned?: Maybe<Scalars['BigDecimal']>;
 };
-export declare class Deposit {
-    __typename?: "Deposit";
-    id?: Maybe<Scalars["ID"]>;
-    nftID?: Maybe<Scalars["String"]>;
-    user?: Maybe<User>;
-    pool?: Maybe<DPool>;
-    amount?: Maybe<Scalars["String"]>;
-    maturationTimestamp?: Maybe<Scalars["String"]>;
-    active?: Maybe<Scalars["Boolean"]>;
-    depositTimestamp?: Maybe<Scalars["String"]>;
-    interestEarned?: Maybe<Scalars["String"]>;
-    fundingID?: Maybe<Scalars["String"]>;
-    mintMPHAmount?: Maybe<Scalars["String"]>;
-    takeBackMPHAmount?: Maybe<Scalars["String"]>;
-    initialMoneyMarketIncomeIndex?: Maybe<Scalars["String"]>;
+export declare class Vest {
+    __typename?: 'Vest';
+    id?: Maybe<Scalars['ID']>;
+    index?: Maybe<Scalars['BigInt']>;
+    user?: Maybe<Scalars['String']>;
+    amount?: Maybe<Scalars['BigDecimal']>;
+    vestPeriodInSeconds?: Maybe<Scalars['BigInt']>;
+    creationTimestamp?: Maybe<Scalars['BigInt']>;
+    withdrawnAmount?: Maybe<Scalars['BigDecimal']>;
     proof?: Maybe<Proof>;
 }
-export declare type DepositInput = {
-    id?: Maybe<Scalars["ID"]>;
-    nftID?: Maybe<Scalars["String"]>;
-    UserID?: Maybe<Scalars["String"]>;
-    DPoolID?: Maybe<Scalars["String"]>;
-    amount?: Maybe<Scalars["String"]>;
-    maturationTimestamp?: Maybe<Scalars["String"]>;
-    active?: Maybe<Scalars["Boolean"]>;
-    depositTimestamp?: Maybe<Scalars["String"]>;
-    interestEarned?: Maybe<Scalars["String"]>;
-    fundingID?: Maybe<Scalars["String"]>;
-    mintMPHAmount?: Maybe<Scalars["String"]>;
-    takeBackMPHAmount?: Maybe<Scalars["String"]>;
-    initialMoneyMarketIncomeIndex?: Maybe<Scalars["String"]>;
-};
-export declare type FunderInput = {
-    id?: Maybe<Scalars["ID"]>;
-    address?: Maybe<Scalars["String"]>;
-    DPoolIDs?: Maybe<Array<Maybe<Scalars["String"]>>>;
-    numPools?: Maybe<Scalars["String"]>;
-    FundingIDs?: Maybe<Array<Maybe<Scalars["String"]>>>;
-    numFundings?: Maybe<Scalars["String"]>;
-    totalMPHEarned?: Maybe<Scalars["String"]>;
-    FunderTotalInterestIDs?: Maybe<Array<Maybe<Scalars["String"]>>>;
-};
-export declare class FunderTotalInterest {
-    __typename?: "FunderTotalInterest";
-    id?: Maybe<Scalars["ID"]>;
-    funder?: Maybe<Funder>;
-    pool?: Maybe<DPool>;
-    totalDeficitFunded?: Maybe<Scalars["String"]>;
-    totalHistoricalDeficitFunded?: Maybe<Scalars["String"]>;
-    totalInterestEarned?: Maybe<Scalars["String"]>;
-    totalHistoricalInterestEarned?: Maybe<Scalars["String"]>;
-    totalRecordedFundedDepositAmount?: Maybe<Scalars["String"]>;
-    proof?: Maybe<Proof>;
-}
-export declare type FunderTotalInterestInput = {
-    id?: Maybe<Scalars["ID"]>;
-    FunderID?: Maybe<Scalars["String"]>;
-    DPoolID?: Maybe<Scalars["String"]>;
-    totalDeficitFunded?: Maybe<Scalars["String"]>;
-    totalHistoricalDeficitFunded?: Maybe<Scalars["String"]>;
-    totalInterestEarned?: Maybe<Scalars["String"]>;
-    totalHistoricalInterestEarned?: Maybe<Scalars["String"]>;
-    totalRecordedFundedDepositAmount?: Maybe<Scalars["String"]>;
-};
-export declare class Funding {
-    __typename?: "Funding";
-    id?: Maybe<Scalars["ID"]>;
-    nftID?: Maybe<Scalars["String"]>;
-    funder?: Maybe<Funder>;
-    pool?: Maybe<DPool>;
-    fromDepositID?: Maybe<Scalars["String"]>;
-    toDepositID?: Maybe<Scalars["String"]>;
-    active?: Maybe<Scalars["Boolean"]>;
-    recordedFundedDepositAmount?: Maybe<Scalars["String"]>;
-    recordedMoneyMarketIncomeIndex?: Maybe<Scalars["String"]>;
-    initialFundedDepositAmount?: Maybe<Scalars["String"]>;
-    fundedDeficitAmount?: Maybe<Scalars["String"]>;
-    totalInterestEarned?: Maybe<Scalars["String"]>;
-    mintMPHAmount?: Maybe<Scalars["String"]>;
-    proof?: Maybe<Proof>;
-}
-export declare type FundingInput = {
-    id?: Maybe<Scalars["ID"]>;
-    nftID?: Maybe<Scalars["String"]>;
-    FunderID?: Maybe<Scalars["String"]>;
-    DPoolID?: Maybe<Scalars["String"]>;
-    fromDepositID?: Maybe<Scalars["String"]>;
-    toDepositID?: Maybe<Scalars["String"]>;
-    active?: Maybe<Scalars["Boolean"]>;
-    recordedFundedDepositAmount?: Maybe<Scalars["String"]>;
-    recordedMoneyMarketIncomeIndex?: Maybe<Scalars["String"]>;
-    initialFundedDepositAmount?: Maybe<Scalars["String"]>;
-    fundedDeficitAmount?: Maybe<Scalars["String"]>;
-    totalInterestEarned?: Maybe<Scalars["String"]>;
-    mintMPHAmount?: Maybe<Scalars["String"]>;
-};
-export declare class MPHHolder {
-    __typename?: "MPHHolder";
-    id?: Maybe<Scalars["ID"]>;
-    address?: Maybe<Scalars["String"]>;
-    mphBalance?: Maybe<Scalars["String"]>;
-    stakedMPHBalance?: Maybe<Scalars["String"]>;
-    totalHistoricalReward?: Maybe<Scalars["String"]>;
-    proof?: Maybe<Proof>;
-}
-export declare type MPHHolderInput = {
-    id?: Maybe<Scalars["ID"]>;
-    address?: Maybe<Scalars["String"]>;
-    mphBalance?: Maybe<Scalars["String"]>;
-    stakedMPHBalance?: Maybe<Scalars["String"]>;
-    totalHistoricalReward?: Maybe<Scalars["String"]>;
-};
-export declare class MPH {
-    __typename?: "MPH";
-    id?: Maybe<Scalars["ID"]>;
-    totalSupply?: Maybe<Scalars["String"]>;
-    totalStakedMPHBalance?: Maybe<Scalars["String"]>;
-    totalHistoricalReward?: Maybe<Scalars["String"]>;
-    rewardPerSecond?: Maybe<Scalars["String"]>;
-    rewardPerMPHPerSecond?: Maybe<Scalars["String"]>;
-    proof?: Maybe<Proof>;
-}
-export declare type MPHInput = {
-    id?: Maybe<Scalars["ID"]>;
-    totalSupply?: Maybe<Scalars["String"]>;
-    totalStakedMPHBalance?: Maybe<Scalars["String"]>;
-    totalHistoricalReward?: Maybe<Scalars["String"]>;
-    rewardPerSecond?: Maybe<Scalars["String"]>;
-    rewardPerMPHPerSecond?: Maybe<Scalars["String"]>;
-};
-export declare class Proof {
-    __typename?: "Proof";
-    root?: Maybe<Scalars["String"]>;
-    proof?: Maybe<Scalars["String"]>;
-}
-export declare class Funder {
-    __typename?: "Funder";
-    id?: Maybe<Scalars["ID"]>;
-    address?: Maybe<Scalars["String"]>;
-    pools?: Maybe<Array<Maybe<DPool>>>;
-    numPools?: Maybe<Scalars["String"]>;
-    fundings?: Maybe<Array<Maybe<Funding>>>;
-    numFundings?: Maybe<Scalars["String"]>;
-    totalMPHEarned?: Maybe<Scalars["String"]>;
-    totalInterestByPool?: Maybe<Array<Maybe<FunderTotalInterest>>>;
-    proof?: Maybe<Proof>;
-}
-export declare type userQueryVariables = Exact<{
-    id: Scalars["ID"];
-}>;
-export declare type userQuery = {
-    __typename?: "Query";
-} & {
-    User: {
-        __typename?: "User";
-    } & Pick<User, "totalMPHEarned" | "totalMPHPaidBack"> & {
-        pools?: Maybe<Array<Maybe<{
-            __typename?: "DPool";
-        } & Pick<DPool, "id" | "address" | "mphDepositorRewardMultiplier">>>>;
-        totalDepositByPool?: Maybe<Array<Maybe<{
-            __typename?: "UserTotalDeposit";
-        } & Pick<UserTotalDeposit, "totalActiveDeposit" | "totalInterestEarned"> & {
-            pool?: Maybe<{
-                __typename?: "DPool";
-            } & Pick<DPool, "address" | "stablecoin">>;
-        }>>>;
-    };
-};
-export declare type dpoolsQueryVariables = Exact<{
-    [key: string]: never;
-}>;
-export declare type dpoolsQuery = {
-    __typename?: "Query";
-} & {
-    DPools: Array<Maybe<{
-        __typename?: "DPool";
-    } & Pick<DPool, "id" | "address" | "totalActiveDeposit" | "oneYearInterestRate" | "mphDepositorRewardMultiplier">>>;
-};
-export declare type funderQueryVariables = Exact<{
-    id: Scalars["ID"];
-}>;
-export declare type funderQuery = {
-    __typename?: "Query";
-} & {
-    Funder: {
-        __typename?: "Funder";
-    } & Pick<Funder, "totalMPHEarned"> & {
-        pools?: Maybe<Array<Maybe<{
-            __typename?: "DPool";
-        } & Pick<DPool, "id" | "address"> & {
-            fundings?: Maybe<Array<Maybe<{
-                __typename?: "Funding";
-            } & Pick<Funding, "id" | "fromDepositID" | "toDepositID" | "nftID" | "recordedFundedDepositAmount" | "recordedMoneyMarketIncomeIndex" | "initialFundedDepositAmount" | "fundedDeficitAmount" | "totalInterestEarned"> & {
-                pool?: Maybe<{
-                    __typename?: "DPool";
-                } & Pick<DPool, "address" | "oracleInterestRate" | "moneyMarketIncomeIndex">>;
-            }>>>;
-        }>>>;
-        totalInterestByPool?: Maybe<Array<Maybe<{
-            __typename?: "FunderTotalInterest";
-        } & Pick<FunderTotalInterest, "totalDeficitFunded" | "totalRecordedFundedDepositAmount" | "totalInterestEarned"> & {
-            pool?: Maybe<{
-                __typename?: "DPool";
-            } & Pick<DPool, "id" | "stablecoin">>;
-        }>>>;
-    };
-};
-export declare type dpoolsLatestQueryVariables = Exact<{
-    [key: string]: never;
-}>;
-export declare type dpoolsLatestQuery = {
-    __typename?: "Query";
-} & {
-    DPools: Array<Maybe<{
-        __typename?: "DPool";
-    } & Pick<DPool, "id" | "address" | "surplus" | "unfundedDepositAmount" | "oneYearInterestRate" | "oracleInterestRate" | "mphFunderRewardMultiplier"> & {
-        deposits?: Maybe<Array<Maybe<{
-            __typename?: "Deposit";
-        } & Pick<Deposit, "nftID" | "id">>>>;
-    }>>;
-};
-export declare type dpoolsLatestDepositsQueryVariables = Exact<{
-    id: Scalars["ID"];
-}>;
-export declare type dpoolsLatestDepositsQuery = {
-    __typename?: "Query";
-} & {
-    DPool: {
-        __typename?: "DPool";
-    } & Pick<DPool, "id" | "moneyMarketIncomeIndex"> & {
-        deposits?: Maybe<Array<Maybe<{
-            __typename?: "Deposit";
-        } & Pick<Deposit, "nftID" | "amount" | "active" | "maturationTimestamp" | "interestEarned" | "initialMoneyMarketIncomeIndex">>>>;
-    };
+export declare type VestInput = {
+    id?: Maybe<Scalars['ID']>;
+    index?: Maybe<Scalars['BigInt']>;
+    user?: Maybe<Scalars['String']>;
+    amount?: Maybe<Scalars['BigDecimal']>;
+    vestPeriodInSeconds?: Maybe<Scalars['BigInt']>;
+    creationTimestamp?: Maybe<Scalars['BigInt']>;
+    withdrawnAmount?: Maybe<Scalars['BigDecimal']>;
 };
 export declare type DPoolListQueryVariables = Exact<{
-    id: Scalars["ID"];
-    prove?: Maybe<Scalars["Boolean"]>;
+    id: Scalars['ID'];
+    prove?: Maybe<Scalars['Boolean']>;
 }>;
-export declare type DPoolListQuery = {
-    __typename?: "Query";
+export declare type DPoolListQuery = ({
+    __typename?: 'Query';
 } & {
-    DPoolList: {
-        __typename?: "DPoolList";
-    } & Pick<DPoolList, "id" | "numPools" | "numUsers" | "numActiveUsers" | "numFunders">;
-};
+    DPoolList: ({
+        __typename?: 'DPoolList';
+    } & Pick<DPoolList, 'id' | 'DPoolIDs'>);
+});
 export declare type UpdateDPoolListMutationVariables = Exact<{
     input: DPoolListInput;
 }>;
-export declare type UpdateDPoolListMutation = {
-    __typename?: "Mutation";
-} & Pick<Mutation, "updateDPoolList">;
+export declare type UpdateDPoolListMutation = ({
+    __typename?: 'Mutation';
+} & Pick<Mutation, 'UpdateDPoolList'>);
 export declare type DPoolQueryVariables = Exact<{
-    id: Scalars["ID"];
-    prove?: Maybe<Scalars["Boolean"]>;
+    id: Scalars['ID'];
+    prove?: Maybe<Scalars['Boolean']>;
 }>;
-export declare type DPoolQuery = {
-    __typename?: "Query";
+export declare type DPoolQuery = ({
+    __typename?: 'Query';
 } & {
-    DPool: {
-        __typename?: "DPool";
-    } & Pick<DPool, "id" | "address" | "moneyMarket" | "stablecoin" | "interestModel" | "numUsers" | "numDeposits" | "numActiveDeposits" | "totalActiveDeposit" | "totalHistoricalDeposit" | "totalInterestPaid" | "unfundedDepositAmount" | "numFunders" | "numFundings" | "MinDepositPeriod" | "MaxDepositPeriod" | "MinDepositAmount" | "MaxDepositAmount" | "mphMintingMultiplier" | "mphDepositorRewardMultiplier" | "mphFunderRewardMultiplier" | "oneYearInterestRate" | "surplus" | "moneyMarketIncomeIndex" | "oracleInterestRate">;
-};
+    DPool: ({
+        __typename?: 'DPool';
+    } & Pick<DPool, 'id' | 'address' | 'moneyMarket' | 'stablecoin' | 'interestModel' | 'UserIDs' | 'DepositIDs' | 'FunderIDs' | 'FundingIDs'>);
+});
 export declare type UpdateDPoolMutationVariables = Exact<{
     input: DPoolInput;
 }>;
-export declare type UpdateDPoolMutation = {
-    __typename?: "Mutation";
-} & Pick<Mutation, "updateDPool">;
+export declare type UpdateDPoolMutation = ({
+    __typename?: 'Mutation';
+} & Pick<Mutation, 'UpdateDPool'>);
 export declare type UserQueryVariables = Exact<{
-    id: Scalars["ID"];
-    prove?: Maybe<Scalars["Boolean"]>;
+    id: Scalars['ID'];
+    prove?: Maybe<Scalars['Boolean']>;
 }>;
-export declare type UserQuery = {
-    __typename?: "Query";
+export declare type UserQuery = ({
+    __typename?: 'Query';
 } & {
-    User: {
-        __typename?: "User";
-    } & Pick<User, "id" | "address" | "numPools" | "numDeposits" | "numActiveDeposits" | "totalMPHEarned" | "totalMPHPaidBack">;
-};
+    User: ({
+        __typename?: 'User';
+    } & Pick<User, 'id' | 'address' | 'DPoolIDs' | 'DepositIDs' | 'UserTotalDepositIDs'>);
+});
 export declare type UpdateUserMutationVariables = Exact<{
     input: UserInput;
 }>;
-export declare type UpdateUserMutation = {
-    __typename?: "Mutation";
-} & Pick<Mutation, "updateUser">;
+export declare type UpdateUserMutation = ({
+    __typename?: 'Mutation';
+} & Pick<Mutation, 'UpdateUser'>);
 export declare type UserTotalDepositQueryVariables = Exact<{
-    id: Scalars["ID"];
-    prove?: Maybe<Scalars["Boolean"]>;
+    id: Scalars['ID'];
+    prove?: Maybe<Scalars['Boolean']>;
 }>;
-export declare type UserTotalDepositQuery = {
-    __typename?: "Query";
+export declare type UserTotalDepositQuery = ({
+    __typename?: 'Query';
 } & {
-    UserTotalDeposit: {
-        __typename?: "UserTotalDeposit";
-    } & Pick<UserTotalDeposit, "id" | "totalActiveDeposit" | "totalHistoricalDeposit" | "totalInterestEarned" | "totalHistoricalInterestEarned">;
-};
+    UserTotalDeposit: ({
+        __typename?: 'UserTotalDeposit';
+    } & Pick<UserTotalDeposit, 'id' | 'UserID' | 'DPoolID'>);
+});
 export declare type UpdateUserTotalDepositMutationVariables = Exact<{
     input: UserTotalDepositInput;
 }>;
-export declare type UpdateUserTotalDepositMutation = {
-    __typename?: "Mutation";
-} & Pick<Mutation, "updateUserTotalDeposit">;
+export declare type UpdateUserTotalDepositMutation = ({
+    __typename?: 'Mutation';
+} & Pick<Mutation, 'UpdateUserTotalDeposit'>);
 export declare type DepositQueryVariables = Exact<{
-    id: Scalars["ID"];
-    prove?: Maybe<Scalars["Boolean"]>;
+    id: Scalars['ID'];
+    prove?: Maybe<Scalars['Boolean']>;
 }>;
-export declare type DepositQuery = {
-    __typename?: "Query";
+export declare type DepositQuery = ({
+    __typename?: 'Query';
 } & {
-    Deposit: {
-        __typename?: "Deposit";
-    } & Pick<Deposit, "id" | "nftID" | "amount" | "maturationTimestamp" | "active" | "depositTimestamp" | "interestEarned" | "fundingID" | "mintMPHAmount" | "takeBackMPHAmount" | "initialMoneyMarketIncomeIndex">;
-};
+    Deposit: ({
+        __typename?: 'Deposit';
+    } & Pick<Deposit, 'id' | 'UserID' | 'DPoolID' | 'active'>);
+});
 export declare type UpdateDepositMutationVariables = Exact<{
     input: DepositInput;
 }>;
-export declare type UpdateDepositMutation = {
-    __typename?: "Mutation";
-} & Pick<Mutation, "updateDeposit">;
+export declare type UpdateDepositMutation = ({
+    __typename?: 'Mutation';
+} & Pick<Mutation, 'UpdateDeposit'>);
 export declare type FunderQueryVariables = Exact<{
-    id: Scalars["ID"];
-    prove?: Maybe<Scalars["Boolean"]>;
+    id: Scalars['ID'];
+    prove?: Maybe<Scalars['Boolean']>;
 }>;
-export declare type FunderQuery = {
-    __typename?: "Query";
+export declare type FunderQuery = ({
+    __typename?: 'Query';
 } & {
-    Funder: {
-        __typename?: "Funder";
-    } & Pick<Funder, "id" | "address" | "numPools" | "numFundings" | "totalMPHEarned">;
-};
+    Funder: ({
+        __typename?: 'Funder';
+    } & Pick<Funder, 'id' | 'address' | 'DPoolIDs' | 'FundingIDs' | 'FunderTotalInterestIDs'>);
+});
 export declare type UpdateFunderMutationVariables = Exact<{
     input: FunderInput;
 }>;
-export declare type UpdateFunderMutation = {
-    __typename?: "Mutation";
-} & Pick<Mutation, "updateFunder">;
+export declare type UpdateFunderMutation = ({
+    __typename?: 'Mutation';
+} & Pick<Mutation, 'UpdateFunder'>);
 export declare type FunderTotalInterestQueryVariables = Exact<{
-    id: Scalars["ID"];
-    prove?: Maybe<Scalars["Boolean"]>;
+    id: Scalars['ID'];
+    prove?: Maybe<Scalars['Boolean']>;
 }>;
-export declare type FunderTotalInterestQuery = {
-    __typename?: "Query";
+export declare type FunderTotalInterestQuery = ({
+    __typename?: 'Query';
 } & {
-    FunderTotalInterest: {
-        __typename?: "FunderTotalInterest";
-    } & Pick<FunderTotalInterest, "id" | "totalDeficitFunded" | "totalHistoricalDeficitFunded" | "totalInterestEarned" | "totalHistoricalInterestEarned" | "totalRecordedFundedDepositAmount">;
-};
+    FunderTotalInterest: ({
+        __typename?: 'FunderTotalInterest';
+    } & Pick<FunderTotalInterest, 'id' | 'FunderID' | 'DPoolID'>);
+});
 export declare type UpdateFunderTotalInterestMutationVariables = Exact<{
     input: FunderTotalInterestInput;
 }>;
-export declare type UpdateFunderTotalInterestMutation = {
-    __typename?: "Mutation";
-} & Pick<Mutation, "updateFunderTotalInterest">;
+export declare type UpdateFunderTotalInterestMutation = ({
+    __typename?: 'Mutation';
+} & Pick<Mutation, 'UpdateFunderTotalInterest'>);
 export declare type FundingQueryVariables = Exact<{
-    id: Scalars["ID"];
-    prove?: Maybe<Scalars["Boolean"]>;
+    id: Scalars['ID'];
+    prove?: Maybe<Scalars['Boolean']>;
 }>;
-export declare type FundingQuery = {
-    __typename?: "Query";
+export declare type FundingQuery = ({
+    __typename?: 'Query';
 } & {
-    Funding: {
-        __typename?: "Funding";
-    } & Pick<Funding, "id" | "nftID" | "fromDepositID" | "toDepositID" | "active" | "recordedFundedDepositAmount" | "recordedMoneyMarketIncomeIndex" | "initialFundedDepositAmount" | "fundedDeficitAmount" | "totalInterestEarned" | "mintMPHAmount">;
-};
+    Funding: ({
+        __typename?: 'Funding';
+    } & Pick<Funding, 'id' | 'FunderID' | 'DPoolID' | 'active'>);
+});
 export declare type UpdateFundingMutationVariables = Exact<{
     input: FundingInput;
 }>;
-export declare type UpdateFundingMutation = {
-    __typename?: "Mutation";
-} & Pick<Mutation, "updateFunding">;
+export declare type UpdateFundingMutation = ({
+    __typename?: 'Mutation';
+} & Pick<Mutation, 'UpdateFunding'>);
 export declare type MPHHolderQueryVariables = Exact<{
-    id: Scalars["ID"];
-    prove?: Maybe<Scalars["Boolean"]>;
+    id: Scalars['ID'];
+    prove?: Maybe<Scalars['Boolean']>;
 }>;
-export declare type MPHHolderQuery = {
-    __typename?: "Query";
+export declare type MPHHolderQuery = ({
+    __typename?: 'Query';
 } & {
-    MPHHolder: {
-        __typename?: "MPHHolder";
-    } & Pick<MPHHolder, "id" | "address" | "mphBalance" | "stakedMPHBalance" | "totalHistoricalReward">;
-};
+    MPHHolder: ({
+        __typename?: 'MPHHolder';
+    } & Pick<MPHHolder, 'id' | 'address'>);
+});
 export declare type UpdateMPHHolderMutationVariables = Exact<{
     input: MPHHolderInput;
 }>;
-export declare type UpdateMPHHolderMutation = {
-    __typename?: "Mutation";
-} & Pick<Mutation, "updateMPHHolder">;
+export declare type UpdateMPHHolderMutation = ({
+    __typename?: 'Mutation';
+} & Pick<Mutation, 'UpdateMPHHolder'>);
 export declare type MPHQueryVariables = Exact<{
-    id: Scalars["ID"];
-    prove?: Maybe<Scalars["Boolean"]>;
+    id: Scalars['ID'];
+    prove?: Maybe<Scalars['Boolean']>;
 }>;
-export declare type MPHQuery = {
-    __typename?: "Query";
+export declare type MPHQuery = ({
+    __typename?: 'Query';
 } & {
-    MPH: {
-        __typename?: "MPH";
-    } & Pick<MPH, "id" | "totalSupply" | "totalStakedMPHBalance" | "totalHistoricalReward" | "rewardPerSecond" | "rewardPerMPHPerSecond">;
-};
+    MPH: ({
+        __typename?: 'MPH';
+    } & Pick<MPH, 'id'>);
+});
 export declare type UpdateMPHMutationVariables = Exact<{
     input: MPHInput;
 }>;
-export declare type UpdateMPHMutation = {
-    __typename?: "Mutation";
-} & Pick<Mutation, "updateMPH">;
-export declare const userDocument: import("graphql").DocumentNode;
-export declare const dpoolsDocument: import("graphql").DocumentNode;
-export declare const funderDocument: import("graphql").DocumentNode;
-export declare const dpoolsLatestDocument: import("graphql").DocumentNode;
-export declare const dpoolsLatestDepositsDocument: import("graphql").DocumentNode;
+export declare type UpdateMPHMutation = ({
+    __typename?: 'Mutation';
+} & Pick<Mutation, 'UpdateMPH'>);
+export declare type VestQueryVariables = Exact<{
+    id: Scalars['ID'];
+    prove?: Maybe<Scalars['Boolean']>;
+}>;
+export declare type VestQuery = ({
+    __typename?: 'Query';
+} & {
+    Vest: ({
+        __typename?: 'Vest';
+    } & Pick<Vest, 'id' | 'user'>);
+});
+export declare type UpdateVestMutationVariables = Exact<{
+    input: VestInput;
+}>;
+export declare type UpdateVestMutation = ({
+    __typename?: 'Mutation';
+} & Pick<Mutation, 'UpdateVest'>);
+export declare type FractionalDepositQueryVariables = Exact<{
+    id: Scalars['ID'];
+    prove?: Maybe<Scalars['Boolean']>;
+}>;
+export declare type FractionalDepositQuery = ({
+    __typename?: 'Query';
+} & {
+    FractionalDeposit: ({
+        __typename?: 'FractionalDeposit';
+    } & Pick<FractionalDeposit, 'id' | 'address' | 'zeroCouponBondAddress' | 'ownerAddress' | 'active' | 'DepositID'>);
+});
+export declare type UpdateFractionalDepositMutationVariables = Exact<{
+    input: FractionalDepositInput;
+}>;
+export declare type UpdateFractionalDepositMutation = ({
+    __typename?: 'Mutation';
+} & Pick<Mutation, 'UpdateFractionalDeposit'>);
 export declare const DPoolListDocument: import("graphql").DocumentNode;
 export declare const UpdateDPoolListDocument: import("graphql").DocumentNode;
 export declare const DPoolDocument: import("graphql").DocumentNode;
@@ -826,17 +875,12 @@ export declare const MPHHolderDocument: import("graphql").DocumentNode;
 export declare const UpdateMPHHolderDocument: import("graphql").DocumentNode;
 export declare const MPHDocument: import("graphql").DocumentNode;
 export declare const UpdateMPHDocument: import("graphql").DocumentNode;
+export declare const VestDocument: import("graphql").DocumentNode;
+export declare const UpdateVestDocument: import("graphql").DocumentNode;
+export declare const FractionalDepositDocument: import("graphql").DocumentNode;
+export declare const UpdateFractionalDepositDocument: import("graphql").DocumentNode;
 export declare type SdkFunctionWrapper = <T>(action: () => Promise<T>) => Promise<T>;
 export declare function getSdk(client: GraphQLClient, withWrapper?: SdkFunctionWrapper): {
-    user(variables: userQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<userQuery>;
-    dpools(variables?: Exact<{
-        [key: string]: never;
-    }> | undefined, requestHeaders?: Dom.RequestInit["headers"]): Promise<dpoolsQuery>;
-    funder(variables: funderQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<funderQuery>;
-    dpoolsLatest(variables?: Exact<{
-        [key: string]: never;
-    }> | undefined, requestHeaders?: Dom.RequestInit["headers"]): Promise<dpoolsLatestQuery>;
-    dpoolsLatestDeposits(variables: dpoolsLatestDepositsQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<dpoolsLatestDepositsQuery>;
     DPoolList(variables: DPoolListQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<DPoolListQuery>;
     UpdateDPoolList(variables: UpdateDPoolListMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<UpdateDPoolListMutation>;
     DPool(variables: DPoolQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<DPoolQuery>;
@@ -857,6 +901,10 @@ export declare function getSdk(client: GraphQLClient, withWrapper?: SdkFunctionW
     UpdateMPHHolder(variables: UpdateMPHHolderMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<UpdateMPHHolderMutation>;
     MPH(variables: MPHQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<MPHQuery>;
     UpdateMPH(variables: UpdateMPHMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<UpdateMPHMutation>;
+    Vest(variables: VestQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<VestQuery>;
+    UpdateVest(variables: UpdateVestMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<UpdateVestMutation>;
+    FractionalDeposit(variables: FractionalDepositQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<FractionalDepositQuery>;
+    UpdateFractionalDeposit(variables: UpdateFractionalDepositMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<UpdateFractionalDepositMutation>;
 };
 export declare type Sdk = ReturnType<typeof getSdk>;
 //# sourceMappingURL=queries.d.ts.map

@@ -6,15 +6,16 @@ import { Contract, ethers, Signer } from "ethers";
 import { Provider } from "@ethersproject/providers";
 
 import { IInterestOracle } from "../IInterestOracle";
-//import { Address } from "@graphprotocol/graph-ts";
 
 export class IInterestOracle__factory {
-  static bind(address: string, provider?: Signer | Provider): IInterestOracle {
-    if (!provider) {
-      provider = ethers.getDefaultProvider("mainnet");
-    }
-    return this.connect(address.toString(), provider);
+
+
+static bind(address: string, provider?: Signer | Provider): IInterestOracle {
+  if (!provider) {
+    provider = ethers.getDefaultProvider("mainnet");
   }
+  return new Contract(address, _abi, provider) as IInterestOracle;
+}
   static connect(
     address: string,
     signerOrProvider: Signer | Provider
@@ -32,12 +33,12 @@ const _abi = [
       {
         internalType: "address",
         name: "",
-        type: "address"
-      }
+        type: "address",
+      },
     ],
     payable: false,
     stateMutability: "view",
-    type: "function"
+    type: "function",
   },
   {
     constant: true,
@@ -47,12 +48,12 @@ const _abi = [
       {
         internalType: "uint256",
         name: "value",
-        type: "uint256"
-      }
+        type: "uint256",
+      },
     ],
     payable: false,
     stateMutability: "view",
-    type: "function"
+    type: "function",
   },
   {
     constant: false,
@@ -62,16 +63,16 @@ const _abi = [
       {
         internalType: "bool",
         name: "updated",
-        type: "bool"
+        type: "bool",
       },
       {
         internalType: "uint256",
         name: "value",
-        type: "uint256"
-      }
+        type: "uint256",
+      },
     ],
     payable: false,
     stateMutability: "nonpayable",
-    type: "function"
-  }
+    type: "function",
+  },
 ];

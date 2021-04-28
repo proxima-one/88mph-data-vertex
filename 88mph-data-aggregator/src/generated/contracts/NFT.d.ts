@@ -8,19 +8,17 @@ import {
   Signer,
   BigNumber,
   BigNumberish,
-  PopulatedTransaction
+  PopulatedTransaction,
 } from "ethers";
 import {
   Contract,
   ContractTransaction,
   Overrides,
-  CallOverrides
+  CallOverrides,
 } from "@ethersproject/contracts";
 import { BytesLike } from "@ethersproject/bytes";
 import { Listener, Provider } from "@ethersproject/providers";
 import { FunctionFragment, EventFragment, Result } from "@ethersproject/abi";
-
-//.createWithContext(poolContract.depositNFT(), depositNFTContext);
 
 interface NFTInterface extends ethers.utils.Interface {
   functions: {

@@ -1822,8 +1822,8 @@
         "affectsGlobalScope": false
       },
       "../src/generated/contracts/dinterest.d.ts": {
-        "version": "54e774d2109fa15dc3bd445e1bb98eb21313af4a368a06fbd51830b80ba279ec",
-        "signature": "54e774d2109fa15dc3bd445e1bb98eb21313af4a368a06fbd51830b80ba279ec",
+        "version": "ba26a4503463369ff148a416201c1ab316af90fea3e0d6f9e12bc24d8ccd0979",
+        "signature": "ba26a4503463369ff148a416201c1ab316af90fea3e0d6f9e12bc24d8ccd0979",
         "affectsGlobalScope": false
       },
       "../src/generated/contracts/erc20.d.ts": {
@@ -1852,8 +1852,8 @@
         "affectsGlobalScope": false
       },
       "../src/generated/contracts/nft.d.ts": {
-        "version": "bc69874a41935014e229a4856c9df3c5778d7ffdf48859a042afb2dbb9e50425",
-        "signature": "bc69874a41935014e229a4856c9df3c5778d7ffdf48859a042afb2dbb9e50425",
+        "version": "51c972b78bc3ddb4aba4b65dab0dde7e3b153faa455c1e6f57658c96eb847482",
+        "signature": "51c972b78bc3ddb4aba4b65dab0dde7e3b153faa455c1e6f57658c96eb847482",
         "affectsGlobalScope": false
       },
       "../src/generated/contracts/rewards.d.ts": {
@@ -1877,73 +1877,83 @@
         "affectsGlobalScope": false
       },
       "../src/generated/contracts/factories/dinterest__factory.ts": {
-        "version": "306e55215fe4de1dd50cb26f7e803d872e53a864b2872cbb38e7baf07c2a4057",
+        "version": "01ab2a28ea15e3800c61df38d6d5723ff73efc7f67e2de3577755e188d5846a3",
         "signature": "2df83e67b40810bb582b563fb6786d5f193b8941dceea0b395a360cf12e6a7f0",
         "affectsGlobalScope": false
       },
       "../src/generated/contracts/factories/erc20__factory.ts": {
-        "version": "22191f3aa56641e3866984c9dbcbda91b6f2e318be9fda5040aa7210e1fc7b36",
+        "version": "549538c0c213921f8f580d79a7b86e1b8fb45064610570d7bfae35ad8e0d226c",
         "signature": "fd533b21e1a769c2c013ce26f3069dd87e7a35b297f211795b984e16098f31df",
         "affectsGlobalScope": false
       },
       "../src/generated/contracts/factories/fractionaldeposit__factory.ts": {
-        "version": "304a109bdb852ce6126dafcc3e569b4600fd1360513189736b33687e161e46eb",
+        "version": "469ca0a74ca197bcccd184d59f39a7b32e3ffb419e2f64e643a21a58f12ebadc",
         "signature": "0116c5aa6baf70de53682ef142947199ef42249414dada262ba40077fe477cf0",
         "affectsGlobalScope": false
       },
       "../src/generated/contracts/factories/iinterestoracle__factory.ts": {
-        "version": "7fea8a56453ed6a59d8286b8b1d2ad9bd271911338ef27d31ece82d6f71dcc9c",
+        "version": "aefa5518350d6118cc1240f40f24b58c4e8b64a6f584b3f1c0172626142f7f8a",
         "signature": "7813b30405036928fb465018db44f675eed2c971322dede2ccb37b846ca1696a",
         "affectsGlobalScope": false
       },
       "../src/generated/contracts/factories/mphissuancemodel01__factory.ts": {
-        "version": "7e43afdac4db4cb1a97668d4cfbfb75fb1a49b576745086386d642eb921a493f",
+        "version": "a08efcd7fd96e810a9ad31ef787f2b2b7aa92ebe90b2094695bd8cef59d5f5b3",
         "signature": "6d51f399b14073ee92b8726e91902a6cebc6af36ad278740a0f5d3f11f9c1139",
         "affectsGlobalScope": false
       },
       "../src/generated/contracts/factories/mphtoken__factory.ts": {
-        "version": "9b9a455dcc1089c2f27d938c1213ea9d39ecad8453da53cf61082e181c83f7c1",
+        "version": "a9dd26865329d9058c41568e56cb49d3c60441fcc8c3123ac969f1346acbfc06",
         "signature": "0918ddbb7cfdb39442be25503cd99676d0cf93242dbee9a6c734c137e03e2264",
         "affectsGlobalScope": false
       },
       "../src/generated/contracts/factories/nft__factory.ts": {
-        "version": "bd2e9ed0da1d65b0b45b9236b1efdb5dc270548714780562c0c450901aa0101f",
+        "version": "4dbb5e5dc90f9504398c5a82cedd09d21ccda6c0d4c9278f13b65066a3c2836d",
         "signature": "2fbb7c07d6713b997896f1aa6b3de26341d64f203ba4adcfa796b4b06ca4d30b",
         "affectsGlobalScope": false
       },
       "../src/generated/contracts/factories/rewards__factory.ts": {
-        "version": "cf82e1163549b4460c98829552d8ff82691deeb7fc11cd61198253db8531c343",
+        "version": "2c3c493bd87162fd293db991700924728a92a7179e674e29fbb09e071c405169",
         "signature": "072df07b2b8fade1c0da41f74bd0add5cbbb41bcb7f7389e17f2ad29ac083f2d",
         "affectsGlobalScope": false
       },
       "../src/generated/contracts/factories/vesting__factory.ts": {
-        "version": "746dbd4187d9443352829e35c11e3b491aacc89c529a62c2651f55ebcff17d22",
+        "version": "30ad1ab5cde9f0b6a044f41009a2b5cbf4aa49ed534e66f52aa8317e00f062a1",
         "signature": "df09541370dd5a2e4442d935365b98b3501b3b48d80b94c8748d74ea660533c4",
         "affectsGlobalScope": false
       },
       "../src/generated/contracts/factories/zerocouponbond__factory.ts": {
-        "version": "9c86aa086f9873ace039227701f72c8c9f78783eb476a1c820e194488feb9bf3",
+        "version": "fcab75568eb183d1c9ca16ca5e21ebeac1d504deca31c8e27c47dc6f4d11d651",
         "signature": "887a75a333d11a91ee1311a5e6f16c5acd90a0f7340dbd039f55f1aea9a36ec2",
         "affectsGlobalScope": false
       },
       "../src/generated/contracts/factories/zerocouponbondfactory__factory.ts": {
-        "version": "bfac10a3102151a99f20ebad5e91c1949414a38dd31c1419dff1e0c7ac8e782a",
+        "version": "df5eccde4b9f1ad4f68fd5260b57197f0928cff96d1660f60e9f5af7a596d724",
         "signature": "8f971b8c8509f47be6924a14dca7acb0f4b376dd328707807acc93d8b13ad29b",
         "affectsGlobalScope": false
       },
       "../src/generated/contracts/index.ts": {
-        "version": "a33e4bbf62c8dd73f6ab06cb796d5caade0228d738a7565cbe3d3cbaec494e7b",
+        "version": "1b27db8d9e7720f9176c4101aa3c11fea65bbdfce6273d223d13db9d3397db77",
         "signature": "14acb2cc9037728a4d3c8f1035454778f923f80310340eef5e672e2ee865b9c2",
         "affectsGlobalScope": false
       },
+      "../src/generated/models/utils.ts": {
+        "version": "237fb59abf92adee935088ca1c3a507c6de42d87cac4765f3eeefed747ea8dbb",
+        "signature": "6bd75326ee9ffd643d4fc3b8ae75d1f45f2f350c79b24533eb561d88cb357e66",
+        "affectsGlobalScope": false
+      },
       "../src/generated/models/models.ts": {
-        "version": "33b73ef17d19659c0a5525ef75c14c889eee9d0dc579bfae0e05cd5370700ce2",
-        "signature": "4f97d5bbd701b9fd2f1a04cb25ea6c4a7cc468eb3dc494650fd55c64d8900637",
+        "version": "484c4944f341f8759854d43184329937898fcf499c7e1cf0c10035fa8d668682",
+        "signature": "e1174b2d0be23adfdab21559010b8750960db050a16c3e1c5da9c99637d77e0a",
+        "affectsGlobalScope": false
+      },
+      "../src/generated/models/generated-mocks.ts": {
+        "version": "7799dd730de25311f3506576c282faf5e752c20af6ad709d0b66e538778d4ea2",
+        "signature": "8b6714a5b1b857afbc800f28eb9b985a9a0ce1712cdcb94f9371d47c9f1fba83",
         "affectsGlobalScope": false
       },
       "../src/generated/models/queries.ts": {
-        "version": "e5b233ef5e08ae7d946443be8002704fe5ec6ec85289a30dc3dbb811e551dab9",
-        "signature": "cd56ff394e742f968f47f942c294c1a010e36e25a7e15564493c661a0f0b039d",
+        "version": "69d733dc9c64bbdd250fe9b717cabfe993213992f6bf72125b9ce908a2b45542",
+        "signature": "bbf3bbb68ece0749abbd76b7ff803adaf87604be97b65fdb5be57939040abb74",
         "affectsGlobalScope": false
       },
       "../src/handlers-test/fractionaldeposit.ts": {
@@ -2022,8 +2032,18 @@
         "affectsGlobalScope": true
       },
       "../test/index-test.ts": {
-        "version": "8d4ccaad329f24ef565dd92ca0535ff81de9340488245ba57303a815699775d6",
+        "version": "6c6c5e584033018537521b0787dc08cc65736757648c9d9b9a35e3c41b896a6f",
         "signature": "1d6d9bce99a848723e7902d6202900430d196f47ed18d91b83cd9bf0798dc181",
+        "affectsGlobalScope": false
+      },
+      "../test/model-test.ts": {
+        "version": "a2c68ef4ae9d7ad2fe6b0a0af138329370f6ef04ef0981c9f54fb66ad522390f",
+        "signature": "c2109c6c007d8fe6c307dbe29e0e60061e373901f051c8ebec1547ba9f9c177e",
+        "affectsGlobalScope": false
+      },
+      "../test/utils-test.ts": {
+        "version": "d633c229e09919053c61ce868ea3a5e156e223e190cc8ab886a92be55482b18b",
+        "signature": "147fe75aa75855c0b1f49913fdb49a583cf37789001be06dc31aa803e0cb6652",
         "affectsGlobalScope": false
       },
       "../node_modules/@types/istanbul-lib-coverage/index.d.ts": {
@@ -3672,8 +3692,6 @@
         "../node_modules/ethers/lib/index.d.ts"
       ],
       "../src/generated/contracts/index.ts": [
-        "../node_modules/@ethersproject/providers/lib/index.d.ts",
-        "../node_modules/ethers/lib/index.d.ts",
         "../node_modules/tslib/tslib.d.ts",
         "../src/generated/contracts/factories/dinterest__factory.ts",
         "../src/generated/contracts/factories/erc20__factory.ts",
@@ -3736,16 +3754,23 @@
         "../node_modules/@ethersproject/providers/lib/index.d.ts",
         "../node_modules/ethers/lib/index.d.ts"
       ],
+      "../src/generated/models/generated-mocks.ts": [
+        "../node_modules/tslib/tslib.d.ts",
+        "../src/generated/models/models.ts"
+      ],
       "../src/generated/models/models.ts": [
         "../node_modules/@graphql-typed-document-node/core/index.d.ts",
-        "../node_modules/ethers/lib/index.d.ts",
         "../node_modules/tslib/tslib.d.ts",
-        "../src/lib/datavertexclient.ts"
+        "../src/generated/models/utils.ts"
       ],
       "../src/generated/models/queries.ts": [
         "../node_modules/graphql-request/dist/index.d.ts",
         "../node_modules/graphql-request/dist/types.dom.d.ts",
         "../node_modules/graphql-tag/lib/index.d.ts",
+        "../node_modules/tslib/tslib.d.ts"
+      ],
+      "../src/generated/models/utils.ts": [
+        "../node_modules/ethers/lib/index.d.ts",
         "../node_modules/tslib/tslib.d.ts"
       ],
       "../src/handlers-test/ausdcpool.ts": [
@@ -3835,6 +3860,23 @@
         "../node_modules/graphql-request/dist/index.d.ts",
         "../node_modules/tslib/tslib.d.ts",
         "../src/generated/models/queries.ts"
+      ],
+      "../test/model-test.ts": [
+        "../node_modules/@types/chai/index.d.ts",
+        "../node_modules/@types/node/assert.d.ts",
+        "../node_modules/ethers/lib/index.d.ts",
+        "../node_modules/graphql-request/dist/index.d.ts",
+        "../node_modules/tslib/tslib.d.ts",
+        "../src/generated/models/models.ts",
+        "../src/generated/models/queries.ts",
+        "../src/generated/models/utils.ts"
+      ],
+      "../test/utils-test.ts": [
+        "../node_modules/@types/chai/index.d.ts",
+        "../node_modules/@types/node/assert.d.ts",
+        "../node_modules/ethers/lib/index.d.ts",
+        "../node_modules/tslib/tslib.d.ts",
+        "../src/generated/models/utils.ts"
       ],
       "../webpack.config.js": [
         "../node_modules/@types/node/path.d.ts"
@@ -5467,14 +5509,19 @@
         "../node_modules/@ethersproject/providers/lib/index.d.ts",
         "../node_modules/ethers/lib/index.d.ts"
       ],
+      "../src/generated/models/generated-mocks.ts": [
+        "../src/generated/models/models.ts"
+      ],
       "../src/generated/models/models.ts": [
-        "../node_modules/@graphql-typed-document-node/core/index.d.ts",
-        "../node_modules/ethers/lib/index.d.ts"
+        "../node_modules/@graphql-typed-document-node/core/index.d.ts"
       ],
       "../src/generated/models/queries.ts": [
         "../node_modules/graphql-request/dist/index.d.ts",
         "../node_modules/graphql-request/dist/types.dom.d.ts",
         "../node_modules/graphql/index.d.ts"
+      ],
+      "../src/generated/models/utils.ts": [
+        "../node_modules/ethers/lib/index.d.ts"
       ],
       "../src/handlers-test/ausdcpool.ts": [
         "../node_modules/@ethersproject/abi/lib/index.d.ts"
@@ -5886,8 +5933,710 @@
       "../src/generated/contracts/vesting.d.ts",
       "../src/generated/contracts/zerocouponbond.d.ts",
       "../src/generated/contracts/zerocouponbondfactory.d.ts",
-      "../src/generated/models/models.ts",
-      "../src/generated/models/queries.ts",
+      [
+        "../src/generated/models/generated-mocks.ts",
+        [
+          {
+            "file": "../src/generated/models/generated-mocks.ts",
+            "start": 539,
+            "length": 4122,
+            "code": 2739,
+            "category": 1,
+            "messageText": "Type '{ id: string; address: string; moneyMarket: string; stablecoin: string; interestModel: string; users: Maybe<User>[]; UserIDs: Maybe<string>[]; numUsers: any; deposits: Maybe<Deposit>[]; ... 24 more ...; proof: Proof; }' is missing the following properties from type 'DPool': save, _getSaveArgs"
+          },
+          {
+            "file": "../src/generated/models/generated-mocks.ts",
+            "start": 8447,
+            "length": 860,
+            "code": 2739,
+            "category": 1,
+            "messageText": "Type '{ id: string; pools: Maybe<DPool>[]; DPoolIDs: Maybe<string>[]; numPools: any; numUsers: any; numActiveUsers: any; numFunders: any; proof: Proof; }' is missing the following properties from type 'DPoolList': save, _getSaveArgs"
+          },
+          {
+            "file": "../src/generated/models/generated-mocks.ts",
+            "start": 10137,
+            "length": 2157,
+            "code": 2739,
+            "category": 1,
+            "messageText": "Type '{ id: string; nftID: any; user: User; UserID: string; pool: DPool; DPoolID: string; amount: any; maturationTimestamp: any; active: boolean; depositTimestamp: any; depositLength: any; ... 7 more ...; proof: Proof; }' is missing the following properties from type 'Deposit': save, _getSaveArgs"
+          },
+          {
+            "file": "../src/generated/models/generated-mocks.ts",
+            "start": 14373,
+            "length": 877,
+            "code": 2739,
+            "category": 1,
+            "messageText": "Type '{ id: string; address: string; zeroCouponBondAddress: string; ownerAddress: string; active: boolean; deposit: Deposit; DepositID: string; proof: Proof; }' is missing the following properties from type 'FractionalDeposit': save, _getSaveArgs"
+          },
+          {
+            "file": "../src/generated/models/generated-mocks.ts",
+            "start": 16126,
+            "length": 1365,
+            "code": 2739,
+            "category": 1,
+            "messageText": "Type '{ id: string; address: string; pools: Maybe<DPool>[]; DPoolIDs: Maybe<string>[]; numPools: any; fundings: Maybe<Funding>[]; FundingIDs: Maybe<string>[]; ... 4 more ...; proof: Proof; }' is missing the following properties from type 'Funder': save, _getSaveArgs"
+          },
+          {
+            "file": "../src/generated/models/generated-mocks.ts",
+            "start": 18611,
+            "length": 1371,
+            "code": 2739,
+            "category": 1,
+            "messageText": "Type '{ id: string; funder: Funder; FunderID: string; pool: DPool; DPoolID: string; totalDeficitFunded: any; totalHistoricalDeficitFunded: any; totalInterestEarned: any; totalHistoricalInterestEarned: any; totalRecordedFundedDepositAmount: any; proof: Proof; }' is missing the following properties from type 'FunderTotalInterest': save, _getSaveArgs"
+          },
+          {
+            "file": "../src/generated/models/generated-mocks.ts",
+            "start": 21285,
+            "length": 2138,
+            "code": 2739,
+            "category": 1,
+            "messageText": "Type '{ id: string; nftID: any; funder: Funder; FunderID: string; pool: DPool; DPoolID: string; fromDepositID: any; toDepositID: any; active: boolean; recordedFundedDepositAmount: any; ... 7 more ...; proof: Proof; }' is missing the following properties from type 'Funding': save, _getSaveArgs"
+          },
+          {
+            "file": "../src/generated/models/generated-mocks.ts",
+            "start": 25427,
+            "length": 622,
+            "code": 2739,
+            "category": 1,
+            "messageText": "Type '{ id: string; totalHistoricalReward: any; rewardPerSecond: any; rewardPerMPHPerSecond: any; proof: Proof; }' is missing the following properties from type 'MPH': save, _getSaveArgs"
+          },
+          {
+            "file": "../src/generated/models/generated-mocks.ts",
+            "start": 26133,
+            "length": 460,
+            "code": 2739,
+            "category": 1,
+            "messageText": "Type '{ id: string; address: string; totalHistoricalReward: any; proof: Proof; }' is missing the following properties from type 'MPHHolder': save, _getSaveArgs"
+          },
+          {
+            "file": "../src/generated/models/generated-mocks.ts",
+            "start": 28007,
+            "length": 1609,
+            "code": 2739,
+            "category": 1,
+            "messageText": "Type '{ id: string; address: string; pools: Maybe<DPool>[]; DPoolIDs: Maybe<string>[]; numPools: any; deposits: Maybe<Deposit>[]; DepositIDs: Maybe<string>[]; ... 6 more ...; proof: Proof; }' is missing the following properties from type 'User': save, _getSaveArgs"
+          },
+          {
+            "file": "../src/generated/models/generated-mocks.ts",
+            "start": 30978,
+            "length": 1158,
+            "code": 2739,
+            "category": 1,
+            "messageText": "Type '{ id: string; user: User; UserID: string; pool: DPool; DPoolID: string; totalActiveDeposit: any; totalHistoricalDeposit: any; totalInterestEarned: any; totalHistoricalInterestEarned: any; proof: Proof; }' is missing the following properties from type 'UserTotalDeposit': save, _getSaveArgs"
+          },
+          {
+            "file": "../src/generated/models/generated-mocks.ts",
+            "start": 33235,
+            "length": 889,
+            "code": 2739,
+            "category": 1,
+            "messageText": "Type '{ id: string; index: any; user: string; amount: any; vestPeriodInSeconds: any; creationTimestamp: any; withdrawnAmount: any; proof: Proof; }' is missing the following properties from type 'Vest': save, _getSaveArgs"
+          }
+        ]
+      ],
+      [
+        "../src/generated/models/models.ts",
+        [
+          {
+            "file": "../src/generated/models/models.ts",
+            "start": 25954,
+            "length": 9,
+            "messageText": "Property 'DPoolList' has no initializer and is not definitely assigned in the constructor.",
+            "category": 1,
+            "code": 2564
+          },
+          {
+            "file": "../src/generated/models/models.ts",
+            "start": 25978,
+            "length": 10,
+            "messageText": "Property 'DPoolLists' has no initializer and is not definitely assigned in the constructor.",
+            "category": 1,
+            "code": 2564
+          },
+          {
+            "file": "../src/generated/models/models.ts",
+            "start": 26017,
+            "length": 15,
+            "messageText": "Property 'DPoolListSearch' has no initializer and is not definitely assigned in the constructor.",
+            "category": 1,
+            "code": 2564
+          },
+          {
+            "file": "../src/generated/models/models.ts",
+            "start": 26061,
+            "length": 5,
+            "messageText": "Property 'DPool' has no initializer and is not definitely assigned in the constructor.",
+            "category": 1,
+            "code": 2564
+          },
+          {
+            "file": "../src/generated/models/models.ts",
+            "start": 26077,
+            "length": 6,
+            "messageText": "Property 'DPools' has no initializer and is not definitely assigned in the constructor.",
+            "category": 1,
+            "code": 2564
+          },
+          {
+            "file": "../src/generated/models/models.ts",
+            "start": 26108,
+            "length": 11,
+            "messageText": "Property 'DPoolSearch' has no initializer and is not definitely assigned in the constructor.",
+            "category": 1,
+            "code": 2564
+          },
+          {
+            "file": "../src/generated/models/models.ts",
+            "start": 26144,
+            "length": 4,
+            "messageText": "Property 'User' has no initializer and is not definitely assigned in the constructor.",
+            "category": 1,
+            "code": 2564
+          },
+          {
+            "file": "../src/generated/models/models.ts",
+            "start": 26158,
+            "length": 5,
+            "messageText": "Property 'Users' has no initializer and is not definitely assigned in the constructor.",
+            "category": 1,
+            "code": 2564
+          },
+          {
+            "file": "../src/generated/models/models.ts",
+            "start": 26187,
+            "length": 10,
+            "messageText": "Property 'UserSearch' has no initializer and is not definitely assigned in the constructor.",
+            "category": 1,
+            "code": 2564
+          },
+          {
+            "file": "../src/generated/models/models.ts",
+            "start": 26221,
+            "length": 16,
+            "messageText": "Property 'UserTotalDeposit' has no initializer and is not definitely assigned in the constructor.",
+            "category": 1,
+            "code": 2564
+          },
+          {
+            "file": "../src/generated/models/models.ts",
+            "start": 26259,
+            "length": 17,
+            "messageText": "Property 'UserTotalDeposits' has no initializer and is not definitely assigned in the constructor.",
+            "category": 1,
+            "code": 2564
+          },
+          {
+            "file": "../src/generated/models/models.ts",
+            "start": 26312,
+            "length": 22,
+            "messageText": "Property 'UserTotalDepositSearch' has no initializer and is not definitely assigned in the constructor.",
+            "category": 1,
+            "code": 2564
+          },
+          {
+            "file": "../src/generated/models/models.ts",
+            "start": 26370,
+            "length": 7,
+            "messageText": "Property 'Deposit' has no initializer and is not definitely assigned in the constructor.",
+            "category": 1,
+            "code": 2564
+          },
+          {
+            "file": "../src/generated/models/models.ts",
+            "start": 26390,
+            "length": 8,
+            "messageText": "Property 'Deposits' has no initializer and is not definitely assigned in the constructor.",
+            "category": 1,
+            "code": 2564
+          },
+          {
+            "file": "../src/generated/models/models.ts",
+            "start": 26425,
+            "length": 13,
+            "messageText": "Property 'DepositSearch' has no initializer and is not definitely assigned in the constructor.",
+            "category": 1,
+            "code": 2564
+          },
+          {
+            "file": "../src/generated/models/models.ts",
+            "start": 26465,
+            "length": 6,
+            "messageText": "Property 'Funder' has no initializer and is not definitely assigned in the constructor.",
+            "category": 1,
+            "code": 2564
+          },
+          {
+            "file": "../src/generated/models/models.ts",
+            "start": 26483,
+            "length": 7,
+            "messageText": "Property 'Funders' has no initializer and is not definitely assigned in the constructor.",
+            "category": 1,
+            "code": 2564
+          },
+          {
+            "file": "../src/generated/models/models.ts",
+            "start": 26516,
+            "length": 12,
+            "messageText": "Property 'FunderSearch' has no initializer and is not definitely assigned in the constructor.",
+            "category": 1,
+            "code": 2564
+          },
+          {
+            "file": "../src/generated/models/models.ts",
+            "start": 26554,
+            "length": 19,
+            "messageText": "Property 'FunderTotalInterest' has no initializer and is not definitely assigned in the constructor.",
+            "category": 1,
+            "code": 2564
+          },
+          {
+            "file": "../src/generated/models/models.ts",
+            "start": 26598,
+            "length": 20,
+            "messageText": "Property 'FunderTotalInterests' has no initializer and is not definitely assigned in the constructor.",
+            "category": 1,
+            "code": 2564
+          },
+          {
+            "file": "../src/generated/models/models.ts",
+            "start": 26657,
+            "length": 25,
+            "messageText": "Property 'FunderTotalInterestSearch' has no initializer and is not definitely assigned in the constructor.",
+            "category": 1,
+            "code": 2564
+          },
+          {
+            "file": "../src/generated/models/models.ts",
+            "start": 26721,
+            "length": 7,
+            "messageText": "Property 'Funding' has no initializer and is not definitely assigned in the constructor.",
+            "category": 1,
+            "code": 2564
+          },
+          {
+            "file": "../src/generated/models/models.ts",
+            "start": 26741,
+            "length": 8,
+            "messageText": "Property 'Fundings' has no initializer and is not definitely assigned in the constructor.",
+            "category": 1,
+            "code": 2564
+          },
+          {
+            "file": "../src/generated/models/models.ts",
+            "start": 26776,
+            "length": 13,
+            "messageText": "Property 'FundingSearch' has no initializer and is not definitely assigned in the constructor.",
+            "category": 1,
+            "code": 2564
+          },
+          {
+            "file": "../src/generated/models/models.ts",
+            "start": 26816,
+            "length": 9,
+            "messageText": "Property 'MPHHolder' has no initializer and is not definitely assigned in the constructor.",
+            "category": 1,
+            "code": 2564
+          },
+          {
+            "file": "../src/generated/models/models.ts",
+            "start": 26840,
+            "length": 10,
+            "messageText": "Property 'MPHHolders' has no initializer and is not definitely assigned in the constructor.",
+            "category": 1,
+            "code": 2564
+          },
+          {
+            "file": "../src/generated/models/models.ts",
+            "start": 26879,
+            "length": 15,
+            "messageText": "Property 'MPHHolderSearch' has no initializer and is not definitely assigned in the constructor.",
+            "category": 1,
+            "code": 2564
+          },
+          {
+            "file": "../src/generated/models/models.ts",
+            "start": 26923,
+            "length": 3,
+            "messageText": "Property 'MPH' has no initializer and is not definitely assigned in the constructor.",
+            "category": 1,
+            "code": 2564
+          },
+          {
+            "file": "../src/generated/models/models.ts",
+            "start": 26935,
+            "length": 4,
+            "messageText": "Property 'MPHs' has no initializer and is not definitely assigned in the constructor.",
+            "category": 1,
+            "code": 2564
+          },
+          {
+            "file": "../src/generated/models/models.ts",
+            "start": 26962,
+            "length": 9,
+            "messageText": "Property 'MPHSearch' has no initializer and is not definitely assigned in the constructor.",
+            "category": 1,
+            "code": 2564
+          },
+          {
+            "file": "../src/generated/models/models.ts",
+            "start": 26994,
+            "length": 4,
+            "messageText": "Property 'Vest' has no initializer and is not definitely assigned in the constructor.",
+            "category": 1,
+            "code": 2564
+          },
+          {
+            "file": "../src/generated/models/models.ts",
+            "start": 27008,
+            "length": 5,
+            "messageText": "Property 'Vests' has no initializer and is not definitely assigned in the constructor.",
+            "category": 1,
+            "code": 2564
+          },
+          {
+            "file": "../src/generated/models/models.ts",
+            "start": 27037,
+            "length": 10,
+            "messageText": "Property 'VestSearch' has no initializer and is not definitely assigned in the constructor.",
+            "category": 1,
+            "code": 2564
+          },
+          {
+            "file": "../src/generated/models/models.ts",
+            "start": 27071,
+            "length": 17,
+            "messageText": "Property 'FractionalDeposit' has no initializer and is not definitely assigned in the constructor.",
+            "category": 1,
+            "code": 2564
+          },
+          {
+            "file": "../src/generated/models/models.ts",
+            "start": 27111,
+            "length": 18,
+            "messageText": "Property 'FractionalDeposits' has no initializer and is not definitely assigned in the constructor.",
+            "category": 1,
+            "code": 2564
+          },
+          {
+            "file": "../src/generated/models/models.ts",
+            "start": 27166,
+            "length": 23,
+            "messageText": "Property 'FractionalDepositSearch' has no initializer and is not definitely assigned in the constructor.",
+            "category": 1,
+            "code": 2564
+          },
+          {
+            "file": "../src/generated/models/models.ts",
+            "start": 83863,
+            "length": 17,
+            "messageText": "Cannot find name 'TypedDocumentNode'.",
+            "category": 1,
+            "code": 2304
+          },
+          {
+            "file": "../src/generated/models/models.ts",
+            "start": 84152,
+            "length": 8,
+            "messageText": "Cannot find name 'useFetch'.",
+            "category": 1,
+            "code": 2304
+          }
+        ]
+      ],
+      [
+        "../src/generated/models/queries.ts",
+        [
+          {
+            "file": "../src/generated/models/queries.ts",
+            "start": 12773,
+            "length": 9,
+            "messageText": "Property 'DPoolList' has no initializer and is not definitely assigned in the constructor.",
+            "category": 1,
+            "code": 2564
+          },
+          {
+            "file": "../src/generated/models/queries.ts",
+            "start": 12797,
+            "length": 10,
+            "messageText": "Property 'DPoolLists' has no initializer and is not definitely assigned in the constructor.",
+            "category": 1,
+            "code": 2564
+          },
+          {
+            "file": "../src/generated/models/queries.ts",
+            "start": 12836,
+            "length": 15,
+            "messageText": "Property 'DPoolListSearch' has no initializer and is not definitely assigned in the constructor.",
+            "category": 1,
+            "code": 2564
+          },
+          {
+            "file": "../src/generated/models/queries.ts",
+            "start": 12880,
+            "length": 5,
+            "messageText": "Property 'DPool' has no initializer and is not definitely assigned in the constructor.",
+            "category": 1,
+            "code": 2564
+          },
+          {
+            "file": "../src/generated/models/queries.ts",
+            "start": 12896,
+            "length": 6,
+            "messageText": "Property 'DPools' has no initializer and is not definitely assigned in the constructor.",
+            "category": 1,
+            "code": 2564
+          },
+          {
+            "file": "../src/generated/models/queries.ts",
+            "start": 12927,
+            "length": 11,
+            "messageText": "Property 'DPoolSearch' has no initializer and is not definitely assigned in the constructor.",
+            "category": 1,
+            "code": 2564
+          },
+          {
+            "file": "../src/generated/models/queries.ts",
+            "start": 12963,
+            "length": 4,
+            "messageText": "Property 'User' has no initializer and is not definitely assigned in the constructor.",
+            "category": 1,
+            "code": 2564
+          },
+          {
+            "file": "../src/generated/models/queries.ts",
+            "start": 12977,
+            "length": 5,
+            "messageText": "Property 'Users' has no initializer and is not definitely assigned in the constructor.",
+            "category": 1,
+            "code": 2564
+          },
+          {
+            "file": "../src/generated/models/queries.ts",
+            "start": 13006,
+            "length": 10,
+            "messageText": "Property 'UserSearch' has no initializer and is not definitely assigned in the constructor.",
+            "category": 1,
+            "code": 2564
+          },
+          {
+            "file": "../src/generated/models/queries.ts",
+            "start": 13040,
+            "length": 16,
+            "messageText": "Property 'UserTotalDeposit' has no initializer and is not definitely assigned in the constructor.",
+            "category": 1,
+            "code": 2564
+          },
+          {
+            "file": "../src/generated/models/queries.ts",
+            "start": 13078,
+            "length": 17,
+            "messageText": "Property 'UserTotalDeposits' has no initializer and is not definitely assigned in the constructor.",
+            "category": 1,
+            "code": 2564
+          },
+          {
+            "file": "../src/generated/models/queries.ts",
+            "start": 13131,
+            "length": 22,
+            "messageText": "Property 'UserTotalDepositSearch' has no initializer and is not definitely assigned in the constructor.",
+            "category": 1,
+            "code": 2564
+          },
+          {
+            "file": "../src/generated/models/queries.ts",
+            "start": 13189,
+            "length": 7,
+            "messageText": "Property 'Deposit' has no initializer and is not definitely assigned in the constructor.",
+            "category": 1,
+            "code": 2564
+          },
+          {
+            "file": "../src/generated/models/queries.ts",
+            "start": 13209,
+            "length": 8,
+            "messageText": "Property 'Deposits' has no initializer and is not definitely assigned in the constructor.",
+            "category": 1,
+            "code": 2564
+          },
+          {
+            "file": "../src/generated/models/queries.ts",
+            "start": 13244,
+            "length": 13,
+            "messageText": "Property 'DepositSearch' has no initializer and is not definitely assigned in the constructor.",
+            "category": 1,
+            "code": 2564
+          },
+          {
+            "file": "../src/generated/models/queries.ts",
+            "start": 13284,
+            "length": 6,
+            "messageText": "Property 'Funder' has no initializer and is not definitely assigned in the constructor.",
+            "category": 1,
+            "code": 2564
+          },
+          {
+            "file": "../src/generated/models/queries.ts",
+            "start": 13302,
+            "length": 7,
+            "messageText": "Property 'Funders' has no initializer and is not definitely assigned in the constructor.",
+            "category": 1,
+            "code": 2564
+          },
+          {
+            "file": "../src/generated/models/queries.ts",
+            "start": 13335,
+            "length": 12,
+            "messageText": "Property 'FunderSearch' has no initializer and is not definitely assigned in the constructor.",
+            "category": 1,
+            "code": 2564
+          },
+          {
+            "file": "../src/generated/models/queries.ts",
+            "start": 13373,
+            "length": 19,
+            "messageText": "Property 'FunderTotalInterest' has no initializer and is not definitely assigned in the constructor.",
+            "category": 1,
+            "code": 2564
+          },
+          {
+            "file": "../src/generated/models/queries.ts",
+            "start": 13417,
+            "length": 20,
+            "messageText": "Property 'FunderTotalInterests' has no initializer and is not definitely assigned in the constructor.",
+            "category": 1,
+            "code": 2564
+          },
+          {
+            "file": "../src/generated/models/queries.ts",
+            "start": 13476,
+            "length": 25,
+            "messageText": "Property 'FunderTotalInterestSearch' has no initializer and is not definitely assigned in the constructor.",
+            "category": 1,
+            "code": 2564
+          },
+          {
+            "file": "../src/generated/models/queries.ts",
+            "start": 13540,
+            "length": 7,
+            "messageText": "Property 'Funding' has no initializer and is not definitely assigned in the constructor.",
+            "category": 1,
+            "code": 2564
+          },
+          {
+            "file": "../src/generated/models/queries.ts",
+            "start": 13560,
+            "length": 8,
+            "messageText": "Property 'Fundings' has no initializer and is not definitely assigned in the constructor.",
+            "category": 1,
+            "code": 2564
+          },
+          {
+            "file": "../src/generated/models/queries.ts",
+            "start": 13595,
+            "length": 13,
+            "messageText": "Property 'FundingSearch' has no initializer and is not definitely assigned in the constructor.",
+            "category": 1,
+            "code": 2564
+          },
+          {
+            "file": "../src/generated/models/queries.ts",
+            "start": 13635,
+            "length": 9,
+            "messageText": "Property 'MPHHolder' has no initializer and is not definitely assigned in the constructor.",
+            "category": 1,
+            "code": 2564
+          },
+          {
+            "file": "../src/generated/models/queries.ts",
+            "start": 13659,
+            "length": 10,
+            "messageText": "Property 'MPHHolders' has no initializer and is not definitely assigned in the constructor.",
+            "category": 1,
+            "code": 2564
+          },
+          {
+            "file": "../src/generated/models/queries.ts",
+            "start": 13698,
+            "length": 15,
+            "messageText": "Property 'MPHHolderSearch' has no initializer and is not definitely assigned in the constructor.",
+            "category": 1,
+            "code": 2564
+          },
+          {
+            "file": "../src/generated/models/queries.ts",
+            "start": 13742,
+            "length": 3,
+            "messageText": "Property 'MPH' has no initializer and is not definitely assigned in the constructor.",
+            "category": 1,
+            "code": 2564
+          },
+          {
+            "file": "../src/generated/models/queries.ts",
+            "start": 13754,
+            "length": 4,
+            "messageText": "Property 'MPHs' has no initializer and is not definitely assigned in the constructor.",
+            "category": 1,
+            "code": 2564
+          },
+          {
+            "file": "../src/generated/models/queries.ts",
+            "start": 13781,
+            "length": 9,
+            "messageText": "Property 'MPHSearch' has no initializer and is not definitely assigned in the constructor.",
+            "category": 1,
+            "code": 2564
+          },
+          {
+            "file": "../src/generated/models/queries.ts",
+            "start": 13813,
+            "length": 4,
+            "messageText": "Property 'Vest' has no initializer and is not definitely assigned in the constructor.",
+            "category": 1,
+            "code": 2564
+          },
+          {
+            "file": "../src/generated/models/queries.ts",
+            "start": 13827,
+            "length": 5,
+            "messageText": "Property 'Vests' has no initializer and is not definitely assigned in the constructor.",
+            "category": 1,
+            "code": 2564
+          },
+          {
+            "file": "../src/generated/models/queries.ts",
+            "start": 13856,
+            "length": 10,
+            "messageText": "Property 'VestSearch' has no initializer and is not definitely assigned in the constructor.",
+            "category": 1,
+            "code": 2564
+          },
+          {
+            "file": "../src/generated/models/queries.ts",
+            "start": 13890,
+            "length": 17,
+            "messageText": "Property 'FractionalDeposit' has no initializer and is not definitely assigned in the constructor.",
+            "category": 1,
+            "code": 2564
+          },
+          {
+            "file": "../src/generated/models/queries.ts",
+            "start": 13930,
+            "length": 18,
+            "messageText": "Property 'FractionalDeposits' has no initializer and is not definitely assigned in the constructor.",
+            "category": 1,
+            "code": 2564
+          },
+          {
+            "file": "../src/generated/models/queries.ts",
+            "start": 13985,
+            "length": 23,
+            "messageText": "Property 'FractionalDepositSearch' has no initializer and is not definitely assigned in the constructor.",
+            "category": 1,
+            "code": 2564
+          }
+        ]
+      ],
+      "../src/generated/models/utils.ts",
       "../src/handlers-test/ausdcpool.ts",
       "../src/handlers-test/cunipool.ts",
       [
@@ -5895,139 +6644,219 @@
         [
           {
             "file": "../src/handlers-test/cusdcpool.ts",
-            "start": 1469,
-            "length": 14,
-            "code": 2322,
+            "start": 1421,
+            "length": 6,
+            "code": 2551,
             "category": 1,
-            "messageText": "Type 'BigNumber' is not assignable to type 'string'."
+            "messageText": "Property 'userId' does not exist on type 'Deposit'. Did you mean 'UserID'?",
+            "relatedInformation": [
+              {
+                "file": "../src/generated/models/models.ts",
+                "start": 7963,
+                "length": 6,
+                "messageText": "'UserID' is declared here.",
+                "category": 3,
+                "code": 2728
+              }
+            ]
           },
           {
             "file": "../src/handlers-test/cusdcpool.ts",
-            "start": 1784,
-            "length": 22,
-            "code": 2322,
+            "start": 1449,
+            "length": 6,
+            "code": 2551,
             "category": 1,
-            "messageText": "Type 'BigNumber' is not assignable to type 'string'."
+            "messageText": "Property 'poolId' does not exist on type 'Deposit'. Did you mean 'DPoolID'?",
+            "relatedInformation": [
+              {
+                "file": "../src/generated/models/models.ts",
+                "start": 8023,
+                "length": 7,
+                "messageText": "'DPoolID' is declared here.",
+                "category": 3,
+                "code": 2728
+              }
+            ]
           },
           {
             "file": "../src/handlers-test/cusdcpool.ts",
-            "start": 1883,
-            "length": 17,
-            "code": 2322,
+            "start": 3882,
+            "length": 6,
+            "code": 2551,
             "category": 1,
-            "messageText": "Type 'bigint' is not assignable to type 'Maybe<string> | undefined'."
+            "messageText": "Property 'userId' does not exist on type 'UserTotalDeposit'. Did you mean 'UserID'?",
+            "relatedInformation": [
+              {
+                "file": "../src/generated/models/models.ts",
+                "start": 35839,
+                "length": 6,
+                "messageText": "'UserID' is declared here.",
+                "category": 3,
+                "code": 2728
+              }
+            ]
           },
           {
             "file": "../src/handlers-test/cusdcpool.ts",
-            "start": 1915,
-            "length": 21,
-            "code": 2322,
+            "start": 3927,
+            "length": 6,
+            "code": 2551,
             "category": 1,
-            "messageText": "Type 'BigNumber' is not assignable to type 'string'."
+            "messageText": "Property 'poolId' does not exist on type 'UserTotalDeposit'. Did you mean 'DPoolID'?",
+            "relatedInformation": [
+              {
+                "file": "../src/generated/models/models.ts",
+                "start": 35899,
+                "length": 7,
+                "messageText": "'DPoolID' is declared here.",
+                "category": 3,
+                "code": 2728
+              }
+            ]
           },
           {
             "file": "../src/handlers-test/cusdcpool.ts",
-            "start": 1980,
-            "length": 25,
-            "code": 2322,
+            "start": 5491,
+            "length": 8,
+            "code": 2551,
             "category": 1,
-            "messageText": "Type 'BigNumber' is not assignable to type 'string'."
+            "messageText": "Property 'funderId' does not exist on type 'Funding'. Did you mean 'FunderID'?",
+            "relatedInformation": [
+              {
+                "file": "../src/generated/models/models.ts",
+                "start": 18362,
+                "length": 8,
+                "messageText": "'FunderID' is declared here.",
+                "category": 3,
+                "code": 2728
+              }
+            ]
           },
           {
             "file": "../src/handlers-test/cusdcpool.ts",
-            "start": 2274,
-            "length": 34,
-            "messageText": "This condition will always return 'false' since the types 'Maybe<string> | undefined' and 'bigint' have no overlap.",
+            "start": 5523,
+            "length": 6,
+            "code": 2551,
             "category": 1,
-            "code": 2367
+            "messageText": "Property 'poolId' does not exist on type 'Funding'. Did you mean 'DPoolID'?",
+            "relatedInformation": [
+              {
+                "file": "../src/generated/models/models.ts",
+                "start": 18424,
+                "length": 7,
+                "messageText": "'DPoolID' is declared here.",
+                "category": 3,
+                "code": 2728
+              }
+            ]
           },
           {
             "file": "../src/handlers-test/cusdcpool.ts",
-            "start": 3949,
-            "length": 41,
-            "code": 2322,
+            "start": 6687,
+            "length": 7,
+            "code": 2551,
             "category": 1,
-            "messageText": "Type 'BigNumber' is not assignable to type 'string'."
+            "messageText": "Property 'poolIds' does not exist on type 'Funder'. Did you mean 'DPoolIDs'?",
+            "relatedInformation": [
+              {
+                "file": "../src/generated/models/models.ts",
+                "start": 13362,
+                "length": 8,
+                "messageText": "'DPoolIDs' is declared here.",
+                "category": 3,
+                "code": 2728
+              }
+            ]
           },
           {
             "file": "../src/handlers-test/cusdcpool.ts",
-            "start": 4007,
-            "length": 45,
-            "code": 2322,
+            "start": 6710,
+            "length": 7,
+            "code": 2551,
             "category": 1,
-            "messageText": "Type 'BigNumber' is not assignable to type 'string'."
+            "messageText": "Property 'poolIds' does not exist on type 'Funder'. Did you mean 'DPoolIDs'?",
+            "relatedInformation": [
+              {
+                "file": "../src/generated/models/models.ts",
+                "start": 13362,
+                "length": 8,
+                "messageText": "'DPoolIDs' is declared here.",
+                "category": 3,
+                "code": 2728
+              }
+            ]
           },
           {
             "file": "../src/handlers-test/cusdcpool.ts",
-            "start": 4069,
-            "length": 42,
-            "code": 2322,
+            "start": 6808,
+            "length": 7,
+            "code": 2551,
             "category": 1,
-            "messageText": "Type 'BigNumber' is not assignable to type 'string'."
+            "messageText": "Property 'poolIds' does not exist on type 'Funder'. Did you mean 'DPoolIDs'?",
+            "relatedInformation": [
+              {
+                "file": "../src/generated/models/models.ts",
+                "start": 13362,
+                "length": 8,
+                "messageText": "'DPoolIDs' is declared here.",
+                "category": 3,
+                "code": 2728
+              }
+            ]
           },
           {
             "file": "../src/handlers-test/cusdcpool.ts",
-            "start": 4128,
-            "length": 52,
-            "code": 2322,
+            "start": 6853,
+            "length": 7,
+            "code": 2551,
             "category": 1,
-            "messageText": "Type 'BigNumber' is not assignable to type 'string'."
+            "messageText": "Property 'poolIds' does not exist on type 'Funder'. Did you mean 'DPoolIDs'?",
+            "relatedInformation": [
+              {
+                "file": "../src/generated/models/models.ts",
+                "start": 13362,
+                "length": 8,
+                "messageText": "'DPoolIDs' is declared here.",
+                "category": 3,
+                "code": 2728
+              }
+            ]
           },
           {
             "file": "../src/handlers-test/cusdcpool.ts",
-            "start": 6098,
-            "length": 27,
-            "code": 2322,
+            "start": 7764,
+            "length": 8,
+            "code": 2551,
             "category": 1,
-            "messageText": "Type 'BigNumber' is not assignable to type 'string'."
+            "messageText": "Property 'funderId' does not exist on type 'FunderTotalInterest'. Did you mean 'FunderID'?",
+            "relatedInformation": [
+              {
+                "file": "../src/generated/models/models.ts",
+                "start": 15756,
+                "length": 8,
+                "messageText": "'FunderID' is declared here.",
+                "category": 3,
+                "code": 2728
+              }
+            ]
           },
           {
             "file": "../src/handlers-test/cusdcpool.ts",
-            "start": 6201,
-            "length": 27,
-            "code": 2322,
+            "start": 7816,
+            "length": 6,
+            "code": 2551,
             "category": 1,
-            "messageText": "Type 'BigNumber' is not assignable to type 'string'."
-          },
-          {
-            "file": "../src/handlers-test/cusdcpool.ts",
-            "start": 7848,
-            "length": 44,
-            "code": 2322,
-            "category": 1,
-            "messageText": "Type 'BigNumber' is not assignable to type 'string'."
-          },
-          {
-            "file": "../src/handlers-test/cusdcpool.ts",
-            "start": 7909,
-            "length": 54,
-            "code": 2322,
-            "category": 1,
-            "messageText": "Type 'BigNumber' is not assignable to type 'string'."
-          },
-          {
-            "file": "../src/handlers-test/cusdcpool.ts",
-            "start": 7980,
-            "length": 45,
-            "code": 2322,
-            "category": 1,
-            "messageText": "Type 'BigNumber' is not assignable to type 'string'."
-          },
-          {
-            "file": "../src/handlers-test/cusdcpool.ts",
-            "start": 8042,
-            "length": 55,
-            "code": 2322,
-            "category": 1,
-            "messageText": "Type 'BigNumber' is not assignable to type 'string'."
-          },
-          {
-            "file": "../src/handlers-test/cusdcpool.ts",
-            "start": 8114,
-            "length": 58,
-            "code": 2322,
-            "category": 1,
-            "messageText": "Type 'BigNumber' is not assignable to type 'string'."
+            "messageText": "Property 'poolId' does not exist on type 'FunderTotalInterest'. Did you mean 'DPoolID'?",
+            "relatedInformation": [
+              {
+                "file": "../src/generated/models/models.ts",
+                "start": 15818,
+                "length": 7,
+                "messageText": "'DPoolID' is declared here.",
+                "category": 3,
+                "code": 2728
+              }
+            ]
           }
         ]
       ],
@@ -6035,296 +6864,81 @@
       "../src/handlers-test/mphissuancemodel01.ts",
       "../src/handlers-test/mphtoken.ts",
       "../src/handlers-test/nft.ts",
-      [
-        "../src/handlers-test/rewards.ts",
-        [
-          {
-            "file": "../src/handlers-test/rewards.ts",
-            "start": 793,
-            "length": 19,
-            "code": 2322,
-            "category": 1,
-            "messageText": "Type 'BigNumber' is not assignable to type 'string'."
-          },
-          {
-            "file": "../src/handlers-test/rewards.ts",
-            "start": 1059,
-            "length": 19,
-            "messageText": "Object is possibly 'null' or 'undefined'.",
-            "category": 1,
-            "code": 2533
-          },
-          {
-            "file": "../src/handlers-test/rewards.ts",
-            "start": 1079,
-            "length": 3,
-            "code": 2339,
-            "category": 1,
-            "messageText": "Property 'div' does not exist on type 'string'."
-          },
-          {
-            "file": "../src/handlers-test/rewards.ts",
-            "start": 1109,
-            "length": 25,
-            "code": 2322,
-            "category": 1,
-            "messageText": "Type 'BigNumber' is not assignable to type 'string'."
-          },
-          {
-            "file": "../src/handlers-test/rewards.ts",
-            "start": 1544,
-            "length": 31,
-            "code": 2322,
-            "category": 1,
-            "messageText": "Type 'BigNumber' is not assignable to type 'string'."
-          },
-          {
-            "file": "../src/handlers-test/rewards.ts",
-            "start": 2026,
-            "length": 19,
-            "code": 2322,
-            "category": 1,
-            "messageText": "Type 'BigNumber' is not assignable to type 'string'."
-          },
-          {
-            "file": "../src/handlers-test/rewards.ts",
-            "start": 2134,
-            "length": 19,
-            "messageText": "Object is possibly 'null' or 'undefined'.",
-            "category": 1,
-            "code": 2533
-          },
-          {
-            "file": "../src/handlers-test/rewards.ts",
-            "start": 2154,
-            "length": 3,
-            "code": 2339,
-            "category": 1,
-            "messageText": "Property 'div' does not exist on type 'string'."
-          },
-          {
-            "file": "../src/handlers-test/rewards.ts",
-            "start": 2492,
-            "length": 19,
-            "code": 2322,
-            "category": 1,
-            "messageText": "Type 'BigNumber' is not assignable to type 'string'."
-          },
-          {
-            "file": "../src/handlers-test/rewards.ts",
-            "start": 2663,
-            "length": 19,
-            "messageText": "Object is possibly 'null' or 'undefined'.",
-            "category": 1,
-            "code": 2533
-          },
-          {
-            "file": "../src/handlers-test/rewards.ts",
-            "start": 2683,
-            "length": 3,
-            "code": 2339,
-            "category": 1,
-            "messageText": "Property 'div' does not exist on type 'string'."
-          }
-        ]
-      ],
+      "../src/handlers-test/rewards.ts",
       [
         "../src/handlers-test/utils.ts",
         [
           {
             "file": "../src/handlers-test/utils.ts",
-            "start": 5521,
-            "length": 22,
-            "code": 2322,
+            "start": 4201,
+            "length": 7,
+            "code": 2551,
             "category": 1,
-            "messageText": "Type 'bigint' is not assignable to type 'Maybe<string> | undefined'."
+            "messageText": "Property 'poolIds' does not exist on type 'DPoolList'. Did you mean 'DPoolIDs'?",
+            "relatedInformation": [
+              {
+                "file": "../src/generated/models/models.ts",
+                "start": 6046,
+                "length": 8,
+                "messageText": "'DPoolIDs' is declared here.",
+                "category": 3,
+                "code": 2728
+              }
+            ]
           },
           {
             "file": "../src/handlers-test/utils.ts",
-            "start": 5560,
-            "length": 23,
-            "code": 2322,
+            "start": 7955,
+            "length": 7,
+            "code": 2551,
             "category": 1,
-            "messageText": "Type 'BigNumber' is not assignable to type 'string'."
+            "messageText": "Property 'poolIds' does not exist on type 'DPoolList'. Did you mean 'DPoolIDs'?",
+            "relatedInformation": [
+              {
+                "file": "../src/generated/models/models.ts",
+                "start": 6046,
+                "length": 8,
+                "messageText": "'DPoolIDs' is declared here.",
+                "category": 3,
+                "code": 2728
+              }
+            ]
           },
           {
             "file": "../src/handlers-test/utils.ts",
-            "start": 5600,
-            "length": 27,
-            "code": 2322,
+            "start": 8691,
+            "length": 7,
+            "code": 2551,
             "category": 1,
-            "messageText": "Type 'BigNumber' is not assignable to type 'string'."
+            "messageText": "Property 'poolIds' does not exist on type 'User'. Did you mean 'DPoolIDs'?",
+            "relatedInformation": [
+              {
+                "file": "../src/generated/models/models.ts",
+                "start": 33323,
+                "length": 8,
+                "messageText": "'DPoolIDs' is declared here.",
+                "category": 3,
+                "code": 2728
+              }
+            ]
           },
           {
             "file": "../src/handlers-test/utils.ts",
-            "start": 5644,
-            "length": 15,
-            "code": 2322,
+            "start": 9341,
+            "length": 7,
+            "code": 2551,
             "category": 1,
-            "messageText": "Type 'bigint' is not assignable to type 'Maybe<string> | undefined'."
-          },
-          {
-            "file": "../src/handlers-test/utils.ts",
-            "start": 5676,
-            "length": 16,
-            "code": 2322,
-            "category": 1,
-            "messageText": "Type 'bigint' is not assignable to type 'Maybe<string> | undefined'."
-          },
-          {
-            "file": "../src/handlers-test/utils.ts",
-            "start": 5709,
-            "length": 22,
-            "code": 2322,
-            "category": 1,
-            "messageText": "Type 'BigNumber' is not assignable to type 'string'."
-          },
-          {
-            "file": "../src/handlers-test/utils.ts",
-            "start": 5748,
-            "length": 26,
-            "code": 2322,
-            "category": 1,
-            "messageText": "Type 'BigNumber' is not assignable to type 'string'."
-          },
-          {
-            "file": "../src/handlers-test/utils.ts",
-            "start": 5990,
-            "length": 12,
-            "code": 2322,
-            "category": 1,
-            "messageText": "Type 'BigNumber' is not assignable to type 'string'."
-          },
-          {
-            "file": "../src/handlers-test/utils.ts",
-            "start": 6019,
-            "length": 27,
-            "code": 2322,
-            "category": 1,
-            "messageText": "Type 'bigint' is not assignable to type 'Maybe<string> | undefined'."
-          },
-          {
-            "file": "../src/handlers-test/utils.ts",
-            "start": 8712,
-            "length": 13,
-            "code": 2322,
-            "category": 1,
-            "messageText": "Type 'bigint' is not assignable to type 'Maybe<string> | undefined'."
-          },
-          {
-            "file": "../src/handlers-test/utils.ts",
-            "start": 8742,
-            "length": 16,
-            "code": 2322,
-            "category": 1,
-            "messageText": "Type 'bigint' is not assignable to type 'Maybe<string> | undefined'."
-          },
-          {
-            "file": "../src/handlers-test/utils.ts",
-            "start": 8775,
-            "length": 22,
-            "code": 2322,
-            "category": 1,
-            "messageText": "Type 'bigint' is not assignable to type 'Maybe<string> | undefined'."
-          },
-          {
-            "file": "../src/handlers-test/utils.ts",
-            "start": 8814,
-            "length": 19,
-            "code": 2322,
-            "category": 1,
-            "messageText": "Type 'BigNumber' is not assignable to type 'string'."
-          },
-          {
-            "file": "../src/handlers-test/utils.ts",
-            "start": 8850,
-            "length": 21,
-            "code": 2322,
-            "category": 1,
-            "messageText": "Type 'BigNumber' is not assignable to type 'string'."
-          },
-          {
-            "file": "../src/handlers-test/utils.ts",
-            "start": 9362,
-            "length": 13,
-            "code": 2322,
-            "category": 1,
-            "messageText": "Type 'bigint' is not assignable to type 'Maybe<string> | undefined'."
-          },
-          {
-            "file": "../src/handlers-test/utils.ts",
-            "start": 9392,
-            "length": 16,
-            "code": 2322,
-            "category": 1,
-            "messageText": "Type 'bigint' is not assignable to type 'Maybe<string> | undefined'."
-          },
-          {
-            "file": "../src/handlers-test/utils.ts",
-            "start": 9425,
-            "length": 19,
-            "code": 2322,
-            "category": 1,
-            "messageText": "Type 'BigNumber' is not assignable to type 'string'."
-          },
-          {
-            "file": "../src/handlers-test/utils.ts",
-            "start": 9479,
-            "length": 15,
-            "code": 2322,
-            "category": 1,
-            "messageText": "Type 'bigint' is not assignable to type 'Maybe<string> | undefined'."
-          },
-          {
-            "file": "../src/handlers-test/utils.ts",
-            "start": 9498,
-            "length": 25,
-            "code": 2352,
-            "category": 1,
-            "messageText": {
-              "messageText": "Conversion of type 'Maybe<string> | undefined' to type 'bigint' may be a mistake because neither type sufficiently overlaps with the other. If this was intentional, convert the expression to 'unknown' first.",
-              "category": 1,
-              "code": 2352,
-              "next": [
-                {
-                  "messageText": "Type 'string' is not comparable to type 'bigint'.",
-                  "category": 1,
-                  "code": 2678
-                }
-              ]
-            }
-          },
-          {
-            "file": "../src/handlers-test/utils.ts",
-            "start": 9833,
-            "length": 28,
-            "code": 2322,
-            "category": 1,
-            "messageText": "Type 'BigNumber' is not assignable to type 'string'."
-          },
-          {
-            "file": "../src/handlers-test/utils.ts",
-            "start": 9878,
-            "length": 28,
-            "code": 2322,
-            "category": 1,
-            "messageText": "Type 'BigNumber' is not assignable to type 'string'."
-          },
-          {
-            "file": "../src/handlers-test/utils.ts",
-            "start": 9923,
-            "length": 22,
-            "code": 2322,
-            "category": 1,
-            "messageText": "Type 'BigNumber' is not assignable to type 'string'."
-          },
-          {
-            "file": "../src/handlers-test/utils.ts",
-            "start": 10260,
-            "length": 28,
-            "code": 2322,
-            "category": 1,
-            "messageText": "Type 'BigNumber' is not assignable to type 'string'."
+            "messageText": "Property 'poolIds' does not exist on type 'Funder'. Did you mean 'DPoolIDs'?",
+            "relatedInformation": [
+              {
+                "file": "../src/generated/models/models.ts",
+                "start": 13362,
+                "length": 8,
+                "messageText": "'DPoolIDs' is declared here.",
+                "category": 3,
+                "code": 2728
+              }
+            ]
           }
         ]
       ],
@@ -6336,7 +6950,61 @@
       "../src/lib/dataaggregator.ts",
       "../src/lib/datavertexclient.ts",
       "../src/lib/etherclient.js",
-      "../test/index-test.ts",
+      [
+        "../test/index-test.ts",
+        [
+          {
+            "file": "../test/index-test.ts",
+            "start": 1289,
+            "length": 6,
+            "code": 2551,
+            "category": 1,
+            "messageText": "Property 'dpools' does not exist on type '{ DPoolList(variables: Exact<{ id: string; prove?: Maybe<boolean> | undefined; }>, requestHeaders?: HeadersInit | undefined): Promise<DPoolListQuery>; ... 22 more ...; UpdateFractionalDeposit(variables: Exact<...>, requestHeaders?: HeadersInit | undefined): Promise<...>; }'. Did you mean 'DPool'?",
+            "relatedInformation": [
+              {
+                "file": "../src/generated/models/queries.ts",
+                "start": 33364,
+                "length": 5,
+                "messageText": "'DPool' is declared here.",
+                "category": 3,
+                "code": 2728
+              }
+            ]
+          },
+          {
+            "file": "../test/index-test.ts",
+            "start": 1347,
+            "length": 12,
+            "code": 2339,
+            "category": 1,
+            "messageText": "Property 'dpoolsLatest' does not exist on type '{ DPoolList(variables: Exact<{ id: string; prove?: Maybe<boolean> | undefined; }>, requestHeaders?: HeadersInit | undefined): Promise<DPoolListQuery>; ... 22 more ...; UpdateFractionalDeposit(variables: Exact<...>, requestHeaders?: HeadersInit | undefined): Promise<...>; }'."
+          }
+        ]
+      ],
+      [
+        "../test/model-test.ts",
+        [
+          {
+            "file": "../test/model-test.ts",
+            "start": 1321,
+            "length": 7,
+            "code": 2551,
+            "category": 1,
+            "messageText": "Property 'poolIds' does not exist on type 'DPoolList'. Did you mean 'DPoolIDs'?",
+            "relatedInformation": [
+              {
+                "file": "../src/generated/models/models.ts",
+                "start": 6046,
+                "length": 8,
+                "messageText": "'DPoolIDs' is declared here.",
+                "category": 3,
+                "code": 2728
+              }
+            ]
+          }
+        ]
+      ],
+      "../test/utils-test.ts",
       "../webpack.config.js"
     ]
   },

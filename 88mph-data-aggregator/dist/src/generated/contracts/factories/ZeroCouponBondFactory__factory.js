@@ -5,7 +5,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ZeroCouponBondFactory__factory = void 0;
 var ethers_1 = require("ethers");
-//import { Address } from "@graphprotocol/graph-ts";
 var ZeroCouponBondFactory__factory = /** @class */ (function () {
     function ZeroCouponBondFactory__factory() {
     }
@@ -13,7 +12,7 @@ var ZeroCouponBondFactory__factory = /** @class */ (function () {
         if (!provider) {
             provider = ethers_1.ethers.getDefaultProvider("mainnet");
         }
-        return this.connect(address.toString(), provider);
+        return new ethers_1.Contract(address, _abi, provider);
     };
     ZeroCouponBondFactory__factory.connect = function (address, signerOrProvider) {
         return new ethers_1.Contract(address, _abi, signerOrProvider);
@@ -27,17 +26,17 @@ var _abi = [
             {
                 internalType: "address",
                 name: "_template",
-                type: "address"
+                type: "address",
             },
             {
                 internalType: "address",
                 name: "_fractionalDepositFactory",
-                type: "address"
-            }
+                type: "address",
+            },
         ],
         payable: false,
         stateMutability: "nonpayable",
-        type: "constructor"
+        type: "constructor",
     },
     {
         anonymous: false,
@@ -46,11 +45,11 @@ var _abi = [
                 indexed: false,
                 internalType: "address",
                 name: "_clone",
-                type: "address"
-            }
+                type: "address",
+            },
         ],
         name: "CreateClone",
-        type: "event"
+        type: "event",
     },
     {
         constant: false,
@@ -58,35 +57,35 @@ var _abi = [
             {
                 internalType: "address",
                 name: "_pool",
-                type: "address"
+                type: "address",
             },
             {
                 internalType: "uint256",
                 name: "_maturationTimetstamp",
-                type: "uint256"
+                type: "uint256",
             },
             {
                 internalType: "string",
                 name: "_tokenName",
-                type: "string"
+                type: "string",
             },
             {
                 internalType: "string",
                 name: "_tokenSymbol",
-                type: "string"
-            }
+                type: "string",
+            },
         ],
         name: "createZeroCouponBond",
         outputs: [
             {
                 internalType: "contract ZeroCouponBond",
                 name: "",
-                type: "address"
-            }
+                type: "address",
+            },
         ],
         payable: false,
         stateMutability: "nonpayable",
-        type: "function"
+        type: "function",
     },
     {
         constant: true,
@@ -96,12 +95,12 @@ var _abi = [
             {
                 internalType: "address",
                 name: "",
-                type: "address"
-            }
+                type: "address",
+            },
         ],
         payable: false,
         stateMutability: "view",
-        type: "function"
+        type: "function",
     },
     {
         constant: true,
@@ -109,20 +108,20 @@ var _abi = [
             {
                 internalType: "address",
                 name: "query",
-                type: "address"
-            }
+                type: "address",
+            },
         ],
         name: "isZeroCouponBond",
         outputs: [
             {
                 internalType: "bool",
                 name: "",
-                type: "bool"
-            }
+                type: "bool",
+            },
         ],
         payable: false,
         stateMutability: "view",
-        type: "function"
+        type: "function",
     },
     {
         constant: true,
@@ -132,12 +131,12 @@ var _abi = [
             {
                 internalType: "address",
                 name: "",
-                type: "address"
-            }
+                type: "address",
+            },
         ],
         payable: false,
         stateMutability: "view",
-        type: "function"
-    }
+        type: "function",
+    },
 ];
 //# sourceMappingURL=ZeroCouponBondFactory__factory.js.map

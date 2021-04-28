@@ -5,6 +5,7 @@ var tslib_1 = require("tslib");
 var assert_1 = tslib_1.__importDefault(require("assert"));
 var graphql_request_1 = require("graphql-request");
 var queries_1 = require("../src/generated/models/queries");
+//https://github.com/ardeois/graphql-codegen-typescript-mock-data
 describe("data vertex test for modules", function () { return tslib_1.__awaiter(void 0, void 0, void 0, function () {
     return tslib_1.__generator(this, function (_a) {
         describe("Should be able to get queries", function () {

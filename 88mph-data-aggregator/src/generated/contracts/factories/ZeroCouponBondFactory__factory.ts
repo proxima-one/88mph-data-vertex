@@ -6,18 +6,16 @@ import { Contract, ethers, Signer } from "ethers";
 import { Provider } from "@ethersproject/providers";
 
 import { ZeroCouponBondFactory } from "../ZeroCouponBondFactory";
-//import { Address } from "@graphprotocol/graph-ts";
 
 export class ZeroCouponBondFactory__factory {
-  static bind(
-    address: string,
-    provider?: Signer | Provider
-  ): ZeroCouponBondFactory {
-    if (!provider) {
-      provider = ethers.getDefaultProvider("mainnet");
-    }
-    return this.connect(address.toString(), provider);
+
+
+static bind(address: string, provider?: Signer | Provider): ZeroCouponBondFactory {
+  if (!provider) {
+    provider = ethers.getDefaultProvider("mainnet");
   }
+  return new Contract(address, _abi, provider) as ZeroCouponBondFactory;
+}
   static connect(
     address: string,
     signerOrProvider: Signer | Provider
@@ -36,17 +34,17 @@ const _abi = [
       {
         internalType: "address",
         name: "_template",
-        type: "address"
+        type: "address",
       },
       {
         internalType: "address",
         name: "_fractionalDepositFactory",
-        type: "address"
-      }
+        type: "address",
+      },
     ],
     payable: false,
     stateMutability: "nonpayable",
-    type: "constructor"
+    type: "constructor",
   },
   {
     anonymous: false,
@@ -55,11 +53,11 @@ const _abi = [
         indexed: false,
         internalType: "address",
         name: "_clone",
-        type: "address"
-      }
+        type: "address",
+      },
     ],
     name: "CreateClone",
-    type: "event"
+    type: "event",
   },
   {
     constant: false,
@@ -67,35 +65,35 @@ const _abi = [
       {
         internalType: "address",
         name: "_pool",
-        type: "address"
+        type: "address",
       },
       {
         internalType: "uint256",
         name: "_maturationTimetstamp",
-        type: "uint256"
+        type: "uint256",
       },
       {
         internalType: "string",
         name: "_tokenName",
-        type: "string"
+        type: "string",
       },
       {
         internalType: "string",
         name: "_tokenSymbol",
-        type: "string"
-      }
+        type: "string",
+      },
     ],
     name: "createZeroCouponBond",
     outputs: [
       {
         internalType: "contract ZeroCouponBond",
         name: "",
-        type: "address"
-      }
+        type: "address",
+      },
     ],
     payable: false,
     stateMutability: "nonpayable",
-    type: "function"
+    type: "function",
   },
   {
     constant: true,
@@ -105,12 +103,12 @@ const _abi = [
       {
         internalType: "address",
         name: "",
-        type: "address"
-      }
+        type: "address",
+      },
     ],
     payable: false,
     stateMutability: "view",
-    type: "function"
+    type: "function",
   },
   {
     constant: true,
@@ -118,20 +116,20 @@ const _abi = [
       {
         internalType: "address",
         name: "query",
-        type: "address"
-      }
+        type: "address",
+      },
     ],
     name: "isZeroCouponBond",
     outputs: [
       {
         internalType: "bool",
         name: "",
-        type: "bool"
-      }
+        type: "bool",
+      },
     ],
     payable: false,
     stateMutability: "view",
-    type: "function"
+    type: "function",
   },
   {
     constant: true,
@@ -141,11 +139,11 @@ const _abi = [
       {
         internalType: "address",
         name: "",
-        type: "address"
-      }
+        type: "address",
+      },
     ],
     payable: false,
     stateMutability: "view",
-    type: "function"
-  }
+    type: "function",
+  },
 ];

@@ -6,15 +6,16 @@ import { Contract, ethers, Signer } from "ethers";
 import { Provider } from "@ethersproject/providers";
 
 import { Vesting } from "../Vesting";
-//import { Address } from "@graphprotocol/graph-ts";
 
 export class Vesting__factory {
-  static bind(address: string, provider?: Signer | Provider): Vesting {
-    if (!provider) {
-      provider = ethers.getDefaultProvider("mainnet");
-    }
-    return this.connect(address.toString(), provider);
+
+
+static bind(address: string, provider?: Signer | Provider): Vesting {
+  if (!provider) {
+    provider = ethers.getDefaultProvider("mainnet");
   }
+  return new Contract(address, _abi, provider) as Vesting;
+}
   static connect(
     address: string,
     signerOrProvider: Signer | Provider
@@ -29,12 +30,12 @@ const _abi = [
       {
         internalType: "address",
         name: "_token",
-        type: "address"
-      }
+        type: "address",
+      },
     ],
     payable: false,
     stateMutability: "nonpayable",
-    type: "constructor"
+    type: "constructor",
   },
   {
     constant: true,
@@ -42,40 +43,40 @@ const _abi = [
       {
         internalType: "address",
         name: "",
-        type: "address"
+        type: "address",
       },
       {
         internalType: "uint256",
         name: "",
-        type: "uint256"
-      }
+        type: "uint256",
+      },
     ],
     name: "accountVestList",
     outputs: [
       {
         internalType: "uint256",
         name: "amount",
-        type: "uint256"
+        type: "uint256",
       },
       {
         internalType: "uint256",
         name: "vestPeriodInSeconds",
-        type: "uint256"
+        type: "uint256",
       },
       {
         internalType: "uint256",
         name: "creationTimestamp",
-        type: "uint256"
+        type: "uint256",
       },
       {
         internalType: "uint256",
         name: "withdrawnAmount",
-        type: "uint256"
-      }
+        type: "uint256",
+      },
     ],
     payable: false,
     stateMutability: "view",
-    type: "function"
+    type: "function",
   },
   {
     constant: true,
@@ -83,25 +84,25 @@ const _abi = [
       {
         internalType: "address",
         name: "account",
-        type: "address"
+        type: "address",
       },
       {
         internalType: "uint256",
         name: "vestIdx",
-        type: "uint256"
-      }
+        type: "uint256",
+      },
     ],
     name: "getVestWithdrawableAmount",
     outputs: [
       {
         internalType: "uint256",
         name: "",
-        type: "uint256"
-      }
+        type: "uint256",
+      },
     ],
     payable: false,
     stateMutability: "view",
-    type: "function"
+    type: "function",
   },
   {
     constant: true,
@@ -111,12 +112,12 @@ const _abi = [
       {
         internalType: "contract IERC20",
         name: "",
-        type: "address"
-      }
+        type: "address",
+      },
     ],
     payable: false,
     stateMutability: "view",
-    type: "function"
+    type: "function",
   },
   {
     constant: false,
@@ -124,30 +125,30 @@ const _abi = [
       {
         internalType: "address",
         name: "to",
-        type: "address"
+        type: "address",
       },
       {
         internalType: "uint256",
         name: "amount",
-        type: "uint256"
+        type: "uint256",
       },
       {
         internalType: "uint256",
         name: "vestPeriodInSeconds",
-        type: "uint256"
-      }
+        type: "uint256",
+      },
     ],
     name: "vest",
     outputs: [
       {
         internalType: "uint256",
         name: "vestIdx",
-        type: "uint256"
-      }
+        type: "uint256",
+      },
     ],
     payable: false,
     stateMutability: "nonpayable",
-    type: "function"
+    type: "function",
   },
   {
     constant: false,
@@ -155,24 +156,24 @@ const _abi = [
       {
         internalType: "address",
         name: "account",
-        type: "address"
+        type: "address",
       },
       {
         internalType: "uint256",
         name: "vestIdx",
-        type: "uint256"
-      }
+        type: "uint256",
+      },
     ],
     name: "withdrawVested",
     outputs: [
       {
         internalType: "uint256",
         name: "withdrawnAmount",
-        type: "uint256"
-      }
+        type: "uint256",
+      },
     ],
     payable: false,
     stateMutability: "nonpayable",
-    type: "function"
-  }
+    type: "function",
+  },
 ];

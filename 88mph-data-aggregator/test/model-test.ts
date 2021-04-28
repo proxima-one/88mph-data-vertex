@@ -34,13 +34,13 @@ var dpoolListInputQuery: DPoolListInput;
 function makeDefaultDPoolList(): DPoolList {
   //class DPoolList
   let dpoolList: DPoolList = new DPoolList("dpoolListID");
-  dpoolList.numActiveUsers = BigInt(0);
-  dpoolList.numUsers = BigInt(0);
-  dpoolList.numFunders = BigInt(0);
-  dpoolList.numPools = BigInt(1);
-  dpoolList.poolIds = ["dpoolID"];
-  dpoolList.__typename = "DPoolList";
-  //dpoolList.numActiveDeposits = 0;
+  dpoolList.numActiveUsers = 0;
+  dpoolList.numUsers = 0;
+  dpoolList.numFunders = 0;
+  dpoolList.numPools = 1;
+  //dpoolList.DPoolIDs = ["DPoolIDs"];
+  //dpoolList.__typename = "DPoolList";
+  dpoolList.numActiveDeposits = 0;
   return dpoolList;
 }
 
@@ -52,8 +52,8 @@ function makeDefaultDPoolListInput(): DPoolListInput {
     numPools: 0,
     //numPools convert to Int
     numUsers: 0, // convert to Int
-    numFunders: 0,
-    DPoolIDs: ["dpoolID"]
+    numFunders: 0
+    //  DPoolIDs: ["dpoolID"]
     //numFunders  = numFunders convert to Int
     //DPoolIDs = poolIds
   };
@@ -69,8 +69,8 @@ function makeDefaultDPoolListInputQuery(): DPoolListInput {
     numPools: 0,
     //numPools convert to Int
     numUsers: 0, // convert to Int
-    numFunders: 0,
-    DPoolIDs: ["dpoolID"]
+    numFunders: 0
+    //DPoolIDs: ["dpoolID"]
     //numFunders  = numFunders convert to Int
     //DPoolIDs = poolIds
   };
@@ -130,7 +130,7 @@ describe("testing utils for conversions", async function() {
       assert(isDPoolList(resultDPoolListQueryResp));
 
       let resultDPoolListInput = toDPoolListInput(resultDPoolList);
-      //assert(isDPoolListInput(resultDPoolListInput));
+      assert(isDPoolListInput(resultDPoolListInput));
     });
 
     it("Should be able to use .save(), and load()", async function() {
@@ -157,22 +157,30 @@ describe("testing utils for conversions", async function() {
       dpoolListInput = makeDefaultDPoolListInput();
       dpoolListInputQuery = makeDefaultDPoolListInputQuery();
       //dpoolList.save();
-      //let dpoolQuery = await sdk.UpdateDPoolList({ input: {} });
-      //console.log(dpoolQuery);
-      let dpoolQuery1 = await sdk.UpdateDPoolList({
+      //let dpoolQuery = await sdk.UpdateDPoolList({ input: dpoolListInput });
+      //console.log(dpoolQuery.toString());
+      let dpoolQuery = await sdk.UpdateDPoolList({
         input: {
           id: dpoolListInput.id,
           numPools: dpoolListInput.numPools,
-          numFunders: dpoolListInput.numFunders
-          //numUsers: dpoolListInput.numUsers,
+          numFunders: dpoolListInput.numFunders,
+          numUsers: dpoolListInput.numUsers,
+          numActiveUsers: dpoolListInput.numActiveUsers
           //DPoolIDs: dpoolListInput.DPoolIDs
         }
         //dpoolListInput
       });
-      console.log(dpoolQuery1);
-      let dpoolResult = DPoolList.load("dpoolListID");
+      //  console.log(dpoolQuery);
+      //let dpoolResult = DPoolList.load("dpoolListID");
+      let dpoolResult = await sdk.DPoolList({ id: dpoolListInput.id });
+      console.log("Query String");
+      console.log(dpoolResult);
       assert(dpoolResult != null);
-      console.log(dpoolResult.__typename);
+      console.log("Result ", dpoolResult);
+    });
+
+    it("Should be able to save and load from the data vertex with entities", async function() {
+      //loading
     });
   });
 });

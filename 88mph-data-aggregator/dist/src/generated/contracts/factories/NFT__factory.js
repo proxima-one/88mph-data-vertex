@@ -5,7 +5,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.NFT__factory = void 0;
 var ethers_1 = require("ethers");
-//import { Address } from "@graphprotocol/graph-ts";
 var NFT__factory = /** @class */ (function () {
     function NFT__factory() {
     }
@@ -13,7 +12,7 @@ var NFT__factory = /** @class */ (function () {
         if (!provider) {
             provider = ethers_1.ethers.getDefaultProvider("mainnet");
         }
-        return this.connect(address.toString(), provider);
+        return new ethers_1.Contract(address, _abi, provider);
     };
     NFT__factory.connect = function (address, signerOrProvider) {
         return new ethers_1.Contract(address, _abi, signerOrProvider);
@@ -27,17 +26,17 @@ var _abi = [
             {
                 internalType: "string",
                 name: "name",
-                type: "string"
+                type: "string",
             },
             {
                 internalType: "string",
                 name: "symbol",
-                type: "string"
-            }
+                type: "string",
+            },
         ],
         payable: false,
         stateMutability: "nonpayable",
-        type: "constructor"
+        type: "constructor",
     },
     {
         anonymous: false,
@@ -46,23 +45,23 @@ var _abi = [
                 indexed: true,
                 internalType: "address",
                 name: "owner",
-                type: "address"
+                type: "address",
             },
             {
                 indexed: true,
                 internalType: "address",
                 name: "approved",
-                type: "address"
+                type: "address",
             },
             {
                 indexed: true,
                 internalType: "uint256",
                 name: "tokenId",
-                type: "uint256"
-            }
+                type: "uint256",
+            },
         ],
         name: "Approval",
-        type: "event"
+        type: "event",
     },
     {
         anonymous: false,
@@ -71,23 +70,23 @@ var _abi = [
                 indexed: true,
                 internalType: "address",
                 name: "owner",
-                type: "address"
+                type: "address",
             },
             {
                 indexed: true,
                 internalType: "address",
                 name: "operator",
-                type: "address"
+                type: "address",
             },
             {
                 indexed: false,
                 internalType: "bool",
                 name: "approved",
-                type: "bool"
-            }
+                type: "bool",
+            },
         ],
         name: "ApprovalForAll",
-        type: "event"
+        type: "event",
     },
     {
         anonymous: false,
@@ -96,17 +95,17 @@ var _abi = [
                 indexed: true,
                 internalType: "address",
                 name: "previousOwner",
-                type: "address"
+                type: "address",
             },
             {
                 indexed: true,
                 internalType: "address",
                 name: "newOwner",
-                type: "address"
-            }
+                type: "address",
+            },
         ],
         name: "OwnershipTransferred",
-        type: "event"
+        type: "event",
     },
     {
         anonymous: false,
@@ -115,23 +114,23 @@ var _abi = [
                 indexed: true,
                 internalType: "address",
                 name: "from",
-                type: "address"
+                type: "address",
             },
             {
                 indexed: true,
                 internalType: "address",
                 name: "to",
-                type: "address"
+                type: "address",
             },
             {
                 indexed: true,
                 internalType: "uint256",
                 name: "tokenId",
-                type: "uint256"
-            }
+                type: "uint256",
+            },
         ],
         name: "Transfer",
-        type: "event"
+        type: "event",
     },
     {
         constant: false,
@@ -139,19 +138,19 @@ var _abi = [
             {
                 internalType: "address",
                 name: "to",
-                type: "address"
+                type: "address",
             },
             {
                 internalType: "uint256",
                 name: "tokenId",
-                type: "uint256"
-            }
+                type: "uint256",
+            },
         ],
         name: "approve",
         outputs: [],
         payable: false,
         stateMutability: "nonpayable",
-        type: "function"
+        type: "function",
     },
     {
         constant: true,
@@ -159,20 +158,20 @@ var _abi = [
             {
                 internalType: "address",
                 name: "owner",
-                type: "address"
-            }
+                type: "address",
+            },
         ],
         name: "balanceOf",
         outputs: [
             {
                 internalType: "uint256",
                 name: "",
-                type: "uint256"
-            }
+                type: "uint256",
+            },
         ],
         payable: false,
         stateMutability: "view",
-        type: "function"
+        type: "function",
     },
     {
         constant: true,
@@ -182,12 +181,12 @@ var _abi = [
             {
                 internalType: "string",
                 name: "",
-                type: "string"
-            }
+                type: "string",
+            },
         ],
         payable: false,
         stateMutability: "view",
-        type: "function"
+        type: "function",
     },
     {
         constant: false,
@@ -195,14 +194,14 @@ var _abi = [
             {
                 internalType: "uint256",
                 name: "tokenId",
-                type: "uint256"
-            }
+                type: "uint256",
+            },
         ],
         name: "burn",
         outputs: [],
         payable: false,
         stateMutability: "nonpayable",
-        type: "function"
+        type: "function",
     },
     {
         constant: true,
@@ -210,20 +209,20 @@ var _abi = [
             {
                 internalType: "uint256",
                 name: "tokenId",
-                type: "uint256"
-            }
+                type: "uint256",
+            },
         ],
         name: "getApproved",
         outputs: [
             {
                 internalType: "address",
                 name: "",
-                type: "address"
-            }
+                type: "address",
+            },
         ],
         payable: false,
         stateMutability: "view",
-        type: "function"
+        type: "function",
     },
     {
         constant: true,
@@ -231,25 +230,25 @@ var _abi = [
             {
                 internalType: "address",
                 name: "owner",
-                type: "address"
+                type: "address",
             },
             {
                 internalType: "address",
                 name: "operator",
-                type: "address"
-            }
+                type: "address",
+            },
         ],
         name: "isApprovedForAll",
         outputs: [
             {
                 internalType: "bool",
                 name: "",
-                type: "bool"
-            }
+                type: "bool",
+            },
         ],
         payable: false,
         stateMutability: "view",
-        type: "function"
+        type: "function",
     },
     {
         constant: true,
@@ -259,12 +258,12 @@ var _abi = [
             {
                 internalType: "bool",
                 name: "",
-                type: "bool"
-            }
+                type: "bool",
+            },
         ],
         payable: false,
         stateMutability: "view",
-        type: "function"
+        type: "function",
     },
     {
         constant: false,
@@ -272,19 +271,19 @@ var _abi = [
             {
                 internalType: "address",
                 name: "to",
-                type: "address"
+                type: "address",
             },
             {
                 internalType: "uint256",
                 name: "tokenId",
-                type: "uint256"
-            }
+                type: "uint256",
+            },
         ],
         name: "mint",
         outputs: [],
         payable: false,
         stateMutability: "nonpayable",
-        type: "function"
+        type: "function",
     },
     {
         constant: true,
@@ -294,12 +293,12 @@ var _abi = [
             {
                 internalType: "string",
                 name: "",
-                type: "string"
-            }
+                type: "string",
+            },
         ],
         payable: false,
         stateMutability: "view",
-        type: "function"
+        type: "function",
     },
     {
         constant: true,
@@ -309,12 +308,12 @@ var _abi = [
             {
                 internalType: "address",
                 name: "",
-                type: "address"
-            }
+                type: "address",
+            },
         ],
         payable: false,
         stateMutability: "view",
-        type: "function"
+        type: "function",
     },
     {
         constant: true,
@@ -322,20 +321,20 @@ var _abi = [
             {
                 internalType: "uint256",
                 name: "tokenId",
-                type: "uint256"
-            }
+                type: "uint256",
+            },
         ],
         name: "ownerOf",
         outputs: [
             {
                 internalType: "address",
                 name: "",
-                type: "address"
-            }
+                type: "address",
+            },
         ],
         payable: false,
         stateMutability: "view",
-        type: "function"
+        type: "function",
     },
     {
         constant: false,
@@ -344,7 +343,7 @@ var _abi = [
         outputs: [],
         payable: false,
         stateMutability: "nonpayable",
-        type: "function"
+        type: "function",
     },
     {
         constant: false,
@@ -352,24 +351,24 @@ var _abi = [
             {
                 internalType: "address",
                 name: "from",
-                type: "address"
+                type: "address",
             },
             {
                 internalType: "address",
                 name: "to",
-                type: "address"
+                type: "address",
             },
             {
                 internalType: "uint256",
                 name: "tokenId",
-                type: "uint256"
-            }
+                type: "uint256",
+            },
         ],
         name: "safeTransferFrom",
         outputs: [],
         payable: false,
         stateMutability: "nonpayable",
-        type: "function"
+        type: "function",
     },
     {
         constant: false,
@@ -377,29 +376,29 @@ var _abi = [
             {
                 internalType: "address",
                 name: "from",
-                type: "address"
+                type: "address",
             },
             {
                 internalType: "address",
                 name: "to",
-                type: "address"
+                type: "address",
             },
             {
                 internalType: "uint256",
                 name: "tokenId",
-                type: "uint256"
+                type: "uint256",
             },
             {
                 internalType: "bytes",
                 name: "_data",
-                type: "bytes"
-            }
+                type: "bytes",
+            },
         ],
         name: "safeTransferFrom",
         outputs: [],
         payable: false,
         stateMutability: "nonpayable",
-        type: "function"
+        type: "function",
     },
     {
         constant: false,
@@ -407,19 +406,19 @@ var _abi = [
             {
                 internalType: "address",
                 name: "to",
-                type: "address"
+                type: "address",
             },
             {
                 internalType: "bool",
                 name: "approved",
-                type: "bool"
-            }
+                type: "bool",
+            },
         ],
         name: "setApprovalForAll",
         outputs: [],
         payable: false,
         stateMutability: "nonpayable",
-        type: "function"
+        type: "function",
     },
     {
         constant: true,
@@ -427,20 +426,20 @@ var _abi = [
             {
                 internalType: "bytes4",
                 name: "interfaceId",
-                type: "bytes4"
-            }
+                type: "bytes4",
+            },
         ],
         name: "supportsInterface",
         outputs: [
             {
                 internalType: "bool",
                 name: "",
-                type: "bool"
-            }
+                type: "bool",
+            },
         ],
         payable: false,
         stateMutability: "view",
-        type: "function"
+        type: "function",
     },
     {
         constant: true,
@@ -450,12 +449,12 @@ var _abi = [
             {
                 internalType: "string",
                 name: "",
-                type: "string"
-            }
+                type: "string",
+            },
         ],
         payable: false,
         stateMutability: "view",
-        type: "function"
+        type: "function",
     },
     {
         constant: true,
@@ -463,20 +462,20 @@ var _abi = [
             {
                 internalType: "uint256",
                 name: "tokenId",
-                type: "uint256"
-            }
+                type: "uint256",
+            },
         ],
         name: "tokenURI",
         outputs: [
             {
                 internalType: "string",
                 name: "",
-                type: "string"
-            }
+                type: "string",
+            },
         ],
         payable: false,
         stateMutability: "view",
-        type: "function"
+        type: "function",
     },
     {
         constant: false,
@@ -484,24 +483,24 @@ var _abi = [
             {
                 internalType: "address",
                 name: "from",
-                type: "address"
+                type: "address",
             },
             {
                 internalType: "address",
                 name: "to",
-                type: "address"
+                type: "address",
             },
             {
                 internalType: "uint256",
                 name: "tokenId",
-                type: "uint256"
-            }
+                type: "uint256",
+            },
         ],
         name: "transferFrom",
         outputs: [],
         payable: false,
         stateMutability: "nonpayable",
-        type: "function"
+        type: "function",
     },
     {
         constant: false,
@@ -509,14 +508,14 @@ var _abi = [
             {
                 internalType: "address",
                 name: "newOwner",
-                type: "address"
-            }
+                type: "address",
+            },
         ],
         name: "transferOwnership",
         outputs: [],
         payable: false,
         stateMutability: "nonpayable",
-        type: "function"
-    }
+        type: "function",
+    },
 ];
 //# sourceMappingURL=NFT__factory.js.map

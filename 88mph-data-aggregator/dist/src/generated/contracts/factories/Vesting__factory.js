@@ -5,7 +5,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Vesting__factory = void 0;
 var ethers_1 = require("ethers");
-//import { Address } from "@graphprotocol/graph-ts";
 var Vesting__factory = /** @class */ (function () {
     function Vesting__factory() {
     }
@@ -13,7 +12,7 @@ var Vesting__factory = /** @class */ (function () {
         if (!provider) {
             provider = ethers_1.ethers.getDefaultProvider("mainnet");
         }
-        return this.connect(address.toString(), provider);
+        return new ethers_1.Contract(address, _abi, provider);
     };
     Vesting__factory.connect = function (address, signerOrProvider) {
         return new ethers_1.Contract(address, _abi, signerOrProvider);
@@ -27,12 +26,12 @@ var _abi = [
             {
                 internalType: "address",
                 name: "_token",
-                type: "address"
-            }
+                type: "address",
+            },
         ],
         payable: false,
         stateMutability: "nonpayable",
-        type: "constructor"
+        type: "constructor",
     },
     {
         constant: true,
@@ -40,40 +39,40 @@ var _abi = [
             {
                 internalType: "address",
                 name: "",
-                type: "address"
+                type: "address",
             },
             {
                 internalType: "uint256",
                 name: "",
-                type: "uint256"
-            }
+                type: "uint256",
+            },
         ],
         name: "accountVestList",
         outputs: [
             {
                 internalType: "uint256",
                 name: "amount",
-                type: "uint256"
+                type: "uint256",
             },
             {
                 internalType: "uint256",
                 name: "vestPeriodInSeconds",
-                type: "uint256"
+                type: "uint256",
             },
             {
                 internalType: "uint256",
                 name: "creationTimestamp",
-                type: "uint256"
+                type: "uint256",
             },
             {
                 internalType: "uint256",
                 name: "withdrawnAmount",
-                type: "uint256"
-            }
+                type: "uint256",
+            },
         ],
         payable: false,
         stateMutability: "view",
-        type: "function"
+        type: "function",
     },
     {
         constant: true,
@@ -81,25 +80,25 @@ var _abi = [
             {
                 internalType: "address",
                 name: "account",
-                type: "address"
+                type: "address",
             },
             {
                 internalType: "uint256",
                 name: "vestIdx",
-                type: "uint256"
-            }
+                type: "uint256",
+            },
         ],
         name: "getVestWithdrawableAmount",
         outputs: [
             {
                 internalType: "uint256",
                 name: "",
-                type: "uint256"
-            }
+                type: "uint256",
+            },
         ],
         payable: false,
         stateMutability: "view",
-        type: "function"
+        type: "function",
     },
     {
         constant: true,
@@ -109,12 +108,12 @@ var _abi = [
             {
                 internalType: "contract IERC20",
                 name: "",
-                type: "address"
-            }
+                type: "address",
+            },
         ],
         payable: false,
         stateMutability: "view",
-        type: "function"
+        type: "function",
     },
     {
         constant: false,
@@ -122,30 +121,30 @@ var _abi = [
             {
                 internalType: "address",
                 name: "to",
-                type: "address"
+                type: "address",
             },
             {
                 internalType: "uint256",
                 name: "amount",
-                type: "uint256"
+                type: "uint256",
             },
             {
                 internalType: "uint256",
                 name: "vestPeriodInSeconds",
-                type: "uint256"
-            }
+                type: "uint256",
+            },
         ],
         name: "vest",
         outputs: [
             {
                 internalType: "uint256",
                 name: "vestIdx",
-                type: "uint256"
-            }
+                type: "uint256",
+            },
         ],
         payable: false,
         stateMutability: "nonpayable",
-        type: "function"
+        type: "function",
     },
     {
         constant: false,
@@ -153,25 +152,25 @@ var _abi = [
             {
                 internalType: "address",
                 name: "account",
-                type: "address"
+                type: "address",
             },
             {
                 internalType: "uint256",
                 name: "vestIdx",
-                type: "uint256"
-            }
+                type: "uint256",
+            },
         ],
         name: "withdrawVested",
         outputs: [
             {
                 internalType: "uint256",
                 name: "withdrawnAmount",
-                type: "uint256"
-            }
+                type: "uint256",
+            },
         ],
         payable: false,
         stateMutability: "nonpayable",
-        type: "function"
-    }
+        type: "function",
+    },
 ];
 //# sourceMappingURL=Vesting__factory.js.map

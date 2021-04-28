@@ -6,15 +6,16 @@ import { Contract, ethers, Signer } from "ethers";
 import { Provider } from "@ethersproject/providers";
 
 import { ZeroCouponBond } from "../ZeroCouponBond";
-//import { Address } from "@graphprotocol/graph-ts";
 
 export class ZeroCouponBond__factory {
-  static bind(address: string, provider?: Signer | Provider): ZeroCouponBond {
-    if (!provider) {
-      provider = ethers.getDefaultProvider("mainnet");
-    }
-    return this.connect(address.toString(), provider);
+
+
+static bind(address: string, provider?: Signer | Provider): ZeroCouponBond {
+  if (!provider) {
+    provider = ethers.getDefaultProvider("mainnet");
   }
+  return new Contract(address, _abi, provider) as ZeroCouponBond;
+}
   static connect(
     address: string,
     signerOrProvider: Signer | Provider
@@ -31,23 +32,23 @@ const _abi = [
         indexed: true,
         internalType: "address",
         name: "owner",
-        type: "address"
+        type: "address",
       },
       {
         indexed: true,
         internalType: "address",
         name: "spender",
-        type: "address"
+        type: "address",
       },
       {
         indexed: false,
         internalType: "uint256",
         name: "value",
-        type: "uint256"
-      }
+        type: "uint256",
+      },
     ],
     name: "Approval",
-    type: "event"
+    type: "event",
   },
   {
     anonymous: false,
@@ -56,23 +57,23 @@ const _abi = [
         indexed: true,
         internalType: "address",
         name: "sender",
-        type: "address"
+        type: "address",
       },
       {
         indexed: true,
         internalType: "address",
         name: "fractionalDepositAddress",
-        type: "address"
+        type: "address",
       },
       {
         indexed: false,
         internalType: "uint256",
         name: "amount",
-        type: "uint256"
-      }
+        type: "uint256",
+      },
     ],
     name: "Mint",
-    type: "event"
+    type: "event",
   },
   {
     anonymous: false,
@@ -81,23 +82,23 @@ const _abi = [
         indexed: true,
         internalType: "address",
         name: "sender",
-        type: "address"
+        type: "address",
       },
       {
         indexed: true,
         internalType: "address",
         name: "fractionalDepositAddress",
-        type: "address"
+        type: "address",
       },
       {
         indexed: false,
         internalType: "uint256",
         name: "fundingID",
-        type: "uint256"
-      }
+        type: "uint256",
+      },
     ],
     name: "RedeemFractionalDepositShares",
-    type: "event"
+    type: "event",
   },
   {
     anonymous: false,
@@ -106,17 +107,17 @@ const _abi = [
         indexed: true,
         internalType: "address",
         name: "sender",
-        type: "address"
+        type: "address",
       },
       {
         indexed: false,
         internalType: "uint256",
         name: "amount",
-        type: "uint256"
-      }
+        type: "uint256",
+      },
     ],
     name: "RedeemStablecoin",
-    type: "event"
+    type: "event",
   },
   {
     anonymous: false,
@@ -125,23 +126,23 @@ const _abi = [
         indexed: true,
         internalType: "address",
         name: "from",
-        type: "address"
+        type: "address",
       },
       {
         indexed: true,
         internalType: "address",
         name: "to",
-        type: "address"
+        type: "address",
       },
       {
         indexed: false,
         internalType: "uint256",
         name: "value",
-        type: "uint256"
-      }
+        type: "uint256",
+      },
     ],
     name: "Transfer",
-    type: "event"
+    type: "event",
   },
   {
     constant: true,
@@ -149,25 +150,25 @@ const _abi = [
       {
         internalType: "address",
         name: "owner",
-        type: "address"
+        type: "address",
       },
       {
         internalType: "address",
         name: "spender",
-        type: "address"
-      }
+        type: "address",
+      },
     ],
     name: "allowance",
     outputs: [
       {
         internalType: "uint256",
         name: "",
-        type: "uint256"
-      }
+        type: "uint256",
+      },
     ],
     payable: false,
     stateMutability: "view",
-    type: "function"
+    type: "function",
   },
   {
     constant: false,
@@ -175,25 +176,25 @@ const _abi = [
       {
         internalType: "address",
         name: "spender",
-        type: "address"
+        type: "address",
       },
       {
         internalType: "uint256",
         name: "amount",
-        type: "uint256"
-      }
+        type: "uint256",
+      },
     ],
     name: "approve",
     outputs: [
       {
         internalType: "bool",
         name: "",
-        type: "bool"
-      }
+        type: "bool",
+      },
     ],
     payable: false,
     stateMutability: "nonpayable",
-    type: "function"
+    type: "function",
   },
   {
     constant: true,
@@ -201,20 +202,20 @@ const _abi = [
       {
         internalType: "address",
         name: "account",
-        type: "address"
-      }
+        type: "address",
+      },
     ],
     name: "balanceOf",
     outputs: [
       {
         internalType: "uint256",
         name: "",
-        type: "uint256"
-      }
+        type: "uint256",
+      },
     ],
     payable: false,
     stateMutability: "view",
-    type: "function"
+    type: "function",
   },
   {
     constant: true,
@@ -224,12 +225,12 @@ const _abi = [
       {
         internalType: "uint8",
         name: "",
-        type: "uint8"
-      }
+        type: "uint8",
+      },
     ],
     payable: false,
     stateMutability: "view",
-    type: "function"
+    type: "function",
   },
   {
     constant: false,
@@ -237,25 +238,25 @@ const _abi = [
       {
         internalType: "address",
         name: "spender",
-        type: "address"
+        type: "address",
       },
       {
         internalType: "uint256",
         name: "subtractedValue",
-        type: "uint256"
-      }
+        type: "uint256",
+      },
     ],
     name: "decreaseAllowance",
     outputs: [
       {
         internalType: "bool",
         name: "",
-        type: "bool"
-      }
+        type: "bool",
+      },
     ],
     payable: false,
     stateMutability: "nonpayable",
-    type: "function"
+    type: "function",
   },
   {
     constant: true,
@@ -265,12 +266,12 @@ const _abi = [
       {
         internalType: "contract FractionalDepositFactory",
         name: "",
-        type: "address"
-      }
+        type: "address",
+      },
     ],
     payable: false,
     stateMutability: "view",
-    type: "function"
+    type: "function",
   },
   {
     constant: false,
@@ -278,25 +279,25 @@ const _abi = [
       {
         internalType: "address",
         name: "spender",
-        type: "address"
+        type: "address",
       },
       {
         internalType: "uint256",
         name: "addedValue",
-        type: "uint256"
-      }
+        type: "uint256",
+      },
     ],
     name: "increaseAllowance",
     outputs: [
       {
         internalType: "bool",
         name: "",
-        type: "bool"
-      }
+        type: "bool",
+      },
     ],
     payable: false,
     stateMutability: "nonpayable",
-    type: "function"
+    type: "function",
   },
   {
     constant: false,
@@ -304,34 +305,34 @@ const _abi = [
       {
         internalType: "address",
         name: "_pool",
-        type: "address"
+        type: "address",
       },
       {
         internalType: "address",
         name: "_fractionalDepositFactory",
-        type: "address"
+        type: "address",
       },
       {
         internalType: "uint256",
         name: "_maturationTimestamp",
-        type: "uint256"
+        type: "uint256",
       },
       {
         internalType: "string",
         name: "_tokenName",
-        type: "string"
+        type: "string",
       },
       {
         internalType: "string",
         name: "_tokenSymbol",
-        type: "string"
-      }
+        type: "string",
+      },
     ],
     name: "init",
     outputs: [],
     payable: false,
     stateMutability: "nonpayable",
-    type: "function"
+    type: "function",
   },
   {
     constant: true,
@@ -341,12 +342,12 @@ const _abi = [
       {
         internalType: "bool",
         name: "",
-        type: "bool"
-      }
+        type: "bool",
+      },
     ],
     payable: false,
     stateMutability: "view",
-    type: "function"
+    type: "function",
   },
   {
     constant: true,
@@ -356,12 +357,12 @@ const _abi = [
       {
         internalType: "uint256",
         name: "",
-        type: "uint256"
-      }
+        type: "uint256",
+      },
     ],
     payable: false,
     stateMutability: "view",
-    type: "function"
+    type: "function",
   },
   {
     constant: false,
@@ -369,35 +370,35 @@ const _abi = [
       {
         internalType: "uint256",
         name: "nftID",
-        type: "uint256"
+        type: "uint256",
       },
       {
         internalType: "string",
         name: "fractionalDepositName",
-        type: "string"
+        type: "string",
       },
       {
         internalType: "string",
         name: "fractionalDepositSymbol",
-        type: "string"
-      }
+        type: "string",
+      },
     ],
     name: "mintWithDepositNFT",
     outputs: [
       {
         internalType: "uint256",
         name: "zeroCouponBondsAmount",
-        type: "uint256"
+        type: "uint256",
       },
       {
         internalType: "contract FractionalDeposit",
         name: "fractionalDeposit",
-        type: "address"
-      }
+        type: "address",
+      },
     ],
     payable: false,
     stateMutability: "nonpayable",
-    type: "function"
+    type: "function",
   },
   {
     constant: true,
@@ -407,12 +408,12 @@ const _abi = [
       {
         internalType: "string",
         name: "",
-        type: "string"
-      }
+        type: "string",
+      },
     ],
     payable: false,
     stateMutability: "view",
-    type: "function"
+    type: "function",
   },
   {
     constant: false,
@@ -420,35 +421,35 @@ const _abi = [
       {
         internalType: "address",
         name: "operator",
-        type: "address"
+        type: "address",
       },
       {
         internalType: "address",
         name: "from",
-        type: "address"
+        type: "address",
       },
       {
         internalType: "uint256",
         name: "tokenId",
-        type: "uint256"
+        type: "uint256",
       },
       {
         internalType: "bytes",
         name: "data",
-        type: "bytes"
-      }
+        type: "bytes",
+      },
     ],
     name: "onERC721Received",
     outputs: [
       {
         internalType: "bytes4",
         name: "",
-        type: "bytes4"
-      }
+        type: "bytes4",
+      },
     ],
     payable: false,
     stateMutability: "nonpayable",
-    type: "function"
+    type: "function",
   },
   {
     constant: true,
@@ -458,12 +459,12 @@ const _abi = [
       {
         internalType: "contract DInterest",
         name: "",
-        type: "address"
-      }
+        type: "address",
+      },
     ],
     payable: false,
     stateMutability: "view",
-    type: "function"
+    type: "function",
   },
   {
     constant: false,
@@ -471,19 +472,19 @@ const _abi = [
       {
         internalType: "address",
         name: "fractionalDepositAddress",
-        type: "address"
+        type: "address",
       },
       {
         internalType: "uint256",
         name: "fundingID",
-        type: "uint256"
-      }
+        type: "uint256",
+      },
     ],
     name: "redeemFractionalDepositShares",
     outputs: [],
     payable: false,
     stateMutability: "nonpayable",
-    type: "function"
+    type: "function",
   },
   {
     constant: false,
@@ -491,20 +492,20 @@ const _abi = [
       {
         internalType: "uint256",
         name: "amount",
-        type: "uint256"
-      }
+        type: "uint256",
+      },
     ],
     name: "redeemStablecoin",
     outputs: [
       {
         internalType: "uint256",
         name: "actualRedeemedAmount",
-        type: "uint256"
-      }
+        type: "uint256",
+      },
     ],
     payable: false,
     stateMutability: "nonpayable",
-    type: "function"
+    type: "function",
   },
   {
     constant: true,
@@ -514,12 +515,12 @@ const _abi = [
       {
         internalType: "contract ERC20",
         name: "",
-        type: "address"
-      }
+        type: "address",
+      },
     ],
     payable: false,
     stateMutability: "view",
-    type: "function"
+    type: "function",
   },
   {
     constant: true,
@@ -529,12 +530,12 @@ const _abi = [
       {
         internalType: "string",
         name: "",
-        type: "string"
-      }
+        type: "string",
+      },
     ],
     payable: false,
     stateMutability: "view",
-    type: "function"
+    type: "function",
   },
   {
     constant: true,
@@ -544,12 +545,12 @@ const _abi = [
       {
         internalType: "uint256",
         name: "",
-        type: "uint256"
-      }
+        type: "uint256",
+      },
     ],
     payable: false,
     stateMutability: "view",
-    type: "function"
+    type: "function",
   },
   {
     constant: false,
@@ -557,25 +558,25 @@ const _abi = [
       {
         internalType: "address",
         name: "recipient",
-        type: "address"
+        type: "address",
       },
       {
         internalType: "uint256",
         name: "amount",
-        type: "uint256"
-      }
+        type: "uint256",
+      },
     ],
     name: "transfer",
     outputs: [
       {
         internalType: "bool",
         name: "",
-        type: "bool"
-      }
+        type: "bool",
+      },
     ],
     payable: false,
     stateMutability: "nonpayable",
-    type: "function"
+    type: "function",
   },
   {
     constant: false,
@@ -583,29 +584,29 @@ const _abi = [
       {
         internalType: "address",
         name: "sender",
-        type: "address"
+        type: "address",
       },
       {
         internalType: "address",
         name: "recipient",
-        type: "address"
+        type: "address",
       },
       {
         internalType: "uint256",
         name: "amount",
-        type: "uint256"
-      }
+        type: "uint256",
+      },
     ],
     name: "transferFrom",
     outputs: [
       {
         internalType: "bool",
         name: "",
-        type: "bool"
-      }
+        type: "bool",
+      },
     ],
     payable: false,
     stateMutability: "nonpayable",
-    type: "function"
-  }
+    type: "function",
+  },
 ];

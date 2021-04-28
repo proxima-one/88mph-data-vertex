@@ -5,7 +5,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.IInterestOracle__factory = void 0;
 var ethers_1 = require("ethers");
-//import { Address } from "@graphprotocol/graph-ts";
 var IInterestOracle__factory = /** @class */ (function () {
     function IInterestOracle__factory() {
     }
@@ -13,7 +12,7 @@ var IInterestOracle__factory = /** @class */ (function () {
         if (!provider) {
             provider = ethers_1.ethers.getDefaultProvider("mainnet");
         }
-        return this.connect(address.toString(), provider);
+        return new ethers_1.Contract(address, _abi, provider);
     };
     IInterestOracle__factory.connect = function (address, signerOrProvider) {
         return new ethers_1.Contract(address, _abi, signerOrProvider);
@@ -30,12 +29,12 @@ var _abi = [
             {
                 internalType: "address",
                 name: "",
-                type: "address"
-            }
+                type: "address",
+            },
         ],
         payable: false,
         stateMutability: "view",
-        type: "function"
+        type: "function",
     },
     {
         constant: true,
@@ -45,12 +44,12 @@ var _abi = [
             {
                 internalType: "uint256",
                 name: "value",
-                type: "uint256"
-            }
+                type: "uint256",
+            },
         ],
         payable: false,
         stateMutability: "view",
-        type: "function"
+        type: "function",
     },
     {
         constant: false,
@@ -60,17 +59,17 @@ var _abi = [
             {
                 internalType: "bool",
                 name: "updated",
-                type: "bool"
+                type: "bool",
             },
             {
                 internalType: "uint256",
                 name: "value",
-                type: "uint256"
-            }
+                type: "uint256",
+            },
         ],
         payable: false,
         stateMutability: "nonpayable",
-        type: "function"
-    }
+        type: "function",
+    },
 ];
 //# sourceMappingURL=IInterestOracle__factory.js.map

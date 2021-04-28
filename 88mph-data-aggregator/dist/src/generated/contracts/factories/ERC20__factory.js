@@ -12,7 +12,7 @@ var ERC20__factory = /** @class */ (function () {
         if (!provider) {
             provider = ethers_1.ethers.getDefaultProvider("mainnet");
         }
-        return this.connect(address, provider);
+        return new ethers_1.Contract(address, _abi, provider);
     };
     ERC20__factory.connect = function (address, signerOrProvider) {
         return new ethers_1.Contract(address, _abi, signerOrProvider);
@@ -26,22 +26,22 @@ var _abi = [
             {
                 internalType: "string",
                 name: "name",
-                type: "string"
+                type: "string",
             },
             {
                 internalType: "string",
                 name: "symbol",
-                type: "string"
+                type: "string",
             },
             {
                 internalType: "uint8",
                 name: "decimals",
-                type: "uint8"
-            }
+                type: "uint8",
+            },
         ],
         payable: false,
         stateMutability: "nonpayable",
-        type: "constructor"
+        type: "constructor",
     },
     {
         anonymous: false,
@@ -50,23 +50,23 @@ var _abi = [
                 indexed: true,
                 internalType: "address",
                 name: "owner",
-                type: "address"
+                type: "address",
             },
             {
                 indexed: true,
                 internalType: "address",
                 name: "spender",
-                type: "address"
+                type: "address",
             },
             {
                 indexed: false,
                 internalType: "uint256",
                 name: "value",
-                type: "uint256"
-            }
+                type: "uint256",
+            },
         ],
         name: "Approval",
-        type: "event"
+        type: "event",
     },
     {
         anonymous: false,
@@ -75,23 +75,23 @@ var _abi = [
                 indexed: true,
                 internalType: "address",
                 name: "from",
-                type: "address"
+                type: "address",
             },
             {
                 indexed: true,
                 internalType: "address",
                 name: "to",
-                type: "address"
+                type: "address",
             },
             {
                 indexed: false,
                 internalType: "uint256",
                 name: "value",
-                type: "uint256"
-            }
+                type: "uint256",
+            },
         ],
         name: "Transfer",
-        type: "event"
+        type: "event",
     },
     {
         constant: true,
@@ -99,25 +99,25 @@ var _abi = [
             {
                 internalType: "address",
                 name: "owner",
-                type: "address"
+                type: "address",
             },
             {
                 internalType: "address",
                 name: "spender",
-                type: "address"
-            }
+                type: "address",
+            },
         ],
         name: "allowance",
         outputs: [
             {
                 internalType: "uint256",
                 name: "",
-                type: "uint256"
-            }
+                type: "uint256",
+            },
         ],
         payable: false,
         stateMutability: "view",
-        type: "function"
+        type: "function",
     },
     {
         constant: false,
@@ -125,25 +125,25 @@ var _abi = [
             {
                 internalType: "address",
                 name: "spender",
-                type: "address"
+                type: "address",
             },
             {
                 internalType: "uint256",
                 name: "amount",
-                type: "uint256"
-            }
+                type: "uint256",
+            },
         ],
         name: "approve",
         outputs: [
             {
                 internalType: "bool",
                 name: "",
-                type: "bool"
-            }
+                type: "bool",
+            },
         ],
         payable: false,
         stateMutability: "nonpayable",
-        type: "function"
+        type: "function",
     },
     {
         constant: true,
@@ -151,20 +151,20 @@ var _abi = [
             {
                 internalType: "address",
                 name: "account",
-                type: "address"
-            }
+                type: "address",
+            },
         ],
         name: "balanceOf",
         outputs: [
             {
                 internalType: "uint256",
                 name: "",
-                type: "uint256"
-            }
+                type: "uint256",
+            },
         ],
         payable: false,
         stateMutability: "view",
-        type: "function"
+        type: "function",
     },
     {
         constant: true,
@@ -174,12 +174,12 @@ var _abi = [
             {
                 internalType: "uint8",
                 name: "",
-                type: "uint8"
-            }
+                type: "uint8",
+            },
         ],
         payable: false,
         stateMutability: "view",
-        type: "function"
+        type: "function",
     },
     {
         constant: true,
@@ -189,12 +189,12 @@ var _abi = [
             {
                 internalType: "string",
                 name: "",
-                type: "string"
-            }
+                type: "string",
+            },
         ],
         payable: false,
         stateMutability: "view",
-        type: "function"
+        type: "function",
     },
     {
         constant: true,
@@ -204,12 +204,12 @@ var _abi = [
             {
                 internalType: "string",
                 name: "",
-                type: "string"
-            }
+                type: "string",
+            },
         ],
         payable: false,
         stateMutability: "view",
-        type: "function"
+        type: "function",
     },
     {
         constant: true,
@@ -219,12 +219,12 @@ var _abi = [
             {
                 internalType: "uint256",
                 name: "",
-                type: "uint256"
-            }
+                type: "uint256",
+            },
         ],
         payable: false,
         stateMutability: "view",
-        type: "function"
+        type: "function",
     },
     {
         constant: false,
@@ -232,25 +232,25 @@ var _abi = [
             {
                 internalType: "address",
                 name: "recipient",
-                type: "address"
+                type: "address",
             },
             {
                 internalType: "uint256",
                 name: "amount",
-                type: "uint256"
-            }
+                type: "uint256",
+            },
         ],
         name: "transfer",
         outputs: [
             {
                 internalType: "bool",
                 name: "",
-                type: "bool"
-            }
+                type: "bool",
+            },
         ],
         payable: false,
         stateMutability: "nonpayable",
-        type: "function"
+        type: "function",
     },
     {
         constant: false,
@@ -258,30 +258,30 @@ var _abi = [
             {
                 internalType: "address",
                 name: "sender",
-                type: "address"
+                type: "address",
             },
             {
                 internalType: "address",
                 name: "recipient",
-                type: "address"
+                type: "address",
             },
             {
                 internalType: "uint256",
                 name: "amount",
-                type: "uint256"
-            }
+                type: "uint256",
+            },
         ],
         name: "transferFrom",
         outputs: [
             {
                 internalType: "bool",
                 name: "",
-                type: "bool"
-            }
+                type: "bool",
+            },
         ],
         payable: false,
         stateMutability: "nonpayable",
-        type: "function"
-    }
+        type: "function",
+    },
 ];
 //# sourceMappingURL=ERC20__factory.js.map

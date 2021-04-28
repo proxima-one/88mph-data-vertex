@@ -208,6 +208,16 @@ export function parseInt(val: any): Maybe<number> {
   return null;
 }
 
+//map for each
+
+export function parseProof(val: any): Maybe<string> {
+  return parseString(val);
+}
+
+export function parseBigDecimal(val: any): Maybe<BigNumber> {
+  return parseBigNumber(val);
+}
+
 export function parseBigNumber(val: any): Maybe<BigNumber> {
   if (val == null) {
     return null;
@@ -228,7 +238,7 @@ export function parseBigNumber(val: any): Maybe<BigNumber> {
   }
 }
 
-export function parseString(val: any): Maybe<String> {
+export function parseString(val: any): Maybe<string> {
   console.log("parsing string");
   //console.log(val);
   //console.log(typeof val);

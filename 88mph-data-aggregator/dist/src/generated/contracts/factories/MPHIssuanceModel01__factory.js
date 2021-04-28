@@ -5,7 +5,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.MPHIssuanceModel01__factory = void 0;
 var ethers_1 = require("ethers");
-///import { Address } from "@graphprotocol/graph-ts";
 var MPHIssuanceModel01__factory = /** @class */ (function () {
     function MPHIssuanceModel01__factory() {
     }
@@ -13,7 +12,7 @@ var MPHIssuanceModel01__factory = /** @class */ (function () {
         if (!provider) {
             provider = ethers_1.ethers.getDefaultProvider("mainnet");
         }
-        return this.connect(address.toString(), provider);
+        return new ethers_1.Contract(address, _abi, provider);
     };
     MPHIssuanceModel01__factory.connect = function (address, signerOrProvider) {
         return new ethers_1.Contract(address, _abi, signerOrProvider);
@@ -27,12 +26,12 @@ var _abi = [
             {
                 internalType: "uint256",
                 name: "_devRewardMultiplier",
-                type: "uint256"
-            }
+                type: "uint256",
+            },
         ],
         payable: false,
         stateMutability: "nonpayable",
-        type: "constructor"
+        type: "constructor",
     },
     {
         anonymous: false,
@@ -41,23 +40,23 @@ var _abi = [
                 indexed: true,
                 internalType: "address",
                 name: "sender",
-                type: "address"
+                type: "address",
             },
             {
                 indexed: true,
                 internalType: "string",
                 name: "paramName",
-                type: "string"
+                type: "string",
             },
             {
                 indexed: false,
                 internalType: "address",
                 name: "newValue",
-                type: "address"
-            }
+                type: "address",
+            },
         ],
         name: "ESetParamAddress",
-        type: "event"
+        type: "event",
     },
     {
         anonymous: false,
@@ -66,29 +65,29 @@ var _abi = [
                 indexed: true,
                 internalType: "address",
                 name: "sender",
-                type: "address"
+                type: "address",
             },
             {
                 indexed: true,
                 internalType: "string",
                 name: "paramName",
-                type: "string"
+                type: "string",
             },
             {
                 indexed: true,
                 internalType: "address",
                 name: "pool",
-                type: "address"
+                type: "address",
             },
             {
                 indexed: false,
                 internalType: "uint256",
                 name: "newValue",
-                type: "uint256"
-            }
+                type: "uint256",
+            },
         ],
         name: "ESetParamUint",
-        type: "event"
+        type: "event",
     },
     {
         anonymous: false,
@@ -97,17 +96,17 @@ var _abi = [
                 indexed: true,
                 internalType: "address",
                 name: "previousOwner",
-                type: "address"
+                type: "address",
             },
             {
                 indexed: true,
                 internalType: "address",
                 name: "newOwner",
-                type: "address"
-            }
+                type: "address",
+            },
         ],
         name: "OwnershipTransferred",
-        type: "event"
+        type: "event",
     },
     {
         constant: true,
@@ -115,45 +114,45 @@ var _abi = [
             {
                 internalType: "address",
                 name: "pool",
-                type: "address"
+                type: "address",
             },
             {
                 internalType: "uint256",
                 name: "depositAmount",
-                type: "uint256"
+                type: "uint256",
             },
             {
                 internalType: "uint256",
                 name: "depositPeriodInSeconds",
-                type: "uint256"
+                type: "uint256",
             },
             {
                 internalType: "uint256",
                 name: "interestAmount",
-                type: "uint256"
-            }
+                type: "uint256",
+            },
         ],
         name: "computeDepositorReward",
         outputs: [
             {
                 internalType: "uint256",
                 name: "depositorReward",
-                type: "uint256"
+                type: "uint256",
             },
             {
                 internalType: "uint256",
                 name: "devReward",
-                type: "uint256"
+                type: "uint256",
             },
             {
                 internalType: "uint256",
                 name: "govReward",
-                type: "uint256"
-            }
+                type: "uint256",
+            },
         ],
         payable: false,
         stateMutability: "view",
-        type: "function"
+        type: "function",
     },
     {
         constant: true,
@@ -161,55 +160,55 @@ var _abi = [
             {
                 internalType: "address",
                 name: "pool",
-                type: "address"
+                type: "address",
             },
             {
                 internalType: "uint256",
                 name: "depositAmount",
-                type: "uint256"
+                type: "uint256",
             },
             {
                 internalType: "uint256",
                 name: "fundingCreationTimestamp",
-                type: "uint256"
+                type: "uint256",
             },
             {
                 internalType: "uint256",
                 name: "maturationTimestamp",
-                type: "uint256"
+                type: "uint256",
             },
             {
                 internalType: "uint256",
                 name: "interestPayoutAmount",
-                type: "uint256"
+                type: "uint256",
             },
             {
                 internalType: "bool",
                 name: "early",
-                type: "bool"
-            }
+                type: "bool",
+            },
         ],
         name: "computeFunderReward",
         outputs: [
             {
                 internalType: "uint256",
                 name: "funderReward",
-                type: "uint256"
+                type: "uint256",
             },
             {
                 internalType: "uint256",
                 name: "devReward",
-                type: "uint256"
+                type: "uint256",
             },
             {
                 internalType: "uint256",
                 name: "govReward",
-                type: "uint256"
-            }
+                type: "uint256",
+            },
         ],
         payable: false,
         stateMutability: "view",
-        type: "function"
+        type: "function",
     },
     {
         constant: true,
@@ -217,40 +216,40 @@ var _abi = [
             {
                 internalType: "address",
                 name: "pool",
-                type: "address"
+                type: "address",
             },
             {
                 internalType: "uint256",
                 name: "mintMPHAmount",
-                type: "uint256"
+                type: "uint256",
             },
             {
                 internalType: "bool",
                 name: "early",
-                type: "bool"
-            }
+                type: "bool",
+            },
         ],
         name: "computeTakeBackDepositorRewardAmount",
         outputs: [
             {
                 internalType: "uint256",
                 name: "takeBackAmount",
-                type: "uint256"
+                type: "uint256",
             },
             {
                 internalType: "uint256",
                 name: "devReward",
-                type: "uint256"
+                type: "uint256",
             },
             {
                 internalType: "uint256",
                 name: "govReward",
-                type: "uint256"
-            }
+                type: "uint256",
+            },
         ],
         payable: false,
         stateMutability: "view",
-        type: "function"
+        type: "function",
     },
     {
         constant: true,
@@ -260,12 +259,12 @@ var _abi = [
             {
                 internalType: "uint256",
                 name: "",
-                type: "uint256"
-            }
+                type: "uint256",
+            },
         ],
         payable: false,
         stateMutability: "view",
-        type: "function"
+        type: "function",
     },
     {
         constant: true,
@@ -275,12 +274,12 @@ var _abi = [
             {
                 internalType: "bool",
                 name: "",
-                type: "bool"
-            }
+                type: "bool",
+            },
         ],
         payable: false,
         stateMutability: "view",
-        type: "function"
+        type: "function",
     },
     {
         constant: true,
@@ -290,12 +289,12 @@ var _abi = [
             {
                 internalType: "address",
                 name: "",
-                type: "address"
-            }
+                type: "address",
+            },
         ],
         payable: false,
         stateMutability: "view",
-        type: "function"
+        type: "function",
     },
     {
         constant: true,
@@ -303,20 +302,20 @@ var _abi = [
             {
                 internalType: "address",
                 name: "",
-                type: "address"
-            }
+                type: "address",
+            },
         ],
         name: "poolDepositorRewardMintMultiplier",
         outputs: [
             {
                 internalType: "uint256",
                 name: "",
-                type: "uint256"
-            }
+                type: "uint256",
+            },
         ],
         payable: false,
         stateMutability: "view",
-        type: "function"
+        type: "function",
     },
     {
         constant: true,
@@ -324,20 +323,20 @@ var _abi = [
             {
                 internalType: "address",
                 name: "",
-                type: "address"
-            }
+                type: "address",
+            },
         ],
         name: "poolDepositorRewardTakeBackMultiplier",
         outputs: [
             {
                 internalType: "uint256",
                 name: "",
-                type: "uint256"
-            }
+                type: "uint256",
+            },
         ],
         payable: false,
         stateMutability: "view",
-        type: "function"
+        type: "function",
     },
     {
         constant: true,
@@ -345,20 +344,20 @@ var _abi = [
             {
                 internalType: "address",
                 name: "",
-                type: "address"
-            }
+                type: "address",
+            },
         ],
         name: "poolDepositorRewardVestPeriod",
         outputs: [
             {
                 internalType: "uint256",
                 name: "",
-                type: "uint256"
-            }
+                type: "uint256",
+            },
         ],
         payable: false,
         stateMutability: "view",
-        type: "function"
+        type: "function",
     },
     {
         constant: true,
@@ -366,20 +365,20 @@ var _abi = [
             {
                 internalType: "address",
                 name: "",
-                type: "address"
-            }
+                type: "address",
+            },
         ],
         name: "poolFunderRewardMultiplier",
         outputs: [
             {
                 internalType: "uint256",
                 name: "",
-                type: "uint256"
-            }
+                type: "uint256",
+            },
         ],
         payable: false,
         stateMutability: "view",
-        type: "function"
+        type: "function",
     },
     {
         constant: true,
@@ -387,20 +386,20 @@ var _abi = [
             {
                 internalType: "address",
                 name: "",
-                type: "address"
-            }
+                type: "address",
+            },
         ],
         name: "poolFunderRewardVestPeriod",
         outputs: [
             {
                 internalType: "uint256",
                 name: "",
-                type: "uint256"
-            }
+                type: "uint256",
+            },
         ],
         payable: false,
         stateMutability: "view",
-        type: "function"
+        type: "function",
     },
     {
         constant: false,
@@ -409,7 +408,7 @@ var _abi = [
         outputs: [],
         payable: false,
         stateMutability: "nonpayable",
-        type: "function"
+        type: "function",
     },
     {
         constant: false,
@@ -417,14 +416,14 @@ var _abi = [
             {
                 internalType: "uint256",
                 name: "newMultiplier",
-                type: "uint256"
-            }
+                type: "uint256",
+            },
         ],
         name: "setDevRewardMultiplier",
         outputs: [],
         payable: false,
         stateMutability: "nonpayable",
-        type: "function"
+        type: "function",
     },
     {
         constant: false,
@@ -432,19 +431,19 @@ var _abi = [
             {
                 internalType: "address",
                 name: "pool",
-                type: "address"
+                type: "address",
             },
             {
                 internalType: "uint256",
                 name: "newMultiplier",
-                type: "uint256"
-            }
+                type: "uint256",
+            },
         ],
         name: "setPoolDepositorRewardMintMultiplier",
         outputs: [],
         payable: false,
         stateMutability: "nonpayable",
-        type: "function"
+        type: "function",
     },
     {
         constant: false,
@@ -452,19 +451,19 @@ var _abi = [
             {
                 internalType: "address",
                 name: "pool",
-                type: "address"
+                type: "address",
             },
             {
                 internalType: "uint256",
                 name: "newMultiplier",
-                type: "uint256"
-            }
+                type: "uint256",
+            },
         ],
         name: "setPoolDepositorRewardTakeBackMultiplier",
         outputs: [],
         payable: false,
         stateMutability: "nonpayable",
-        type: "function"
+        type: "function",
     },
     {
         constant: false,
@@ -472,19 +471,19 @@ var _abi = [
             {
                 internalType: "address",
                 name: "pool",
-                type: "address"
+                type: "address",
             },
             {
                 internalType: "uint256",
                 name: "newVestPeriodInSeconds",
-                type: "uint256"
-            }
+                type: "uint256",
+            },
         ],
         name: "setPoolDepositorRewardVestPeriod",
         outputs: [],
         payable: false,
         stateMutability: "nonpayable",
-        type: "function"
+        type: "function",
     },
     {
         constant: false,
@@ -492,19 +491,19 @@ var _abi = [
             {
                 internalType: "address",
                 name: "pool",
-                type: "address"
+                type: "address",
             },
             {
                 internalType: "uint256",
                 name: "newMultiplier",
-                type: "uint256"
-            }
+                type: "uint256",
+            },
         ],
         name: "setPoolFunderRewardMultiplier",
         outputs: [],
         payable: false,
         stateMutability: "nonpayable",
-        type: "function"
+        type: "function",
     },
     {
         constant: false,
@@ -512,19 +511,19 @@ var _abi = [
             {
                 internalType: "address",
                 name: "pool",
-                type: "address"
+                type: "address",
             },
             {
                 internalType: "uint256",
                 name: "newVestPeriodInSeconds",
-                type: "uint256"
-            }
+                type: "uint256",
+            },
         ],
         name: "setPoolFunderRewardVestPeriod",
         outputs: [],
         payable: false,
         stateMutability: "nonpayable",
-        type: "function"
+        type: "function",
     },
     {
         constant: false,
@@ -532,14 +531,14 @@ var _abi = [
             {
                 internalType: "address",
                 name: "newOwner",
-                type: "address"
-            }
+                type: "address",
+            },
         ],
         name: "transferOwnership",
         outputs: [],
         payable: false,
         stateMutability: "nonpayable",
-        type: "function"
-    }
+        type: "function",
+    },
 ];
 //# sourceMappingURL=MPHIssuanceModel01__factory.js.map

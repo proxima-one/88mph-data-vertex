@@ -5,7 +5,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Rewards__factory = void 0;
 var ethers_1 = require("ethers");
-//import { Address } from "@graphprotocol/graph-ts";
 var Rewards__factory = /** @class */ (function () {
     function Rewards__factory() {
     }
@@ -13,7 +12,7 @@ var Rewards__factory = /** @class */ (function () {
         if (!provider) {
             provider = ethers_1.ethers.getDefaultProvider("mainnet");
         }
-        return this.connect(address.toString(), provider);
+        return new ethers_1.Contract(address, _abi, provider);
     };
     Rewards__factory.connect = function (address, signerOrProvider) {
         return new ethers_1.Contract(address, _abi, signerOrProvider);
@@ -27,22 +26,22 @@ var _abi = [
             {
                 internalType: "address",
                 name: "_stakeToken",
-                type: "address"
+                type: "address",
             },
             {
                 internalType: "address",
                 name: "_rewardToken",
-                type: "address"
+                type: "address",
             },
             {
                 internalType: "uint256",
                 name: "_starttime",
-                type: "uint256"
-            }
+                type: "uint256",
+            },
         ],
         payable: false,
         stateMutability: "nonpayable",
-        type: "constructor"
+        type: "constructor",
     },
     {
         anonymous: false,
@@ -51,17 +50,17 @@ var _abi = [
                 indexed: true,
                 internalType: "address",
                 name: "previousOwner",
-                type: "address"
+                type: "address",
             },
             {
                 indexed: true,
                 internalType: "address",
                 name: "newOwner",
-                type: "address"
-            }
+                type: "address",
+            },
         ],
         name: "OwnershipTransferred",
-        type: "event"
+        type: "event",
     },
     {
         anonymous: false,
@@ -70,11 +69,11 @@ var _abi = [
                 indexed: false,
                 internalType: "uint256",
                 name: "reward",
-                type: "uint256"
-            }
+                type: "uint256",
+            },
         ],
         name: "RewardAdded",
-        type: "event"
+        type: "event",
     },
     {
         anonymous: false,
@@ -83,17 +82,17 @@ var _abi = [
                 indexed: true,
                 internalType: "address",
                 name: "user",
-                type: "address"
+                type: "address",
             },
             {
                 indexed: false,
                 internalType: "uint256",
                 name: "reward",
-                type: "uint256"
-            }
+                type: "uint256",
+            },
         ],
         name: "RewardPaid",
-        type: "event"
+        type: "event",
     },
     {
         anonymous: false,
@@ -102,17 +101,17 @@ var _abi = [
                 indexed: true,
                 internalType: "address",
                 name: "user",
-                type: "address"
+                type: "address",
             },
             {
                 indexed: false,
                 internalType: "uint256",
                 name: "amount",
-                type: "uint256"
-            }
+                type: "uint256",
+            },
         ],
         name: "Staked",
-        type: "event"
+        type: "event",
     },
     {
         anonymous: false,
@@ -121,17 +120,17 @@ var _abi = [
                 indexed: true,
                 internalType: "address",
                 name: "user",
-                type: "address"
+                type: "address",
             },
             {
                 indexed: false,
                 internalType: "uint256",
                 name: "amount",
-                type: "uint256"
-            }
+                type: "uint256",
+            },
         ],
         name: "Withdrawn",
-        type: "event"
+        type: "event",
     },
     {
         constant: true,
@@ -141,12 +140,12 @@ var _abi = [
             {
                 internalType: "uint256",
                 name: "",
-                type: "uint256"
-            }
+                type: "uint256",
+            },
         ],
         payable: false,
         stateMutability: "view",
-        type: "function"
+        type: "function",
     },
     {
         constant: true,
@@ -154,20 +153,20 @@ var _abi = [
             {
                 internalType: "address",
                 name: "account",
-                type: "address"
-            }
+                type: "address",
+            },
         ],
         name: "balanceOf",
         outputs: [
             {
                 internalType: "uint256",
                 name: "",
-                type: "uint256"
-            }
+                type: "uint256",
+            },
         ],
         payable: false,
         stateMutability: "view",
-        type: "function"
+        type: "function",
     },
     {
         constant: true,
@@ -175,20 +174,20 @@ var _abi = [
             {
                 internalType: "address",
                 name: "account",
-                type: "address"
-            }
+                type: "address",
+            },
         ],
         name: "earned",
         outputs: [
             {
                 internalType: "uint256",
                 name: "",
-                type: "uint256"
-            }
+                type: "uint256",
+            },
         ],
         payable: false,
         stateMutability: "view",
-        type: "function"
+        type: "function",
     },
     {
         constant: false,
@@ -197,7 +196,7 @@ var _abi = [
         outputs: [],
         payable: false,
         stateMutability: "nonpayable",
-        type: "function"
+        type: "function",
     },
     {
         constant: false,
@@ -206,7 +205,7 @@ var _abi = [
         outputs: [],
         payable: false,
         stateMutability: "nonpayable",
-        type: "function"
+        type: "function",
     },
     {
         constant: true,
@@ -216,12 +215,12 @@ var _abi = [
             {
                 internalType: "bool",
                 name: "",
-                type: "bool"
-            }
+                type: "bool",
+            },
         ],
         payable: false,
         stateMutability: "view",
-        type: "function"
+        type: "function",
     },
     {
         constant: true,
@@ -229,20 +228,20 @@ var _abi = [
             {
                 internalType: "address",
                 name: "",
-                type: "address"
-            }
+                type: "address",
+            },
         ],
         name: "isRewardDistribution",
         outputs: [
             {
                 internalType: "bool",
                 name: "",
-                type: "bool"
-            }
+                type: "bool",
+            },
         ],
         payable: false,
         stateMutability: "view",
-        type: "function"
+        type: "function",
     },
     {
         constant: true,
@@ -252,12 +251,12 @@ var _abi = [
             {
                 internalType: "uint256",
                 name: "",
-                type: "uint256"
-            }
+                type: "uint256",
+            },
         ],
         payable: false,
         stateMutability: "view",
-        type: "function"
+        type: "function",
     },
     {
         constant: true,
@@ -267,12 +266,12 @@ var _abi = [
             {
                 internalType: "uint256",
                 name: "",
-                type: "uint256"
-            }
+                type: "uint256",
+            },
         ],
         payable: false,
         stateMutability: "view",
-        type: "function"
+        type: "function",
     },
     {
         constant: false,
@@ -280,14 +279,14 @@ var _abi = [
             {
                 internalType: "uint256",
                 name: "reward",
-                type: "uint256"
-            }
+                type: "uint256",
+            },
         ],
         name: "notifyRewardAmount",
         outputs: [],
         payable: false,
         stateMutability: "nonpayable",
-        type: "function"
+        type: "function",
     },
     {
         constant: true,
@@ -297,12 +296,12 @@ var _abi = [
             {
                 internalType: "address",
                 name: "",
-                type: "address"
-            }
+                type: "address",
+            },
         ],
         payable: false,
         stateMutability: "view",
-        type: "function"
+        type: "function",
     },
     {
         constant: true,
@@ -312,12 +311,12 @@ var _abi = [
             {
                 internalType: "uint256",
                 name: "",
-                type: "uint256"
-            }
+                type: "uint256",
+            },
         ],
         payable: false,
         stateMutability: "view",
-        type: "function"
+        type: "function",
     },
     {
         constant: false,
@@ -326,7 +325,7 @@ var _abi = [
         outputs: [],
         payable: false,
         stateMutability: "nonpayable",
-        type: "function"
+        type: "function",
     },
     {
         constant: true,
@@ -336,12 +335,12 @@ var _abi = [
             {
                 internalType: "uint256",
                 name: "",
-                type: "uint256"
-            }
+                type: "uint256",
+            },
         ],
         payable: false,
         stateMutability: "view",
-        type: "function"
+        type: "function",
     },
     {
         constant: true,
@@ -351,12 +350,12 @@ var _abi = [
             {
                 internalType: "uint256",
                 name: "",
-                type: "uint256"
-            }
+                type: "uint256",
+            },
         ],
         payable: false,
         stateMutability: "view",
-        type: "function"
+        type: "function",
     },
     {
         constant: true,
@@ -366,12 +365,12 @@ var _abi = [
             {
                 internalType: "uint256",
                 name: "",
-                type: "uint256"
-            }
+                type: "uint256",
+            },
         ],
         payable: false,
         stateMutability: "view",
-        type: "function"
+        type: "function",
     },
     {
         constant: true,
@@ -381,12 +380,12 @@ var _abi = [
             {
                 internalType: "contract IERC20",
                 name: "",
-                type: "address"
-            }
+                type: "address",
+            },
         ],
         payable: false,
         stateMutability: "view",
-        type: "function"
+        type: "function",
     },
     {
         constant: true,
@@ -394,20 +393,20 @@ var _abi = [
             {
                 internalType: "address",
                 name: "",
-                type: "address"
-            }
+                type: "address",
+            },
         ],
         name: "rewards",
         outputs: [
             {
                 internalType: "uint256",
                 name: "",
-                type: "uint256"
-            }
+                type: "uint256",
+            },
         ],
         payable: false,
         stateMutability: "view",
-        type: "function"
+        type: "function",
     },
     {
         constant: false,
@@ -415,19 +414,19 @@ var _abi = [
             {
                 internalType: "address",
                 name: "_rewardDistribution",
-                type: "address"
+                type: "address",
             },
             {
                 internalType: "bool",
                 name: "_isRewardDistribution",
-                type: "bool"
-            }
+                type: "bool",
+            },
         ],
         name: "setRewardDistribution",
         outputs: [],
         payable: false,
         stateMutability: "nonpayable",
-        type: "function"
+        type: "function",
     },
     {
         constant: false,
@@ -435,14 +434,14 @@ var _abi = [
             {
                 internalType: "uint256",
                 name: "amount",
-                type: "uint256"
-            }
+                type: "uint256",
+            },
         ],
         name: "stake",
         outputs: [],
         payable: false,
         stateMutability: "nonpayable",
-        type: "function"
+        type: "function",
     },
     {
         constant: true,
@@ -452,12 +451,12 @@ var _abi = [
             {
                 internalType: "contract IERC20",
                 name: "",
-                type: "address"
-            }
+                type: "address",
+            },
         ],
         payable: false,
         stateMutability: "view",
-        type: "function"
+        type: "function",
     },
     {
         constant: true,
@@ -467,12 +466,12 @@ var _abi = [
             {
                 internalType: "uint256",
                 name: "",
-                type: "uint256"
-            }
+                type: "uint256",
+            },
         ],
         payable: false,
         stateMutability: "view",
-        type: "function"
+        type: "function",
     },
     {
         constant: true,
@@ -482,12 +481,12 @@ var _abi = [
             {
                 internalType: "uint256",
                 name: "",
-                type: "uint256"
-            }
+                type: "uint256",
+            },
         ],
         payable: false,
         stateMutability: "view",
-        type: "function"
+        type: "function",
     },
     {
         constant: false,
@@ -495,14 +494,14 @@ var _abi = [
             {
                 internalType: "address",
                 name: "newOwner",
-                type: "address"
-            }
+                type: "address",
+            },
         ],
         name: "transferOwnership",
         outputs: [],
         payable: false,
         stateMutability: "nonpayable",
-        type: "function"
+        type: "function",
     },
     {
         constant: true,
@@ -510,20 +509,20 @@ var _abi = [
             {
                 internalType: "address",
                 name: "",
-                type: "address"
-            }
+                type: "address",
+            },
         ],
         name: "userRewardPerTokenPaid",
         outputs: [
             {
                 internalType: "uint256",
                 name: "",
-                type: "uint256"
-            }
+                type: "uint256",
+            },
         ],
         payable: false,
         stateMutability: "view",
-        type: "function"
+        type: "function",
     },
     {
         constant: false,
@@ -531,14 +530,14 @@ var _abi = [
             {
                 internalType: "uint256",
                 name: "amount",
-                type: "uint256"
-            }
+                type: "uint256",
+            },
         ],
         name: "withdraw",
         outputs: [],
         payable: false,
         stateMutability: "nonpayable",
-        type: "function"
-    }
+        type: "function",
+    },
 ];
 //# sourceMappingURL=Rewards__factory.js.map
