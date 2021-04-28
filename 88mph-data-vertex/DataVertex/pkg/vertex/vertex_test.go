@@ -7,7 +7,6 @@ import (
 	"github.com/99designs/gqlgen/client"
 	"github.com/99designs/gqlgen/graphql/handler"
 	proxima "github.com/proxima-one/proxima-db-client-go/pkg/database"
-
 	//graphql "github.com/graph-gophers/graphql-go"
 	"testing"
 	_ "time"

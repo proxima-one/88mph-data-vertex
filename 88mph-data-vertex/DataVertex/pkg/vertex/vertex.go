@@ -78,7 +78,7 @@ func ConvertMapTo(inputMap map[interface{}]interface{}) map[string]interface{} {
 			//fmt.Println(value)
 			var strMap map[string]interface{} = ConvertMapTo(value.(map[interface{}]interface{}))
 			configMap[key] = strMap
-			//fmt.Println(fmt.Sprintf("Value of map: %T", strMap))
+			fmt.Println(fmt.Sprintf("Value of map: %T", strMap))
 		}
 		if valueType == "[]interface {}" {
 			newValue := make([]interface{}, len(value.([]interface{})))
@@ -113,10 +113,14 @@ type ProximaDataVertex struct {
 func CreateDataVertex(config, dbConfig map[string]interface{}) (*ProximaDataVertex, error) {
 	database, dErr := CreateApplicationDatabase(dbConfig)
 	if dErr != nil {
+		fmt.Println("Database Error:")
+		fmt.Println(dErr)
 		return nil, dErr
 	}
 	resolvers, rErr := CreateResolvers(database)
 	if rErr != nil {
+		fmt.Println("Resolver Error:")
+		fmt.Println(dErr)
 		return nil, rErr
 	}
 	//middleware
@@ -132,9 +136,7 @@ func CreateResolvers(db *proxima.ProximaDatabase) (gql.Config, error) {
 	// if err != nil {
 	// 	return r, err
 	// }
-	c := gql.Config{
-		Resolvers: resolver.NewResolver(db),
-	}
+	c := resolver.NewResolver(db)
 	//Load directives
 	c = LoadDirectives(c)
 
@@ -195,11 +197,13 @@ func CreateApplicationDatabase(db_config map[string]interface{}) (*proxima.Proxi
 	//fmt.Println(db_config)
 	proximaDB, err := proxima.LoadProximaDatabase(db_config)
 	if err != nil {
+		fmt.Println("Database Loading Error:")
 		fmt.Println(err)
 		return nil, err
 	}
 	_, err = proximaDB.Open()
 	if err != nil {
+		fmt.Println("Database Opening Error:")
 		fmt.Println(err)
 		return nil, err
 	}

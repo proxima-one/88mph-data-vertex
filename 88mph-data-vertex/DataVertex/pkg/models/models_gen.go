@@ -3,304 +3,348 @@
 package models
 
 type DPool struct {
-	UserIDs    []string `json:"userIds"`
-	DepositIDs []string `json:"depositIds"`
-	FunderIDs  []string `json:"funderIds"`
-	FundingIDs []string `json:"fundingIds"`
-
-	ID                           *string    `json:"id"`
-	Address                      *string    `json:"address"`
-	MoneyMarket                  *string    `json:"moneyMarket"`
-	Stablecoin                   *string    `json:"stablecoin"`
-	InterestModel                *string    `json:"interestModel"`
-	Users                        []*User    //  `json:"users"`
-	NumUsers                     *int       `json:"numUsers"`
-	Deposits                     []*Deposit `json:"deposits"`
-	NumDeposits                  *int       `json:"numDeposits"`
-	NumActiveDeposits            *string    `json:"numActiveDeposits"`
-	TotalActiveDeposit           *string    `json:"totalActiveDeposit"`
-	TotalHistoricalDeposit       *string    `json:"totalHistoricalDeposit"`
-	TotalInterestPaid            *string    `json:"totalInterestPaid"`
-	UnfundedDepositAmount        *string    `json:"unfundedDepositAmount"`
-	Funders                      []*Funder  //`json:"funders"`
-	NumFunders                   *string    `json:"numFunders"`
-	Fundings                     []*Funding `json:"fundings"`
-	NumFundings                  *string    `json:"numFundings"`
-	MinDepositPeriod             *float64   `json:"MinDepositPeriod"`
-	MaxDepositPeriod             *float64   `json:"MaxDepositPeriod"`
-	MinDepositAmount             *float64   `json:"MinDepositAmount"`
-	MaxDepositAmount             *float64   `json:"MaxDepositAmount"`
-	MphMintingMultiplier         *float64   `json:"mphMintingMultiplier"`
-	MphDepositorRewardMultiplier *float64   `json:"mphDepositorRewardMultiplier"`
-	MphFunderRewardMultiplier    *float64   `json:"mphFunderRewardMultiplier"`
-	OneYearInterestRate          *float64   `json:"oneYearInterestRate"`
-	Surplus                      *string    `json:"surplus"`
-	MoneyMarketIncomeIndex       *string    `json:"moneyMarketIncomeIndex"`
-	OracleInterestRate           *string    `json:"oracleInterestRate"`
-	Proof                        *Proof     //     `json:"proof"`
+	ID                                   *string    `json:"id,omitempty"`
+	Address                              *string    `json:"address,omitempty"`
+	MoneyMarket                          *string    `json:"moneyMarket,omitempty"`
+	Stablecoin                           *string    `json:"stablecoin,omitempty"`
+	InterestModel                        *string    `json:"interestModel,omitempty"`
+	Users                                []*User    //  `json:"users,omitempty"`
+	UserIDs                              []*string  `json:"UserIDs,omitempty"`
+	NumUsers                             *int64     `json:"numUsers,omitempty"`
+	Deposits                             []*Deposit `json:"deposits,omitempty"`
+	DepositIDs                           []*string  `json:"DepositIDs,omitempty"`
+	NumDeposits                          *int64     `json:"numDeposits,omitempty"`
+	NumActiveDeposits                    *int64     `json:"numActiveDeposits,omitempty"`
+	TotalActiveDeposit                   *float64   `json:"totalActiveDeposit,omitempty"`
+	TotalHistoricalDeposit               *float64   `json:"totalHistoricalDeposit,omitempty"`
+	TotalInterestPaid                    *float64   `json:"totalInterestPaid,omitempty"`
+	UnfundedDepositAmount                *float64   `json:"unfundedDepositAmount,omitempty"`
+	Funders                              []*Funder  //`json:"funders,omitempty"`
+	FunderIDs                            []*string  `json:"FunderIDs,omitempty"`
+	NumFunders                           *int64     `json:"numFunders,omitempty"`
+	Fundings                             []*Funding `json:"fundings,omitempty"`
+	FundingIDs                           []*string  `json:"FundingIDs,omitempty"`
+	NumFundings                          *int64     `json:"numFundings,omitempty"`
+	MinDepositPeriod                     *int64     `json:"MinDepositPeriod,omitempty"`
+	MaxDepositPeriod                     *int64     `json:"MaxDepositPeriod,omitempty"`
+	MinDepositAmount                     *float64   `json:"MinDepositAmount,omitempty"`
+	MaxDepositAmount                     *float64   `json:"MaxDepositAmount,omitempty"`
+	MphDepositorRewardMintMultiplier     *float64   `json:"mphDepositorRewardMintMultiplier,omitempty"`
+	MphDepositorRewardTakeBackMultiplier *float64   `json:"mphDepositorRewardTakeBackMultiplier,omitempty"`
+	MphFunderRewardMultiplier            *float64   `json:"mphFunderRewardMultiplier,omitempty"`
+	OneYearInterestRate                  *float64   `json:"oneYearInterestRate,omitempty"`
+	Surplus                              *float64   `json:"surplus,omitempty"`
+	MoneyMarketIncomeIndex               *int64     `json:"moneyMarketIncomeIndex,omitempty"`
+	OracleInterestRate                   *float64   `json:"oracleInterestRate,omitempty"`
+	Proof                                *Proof     //     `json:"proof,omitempty"`
 }
 
 type DPoolInput struct {
-	ID                           *string  `json:"id"`
-	Address                      *string  `json:"address"`
-	MoneyMarket                  *string  `json:"moneyMarket"`
-	Stablecoin                   *string  `json:"stablecoin"`
-	InterestModel                *string  `json:"interestModel"`
-	NumUsers                     *int     `json:"numUsers"`
-	NumDeposits                  *int     `json:"numDeposits"`
-	NumActiveDeposits            *string  `json:"numActiveDeposits"`
-	TotalActiveDeposit           *string  `json:"totalActiveDeposit"`
-	TotalHistoricalDeposit       *string  `json:"totalHistoricalDeposit"`
-	TotalInterestPaid            *string  `json:"totalInterestPaid"`
-	UnfundedDepositAmount        *string  `json:"unfundedDepositAmount"`
-	NumFunders                   *string  `json:"numFunders"`
-	NumFundings                  *string  `json:"numFundings"`
-	MinDepositPeriod             *float64 `json:"MinDepositPeriod"`
-	MaxDepositPeriod             *float64 `json:"MaxDepositPeriod"`
-	MinDepositAmount             *float64 `json:"MinDepositAmount"`
-	MaxDepositAmount             *float64 `json:"MaxDepositAmount"`
-	MphMintingMultiplier         *float64 `json:"mphMintingMultiplier"`
-	MphDepositorRewardMultiplier *float64 `json:"mphDepositorRewardMultiplier"`
-	MphFunderRewardMultiplier    *float64 `json:"mphFunderRewardMultiplier"`
-	OneYearInterestRate          *float64 `json:"oneYearInterestRate"`
-	Surplus                      *string  `json:"surplus"`
-	MoneyMarketIncomeIndex       *string  `json:"moneyMarketIncomeIndex"`
-	OracleInterestRate           *string  `json:"oracleInterestRate"`
-	ProofID                      *string  `json:"ProofID"`
+	ID                                   *string   `json:"id,omitempty"`
+	Address                              *string   `json:"address,omitempty"`
+	MoneyMarket                          *string   `json:"moneyMarket,omitempty"`
+	Stablecoin                           *string   `json:"stablecoin,omitempty"`
+	InterestModel                        *string   `json:"interestModel,omitempty"`
+	UserIDs                              []*string `json:"UserIDs,omitempty"`
+	NumUsers                             *int64    `json:"numUsers,omitempty"`
+	DepositIDs                           []*string `json:"DepositIDs,omitempty"`
+	NumDeposits                          *int64    `json:"numDeposits,omitempty"`
+	NumActiveDeposits                    *int64    `json:"numActiveDeposits,omitempty"`
+	TotalActiveDeposit                   *float64  `json:"totalActiveDeposit,omitempty"`
+	TotalHistoricalDeposit               *float64  `json:"totalHistoricalDeposit,omitempty"`
+	TotalInterestPaid                    *float64  `json:"totalInterestPaid,omitempty"`
+	UnfundedDepositAmount                *float64  `json:"unfundedDepositAmount,omitempty"`
+	FunderIDs                            []*string `json:"FunderIDs,omitempty"`
+	NumFunders                           *int64    `json:"numFunders,omitempty"`
+	FundingIDs                           []*string `json:"FundingIDs,omitempty"`
+	NumFundings                          *int64    `json:"numFundings,omitempty"`
+	MinDepositPeriod                     *int64    `json:"MinDepositPeriod,omitempty"`
+	MaxDepositPeriod                     *int64    `json:"MaxDepositPeriod,omitempty"`
+	MinDepositAmount                     *float64  `json:"MinDepositAmount,omitempty"`
+	MaxDepositAmount                     *float64  `json:"MaxDepositAmount,omitempty"`
+	MphDepositorRewardMintMultiplier     *float64  `json:"mphDepositorRewardMintMultiplier,omitempty"`
+	MphDepositorRewardTakeBackMultiplier *float64  `json:"mphDepositorRewardTakeBackMultiplier,omitempty"`
+	MphFunderRewardMultiplier            *float64  `json:"mphFunderRewardMultiplier,omitempty"`
+	OneYearInterestRate                  *float64  `json:"oneYearInterestRate,omitempty"`
+	Surplus                              *float64  `json:"surplus,omitempty"`
+	MoneyMarketIncomeIndex               *int64    `json:"moneyMarketIncomeIndex,omitempty"`
+	OracleInterestRate                   *float64  `json:"oracleInterestRate,omitempty"`
 }
 
 type DPoolList struct {
-	DPoolIDs []string `json:"dPoolIds,omitempty"`
-
-	ID             *string  `json:"id"`
-	Pools          []*DPool //`json:"pools"`
-	NumPools       *int     `json:"numPools,omitempty"`
-	NumUsers       *int     `json:"numUsers,omitempty"`
-	NumActiveUsers *int     `json:"numActiveUsers,omitempty"`
-	NumFunders     *int     `json:"numFunders,omitempty"`
-	Proof          *Proof   //   `json:"proof"`
+	ID             *string   `json:"id,omitempty"`
+	Pools          []*DPool  //`json:"pools,omitempty"`
+	DPoolIDs       []*string `json:"DPoolIDs,omitempty"`
+	NumPools       *int64    `json:"numPools,omitempty"`
+	NumUsers       *int64    `json:"numUsers,omitempty"`
+	NumActiveUsers *int64    `json:"numActiveUsers,omitempty"`
+	NumFunders     *int64    `json:"numFunders,omitempty"`
+	Proof          *Proof    //    `json:"proof,omitempty"`
 }
 
 type DPoolListInput struct {
-	ID             *string `json:"id"`
-	NumPools       *int    `json:"numPools,omitempty"`
-	NumUsers       *int    `json:"numUsers,omitempty"`
-	NumActiveUsers *int    `json:"numActiveUsers,omitempty"`
-	NumFunders     *int    `json:"numFunders,omitempty"`
-	//DPoolIDs       []string `json:"dPoolIds"`
+	ID             *string   `json:"id,omitempty"`
+	DPoolIDs       []*string `json:"DPoolIDs,omitempty"`
+	NumPools       *int64    `json:"numPools,omitempty"`
+	NumUsers       *int64    `json:"numUsers,omitempty"`
+	NumActiveUsers *int64    `json:"numActiveUsers,omitempty"`
+	NumFunders     *int64    `json:"numFunders,omitempty"`
 }
 
 type Deposit struct {
-	UserID  string `json:"userId"`
-	DPoolID string `json:"dPoolId"`
-
-	ID                            *string `json:"id"`
-	NftID                         *string `json:"nftID"`
-	User                          *User   // `json:"user"`
-	Pool                          *DPool  //`json:"pool"`
-	Amount                        *string `json:"amount"`
-	MaturationTimestamp           *string `json:"maturationTimestamp"`
-	Active                        *bool   `json:"active"`
-	DepositTimestamp              *string `json:"depositTimestamp"`
-	InterestEarned                *string `json:"interestEarned"`
-	FundingID                     *string `json:"fundingID"`
-	MintMPHAmount                 *string `json:"mintMPHAmount"`
-	TakeBackMPHAmount             *string `json:"takeBackMPHAmount"`
-	InitialMoneyMarketIncomeIndex *string `json:"initialMoneyMarketIncomeIndex"`
-	Proof                         *Proof  //  `json:"proof"`
+	ID                            *string  `json:"id,omitempty"`
+	NftID                         *int64   `json:"nftID,omitempty"`
+	User                          *User    //  `json:"user,omitempty"`
+	UserID                        *string  `json:"UserID,omitempty"`
+	Pool                          *DPool   // `json:"pool,omitempty"`
+	DPoolID                       *string  `json:"DPoolID,omitempty"`
+	Amount                        *float64 `json:"amount,omitempty"`
+	MaturationTimestamp           *int64   `json:"maturationTimestamp,omitempty"`
+	Active                        *bool    `json:"active,omitempty"`
+	DepositTimestamp              *int64   `json:"depositTimestamp,omitempty"`
+	DepositLength                 *int64   `json:"depositLength,omitempty"`
+	InterestEarned                *float64 `json:"interestEarned,omitempty"`
+	FundingID                     *int64   `json:"fundingID,omitempty"`
+	MintMPHAmount                 *float64 `json:"mintMPHAmount,omitempty"`
+	TakeBackMPHAmount             *float64 `json:"takeBackMPHAmount,omitempty"`
+	InitialMoneyMarketIncomeIndex *int64   `json:"initialMoneyMarketIncomeIndex,omitempty"`
+	FundingInterestPaid           *float64 `json:"fundingInterestPaid,omitempty"`
+	FundingRefundAmount           *float64 `json:"fundingRefundAmount,omitempty"`
+	Proof                         *Proof   //   `json:"proof,omitempty"`
 }
 
 type DepositInput struct {
-	ID                            *string `json:"id"`
-	NftID                         *string `json:"nftID"`
-	Amount                        *string `json:"amount"`
-	MaturationTimestamp           *string `json:"maturationTimestamp"`
-	Active                        *bool   `json:"active"`
-	DepositTimestamp              *string `json:"depositTimestamp"`
-	InterestEarned                *string `json:"interestEarned"`
-	FundingID                     *string `json:"fundingID"`
-	MintMPHAmount                 *string `json:"mintMPHAmount"`
-	TakeBackMPHAmount             *string `json:"takeBackMPHAmount"`
-	InitialMoneyMarketIncomeIndex *string `json:"initialMoneyMarketIncomeIndex"`
-	ProofID                       *string `json:"ProofID"`
+	ID                            *string  `json:"id,omitempty"`
+	NftID                         *int64   `json:"nftID,omitempty"`
+	UserID                        *string  `json:"UserID,omitempty"`
+	DPoolID                       *string  `json:"DPoolID,omitempty"`
+	Amount                        *float64 `json:"amount,omitempty"`
+	MaturationTimestamp           *int64   `json:"maturationTimestamp,omitempty"`
+	Active                        *bool    `json:"active,omitempty"`
+	DepositTimestamp              *int64   `json:"depositTimestamp,omitempty"`
+	DepositLength                 *int64   `json:"depositLength,omitempty"`
+	InterestEarned                *float64 `json:"interestEarned,omitempty"`
+	FundingID                     *int64   `json:"fundingID,omitempty"`
+	MintMPHAmount                 *float64 `json:"mintMPHAmount,omitempty"`
+	TakeBackMPHAmount             *float64 `json:"takeBackMPHAmount,omitempty"`
+	InitialMoneyMarketIncomeIndex *int64   `json:"initialMoneyMarketIncomeIndex,omitempty"`
+	FundingInterestPaid           *float64 `json:"fundingInterestPaid,omitempty"`
+	FundingRefundAmount           *float64 `json:"fundingRefundAmount,omitempty"`
+}
+
+type FractionalDeposit struct {
+	ID                    *string  `json:"id,omitempty"`
+	Address               *string  `json:"address,omitempty"`
+	ZeroCouponBondAddress *string  `json:"zeroCouponBondAddress,omitempty"`
+	OwnerAddress          *string  `json:"ownerAddress,omitempty"`
+	Active                *bool    `json:"active,omitempty"`
+	Deposit               *Deposit `json:"deposit,omitempty"`
+	DepositID             *string  `json:"DepositID,omitempty"`
+	Proof                 *Proof   //   `json:"proof,omitempty"`
+}
+
+type FractionalDepositInput struct {
+	ID                    *string `json:"id,omitempty"`
+	Address               *string `json:"address,omitempty"`
+	ZeroCouponBondAddress *string `json:"zeroCouponBondAddress,omitempty"`
+	OwnerAddress          *string `json:"ownerAddress,omitempty"`
+	Active                *bool   `json:"active,omitempty"`
+	DepositID             *string `json:"DepositID,omitempty"`
 }
 
 type Funder struct {
-	DPoolIDs               []string `json:"dPoolIds"`
-	FundingIDs             []string `json:"fundingIds"`
-	FunderTotalInterestIDs []string `json:"funderTotalInterestIds"`
-
-	ID                  *string                `json:"id"`
-	Address             *string                `json:"address"`
-	Pools               []*DPool               //             `json:"pools"`
-	NumPools            *string                `json:"numPools"`
-	Fundings            []*Funding             //           `json:"fundings"`
-	NumFundings         *string                `json:"numFundings"`
-	TotalMPHEarned      *string                `json:"totalMPHEarned"`
-	TotalInterestByPool []*FunderTotalInterest `json:"totalInterestByPool"`
-	Proof               *Proof                 //                 `json:"proof"`
+	ID                     *string                `json:"id,omitempty"`
+	Address                *string                `json:"address,omitempty"`
+	Pools                  []*DPool               //             `json:"pools,omitempty"`
+	DPoolIDs               []*string              `json:"DPoolIDs,omitempty"`
+	NumPools               *int64                 `json:"numPools,omitempty"`
+	Fundings               []*Funding             //           `json:"fundings,omitempty"`
+	FundingIDs             []*string              `json:"FundingIDs,omitempty"`
+	NumFundings            *int64                 `json:"numFundings,omitempty"`
+	TotalMPHEarned         *float64               `json:"totalMPHEarned,omitempty"`
+	TotalInterestByPool    []*FunderTotalInterest `json:"totalInterestByPool,omitempty"`
+	FunderTotalInterestIDs []*string              `json:"FunderTotalInterestIDs,omitempty"`
+	Proof                  *Proof                 //                 `json:"proof,omitempty"`
 }
 
 type FunderInput struct {
-	ID             *string `json:"id"`
-	Address        *string `json:"address"`
-	NumPools       *string `json:"numPools"`
-	NumFundings    *string `json:"numFundings"`
-	TotalMPHEarned *string `json:"totalMPHEarned"`
-	ProofID        *string `json:"ProofID"`
+	ID                     *string   `json:"id,omitempty"`
+	Address                *string   `json:"address,omitempty"`
+	DPoolIDs               []*string `json:"DPoolIDs,omitempty"`
+	NumPools               *int64    `json:"numPools,omitempty"`
+	FundingIDs             []*string `json:"FundingIDs,omitempty"`
+	NumFundings            *int64    `json:"numFundings,omitempty"`
+	TotalMPHEarned         *float64  `json:"totalMPHEarned,omitempty"`
+	FunderTotalInterestIDs []*string `json:"FunderTotalInterestIDs,omitempty"`
 }
 
 type FunderTotalInterest struct {
-	FunderID string `json:"funderId"`
-	DPoolID  string `json:"dPoolId"`
-
-	ID                               *string `json:"id"`
-	Funder                           *Funder `json:"funder"`
-	Pool                             *DPool  //`json:"pool"`
-	TotalDeficitFunded               *string `json:"totalDeficitFunded"`
-	TotalHistoricalDeficitFunded     *string `json:"totalHistoricalDeficitFunded"`
-	TotalInterestEarned              *string `json:"totalInterestEarned"`
-	TotalHistoricalInterestEarned    *string `json:"totalHistoricalInterestEarned"`
-	TotalRecordedFundedDepositAmount *string `json:"totalRecordedFundedDepositAmount"`
-	Proof                            *Proof  //  `json:"proof"`
+	ID                               *string  `json:"id,omitempty"`
+	Funder                           *Funder  //`json:"funder,omitempty"`
+	FunderID                         *string  `json:"FunderID,omitempty"`
+	Pool                             *DPool   // `json:"pool,omitempty"`
+	DPoolID                          *string  `json:"DPoolID,omitempty"`
+	TotalDeficitFunded               *float64 `json:"totalDeficitFunded,omitempty"`
+	TotalHistoricalDeficitFunded     *float64 `json:"totalHistoricalDeficitFunded,omitempty"`
+	TotalInterestEarned              *float64 `json:"totalInterestEarned,omitempty"`
+	TotalHistoricalInterestEarned    *float64 `json:"totalHistoricalInterestEarned,omitempty"`
+	TotalRecordedFundedDepositAmount *float64 `json:"totalRecordedFundedDepositAmount,omitempty"`
+	Proof                            *Proof   //   `json:"proof,omitempty"`
 }
 
 type FunderTotalInterestInput struct {
-	ID                               *string `json:"id"`
-	TotalDeficitFunded               *string `json:"totalDeficitFunded"`
-	TotalHistoricalDeficitFunded     *string `json:"totalHistoricalDeficitFunded"`
-	TotalInterestEarned              *string `json:"totalInterestEarned"`
-	TotalHistoricalInterestEarned    *string `json:"totalHistoricalInterestEarned"`
-	TotalRecordedFundedDepositAmount *string `json:"totalRecordedFundedDepositAmount"`
-	ProofID                          *string `json:"ProofID"`
+	ID                               *string  `json:"id,omitempty"`
+	FunderID                         *string  `json:"FunderID,omitempty"`
+	DPoolID                          *string  `json:"DPoolID,omitempty"`
+	TotalDeficitFunded               *float64 `json:"totalDeficitFunded,omitempty"`
+	TotalHistoricalDeficitFunded     *float64 `json:"totalHistoricalDeficitFunded,omitempty"`
+	TotalInterestEarned              *float64 `json:"totalInterestEarned,omitempty"`
+	TotalHistoricalInterestEarned    *float64 `json:"totalHistoricalInterestEarned,omitempty"`
+	TotalRecordedFundedDepositAmount *float64 `json:"totalRecordedFundedDepositAmount,omitempty"`
 }
 
 type Funding struct {
-	FunderID string `json:"funderId"`
-	DPoolID  string `json:"dPoolId"`
-
-	ID                             *string `json:"id"`
-	NftID                          *string `json:"nftID"`
-	Funder                         *Funder `json:"funder"`
-	Pool                           *DPool  //`json:"pool"`
-	FromDepositID                  *string `json:"fromDepositID"`
-	ToDepositID                    *string `json:"toDepositID"`
-	Active                         *bool   `json:"active"`
-	RecordedFundedDepositAmount    *string `json:"recordedFundedDepositAmount"`
-	RecordedMoneyMarketIncomeIndex *string `json:"recordedMoneyMarketIncomeIndex"`
-	InitialFundedDepositAmount     *string `json:"initialFundedDepositAmount"`
-	FundedDeficitAmount            *string `json:"fundedDeficitAmount"`
-	TotalInterestEarned            *string `json:"totalInterestEarned"`
-	MintMPHAmount                  *string `json:"mintMPHAmount"`
-	Proof                          *Proof  //  `json:"proof"`
+	ID                             *string  `json:"id,omitempty"`
+	NftID                          *int64   `json:"nftID,omitempty"`
+	Funder                         *Funder  //`json:"funder,omitempty"`
+	FunderID                       *string  `json:"FunderID,omitempty"`
+	Pool                           *DPool   // `json:"pool,omitempty"`
+	DPoolID                        *string  `json:"DPoolID,omitempty"`
+	FromDepositID                  *int64   `json:"fromDepositID,omitempty"`
+	ToDepositID                    *int64   `json:"toDepositID,omitempty"`
+	Active                         *bool    `json:"active,omitempty"`
+	RecordedFundedDepositAmount    *float64 `json:"recordedFundedDepositAmount,omitempty"`
+	RecordedMoneyMarketIncomeIndex *int64   `json:"recordedMoneyMarketIncomeIndex,omitempty"`
+	InitialFundedDepositAmount     *float64 `json:"initialFundedDepositAmount,omitempty"`
+	FundedDeficitAmount            *float64 `json:"fundedDeficitAmount,omitempty"`
+	TotalInterestEarned            *float64 `json:"totalInterestEarned,omitempty"`
+	CreationTimestamp              *int64   `json:"creationTimestamp,omitempty"`
+	MphRewardEarned                *float64 `json:"mphRewardEarned,omitempty"`
+	RefundAmount                   *float64 `json:"refundAmount,omitempty"`
+	Proof                          *Proof   //   `json:"proof,omitempty"`
 }
 
 type FundingInput struct {
-	ID                             *string `json:"id"`
-	NftID                          *string `json:"nftID"`
-	FromDepositID                  *string `json:"fromDepositID"`
-	ToDepositID                    *string `json:"toDepositID"`
-	Active                         *bool   `json:"active"`
-	RecordedFundedDepositAmount    *string `json:"recordedFundedDepositAmount"`
-	RecordedMoneyMarketIncomeIndex *string `json:"recordedMoneyMarketIncomeIndex"`
-	InitialFundedDepositAmount     *string `json:"initialFundedDepositAmount"`
-	FundedDeficitAmount            *string `json:"fundedDeficitAmount"`
-	TotalInterestEarned            *string `json:"totalInterestEarned"`
-	MintMPHAmount                  *string `json:"mintMPHAmount"`
-	ProofID                        *string `json:"ProofID"`
+	ID                             *string  `json:"id,omitempty"`
+	NftID                          *int64   `json:"nftID,omitempty"`
+	FunderID                       *string  `json:"FunderID,omitempty"`
+	DPoolID                        *string  `json:"DPoolID,omitempty"`
+	FromDepositID                  *int64   `json:"fromDepositID,omitempty"`
+	ToDepositID                    *int64   `json:"toDepositID,omitempty"`
+	Active                         *bool    `json:"active,omitempty"`
+	RecordedFundedDepositAmount    *float64 `json:"recordedFundedDepositAmount,omitempty"`
+	RecordedMoneyMarketIncomeIndex *int64   `json:"recordedMoneyMarketIncomeIndex,omitempty"`
+	InitialFundedDepositAmount     *float64 `json:"initialFundedDepositAmount,omitempty"`
+	FundedDeficitAmount            *float64 `json:"fundedDeficitAmount,omitempty"`
+	TotalInterestEarned            *float64 `json:"totalInterestEarned,omitempty"`
+	CreationTimestamp              *int64   `json:"creationTimestamp,omitempty"`
+	MphRewardEarned                *float64 `json:"mphRewardEarned,omitempty"`
+	RefundAmount                   *float64 `json:"refundAmount,omitempty"`
 }
 
 type Mph struct {
-	ID                    *string `json:"id"`
-	TotalSupply           *string `json:"totalSupply"`
-	TotalStakedMPHBalance *string `json:"totalStakedMPHBalance"`
-	TotalHistoricalReward *string `json:"totalHistoricalReward"`
-	RewardPerSecond       *string `json:"rewardPerSecond"`
-	RewardPerMPHPerSecond *string `json:"rewardPerMPHPerSecond"`
-	Proof                 *Proof  //  `json:"proof"`
+	ID                    *string  `json:"id,omitempty"`
+	TotalHistoricalReward *float64 `json:"totalHistoricalReward,omitempty"`
+	RewardPerSecond       *float64 `json:"rewardPerSecond,omitempty"`
+	RewardPerMPHPerSecond *float64 `json:"rewardPerMPHPerSecond,omitempty"`
+	Proof                 *Proof   //   `json:"proof,omitempty"`
 }
 
 type MPHHolder struct {
-	ID                    *string `json:"id"`
-	Address               *string `json:"address"`
-	MphBalance            *string `json:"mphBalance"`
-	StakedMPHBalance      *string `json:"stakedMPHBalance"`
-	TotalHistoricalReward *string `json:"totalHistoricalReward"`
-	Proof                 *Proof  //  `json:"proof"`
+	ID                    *string  `json:"id,omitempty"`
+	Address               *string  `json:"address,omitempty"`
+	TotalHistoricalReward *float64 `json:"totalHistoricalReward,omitempty"`
+	Proof                 *Proof   //   `json:"proof,omitempty"`
 }
 
 type MPHHolderInput struct {
-	ID                    *string `json:"id"`
-	Address               *string `json:"address"`
-	MphBalance            *string `json:"mphBalance"`
-	StakedMPHBalance      *string `json:"stakedMPHBalance"`
-	TotalHistoricalReward *string `json:"totalHistoricalReward"`
-	ProofID               *string `json:"ProofID"`
+	ID                    *string  `json:"id,omitempty"`
+	Address               *string  `json:"address,omitempty"`
+	TotalHistoricalReward *float64 `json:"totalHistoricalReward,omitempty"`
 }
 
 type MPHInput struct {
-	ID                    *string `json:"id"`
-	TotalSupply           *string `json:"totalSupply"`
-	TotalStakedMPHBalance *string `json:"totalStakedMPHBalance"`
-	TotalHistoricalReward *string `json:"totalHistoricalReward"`
-	RewardPerSecond       *string `json:"rewardPerSecond"`
-	RewardPerMPHPerSecond *string `json:"rewardPerMPHPerSecond"`
-	ProofID               *string `json:"ProofID"`
+	ID                    *string  `json:"id,omitempty"`
+	TotalHistoricalReward *float64 `json:"totalHistoricalReward,omitempty"`
+	RewardPerSecond       *float64 `json:"rewardPerSecond,omitempty"`
+	RewardPerMPHPerSecond *float64 `json:"rewardPerMPHPerSecond,omitempty"`
 }
 
 type Proof struct {
-	Root  *string `json:"root"`
-	Proof *string `json:"proof"`
+	Root  *string `json:"root,omitempty"`
+	Proof *string `json:"proof,omitempty"`
 }
 
 type User struct {
-	DPoolIDs            []string `json:"dPoolIds"`
-	DepositIDs          []string `json:"depositIds"`
-	UserTotalDepositIDs []string `json:"userTotalDepositIds"`
-
-	ID                 *string             `json:"id"`
-	Address            *string             `json:"address"`
-	Pools              []*DPool            //          `json:"pools"`
-	NumPools           *string             `json:"numPools"`
-	Deposits           []*Deposit          //        `json:"deposits"`
-	NumDeposits        *string             `json:"numDeposits"`
-	NumActiveDeposits  *string             `json:"numActiveDeposits"`
-	TotalDepositByPool []*UserTotalDeposit `json:"totalDepositByPool"`
-	TotalMPHEarned     *string             `json:"totalMPHEarned"`
-	TotalMPHPaidBack   *string             `json:"totalMPHPaidBack"`
-	Proof              *Proof              //              `json:"proof"`
+	ID                  *string             `json:"id,omitempty"`
+	Address             *string             `json:"address,omitempty"`
+	Pools               []*DPool            //          `json:"pools,omitempty"`
+	DPoolIDs            []*string           `json:"DPoolIDs,omitempty"`
+	NumPools            *int64              `json:"numPools,omitempty"`
+	Deposits            []*Deposit          //        `json:"deposits,omitempty"`
+	DepositIDs          []*string           `json:"DepositIDs,omitempty"`
+	NumDeposits         *int64              `json:"numDeposits,omitempty"`
+	NumActiveDeposits   *int64              `json:"numActiveDeposits,omitempty"`
+	TotalDepositByPool  []*UserTotalDeposit `json:"totalDepositByPool,omitempty"`
+	UserTotalDepositIDs []*string           `json:"UserTotalDepositIDs,omitempty"`
+	TotalMPHEarned      *float64            `json:"totalMPHEarned,omitempty"`
+	TotalMPHPaidBack    *float64            `json:"totalMPHPaidBack,omitempty"`
+	Proof               *Proof              //              `json:"proof,omitempty"`
 }
 
 type UserInput struct {
-	ID                *string `json:"id"`
-	Address           *string `json:"address"`
-	NumPools          *string `json:"numPools"`
-	NumDeposits       *string `json:"numDeposits"`
-	NumActiveDeposits *string `json:"numActiveDeposits"`
-	TotalMPHEarned    *string `json:"totalMPHEarned"`
-	TotalMPHPaidBack  *string `json:"totalMPHPaidBack"`
-	ProofID           *string `json:"ProofID"`
+	ID                  *string   `json:"id,omitempty"`
+	Address             *string   `json:"address,omitempty"`
+	DPoolIDs            []*string `json:"DPoolIDs,omitempty"`
+	NumPools            *int64    `json:"numPools,omitempty"`
+	DepositIDs          []*string `json:"DepositIDs,omitempty"`
+	NumDeposits         *int64    `json:"numDeposits,omitempty"`
+	NumActiveDeposits   *int64    `json:"numActiveDeposits,omitempty"`
+	UserTotalDepositIDs []*string `json:"UserTotalDepositIDs,omitempty"`
+	TotalMPHEarned      *float64  `json:"totalMPHEarned,omitempty"`
+	TotalMPHPaidBack    *float64  `json:"totalMPHPaidBack,omitempty"`
 }
 
 type UserTotalDeposit struct {
-	UserID  string `json:"userId"`
-	DPoolID string `json:"dPoolId"`
-
-	ID                            *string `json:"id"`
-	User                          *User   // `json:"user"`
-	Pool                          *DPool  //`json:"pool"`
-	TotalActiveDeposit            *string `json:"totalActiveDeposit"`
-	TotalHistoricalDeposit        *string `json:"totalHistoricalDeposit"`
-	TotalInterestEarned           *string `json:"totalInterestEarned"`
-	TotalHistoricalInterestEarned *string `json:"totalHistoricalInterestEarned"`
-	Proof                         *Proof  //  `json:"proof"`
+	ID                            *string  `json:"id,omitempty"`
+	User                          *User    //  `json:"user,omitempty"`
+	UserID                        *string  `json:"UserID,omitempty"`
+	Pool                          *DPool   // `json:"pool,omitempty"`
+	DPoolID                       *string  `json:"DPoolID,omitempty"`
+	TotalActiveDeposit            *float64 `json:"totalActiveDeposit,omitempty"`
+	TotalHistoricalDeposit        *float64 `json:"totalHistoricalDeposit,omitempty"`
+	TotalInterestEarned           *float64 `json:"totalInterestEarned,omitempty"`
+	TotalHistoricalInterestEarned *float64 `json:"totalHistoricalInterestEarned,omitempty"`
+	Proof                         *Proof   //   `json:"proof,omitempty"`
 }
 
 type UserTotalDepositInput struct {
-	ID                            *string `json:"id"`
-	TotalActiveDeposit            *string `json:"totalActiveDeposit"`
-	TotalHistoricalDeposit        *string `json:"totalHistoricalDeposit"`
-	TotalInterestEarned           *string `json:"totalInterestEarned"`
-	TotalHistoricalInterestEarned *string `json:"totalHistoricalInterestEarned"`
-	ProofID                       *string `json:"ProofID"`
+	ID                            *string  `json:"id,omitempty"`
+	UserID                        *string  `json:"UserID,omitempty"`
+	DPoolID                       *string  `json:"DPoolID,omitempty"`
+	TotalActiveDeposit            *float64 `json:"totalActiveDeposit,omitempty"`
+	TotalHistoricalDeposit        *float64 `json:"totalHistoricalDeposit,omitempty"`
+	TotalInterestEarned           *float64 `json:"totalInterestEarned,omitempty"`
+	TotalHistoricalInterestEarned *float64 `json:"totalHistoricalInterestEarned,omitempty"`
+}
+
+type Vest struct {
+	ID                  *string  `json:"id,omitempty"`
+	Index               *int64   `json:"index,omitempty"`
+	User                *string  `json:"user,omitempty"`
+	Amount              *float64 `json:"amount,omitempty"`
+	VestPeriodInSeconds *int64   `json:"vestPeriodInSeconds,omitempty"`
+	CreationTimestamp   *int64   `json:"creationTimestamp,omitempty"`
+	WithdrawnAmount     *float64 `json:"withdrawnAmount,omitempty"`
+	Proof               *Proof   //   `json:"proof,omitempty"`
+}
+
+type VestInput struct {
+	ID                  *string  `json:"id,omitempty"`
+	Index               *int64   `json:"index,omitempty"`
+	User                *string  `json:"user,omitempty"`
+	Amount              *float64 `json:"amount,omitempty"`
+	VestPeriodInSeconds *int64   `json:"vestPeriodInSeconds,omitempty"`
+	CreationTimestamp   *int64   `json:"creationTimestamp,omitempty"`
+	WithdrawnAmount     *float64 `json:"withdrawnAmount,omitempty"`
 }

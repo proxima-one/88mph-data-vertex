@@ -38,6 +38,7 @@ type ResolverRoot interface {
 	DPool() DPoolResolver
 	DPoolList() DPoolListResolver
 	Deposit() DepositResolver
+	FractionalDeposit() FractionalDepositResolver
 	Funder() FunderResolver
 	FunderTotalInterest() FunderTotalInterestResolver
 	Funding() FundingResolver
@@ -53,39 +54,44 @@ type DirectiveRoot struct {
 
 type ComplexityRoot struct {
 	DPool struct {
-		Address                      func(childComplexity int) int
-		Deposits                     func(childComplexity int) int
-		Funders                      func(childComplexity int) int
-		Fundings                     func(childComplexity int) int
-		ID                           func(childComplexity int) int
-		InterestModel                func(childComplexity int) int
-		MaxDepositAmount             func(childComplexity int) int
-		MaxDepositPeriod             func(childComplexity int) int
-		MinDepositAmount             func(childComplexity int) int
-		MinDepositPeriod             func(childComplexity int) int
-		MoneyMarket                  func(childComplexity int) int
-		MoneyMarketIncomeIndex       func(childComplexity int) int
-		MphDepositorRewardMultiplier func(childComplexity int) int
-		MphFunderRewardMultiplier    func(childComplexity int) int
-		MphMintingMultiplier         func(childComplexity int) int
-		NumActiveDeposits            func(childComplexity int) int
-		NumDeposits                  func(childComplexity int) int
-		NumFunders                   func(childComplexity int) int
-		NumFundings                  func(childComplexity int) int
-		NumUsers                     func(childComplexity int) int
-		OneYearInterestRate          func(childComplexity int) int
-		OracleInterestRate           func(childComplexity int) int
-		Proof                        func(childComplexity int) int
-		Stablecoin                   func(childComplexity int) int
-		Surplus                      func(childComplexity int) int
-		TotalActiveDeposit           func(childComplexity int) int
-		TotalHistoricalDeposit       func(childComplexity int) int
-		TotalInterestPaid            func(childComplexity int) int
-		UnfundedDepositAmount        func(childComplexity int) int
-		Users                        func(childComplexity int) int
+		Address                              func(childComplexity int) int
+		DepositIDs                           func(childComplexity int) int
+		Deposits                             func(childComplexity int) int
+		FunderIDs                            func(childComplexity int) int
+		Funders                              func(childComplexity int) int
+		FundingIDs                           func(childComplexity int) int
+		Fundings                             func(childComplexity int) int
+		ID                                   func(childComplexity int) int
+		InterestModel                        func(childComplexity int) int
+		MaxDepositAmount                     func(childComplexity int) int
+		MaxDepositPeriod                     func(childComplexity int) int
+		MinDepositAmount                     func(childComplexity int) int
+		MinDepositPeriod                     func(childComplexity int) int
+		MoneyMarket                          func(childComplexity int) int
+		MoneyMarketIncomeIndex               func(childComplexity int) int
+		MphDepositorRewardMintMultiplier     func(childComplexity int) int
+		MphDepositorRewardTakeBackMultiplier func(childComplexity int) int
+		MphFunderRewardMultiplier            func(childComplexity int) int
+		NumActiveDeposits                    func(childComplexity int) int
+		NumDeposits                          func(childComplexity int) int
+		NumFunders                           func(childComplexity int) int
+		NumFundings                          func(childComplexity int) int
+		NumUsers                             func(childComplexity int) int
+		OneYearInterestRate                  func(childComplexity int) int
+		OracleInterestRate                   func(childComplexity int) int
+		Proof                                func(childComplexity int) int
+		Stablecoin                           func(childComplexity int) int
+		Surplus                              func(childComplexity int) int
+		TotalActiveDeposit                   func(childComplexity int) int
+		TotalHistoricalDeposit               func(childComplexity int) int
+		TotalInterestPaid                    func(childComplexity int) int
+		UnfundedDepositAmount                func(childComplexity int) int
+		UserIDs                              func(childComplexity int) int
+		Users                                func(childComplexity int) int
 	}
 
 	DPoolList struct {
+		DPoolIDs       func(childComplexity int) int
 		ID             func(childComplexity int) int
 		NumActiveUsers func(childComplexity int) int
 		NumFunders     func(childComplexity int) int
@@ -98,8 +104,12 @@ type ComplexityRoot struct {
 	Deposit struct {
 		Active                        func(childComplexity int) int
 		Amount                        func(childComplexity int) int
+		DPoolID                       func(childComplexity int) int
+		DepositLength                 func(childComplexity int) int
 		DepositTimestamp              func(childComplexity int) int
 		FundingID                     func(childComplexity int) int
+		FundingInterestPaid           func(childComplexity int) int
+		FundingRefundAmount           func(childComplexity int) int
 		ID                            func(childComplexity int) int
 		InitialMoneyMarketIncomeIndex func(childComplexity int) int
 		InterestEarned                func(childComplexity int) int
@@ -110,22 +120,39 @@ type ComplexityRoot struct {
 		Proof                         func(childComplexity int) int
 		TakeBackMPHAmount             func(childComplexity int) int
 		User                          func(childComplexity int) int
+		UserID                        func(childComplexity int) int
+	}
+
+	FractionalDeposit struct {
+		Active                func(childComplexity int) int
+		Address               func(childComplexity int) int
+		Deposit               func(childComplexity int) int
+		DepositID             func(childComplexity int) int
+		ID                    func(childComplexity int) int
+		OwnerAddress          func(childComplexity int) int
+		Proof                 func(childComplexity int) int
+		ZeroCouponBondAddress func(childComplexity int) int
 	}
 
 	Funder struct {
-		Address             func(childComplexity int) int
-		Fundings            func(childComplexity int) int
-		ID                  func(childComplexity int) int
-		NumFundings         func(childComplexity int) int
-		NumPools            func(childComplexity int) int
-		Pools               func(childComplexity int) int
-		Proof               func(childComplexity int) int
-		TotalInterestByPool func(childComplexity int) int
-		TotalMPHEarned      func(childComplexity int) int
+		Address                func(childComplexity int) int
+		DPoolIDs               func(childComplexity int) int
+		FunderTotalInterestIDs func(childComplexity int) int
+		FundingIDs             func(childComplexity int) int
+		Fundings               func(childComplexity int) int
+		ID                     func(childComplexity int) int
+		NumFundings            func(childComplexity int) int
+		NumPools               func(childComplexity int) int
+		Pools                  func(childComplexity int) int
+		Proof                  func(childComplexity int) int
+		TotalInterestByPool    func(childComplexity int) int
+		TotalMPHEarned         func(childComplexity int) int
 	}
 
 	FunderTotalInterest struct {
+		DPoolID                          func(childComplexity int) int
 		Funder                           func(childComplexity int) int
+		FunderID                         func(childComplexity int) int
 		ID                               func(childComplexity int) int
 		Pool                             func(childComplexity int) int
 		Proof                            func(childComplexity int) int
@@ -138,17 +165,21 @@ type ComplexityRoot struct {
 
 	Funding struct {
 		Active                         func(childComplexity int) int
+		CreationTimestamp              func(childComplexity int) int
+		DPoolID                        func(childComplexity int) int
 		FromDepositID                  func(childComplexity int) int
 		FundedDeficitAmount            func(childComplexity int) int
 		Funder                         func(childComplexity int) int
+		FunderID                       func(childComplexity int) int
 		ID                             func(childComplexity int) int
 		InitialFundedDepositAmount     func(childComplexity int) int
-		MintMPHAmount                  func(childComplexity int) int
+		MphRewardEarned                func(childComplexity int) int
 		NftID                          func(childComplexity int) int
 		Pool                           func(childComplexity int) int
 		Proof                          func(childComplexity int) int
 		RecordedFundedDepositAmount    func(childComplexity int) int
 		RecordedMoneyMarketIncomeIndex func(childComplexity int) int
+		RefundAmount                   func(childComplexity int) int
 		ToDepositID                    func(childComplexity int) int
 		TotalInterestEarned            func(childComplexity int) int
 	}
@@ -159,16 +190,12 @@ type ComplexityRoot struct {
 		RewardPerMPHPerSecond func(childComplexity int) int
 		RewardPerSecond       func(childComplexity int) int
 		TotalHistoricalReward func(childComplexity int) int
-		TotalStakedMPHBalance func(childComplexity int) int
-		TotalSupply           func(childComplexity int) int
 	}
 
 	MPHHolder struct {
 		Address               func(childComplexity int) int
 		ID                    func(childComplexity int) int
-		MphBalance            func(childComplexity int) int
 		Proof                 func(childComplexity int) int
-		StakedMPHBalance      func(childComplexity int) int
 		TotalHistoricalReward func(childComplexity int) int
 	}
 
@@ -176,6 +203,7 @@ type ComplexityRoot struct {
 		UpdateDPool               func(childComplexity int, input models.DPoolInput) int
 		UpdateDPoolList           func(childComplexity int, input models.DPoolListInput) int
 		UpdateDeposit             func(childComplexity int, input models.DepositInput) int
+		UpdateFractionalDeposit   func(childComplexity int, input models.FractionalDepositInput) int
 		UpdateFunder              func(childComplexity int, input models.FunderInput) int
 		UpdateFunderTotalInterest func(childComplexity int, input models.FunderTotalInterestInput) int
 		UpdateFunding             func(childComplexity int, input models.FundingInput) int
@@ -183,6 +211,7 @@ type ComplexityRoot struct {
 		UpdateMph                 func(childComplexity int, input models.MPHInput) int
 		UpdateUser                func(childComplexity int, input models.UserInput) int
 		UpdateUserTotalDeposit    func(childComplexity int, input models.UserTotalDepositInput) int
+		UpdateVest                func(childComplexity int, input models.VestInput) int
 	}
 
 	Proof struct {
@@ -200,6 +229,9 @@ type ComplexityRoot struct {
 		Deposit                   func(childComplexity int, id string, prove *bool) int
 		DepositSearch             func(childComplexity int, queryText string, prove *bool) int
 		Deposits                  func(childComplexity int, where *string, orderBy *string, asc *bool, first *int, last *int, limit *int, prove *bool) int
+		FractionalDeposit         func(childComplexity int, id string, prove *bool) int
+		FractionalDepositSearch   func(childComplexity int, queryText string, prove *bool) int
+		FractionalDeposits        func(childComplexity int, where *string, orderBy *string, asc *bool, first *int, last *int, limit *int, prove *bool) int
 		Funder                    func(childComplexity int, id string, prove *bool) int
 		FunderSearch              func(childComplexity int, queryText string, prove *bool) int
 		FunderTotalInterest       func(childComplexity int, id string, prove *bool) int
@@ -221,23 +253,30 @@ type ComplexityRoot struct {
 		UserTotalDepositSearch    func(childComplexity int, queryText string, prove *bool) int
 		UserTotalDeposits         func(childComplexity int, where *string, orderBy *string, asc *bool, first *int, last *int, limit *int, prove *bool) int
 		Users                     func(childComplexity int, where *string, orderBy *string, asc *bool, first *int, last *int, limit *int, prove *bool) int
+		Vest                      func(childComplexity int, id string, prove *bool) int
+		VestSearch                func(childComplexity int, queryText string, prove *bool) int
+		Vests                     func(childComplexity int, where *string, orderBy *string, asc *bool, first *int, last *int, limit *int, prove *bool) int
 	}
 
 	User struct {
-		Address            func(childComplexity int) int
-		Deposits           func(childComplexity int) int
-		ID                 func(childComplexity int) int
-		NumActiveDeposits  func(childComplexity int) int
-		NumDeposits        func(childComplexity int) int
-		NumPools           func(childComplexity int) int
-		Pools              func(childComplexity int) int
-		Proof              func(childComplexity int) int
-		TotalDepositByPool func(childComplexity int) int
-		TotalMPHEarned     func(childComplexity int) int
-		TotalMPHPaidBack   func(childComplexity int) int
+		Address             func(childComplexity int) int
+		DPoolIDs            func(childComplexity int) int
+		DepositIDs          func(childComplexity int) int
+		Deposits            func(childComplexity int) int
+		ID                  func(childComplexity int) int
+		NumActiveDeposits   func(childComplexity int) int
+		NumDeposits         func(childComplexity int) int
+		NumPools            func(childComplexity int) int
+		Pools               func(childComplexity int) int
+		Proof               func(childComplexity int) int
+		TotalDepositByPool  func(childComplexity int) int
+		TotalMPHEarned      func(childComplexity int) int
+		TotalMPHPaidBack    func(childComplexity int) int
+		UserTotalDepositIDs func(childComplexity int) int
 	}
 
 	UserTotalDeposit struct {
+		DPoolID                       func(childComplexity int) int
 		ID                            func(childComplexity int) int
 		Pool                          func(childComplexity int) int
 		Proof                         func(childComplexity int) int
@@ -246,6 +285,18 @@ type ComplexityRoot struct {
 		TotalHistoricalInterestEarned func(childComplexity int) int
 		TotalInterestEarned           func(childComplexity int) int
 		User                          func(childComplexity int) int
+		UserID                        func(childComplexity int) int
+	}
+
+	Vest struct {
+		Amount              func(childComplexity int) int
+		CreationTimestamp   func(childComplexity int) int
+		ID                  func(childComplexity int) int
+		Index               func(childComplexity int) int
+		Proof               func(childComplexity int) int
+		User                func(childComplexity int) int
+		VestPeriodInSeconds func(childComplexity int) int
+		WithdrawnAmount     func(childComplexity int) int
 	}
 }
 
@@ -263,7 +314,11 @@ type DPoolListResolver interface {
 }
 type DepositResolver interface {
 	User(ctx context.Context, obj *models.Deposit) (*models.User, error)
+
 	Pool(ctx context.Context, obj *models.Deposit) (*models.DPool, error)
+}
+type FractionalDepositResolver interface {
+	Deposit(ctx context.Context, obj *models.FractionalDeposit) (*models.Deposit, error)
 }
 type FunderResolver interface {
 	Pools(ctx context.Context, obj *models.Funder) ([]*models.DPool, error)
@@ -274,10 +329,12 @@ type FunderResolver interface {
 }
 type FunderTotalInterestResolver interface {
 	Funder(ctx context.Context, obj *models.FunderTotalInterest) (*models.Funder, error)
+
 	Pool(ctx context.Context, obj *models.FunderTotalInterest) (*models.DPool, error)
 }
 type FundingResolver interface {
 	Funder(ctx context.Context, obj *models.Funding) (*models.Funder, error)
+
 	Pool(ctx context.Context, obj *models.Funding) (*models.DPool, error)
 }
 type MutationResolver interface {
@@ -291,6 +348,8 @@ type MutationResolver interface {
 	UpdateFunding(ctx context.Context, input models.FundingInput) (*bool, error)
 	UpdateMPHHolder(ctx context.Context, input models.MPHHolderInput) (*bool, error)
 	UpdateMph(ctx context.Context, input models.MPHInput) (*bool, error)
+	UpdateVest(ctx context.Context, input models.VestInput) (*bool, error)
+	UpdateFractionalDeposit(ctx context.Context, input models.FractionalDepositInput) (*bool, error)
 }
 type QueryResolver interface {
 	DPoolList(ctx context.Context, id string, prove *bool) (*models.DPoolList, error)
@@ -323,6 +382,12 @@ type QueryResolver interface {
 	Mph(ctx context.Context, id string, prove *bool) (*models.Mph, error)
 	MPHs(ctx context.Context, where *string, orderBy *string, asc *bool, first *int, last *int, limit *int, prove *bool) ([]*models.Mph, error)
 	MPHSearch(ctx context.Context, queryText string, prove *bool) ([]*models.Mph, error)
+	Vest(ctx context.Context, id string, prove *bool) (*models.Vest, error)
+	Vests(ctx context.Context, where *string, orderBy *string, asc *bool, first *int, last *int, limit *int, prove *bool) ([]*models.Vest, error)
+	VestSearch(ctx context.Context, queryText string, prove *bool) ([]*models.Vest, error)
+	FractionalDeposit(ctx context.Context, id string, prove *bool) (*models.FractionalDeposit, error)
+	FractionalDeposits(ctx context.Context, where *string, orderBy *string, asc *bool, first *int, last *int, limit *int, prove *bool) ([]*models.FractionalDeposit, error)
+	FractionalDepositSearch(ctx context.Context, queryText string, prove *bool) ([]*models.FractionalDeposit, error)
 }
 type UserResolver interface {
 	Pools(ctx context.Context, obj *models.User) ([]*models.DPool, error)
@@ -333,6 +398,7 @@ type UserResolver interface {
 }
 type UserTotalDepositResolver interface {
 	User(ctx context.Context, obj *models.UserTotalDeposit) (*models.User, error)
+
 	Pool(ctx context.Context, obj *models.UserTotalDeposit) (*models.DPool, error)
 }
 
@@ -358,6 +424,13 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.DPool.Address(childComplexity), true
 
+	case "DPool.DepositIDs":
+		if e.complexity.DPool.DepositIDs == nil {
+			break
+		}
+
+		return e.complexity.DPool.DepositIDs(childComplexity), true
+
 	case "DPool.deposits":
 		if e.complexity.DPool.Deposits == nil {
 			break
@@ -365,12 +438,26 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.DPool.Deposits(childComplexity), true
 
+	case "DPool.FunderIDs":
+		if e.complexity.DPool.FunderIDs == nil {
+			break
+		}
+
+		return e.complexity.DPool.FunderIDs(childComplexity), true
+
 	case "DPool.funders":
 		if e.complexity.DPool.Funders == nil {
 			break
 		}
 
 		return e.complexity.DPool.Funders(childComplexity), true
+
+	case "DPool.FundingIDs":
+		if e.complexity.DPool.FundingIDs == nil {
+			break
+		}
+
+		return e.complexity.DPool.FundingIDs(childComplexity), true
 
 	case "DPool.fundings":
 		if e.complexity.DPool.Fundings == nil {
@@ -435,12 +522,19 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.DPool.MoneyMarketIncomeIndex(childComplexity), true
 
-	case "DPool.mphDepositorRewardMultiplier":
-		if e.complexity.DPool.MphDepositorRewardMultiplier == nil {
+	case "DPool.mphDepositorRewardMintMultiplier":
+		if e.complexity.DPool.MphDepositorRewardMintMultiplier == nil {
 			break
 		}
 
-		return e.complexity.DPool.MphDepositorRewardMultiplier(childComplexity), true
+		return e.complexity.DPool.MphDepositorRewardMintMultiplier(childComplexity), true
+
+	case "DPool.mphDepositorRewardTakeBackMultiplier":
+		if e.complexity.DPool.MphDepositorRewardTakeBackMultiplier == nil {
+			break
+		}
+
+		return e.complexity.DPool.MphDepositorRewardTakeBackMultiplier(childComplexity), true
 
 	case "DPool.mphFunderRewardMultiplier":
 		if e.complexity.DPool.MphFunderRewardMultiplier == nil {
@@ -448,13 +542,6 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 		}
 
 		return e.complexity.DPool.MphFunderRewardMultiplier(childComplexity), true
-
-	case "DPool.mphMintingMultiplier":
-		if e.complexity.DPool.MphMintingMultiplier == nil {
-			break
-		}
-
-		return e.complexity.DPool.MphMintingMultiplier(childComplexity), true
 
 	case "DPool.numActiveDeposits":
 		if e.complexity.DPool.NumActiveDeposits == nil {
@@ -554,12 +641,26 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.DPool.UnfundedDepositAmount(childComplexity), true
 
+	case "DPool.UserIDs":
+		if e.complexity.DPool.UserIDs == nil {
+			break
+		}
+
+		return e.complexity.DPool.UserIDs(childComplexity), true
+
 	case "DPool.users":
 		if e.complexity.DPool.Users == nil {
 			break
 		}
 
 		return e.complexity.DPool.Users(childComplexity), true
+
+	case "DPoolList.DPoolIDs":
+		if e.complexity.DPoolList.DPoolIDs == nil {
+			break
+		}
+
+		return e.complexity.DPoolList.DPoolIDs(childComplexity), true
 
 	case "DPoolList.id":
 		if e.complexity.DPoolList.ID == nil {
@@ -624,6 +725,20 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.Deposit.Amount(childComplexity), true
 
+	case "Deposit.DPoolID":
+		if e.complexity.Deposit.DPoolID == nil {
+			break
+		}
+
+		return e.complexity.Deposit.DPoolID(childComplexity), true
+
+	case "Deposit.depositLength":
+		if e.complexity.Deposit.DepositLength == nil {
+			break
+		}
+
+		return e.complexity.Deposit.DepositLength(childComplexity), true
+
 	case "Deposit.depositTimestamp":
 		if e.complexity.Deposit.DepositTimestamp == nil {
 			break
@@ -637,6 +752,20 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 		}
 
 		return e.complexity.Deposit.FundingID(childComplexity), true
+
+	case "Deposit.fundingInterestPaid":
+		if e.complexity.Deposit.FundingInterestPaid == nil {
+			break
+		}
+
+		return e.complexity.Deposit.FundingInterestPaid(childComplexity), true
+
+	case "Deposit.fundingRefundAmount":
+		if e.complexity.Deposit.FundingRefundAmount == nil {
+			break
+		}
+
+		return e.complexity.Deposit.FundingRefundAmount(childComplexity), true
 
 	case "Deposit.id":
 		if e.complexity.Deposit.ID == nil {
@@ -708,12 +837,96 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.Deposit.User(childComplexity), true
 
+	case "Deposit.UserID":
+		if e.complexity.Deposit.UserID == nil {
+			break
+		}
+
+		return e.complexity.Deposit.UserID(childComplexity), true
+
+	case "FractionalDeposit.active":
+		if e.complexity.FractionalDeposit.Active == nil {
+			break
+		}
+
+		return e.complexity.FractionalDeposit.Active(childComplexity), true
+
+	case "FractionalDeposit.address":
+		if e.complexity.FractionalDeposit.Address == nil {
+			break
+		}
+
+		return e.complexity.FractionalDeposit.Address(childComplexity), true
+
+	case "FractionalDeposit.deposit":
+		if e.complexity.FractionalDeposit.Deposit == nil {
+			break
+		}
+
+		return e.complexity.FractionalDeposit.Deposit(childComplexity), true
+
+	case "FractionalDeposit.DepositID":
+		if e.complexity.FractionalDeposit.DepositID == nil {
+			break
+		}
+
+		return e.complexity.FractionalDeposit.DepositID(childComplexity), true
+
+	case "FractionalDeposit.id":
+		if e.complexity.FractionalDeposit.ID == nil {
+			break
+		}
+
+		return e.complexity.FractionalDeposit.ID(childComplexity), true
+
+	case "FractionalDeposit.ownerAddress":
+		if e.complexity.FractionalDeposit.OwnerAddress == nil {
+			break
+		}
+
+		return e.complexity.FractionalDeposit.OwnerAddress(childComplexity), true
+
+	case "FractionalDeposit.proof":
+		if e.complexity.FractionalDeposit.Proof == nil {
+			break
+		}
+
+		return e.complexity.FractionalDeposit.Proof(childComplexity), true
+
+	case "FractionalDeposit.zeroCouponBondAddress":
+		if e.complexity.FractionalDeposit.ZeroCouponBondAddress == nil {
+			break
+		}
+
+		return e.complexity.FractionalDeposit.ZeroCouponBondAddress(childComplexity), true
+
 	case "Funder.address":
 		if e.complexity.Funder.Address == nil {
 			break
 		}
 
 		return e.complexity.Funder.Address(childComplexity), true
+
+	case "Funder.DPoolIDs":
+		if e.complexity.Funder.DPoolIDs == nil {
+			break
+		}
+
+		return e.complexity.Funder.DPoolIDs(childComplexity), true
+
+	case "Funder.FunderTotalInterestIDs":
+		if e.complexity.Funder.FunderTotalInterestIDs == nil {
+			break
+		}
+
+		return e.complexity.Funder.FunderTotalInterestIDs(childComplexity), true
+
+	case "Funder.FundingIDs":
+		if e.complexity.Funder.FundingIDs == nil {
+			break
+		}
+
+		return e.complexity.Funder.FundingIDs(childComplexity), true
 
 	case "Funder.fundings":
 		if e.complexity.Funder.Fundings == nil {
@@ -771,12 +984,26 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.Funder.TotalMPHEarned(childComplexity), true
 
+	case "FunderTotalInterest.DPoolID":
+		if e.complexity.FunderTotalInterest.DPoolID == nil {
+			break
+		}
+
+		return e.complexity.FunderTotalInterest.DPoolID(childComplexity), true
+
 	case "FunderTotalInterest.funder":
 		if e.complexity.FunderTotalInterest.Funder == nil {
 			break
 		}
 
 		return e.complexity.FunderTotalInterest.Funder(childComplexity), true
+
+	case "FunderTotalInterest.FunderID":
+		if e.complexity.FunderTotalInterest.FunderID == nil {
+			break
+		}
+
+		return e.complexity.FunderTotalInterest.FunderID(childComplexity), true
 
 	case "FunderTotalInterest.id":
 		if e.complexity.FunderTotalInterest.ID == nil {
@@ -841,6 +1068,20 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.Funding.Active(childComplexity), true
 
+	case "Funding.creationTimestamp":
+		if e.complexity.Funding.CreationTimestamp == nil {
+			break
+		}
+
+		return e.complexity.Funding.CreationTimestamp(childComplexity), true
+
+	case "Funding.DPoolID":
+		if e.complexity.Funding.DPoolID == nil {
+			break
+		}
+
+		return e.complexity.Funding.DPoolID(childComplexity), true
+
 	case "Funding.fromDepositID":
 		if e.complexity.Funding.FromDepositID == nil {
 			break
@@ -862,6 +1103,13 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.Funding.Funder(childComplexity), true
 
+	case "Funding.FunderID":
+		if e.complexity.Funding.FunderID == nil {
+			break
+		}
+
+		return e.complexity.Funding.FunderID(childComplexity), true
+
 	case "Funding.id":
 		if e.complexity.Funding.ID == nil {
 			break
@@ -876,12 +1124,12 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.Funding.InitialFundedDepositAmount(childComplexity), true
 
-	case "Funding.mintMPHAmount":
-		if e.complexity.Funding.MintMPHAmount == nil {
+	case "Funding.mphRewardEarned":
+		if e.complexity.Funding.MphRewardEarned == nil {
 			break
 		}
 
-		return e.complexity.Funding.MintMPHAmount(childComplexity), true
+		return e.complexity.Funding.MphRewardEarned(childComplexity), true
 
 	case "Funding.nftID":
 		if e.complexity.Funding.NftID == nil {
@@ -917,6 +1165,13 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 		}
 
 		return e.complexity.Funding.RecordedMoneyMarketIncomeIndex(childComplexity), true
+
+	case "Funding.refundAmount":
+		if e.complexity.Funding.RefundAmount == nil {
+			break
+		}
+
+		return e.complexity.Funding.RefundAmount(childComplexity), true
 
 	case "Funding.toDepositID":
 		if e.complexity.Funding.ToDepositID == nil {
@@ -967,20 +1222,6 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.Mph.TotalHistoricalReward(childComplexity), true
 
-	case "MPH.totalStakedMPHBalance":
-		if e.complexity.Mph.TotalStakedMPHBalance == nil {
-			break
-		}
-
-		return e.complexity.Mph.TotalStakedMPHBalance(childComplexity), true
-
-	case "MPH.totalSupply":
-		if e.complexity.Mph.TotalSupply == nil {
-			break
-		}
-
-		return e.complexity.Mph.TotalSupply(childComplexity), true
-
 	case "MPHHolder.address":
 		if e.complexity.MPHHolder.Address == nil {
 			break
@@ -995,26 +1236,12 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.MPHHolder.ID(childComplexity), true
 
-	case "MPHHolder.mphBalance":
-		if e.complexity.MPHHolder.MphBalance == nil {
-			break
-		}
-
-		return e.complexity.MPHHolder.MphBalance(childComplexity), true
-
 	case "MPHHolder.proof":
 		if e.complexity.MPHHolder.Proof == nil {
 			break
 		}
 
 		return e.complexity.MPHHolder.Proof(childComplexity), true
-
-	case "MPHHolder.stakedMPHBalance":
-		if e.complexity.MPHHolder.StakedMPHBalance == nil {
-			break
-		}
-
-		return e.complexity.MPHHolder.StakedMPHBalance(childComplexity), true
 
 	case "MPHHolder.totalHistoricalReward":
 		if e.complexity.MPHHolder.TotalHistoricalReward == nil {
@@ -1023,125 +1250,149 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.MPHHolder.TotalHistoricalReward(childComplexity), true
 
-	case "Mutation.updateDPool":
+	case "Mutation.UpdateDPool":
 		if e.complexity.Mutation.UpdateDPool == nil {
 			break
 		}
 
-		args, err := ec.field_Mutation_updateDPool_args(context.TODO(), rawArgs)
+		args, err := ec.field_Mutation_UpdateDPool_args(context.TODO(), rawArgs)
 		if err != nil {
 			return 0, false
 		}
 
 		return e.complexity.Mutation.UpdateDPool(childComplexity, args["input"].(models.DPoolInput)), true
 
-	case "Mutation.updateDPoolList":
+	case "Mutation.UpdateDPoolList":
 		if e.complexity.Mutation.UpdateDPoolList == nil {
 			break
 		}
 
-		args, err := ec.field_Mutation_updateDPoolList_args(context.TODO(), rawArgs)
+		args, err := ec.field_Mutation_UpdateDPoolList_args(context.TODO(), rawArgs)
 		if err != nil {
 			return 0, false
 		}
 
 		return e.complexity.Mutation.UpdateDPoolList(childComplexity, args["input"].(models.DPoolListInput)), true
 
-	case "Mutation.updateDeposit":
+	case "Mutation.UpdateDeposit":
 		if e.complexity.Mutation.UpdateDeposit == nil {
 			break
 		}
 
-		args, err := ec.field_Mutation_updateDeposit_args(context.TODO(), rawArgs)
+		args, err := ec.field_Mutation_UpdateDeposit_args(context.TODO(), rawArgs)
 		if err != nil {
 			return 0, false
 		}
 
 		return e.complexity.Mutation.UpdateDeposit(childComplexity, args["input"].(models.DepositInput)), true
 
-	case "Mutation.updateFunder":
+	case "Mutation.UpdateFractionalDeposit":
+		if e.complexity.Mutation.UpdateFractionalDeposit == nil {
+			break
+		}
+
+		args, err := ec.field_Mutation_UpdateFractionalDeposit_args(context.TODO(), rawArgs)
+		if err != nil {
+			return 0, false
+		}
+
+		return e.complexity.Mutation.UpdateFractionalDeposit(childComplexity, args["input"].(models.FractionalDepositInput)), true
+
+	case "Mutation.UpdateFunder":
 		if e.complexity.Mutation.UpdateFunder == nil {
 			break
 		}
 
-		args, err := ec.field_Mutation_updateFunder_args(context.TODO(), rawArgs)
+		args, err := ec.field_Mutation_UpdateFunder_args(context.TODO(), rawArgs)
 		if err != nil {
 			return 0, false
 		}
 
 		return e.complexity.Mutation.UpdateFunder(childComplexity, args["input"].(models.FunderInput)), true
 
-	case "Mutation.updateFunderTotalInterest":
+	case "Mutation.UpdateFunderTotalInterest":
 		if e.complexity.Mutation.UpdateFunderTotalInterest == nil {
 			break
 		}
 
-		args, err := ec.field_Mutation_updateFunderTotalInterest_args(context.TODO(), rawArgs)
+		args, err := ec.field_Mutation_UpdateFunderTotalInterest_args(context.TODO(), rawArgs)
 		if err != nil {
 			return 0, false
 		}
 
 		return e.complexity.Mutation.UpdateFunderTotalInterest(childComplexity, args["input"].(models.FunderTotalInterestInput)), true
 
-	case "Mutation.updateFunding":
+	case "Mutation.UpdateFunding":
 		if e.complexity.Mutation.UpdateFunding == nil {
 			break
 		}
 
-		args, err := ec.field_Mutation_updateFunding_args(context.TODO(), rawArgs)
+		args, err := ec.field_Mutation_UpdateFunding_args(context.TODO(), rawArgs)
 		if err != nil {
 			return 0, false
 		}
 
 		return e.complexity.Mutation.UpdateFunding(childComplexity, args["input"].(models.FundingInput)), true
 
-	case "Mutation.updateMPHHolder":
+	case "Mutation.UpdateMPHHolder":
 		if e.complexity.Mutation.UpdateMPHHolder == nil {
 			break
 		}
 
-		args, err := ec.field_Mutation_updateMPHHolder_args(context.TODO(), rawArgs)
+		args, err := ec.field_Mutation_UpdateMPHHolder_args(context.TODO(), rawArgs)
 		if err != nil {
 			return 0, false
 		}
 
 		return e.complexity.Mutation.UpdateMPHHolder(childComplexity, args["input"].(models.MPHHolderInput)), true
 
-	case "Mutation.updateMPH":
+	case "Mutation.UpdateMPH":
 		if e.complexity.Mutation.UpdateMph == nil {
 			break
 		}
 
-		args, err := ec.field_Mutation_updateMPH_args(context.TODO(), rawArgs)
+		args, err := ec.field_Mutation_UpdateMPH_args(context.TODO(), rawArgs)
 		if err != nil {
 			return 0, false
 		}
 
 		return e.complexity.Mutation.UpdateMph(childComplexity, args["input"].(models.MPHInput)), true
 
-	case "Mutation.updateUser":
+	case "Mutation.UpdateUser":
 		if e.complexity.Mutation.UpdateUser == nil {
 			break
 		}
 
-		args, err := ec.field_Mutation_updateUser_args(context.TODO(), rawArgs)
+		args, err := ec.field_Mutation_UpdateUser_args(context.TODO(), rawArgs)
 		if err != nil {
 			return 0, false
 		}
 
 		return e.complexity.Mutation.UpdateUser(childComplexity, args["input"].(models.UserInput)), true
 
-	case "Mutation.updateUserTotalDeposit":
+	case "Mutation.UpdateUserTotalDeposit":
 		if e.complexity.Mutation.UpdateUserTotalDeposit == nil {
 			break
 		}
 
-		args, err := ec.field_Mutation_updateUserTotalDeposit_args(context.TODO(), rawArgs)
+		args, err := ec.field_Mutation_UpdateUserTotalDeposit_args(context.TODO(), rawArgs)
 		if err != nil {
 			return 0, false
 		}
 
 		return e.complexity.Mutation.UpdateUserTotalDeposit(childComplexity, args["input"].(models.UserTotalDepositInput)), true
+
+	case "Mutation.UpdateVest":
+		if e.complexity.Mutation.UpdateVest == nil {
+			break
+		}
+
+		args, err := ec.field_Mutation_UpdateVest_args(context.TODO(), rawArgs)
+		if err != nil {
+			return 0, false
+		}
+
+		return e.complexity.Mutation.UpdateVest(childComplexity, args["input"].(models.VestInput)), true
 
 	case "Proof.proof":
 		if e.complexity.Proof.Proof == nil {
@@ -1264,6 +1515,42 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 		}
 
 		return e.complexity.Query.Deposits(childComplexity, args["where"].(*string), args["order_by"].(*string), args["asc"].(*bool), args["first"].(*int), args["last"].(*int), args["limit"].(*int), args["prove"].(*bool)), true
+
+	case "Query.FractionalDeposit":
+		if e.complexity.Query.FractionalDeposit == nil {
+			break
+		}
+
+		args, err := ec.field_Query_FractionalDeposit_args(context.TODO(), rawArgs)
+		if err != nil {
+			return 0, false
+		}
+
+		return e.complexity.Query.FractionalDeposit(childComplexity, args["id"].(string), args["prove"].(*bool)), true
+
+	case "Query.FractionalDepositSearch":
+		if e.complexity.Query.FractionalDepositSearch == nil {
+			break
+		}
+
+		args, err := ec.field_Query_FractionalDepositSearch_args(context.TODO(), rawArgs)
+		if err != nil {
+			return 0, false
+		}
+
+		return e.complexity.Query.FractionalDepositSearch(childComplexity, args["queryText"].(string), args["prove"].(*bool)), true
+
+	case "Query.FractionalDeposits":
+		if e.complexity.Query.FractionalDeposits == nil {
+			break
+		}
+
+		args, err := ec.field_Query_FractionalDeposits_args(context.TODO(), rawArgs)
+		if err != nil {
+			return 0, false
+		}
+
+		return e.complexity.Query.FractionalDeposits(childComplexity, args["where"].(*string), args["order_by"].(*string), args["asc"].(*bool), args["first"].(*int), args["last"].(*int), args["limit"].(*int), args["prove"].(*bool)), true
 
 	case "Query.Funder":
 		if e.complexity.Query.Funder == nil {
@@ -1517,12 +1804,62 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.Query.Users(childComplexity, args["where"].(*string), args["order_by"].(*string), args["asc"].(*bool), args["first"].(*int), args["last"].(*int), args["limit"].(*int), args["prove"].(*bool)), true
 
+	case "Query.Vest":
+		if e.complexity.Query.Vest == nil {
+			break
+		}
+
+		args, err := ec.field_Query_Vest_args(context.TODO(), rawArgs)
+		if err != nil {
+			return 0, false
+		}
+
+		return e.complexity.Query.Vest(childComplexity, args["id"].(string), args["prove"].(*bool)), true
+
+	case "Query.VestSearch":
+		if e.complexity.Query.VestSearch == nil {
+			break
+		}
+
+		args, err := ec.field_Query_VestSearch_args(context.TODO(), rawArgs)
+		if err != nil {
+			return 0, false
+		}
+
+		return e.complexity.Query.VestSearch(childComplexity, args["queryText"].(string), args["prove"].(*bool)), true
+
+	case "Query.Vests":
+		if e.complexity.Query.Vests == nil {
+			break
+		}
+
+		args, err := ec.field_Query_Vests_args(context.TODO(), rawArgs)
+		if err != nil {
+			return 0, false
+		}
+
+		return e.complexity.Query.Vests(childComplexity, args["where"].(*string), args["order_by"].(*string), args["asc"].(*bool), args["first"].(*int), args["last"].(*int), args["limit"].(*int), args["prove"].(*bool)), true
+
 	case "User.address":
 		if e.complexity.User.Address == nil {
 			break
 		}
 
 		return e.complexity.User.Address(childComplexity), true
+
+	case "User.DPoolIDs":
+		if e.complexity.User.DPoolIDs == nil {
+			break
+		}
+
+		return e.complexity.User.DPoolIDs(childComplexity), true
+
+	case "User.DepositIDs":
+		if e.complexity.User.DepositIDs == nil {
+			break
+		}
+
+		return e.complexity.User.DepositIDs(childComplexity), true
 
 	case "User.deposits":
 		if e.complexity.User.Deposits == nil {
@@ -1594,6 +1931,20 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.User.TotalMPHPaidBack(childComplexity), true
 
+	case "User.UserTotalDepositIDs":
+		if e.complexity.User.UserTotalDepositIDs == nil {
+			break
+		}
+
+		return e.complexity.User.UserTotalDepositIDs(childComplexity), true
+
+	case "UserTotalDeposit.DPoolID":
+		if e.complexity.UserTotalDeposit.DPoolID == nil {
+			break
+		}
+
+		return e.complexity.UserTotalDeposit.DPoolID(childComplexity), true
+
 	case "UserTotalDeposit.id":
 		if e.complexity.UserTotalDeposit.ID == nil {
 			break
@@ -1649,6 +2000,69 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 		}
 
 		return e.complexity.UserTotalDeposit.User(childComplexity), true
+
+	case "UserTotalDeposit.UserID":
+		if e.complexity.UserTotalDeposit.UserID == nil {
+			break
+		}
+
+		return e.complexity.UserTotalDeposit.UserID(childComplexity), true
+
+	case "Vest.amount":
+		if e.complexity.Vest.Amount == nil {
+			break
+		}
+
+		return e.complexity.Vest.Amount(childComplexity), true
+
+	case "Vest.creationTimestamp":
+		if e.complexity.Vest.CreationTimestamp == nil {
+			break
+		}
+
+		return e.complexity.Vest.CreationTimestamp(childComplexity), true
+
+	case "Vest.id":
+		if e.complexity.Vest.ID == nil {
+			break
+		}
+
+		return e.complexity.Vest.ID(childComplexity), true
+
+	case "Vest.index":
+		if e.complexity.Vest.Index == nil {
+			break
+		}
+
+		return e.complexity.Vest.Index(childComplexity), true
+
+	case "Vest.proof":
+		if e.complexity.Vest.Proof == nil {
+			break
+		}
+
+		return e.complexity.Vest.Proof(childComplexity), true
+
+	case "Vest.user":
+		if e.complexity.Vest.User == nil {
+			break
+		}
+
+		return e.complexity.Vest.User(childComplexity), true
+
+	case "Vest.vestPeriodInSeconds":
+		if e.complexity.Vest.VestPeriodInSeconds == nil {
+			break
+		}
+
+		return e.complexity.Vest.VestPeriodInSeconds(childComplexity), true
+
+	case "Vest.withdrawnAmount":
+		if e.complexity.Vest.WithdrawnAmount == nil {
+			break
+		}
+
+		return e.complexity.Vest.WithdrawnAmount(childComplexity), true
 
 	}
 	return 0, false
@@ -1752,40 +2166,52 @@ MPHHolderSearch(queryText: String!, prove: Boolean): [MPHHolder]!
 MPH(id: ID!, prove: Boolean): MPH!
 MPHs(where: String, order_by: String, asc: Boolean, first: Int, last: Int, limit: Int, prove: Boolean): [MPH]!
 MPHSearch(queryText: String!, prove: Boolean): [MPH]!
+Vest(id: ID!, prove: Boolean): Vest!
+Vests(where: String, order_by: String, asc: Boolean, first: Int, last: Int, limit: Int, prove: Boolean): [Vest]!
+VestSearch(queryText: String!, prove: Boolean): [Vest]!
+FractionalDeposit(id: ID!, prove: Boolean): FractionalDeposit!
+FractionalDeposits(where: String, order_by: String, asc: Boolean, first: Int, last: Int, limit: Int, prove: Boolean): [FractionalDeposit]!
+FractionalDepositSearch(queryText: String!, prove: Boolean): [FractionalDeposit]!
 
 }
 
 type Mutation {
-updateDPoolList(input: DPoolListInput!): Boolean
-updateDPool(input: DPoolInput!): Boolean
-updateUser(input: UserInput!): Boolean
-updateUserTotalDeposit(input: UserTotalDepositInput!): Boolean
-updateDeposit(input: DepositInput!): Boolean
-updateFunder(input: FunderInput!): Boolean
-updateFunderTotalInterest(input: FunderTotalInterestInput!): Boolean
-updateFunding(input: FundingInput!): Boolean
-updateMPHHolder(input: MPHHolderInput!): Boolean
-updateMPH(input: MPHInput!): Boolean
+UpdateDPoolList(input: DPoolListInput!): Boolean
+UpdateDPool(input: DPoolInput!): Boolean
+UpdateUser(input: UserInput!): Boolean
+UpdateUserTotalDeposit(input: UserTotalDepositInput!): Boolean
+UpdateDeposit(input: DepositInput!): Boolean
+UpdateFunder(input: FunderInput!): Boolean
+UpdateFunderTotalInterest(input: FunderTotalInterestInput!): Boolean
+UpdateFunding(input: FundingInput!): Boolean
+UpdateMPHHolder(input: MPHHolderInput!): Boolean
+UpdateMPH(input: MPHInput!): Boolean
+UpdateVest(input: VestInput!): Boolean
+UpdateFractionalDeposit(input: FractionalDepositInput!): Boolean
 
 }
 
 type DPoolList {
 id: ID
 pools: [DPool]  @goField(forceResolver: true)
-numPools: Int
-numUsers: Int
-numActiveUsers: Int
-numFunders: Int
+DPoolIDs: [String]
+
+numPools: BigInt
+numUsers: BigInt
+numActiveUsers: BigInt
+numFunders: BigInt
 proof: Proof
 }
 
 input DPoolListInput {
 id: ID
-numPools: Int
-numUsers: Int
-numActiveUsers: Int
-numFunders: Int
-ProofID: String
+
+DPoolIDs: [String]
+numPools: BigInt
+numUsers: BigInt
+numActiveUsers: BigInt
+numFunders: BigInt
+
 }
 
 type DPool {
@@ -1795,29 +2221,37 @@ moneyMarket: String
 stablecoin: String
 interestModel: String
 users: [User]  @goField(forceResolver: true)
-numUsers: Int
+UserIDs: [String]
+
+numUsers: BigInt
 deposits: [Deposit]  @goField(forceResolver: true)
-numDeposits: Int
-numActiveDeposits: String
-totalActiveDeposit: String
-totalHistoricalDeposit: String
-totalInterestPaid: String
-unfundedDepositAmount: String
+DepositIDs: [String]
+
+numDeposits: BigInt
+numActiveDeposits: BigInt
+totalActiveDeposit: BigDecimal
+totalHistoricalDeposit: BigDecimal
+totalInterestPaid: BigDecimal
+unfundedDepositAmount: BigDecimal
 funders: [Funder]  @goField(forceResolver: true)
-numFunders: String
+FunderIDs: [String]
+
+numFunders: BigInt
 fundings: [Funding]  @goField(forceResolver: true)
-numFundings: String
-MinDepositPeriod: Float
-MaxDepositPeriod: Float
-MinDepositAmount: Float
-MaxDepositAmount: Float
-mphMintingMultiplier: Float
-mphDepositorRewardMultiplier: Float
-mphFunderRewardMultiplier: Float
-oneYearInterestRate: Float
-surplus: String
-moneyMarketIncomeIndex: String
-oracleInterestRate: String
+FundingIDs: [String]
+
+numFundings: BigInt
+MinDepositPeriod: BigInt
+MaxDepositPeriod: BigInt
+MinDepositAmount: BigDecimal
+MaxDepositAmount: BigDecimal
+mphDepositorRewardMintMultiplier: BigDecimal
+mphDepositorRewardTakeBackMultiplier: BigDecimal
+mphFunderRewardMultiplier: BigDecimal
+oneYearInterestRate: BigDecimal
+surplus: BigDecimal
+moneyMarketIncomeIndex: BigInt
+oracleInterestRate: BigDecimal
 proof: Proof
 }
 
@@ -1828,43 +2262,53 @@ moneyMarket: String
 stablecoin: String
 interestModel: String
 
-numUsers: Int
+UserIDs: [String]
+numUsers: BigInt
 
-numDeposits: Int
-numActiveDeposits: String
-totalActiveDeposit: String
-totalHistoricalDeposit: String
-totalInterestPaid: String
-unfundedDepositAmount: String
+DepositIDs: [String]
+numDeposits: BigInt
+numActiveDeposits: BigInt
+totalActiveDeposit: BigDecimal
+totalHistoricalDeposit: BigDecimal
+totalInterestPaid: BigDecimal
+unfundedDepositAmount: BigDecimal
 
-numFunders: String
+FunderIDs: [String]
+numFunders: BigInt
 
-numFundings: String
-MinDepositPeriod: Float
-MaxDepositPeriod: Float
-MinDepositAmount: Float
-MaxDepositAmount: Float
-mphMintingMultiplier: Float
-mphDepositorRewardMultiplier: Float
-mphFunderRewardMultiplier: Float
-oneYearInterestRate: Float
-surplus: String
-moneyMarketIncomeIndex: String
-oracleInterestRate: String
-ProofID: String
+FundingIDs: [String]
+numFundings: BigInt
+MinDepositPeriod: BigInt
+MaxDepositPeriod: BigInt
+MinDepositAmount: BigDecimal
+MaxDepositAmount: BigDecimal
+mphDepositorRewardMintMultiplier: BigDecimal
+mphDepositorRewardTakeBackMultiplier: BigDecimal
+mphFunderRewardMultiplier: BigDecimal
+oneYearInterestRate: BigDecimal
+surplus: BigDecimal
+moneyMarketIncomeIndex: BigInt
+oracleInterestRate: BigDecimal
+
 }
 
 type User {
 id: ID
 address: String
 pools: [DPool]  @goField(forceResolver: true)
-numPools: String
+DPoolIDs: [String]
+
+numPools: BigInt
 deposits: [Deposit]  @goField(forceResolver: true)
-numDeposits: String
-numActiveDeposits: String
+DepositIDs: [String]
+
+numDeposits: BigInt
+numActiveDeposits: BigInt
 totalDepositByPool: [UserTotalDeposit]  @goField(forceResolver: true)
-totalMPHEarned: String
-totalMPHPaidBack: String
+UserTotalDepositIDs: [String]
+
+totalMPHEarned: BigDecimal
+totalMPHPaidBack: BigDecimal
 proof: Proof
 }
 
@@ -1872,81 +2316,108 @@ input UserInput {
 id: ID
 address: String
 
-numPools: String
+DPoolIDs: [String]
+numPools: BigInt
 
-numDeposits: String
-numActiveDeposits: String
+DepositIDs: [String]
+numDeposits: BigInt
+numActiveDeposits: BigInt
 
-totalMPHEarned: String
-totalMPHPaidBack: String
-ProofID: String
+UserTotalDepositIDs: [String]
+totalMPHEarned: BigDecimal
+totalMPHPaidBack: BigDecimal
+
 }
 
 type UserTotalDeposit {
 id: ID
 user: User  @goField(forceResolver: true)
+UserID: String
+
 pool: DPool  @goField(forceResolver: true)
-totalActiveDeposit: String
-totalHistoricalDeposit: String
-totalInterestEarned: String
-totalHistoricalInterestEarned: String
+DPoolID: String
+
+totalActiveDeposit: BigDecimal
+totalHistoricalDeposit: BigDecimal
+totalInterestEarned: BigDecimal
+totalHistoricalInterestEarned: BigDecimal
 proof: Proof
 }
 
 input UserTotalDepositInput {
 id: ID
 
+UserID: String
 
-totalActiveDeposit: String
-totalHistoricalDeposit: String
-totalInterestEarned: String
-totalHistoricalInterestEarned: String
-ProofID: String
+DPoolID: String
+totalActiveDeposit: BigDecimal
+totalHistoricalDeposit: BigDecimal
+totalInterestEarned: BigDecimal
+totalHistoricalInterestEarned: BigDecimal
+
 }
 
 type Deposit {
 id: ID
-nftID: String
+nftID: BigInt
 user: User  @goField(forceResolver: true)
+UserID: String
+
 pool: DPool  @goField(forceResolver: true)
-amount: String
-maturationTimestamp: String
+DPoolID: String
+
+amount: BigDecimal
+maturationTimestamp: BigInt
 active: Boolean
-depositTimestamp: String
-interestEarned: String
-fundingID: String
-mintMPHAmount: String
-takeBackMPHAmount: String
-initialMoneyMarketIncomeIndex: String
+depositTimestamp: BigInt
+depositLength: BigInt
+interestEarned: BigDecimal
+fundingID: BigInt
+mintMPHAmount: BigDecimal
+takeBackMPHAmount: BigDecimal
+initialMoneyMarketIncomeIndex: BigInt
+fundingInterestPaid: BigDecimal
+fundingRefundAmount: BigDecimal
 proof: Proof
 }
 
 input DepositInput {
 id: ID
-nftID: String
+nftID: BigInt
 
+UserID: String
 
-amount: String
-maturationTimestamp: String
+DPoolID: String
+amount: BigDecimal
+maturationTimestamp: BigInt
 active: Boolean
-depositTimestamp: String
-interestEarned: String
-fundingID: String
-mintMPHAmount: String
-takeBackMPHAmount: String
-initialMoneyMarketIncomeIndex: String
-ProofID: String
+depositTimestamp: BigInt
+depositLength: BigInt
+interestEarned: BigDecimal
+fundingID: BigInt
+mintMPHAmount: BigDecimal
+takeBackMPHAmount: BigDecimal
+initialMoneyMarketIncomeIndex: BigInt
+fundingInterestPaid: BigDecimal
+fundingRefundAmount: BigDecimal
+
 }
 
 type Funder {
 id: ID
 address: String
 pools: [DPool]  @goField(forceResolver: true)
-numPools: String
+DPoolIDs: [String]
+
+numPools: BigInt
 fundings: [Funding]  @goField(forceResolver: true)
-numFundings: String
-totalMPHEarned: String
+FundingIDs: [String]
+
+numFundings: BigInt
+totalMPHEarned: BigDecimal
 totalInterestByPool: [FunderTotalInterest]  @goField(forceResolver: true)
+FunderTotalInterestIDs: [String]
+
 proof: Proof
 }
 
@@ -1954,108 +2425,164 @@ input FunderInput {
 id: ID
 address: String
 
-numPools: String
+DPoolIDs: [String]
+numPools: BigInt
 
-numFundings: String
-totalMPHEarned: String
+FundingIDs: [String]
+numFundings: BigInt
+totalMPHEarned: BigDecimal
 
-ProofID: String
+FunderTotalInterestIDs: [String]
+
 }
 
 type FunderTotalInterest {
 id: ID
 funder: Funder  @goField(forceResolver: true)
+FunderID: String
+
 pool: DPool  @goField(forceResolver: true)
-totalDeficitFunded: String
-totalHistoricalDeficitFunded: String
-totalInterestEarned: String
-totalHistoricalInterestEarned: String
-totalRecordedFundedDepositAmount: String
+DPoolID: String
+
+totalDeficitFunded: BigDecimal
+totalHistoricalDeficitFunded: BigDecimal
+totalInterestEarned: BigDecimal
+totalHistoricalInterestEarned: BigDecimal
+totalRecordedFundedDepositAmount: BigDecimal
 proof: Proof
 }
 
 input FunderTotalInterestInput {
 id: ID
 
+FunderID: String
 
-totalDeficitFunded: String
-totalHistoricalDeficitFunded: String
-totalInterestEarned: String
-totalHistoricalInterestEarned: String
-totalRecordedFundedDepositAmount: String
-ProofID: String
+DPoolID: String
+totalDeficitFunded: BigDecimal
+totalHistoricalDeficitFunded: BigDecimal
+totalInterestEarned: BigDecimal
+totalHistoricalInterestEarned: BigDecimal
+totalRecordedFundedDepositAmount: BigDecimal
+
 }
 
 type Funding {
 id: ID
-nftID: String
+nftID: BigInt
 funder: Funder  @goField(forceResolver: true)
+FunderID: String
+
 pool: DPool  @goField(forceResolver: true)
-fromDepositID: String
-toDepositID: String
+DPoolID: String
+
+fromDepositID: BigInt
+toDepositID: BigInt
 active: Boolean
-recordedFundedDepositAmount: String
-recordedMoneyMarketIncomeIndex: String
-initialFundedDepositAmount: String
-fundedDeficitAmount: String
-totalInterestEarned: String
-mintMPHAmount: String
+recordedFundedDepositAmount: BigDecimal
+recordedMoneyMarketIncomeIndex: BigInt
+initialFundedDepositAmount: BigDecimal
+fundedDeficitAmount: BigDecimal
+totalInterestEarned: BigDecimal
+creationTimestamp: BigInt
+mphRewardEarned: BigDecimal
+refundAmount: BigDecimal
 proof: Proof
 }
 
 input FundingInput {
 id: ID
-nftID: String
+nftID: BigInt
 
+FunderID: String
 
-fromDepositID: String
-toDepositID: String
+DPoolID: String
+fromDepositID: BigInt
+toDepositID: BigInt
 active: Boolean
-recordedFundedDepositAmount: String
-recordedMoneyMarketIncomeIndex: String
-initialFundedDepositAmount: String
-fundedDeficitAmount: String
-totalInterestEarned: String
-mintMPHAmount: String
-ProofID: String
+recordedFundedDepositAmount: BigDecimal
+recordedMoneyMarketIncomeIndex: BigInt
+initialFundedDepositAmount: BigDecimal
+fundedDeficitAmount: BigDecimal
+totalInterestEarned: BigDecimal
+creationTimestamp: BigInt
+mphRewardEarned: BigDecimal
+refundAmount: BigDecimal
+
 }
 
 type MPHHolder {
 id: ID
 address: String
-mphBalance: String
-stakedMPHBalance: String
-totalHistoricalReward: String
+totalHistoricalReward: BigDecimal
 proof: Proof
 }
 
 input MPHHolderInput {
 id: ID
 address: String
-mphBalance: String
-stakedMPHBalance: String
-totalHistoricalReward: String
-ProofID: String
+totalHistoricalReward: BigDecimal
+
 }
 
 type MPH {
 id: ID
-totalSupply: String
-totalStakedMPHBalance: String
-totalHistoricalReward: String
-rewardPerSecond: String
-rewardPerMPHPerSecond: String
+totalHistoricalReward: BigDecimal
+rewardPerSecond: BigDecimal
+rewardPerMPHPerSecond: BigDecimal
 proof: Proof
 }
 
 input MPHInput {
 id: ID
-totalSupply: String
-totalStakedMPHBalance: String
-totalHistoricalReward: String
-rewardPerSecond: String
-rewardPerMPHPerSecond: String
-ProofID: String
+totalHistoricalReward: BigDecimal
+rewardPerSecond: BigDecimal
+rewardPerMPHPerSecond: BigDecimal
+
+}
+
+type Vest {
+id: ID
+index: BigInt
+user: String
+amount: BigDecimal
+vestPeriodInSeconds: BigInt
+creationTimestamp: BigInt
+withdrawnAmount: BigDecimal
+proof: Proof
+}
+
+input VestInput {
+id: ID
+index: BigInt
+user: String
+amount: BigDecimal
+vestPeriodInSeconds: BigInt
+creationTimestamp: BigInt
+withdrawnAmount: BigDecimal
+
+}
+
+type FractionalDeposit {
+id: ID
+address: String
+zeroCouponBondAddress: String
+ownerAddress: String
+active: Boolean
+deposit: Deposit  @goField(forceResolver: true)
+DepositID: String
+
+proof: Proof
+}
+
+input FractionalDepositInput {
+id: ID
+address: String
+zeroCouponBondAddress: String
+ownerAddress: String
+active: Boolean
+
+DepositID: String
+
 }
 
 type Proof {
@@ -2076,7 +2603,7 @@ var parsedSchema = gqlparser.MustLoadSchema(sources...)
 
 // region    ***************************** args.gotpl *****************************
 
-func (ec *executionContext) field_Mutation_updateDPoolList_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
+func (ec *executionContext) field_Mutation_UpdateDPoolList_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
 	var arg0 models.DPoolListInput
@@ -2091,7 +2618,7 @@ func (ec *executionContext) field_Mutation_updateDPoolList_args(ctx context.Cont
 	return args, nil
 }
 
-func (ec *executionContext) field_Mutation_updateDPool_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
+func (ec *executionContext) field_Mutation_UpdateDPool_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
 	var arg0 models.DPoolInput
@@ -2106,7 +2633,7 @@ func (ec *executionContext) field_Mutation_updateDPool_args(ctx context.Context,
 	return args, nil
 }
 
-func (ec *executionContext) field_Mutation_updateDeposit_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
+func (ec *executionContext) field_Mutation_UpdateDeposit_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
 	var arg0 models.DepositInput
@@ -2121,7 +2648,22 @@ func (ec *executionContext) field_Mutation_updateDeposit_args(ctx context.Contex
 	return args, nil
 }
 
-func (ec *executionContext) field_Mutation_updateFunderTotalInterest_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
+func (ec *executionContext) field_Mutation_UpdateFractionalDeposit_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
+	var err error
+	args := map[string]interface{}{}
+	var arg0 models.FractionalDepositInput
+	if tmp, ok := rawArgs["input"]; ok {
+		ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("input"))
+		arg0, err = ec.unmarshalNFractionalDepositInput2githubᚗcomᚋproximaᚑoneᚋproximaᚑdataᚑvertexᚋpkgᚋmodelsᚐFractionalDepositInput(ctx, tmp)
+		if err != nil {
+			return nil, err
+		}
+	}
+	args["input"] = arg0
+	return args, nil
+}
+
+func (ec *executionContext) field_Mutation_UpdateFunderTotalInterest_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
 	var arg0 models.FunderTotalInterestInput
@@ -2136,7 +2678,7 @@ func (ec *executionContext) field_Mutation_updateFunderTotalInterest_args(ctx co
 	return args, nil
 }
 
-func (ec *executionContext) field_Mutation_updateFunder_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
+func (ec *executionContext) field_Mutation_UpdateFunder_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
 	var arg0 models.FunderInput
@@ -2151,7 +2693,7 @@ func (ec *executionContext) field_Mutation_updateFunder_args(ctx context.Context
 	return args, nil
 }
 
-func (ec *executionContext) field_Mutation_updateFunding_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
+func (ec *executionContext) field_Mutation_UpdateFunding_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
 	var arg0 models.FundingInput
@@ -2166,7 +2708,7 @@ func (ec *executionContext) field_Mutation_updateFunding_args(ctx context.Contex
 	return args, nil
 }
 
-func (ec *executionContext) field_Mutation_updateMPHHolder_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
+func (ec *executionContext) field_Mutation_UpdateMPHHolder_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
 	var arg0 models.MPHHolderInput
@@ -2181,7 +2723,7 @@ func (ec *executionContext) field_Mutation_updateMPHHolder_args(ctx context.Cont
 	return args, nil
 }
 
-func (ec *executionContext) field_Mutation_updateMPH_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
+func (ec *executionContext) field_Mutation_UpdateMPH_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
 	var arg0 models.MPHInput
@@ -2196,7 +2738,7 @@ func (ec *executionContext) field_Mutation_updateMPH_args(ctx context.Context, r
 	return args, nil
 }
 
-func (ec *executionContext) field_Mutation_updateUserTotalDeposit_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
+func (ec *executionContext) field_Mutation_UpdateUserTotalDeposit_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
 	var arg0 models.UserTotalDepositInput
@@ -2211,13 +2753,28 @@ func (ec *executionContext) field_Mutation_updateUserTotalDeposit_args(ctx conte
 	return args, nil
 }
 
-func (ec *executionContext) field_Mutation_updateUser_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
+func (ec *executionContext) field_Mutation_UpdateUser_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
 	var arg0 models.UserInput
 	if tmp, ok := rawArgs["input"]; ok {
 		ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("input"))
 		arg0, err = ec.unmarshalNUserInput2githubᚗcomᚋproximaᚑoneᚋproximaᚑdataᚑvertexᚋpkgᚋmodelsᚐUserInput(ctx, tmp)
+		if err != nil {
+			return nil, err
+		}
+	}
+	args["input"] = arg0
+	return args, nil
+}
+
+func (ec *executionContext) field_Mutation_UpdateVest_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
+	var err error
+	args := map[string]interface{}{}
+	var arg0 models.VestInput
+	if tmp, ok := rawArgs["input"]; ok {
+		ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("input"))
+		arg0, err = ec.unmarshalNVestInput2githubᚗcomᚋproximaᚑoneᚋproximaᚑdataᚑvertexᚋpkgᚋmodelsᚐVestInput(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -2509,6 +3066,123 @@ func (ec *executionContext) field_Query_Deposit_args(ctx context.Context, rawArg
 }
 
 func (ec *executionContext) field_Query_Deposits_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
+	var err error
+	args := map[string]interface{}{}
+	var arg0 *string
+	if tmp, ok := rawArgs["where"]; ok {
+		ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("where"))
+		arg0, err = ec.unmarshalOString2ᚖstring(ctx, tmp)
+		if err != nil {
+			return nil, err
+		}
+	}
+	args["where"] = arg0
+	var arg1 *string
+	if tmp, ok := rawArgs["order_by"]; ok {
+		ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("order_by"))
+		arg1, err = ec.unmarshalOString2ᚖstring(ctx, tmp)
+		if err != nil {
+			return nil, err
+		}
+	}
+	args["order_by"] = arg1
+	var arg2 *bool
+	if tmp, ok := rawArgs["asc"]; ok {
+		ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("asc"))
+		arg2, err = ec.unmarshalOBoolean2ᚖbool(ctx, tmp)
+		if err != nil {
+			return nil, err
+		}
+	}
+	args["asc"] = arg2
+	var arg3 *int
+	if tmp, ok := rawArgs["first"]; ok {
+		ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("first"))
+		arg3, err = ec.unmarshalOInt2ᚖint(ctx, tmp)
+		if err != nil {
+			return nil, err
+		}
+	}
+	args["first"] = arg3
+	var arg4 *int
+	if tmp, ok := rawArgs["last"]; ok {
+		ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("last"))
+		arg4, err = ec.unmarshalOInt2ᚖint(ctx, tmp)
+		if err != nil {
+			return nil, err
+		}
+	}
+	args["last"] = arg4
+	var arg5 *int
+	if tmp, ok := rawArgs["limit"]; ok {
+		ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("limit"))
+		arg5, err = ec.unmarshalOInt2ᚖint(ctx, tmp)
+		if err != nil {
+			return nil, err
+		}
+	}
+	args["limit"] = arg5
+	var arg6 *bool
+	if tmp, ok := rawArgs["prove"]; ok {
+		ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("prove"))
+		arg6, err = ec.unmarshalOBoolean2ᚖbool(ctx, tmp)
+		if err != nil {
+			return nil, err
+		}
+	}
+	args["prove"] = arg6
+	return args, nil
+}
+
+func (ec *executionContext) field_Query_FractionalDepositSearch_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
+	var err error
+	args := map[string]interface{}{}
+	var arg0 string
+	if tmp, ok := rawArgs["queryText"]; ok {
+		ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("queryText"))
+		arg0, err = ec.unmarshalNString2string(ctx, tmp)
+		if err != nil {
+			return nil, err
+		}
+	}
+	args["queryText"] = arg0
+	var arg1 *bool
+	if tmp, ok := rawArgs["prove"]; ok {
+		ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("prove"))
+		arg1, err = ec.unmarshalOBoolean2ᚖbool(ctx, tmp)
+		if err != nil {
+			return nil, err
+		}
+	}
+	args["prove"] = arg1
+	return args, nil
+}
+
+func (ec *executionContext) field_Query_FractionalDeposit_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
+	var err error
+	args := map[string]interface{}{}
+	var arg0 string
+	if tmp, ok := rawArgs["id"]; ok {
+		ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("id"))
+		arg0, err = ec.unmarshalNID2string(ctx, tmp)
+		if err != nil {
+			return nil, err
+		}
+	}
+	args["id"] = arg0
+	var arg1 *bool
+	if tmp, ok := rawArgs["prove"]; ok {
+		ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("prove"))
+		arg1, err = ec.unmarshalOBoolean2ᚖbool(ctx, tmp)
+		if err != nil {
+			return nil, err
+		}
+	}
+	args["prove"] = arg1
+	return args, nil
+}
+
+func (ec *executionContext) field_Query_FractionalDeposits_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
 	var arg0 *string
@@ -3396,6 +4070,123 @@ func (ec *executionContext) field_Query_Users_args(ctx context.Context, rawArgs 
 	return args, nil
 }
 
+func (ec *executionContext) field_Query_VestSearch_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
+	var err error
+	args := map[string]interface{}{}
+	var arg0 string
+	if tmp, ok := rawArgs["queryText"]; ok {
+		ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("queryText"))
+		arg0, err = ec.unmarshalNString2string(ctx, tmp)
+		if err != nil {
+			return nil, err
+		}
+	}
+	args["queryText"] = arg0
+	var arg1 *bool
+	if tmp, ok := rawArgs["prove"]; ok {
+		ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("prove"))
+		arg1, err = ec.unmarshalOBoolean2ᚖbool(ctx, tmp)
+		if err != nil {
+			return nil, err
+		}
+	}
+	args["prove"] = arg1
+	return args, nil
+}
+
+func (ec *executionContext) field_Query_Vest_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
+	var err error
+	args := map[string]interface{}{}
+	var arg0 string
+	if tmp, ok := rawArgs["id"]; ok {
+		ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("id"))
+		arg0, err = ec.unmarshalNID2string(ctx, tmp)
+		if err != nil {
+			return nil, err
+		}
+	}
+	args["id"] = arg0
+	var arg1 *bool
+	if tmp, ok := rawArgs["prove"]; ok {
+		ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("prove"))
+		arg1, err = ec.unmarshalOBoolean2ᚖbool(ctx, tmp)
+		if err != nil {
+			return nil, err
+		}
+	}
+	args["prove"] = arg1
+	return args, nil
+}
+
+func (ec *executionContext) field_Query_Vests_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
+	var err error
+	args := map[string]interface{}{}
+	var arg0 *string
+	if tmp, ok := rawArgs["where"]; ok {
+		ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("where"))
+		arg0, err = ec.unmarshalOString2ᚖstring(ctx, tmp)
+		if err != nil {
+			return nil, err
+		}
+	}
+	args["where"] = arg0
+	var arg1 *string
+	if tmp, ok := rawArgs["order_by"]; ok {
+		ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("order_by"))
+		arg1, err = ec.unmarshalOString2ᚖstring(ctx, tmp)
+		if err != nil {
+			return nil, err
+		}
+	}
+	args["order_by"] = arg1
+	var arg2 *bool
+	if tmp, ok := rawArgs["asc"]; ok {
+		ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("asc"))
+		arg2, err = ec.unmarshalOBoolean2ᚖbool(ctx, tmp)
+		if err != nil {
+			return nil, err
+		}
+	}
+	args["asc"] = arg2
+	var arg3 *int
+	if tmp, ok := rawArgs["first"]; ok {
+		ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("first"))
+		arg3, err = ec.unmarshalOInt2ᚖint(ctx, tmp)
+		if err != nil {
+			return nil, err
+		}
+	}
+	args["first"] = arg3
+	var arg4 *int
+	if tmp, ok := rawArgs["last"]; ok {
+		ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("last"))
+		arg4, err = ec.unmarshalOInt2ᚖint(ctx, tmp)
+		if err != nil {
+			return nil, err
+		}
+	}
+	args["last"] = arg4
+	var arg5 *int
+	if tmp, ok := rawArgs["limit"]; ok {
+		ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("limit"))
+		arg5, err = ec.unmarshalOInt2ᚖint(ctx, tmp)
+		if err != nil {
+			return nil, err
+		}
+	}
+	args["limit"] = arg5
+	var arg6 *bool
+	if tmp, ok := rawArgs["prove"]; ok {
+		ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("prove"))
+		arg6, err = ec.unmarshalOBoolean2ᚖbool(ctx, tmp)
+		if err != nil {
+			return nil, err
+		}
+	}
+	args["prove"] = arg6
+	return args, nil
+}
+
 func (ec *executionContext) field_Query___type_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
@@ -3718,6 +4509,37 @@ func (ec *executionContext) _DPool_users(ctx context.Context, field graphql.Coll
 	return ec.marshalOUser2ᚕᚖgithubᚗcomᚋproximaᚑoneᚋproximaᚑdataᚑvertexᚋpkgᚋmodelsᚐUser(ctx, field.Selections, res)
 }
 
+func (ec *executionContext) _DPool_UserIDs(ctx context.Context, field graphql.CollectedField, obj *models.DPool) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:   "DPool",
+		Field:    field,
+		Args:     nil,
+		IsMethod: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.UserIDs, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.([]*string)
+	fc.Result = res
+	return ec.marshalOString2ᚕᚖstring(ctx, field.Selections, res)
+}
+
 func (ec *executionContext) _DPool_numUsers(ctx context.Context, field graphql.CollectedField, obj *models.DPool) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
@@ -3744,9 +4566,9 @@ func (ec *executionContext) _DPool_numUsers(ctx context.Context, field graphql.C
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*int)
+	res := resTmp.(*int64)
 	fc.Result = res
-	return ec.marshalOInt2ᚖint(ctx, field.Selections, res)
+	return ec.marshalOBigInt2ᚖint64(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _DPool_deposits(ctx context.Context, field graphql.CollectedField, obj *models.DPool) (ret graphql.Marshaler) {
@@ -3780,6 +4602,37 @@ func (ec *executionContext) _DPool_deposits(ctx context.Context, field graphql.C
 	return ec.marshalODeposit2ᚕᚖgithubᚗcomᚋproximaᚑoneᚋproximaᚑdataᚑvertexᚋpkgᚋmodelsᚐDeposit(ctx, field.Selections, res)
 }
 
+func (ec *executionContext) _DPool_DepositIDs(ctx context.Context, field graphql.CollectedField, obj *models.DPool) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:   "DPool",
+		Field:    field,
+		Args:     nil,
+		IsMethod: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.DepositIDs, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.([]*string)
+	fc.Result = res
+	return ec.marshalOString2ᚕᚖstring(ctx, field.Selections, res)
+}
+
 func (ec *executionContext) _DPool_numDeposits(ctx context.Context, field graphql.CollectedField, obj *models.DPool) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
@@ -3806,9 +4659,9 @@ func (ec *executionContext) _DPool_numDeposits(ctx context.Context, field graphq
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*int)
+	res := resTmp.(*int64)
 	fc.Result = res
-	return ec.marshalOInt2ᚖint(ctx, field.Selections, res)
+	return ec.marshalOBigInt2ᚖint64(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _DPool_numActiveDeposits(ctx context.Context, field graphql.CollectedField, obj *models.DPool) (ret graphql.Marshaler) {
@@ -3837,9 +4690,9 @@ func (ec *executionContext) _DPool_numActiveDeposits(ctx context.Context, field 
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*string)
+	res := resTmp.(*int64)
 	fc.Result = res
-	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
+	return ec.marshalOBigInt2ᚖint64(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _DPool_totalActiveDeposit(ctx context.Context, field graphql.CollectedField, obj *models.DPool) (ret graphql.Marshaler) {
@@ -3868,9 +4721,9 @@ func (ec *executionContext) _DPool_totalActiveDeposit(ctx context.Context, field
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*string)
+	res := resTmp.(*float64)
 	fc.Result = res
-	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
+	return ec.marshalOBigDecimal2ᚖfloat64(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _DPool_totalHistoricalDeposit(ctx context.Context, field graphql.CollectedField, obj *models.DPool) (ret graphql.Marshaler) {
@@ -3899,9 +4752,9 @@ func (ec *executionContext) _DPool_totalHistoricalDeposit(ctx context.Context, f
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*string)
+	res := resTmp.(*float64)
 	fc.Result = res
-	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
+	return ec.marshalOBigDecimal2ᚖfloat64(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _DPool_totalInterestPaid(ctx context.Context, field graphql.CollectedField, obj *models.DPool) (ret graphql.Marshaler) {
@@ -3930,9 +4783,9 @@ func (ec *executionContext) _DPool_totalInterestPaid(ctx context.Context, field 
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*string)
+	res := resTmp.(*float64)
 	fc.Result = res
-	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
+	return ec.marshalOBigDecimal2ᚖfloat64(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _DPool_unfundedDepositAmount(ctx context.Context, field graphql.CollectedField, obj *models.DPool) (ret graphql.Marshaler) {
@@ -3961,9 +4814,9 @@ func (ec *executionContext) _DPool_unfundedDepositAmount(ctx context.Context, fi
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*string)
+	res := resTmp.(*float64)
 	fc.Result = res
-	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
+	return ec.marshalOBigDecimal2ᚖfloat64(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _DPool_funders(ctx context.Context, field graphql.CollectedField, obj *models.DPool) (ret graphql.Marshaler) {
@@ -3997,6 +4850,37 @@ func (ec *executionContext) _DPool_funders(ctx context.Context, field graphql.Co
 	return ec.marshalOFunder2ᚕᚖgithubᚗcomᚋproximaᚑoneᚋproximaᚑdataᚑvertexᚋpkgᚋmodelsᚐFunder(ctx, field.Selections, res)
 }
 
+func (ec *executionContext) _DPool_FunderIDs(ctx context.Context, field graphql.CollectedField, obj *models.DPool) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:   "DPool",
+		Field:    field,
+		Args:     nil,
+		IsMethod: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.FunderIDs, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.([]*string)
+	fc.Result = res
+	return ec.marshalOString2ᚕᚖstring(ctx, field.Selections, res)
+}
+
 func (ec *executionContext) _DPool_numFunders(ctx context.Context, field graphql.CollectedField, obj *models.DPool) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
@@ -4023,9 +4907,9 @@ func (ec *executionContext) _DPool_numFunders(ctx context.Context, field graphql
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*string)
+	res := resTmp.(*int64)
 	fc.Result = res
-	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
+	return ec.marshalOBigInt2ᚖint64(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _DPool_fundings(ctx context.Context, field graphql.CollectedField, obj *models.DPool) (ret graphql.Marshaler) {
@@ -4059,6 +4943,37 @@ func (ec *executionContext) _DPool_fundings(ctx context.Context, field graphql.C
 	return ec.marshalOFunding2ᚕᚖgithubᚗcomᚋproximaᚑoneᚋproximaᚑdataᚑvertexᚋpkgᚋmodelsᚐFunding(ctx, field.Selections, res)
 }
 
+func (ec *executionContext) _DPool_FundingIDs(ctx context.Context, field graphql.CollectedField, obj *models.DPool) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:   "DPool",
+		Field:    field,
+		Args:     nil,
+		IsMethod: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.FundingIDs, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.([]*string)
+	fc.Result = res
+	return ec.marshalOString2ᚕᚖstring(ctx, field.Selections, res)
+}
+
 func (ec *executionContext) _DPool_numFundings(ctx context.Context, field graphql.CollectedField, obj *models.DPool) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
@@ -4085,9 +5000,9 @@ func (ec *executionContext) _DPool_numFundings(ctx context.Context, field graphq
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*string)
+	res := resTmp.(*int64)
 	fc.Result = res
-	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
+	return ec.marshalOBigInt2ᚖint64(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _DPool_MinDepositPeriod(ctx context.Context, field graphql.CollectedField, obj *models.DPool) (ret graphql.Marshaler) {
@@ -4116,9 +5031,9 @@ func (ec *executionContext) _DPool_MinDepositPeriod(ctx context.Context, field g
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*float64)
+	res := resTmp.(*int64)
 	fc.Result = res
-	return ec.marshalOFloat2ᚖfloat64(ctx, field.Selections, res)
+	return ec.marshalOBigInt2ᚖint64(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _DPool_MaxDepositPeriod(ctx context.Context, field graphql.CollectedField, obj *models.DPool) (ret graphql.Marshaler) {
@@ -4147,9 +5062,9 @@ func (ec *executionContext) _DPool_MaxDepositPeriod(ctx context.Context, field g
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*float64)
+	res := resTmp.(*int64)
 	fc.Result = res
-	return ec.marshalOFloat2ᚖfloat64(ctx, field.Selections, res)
+	return ec.marshalOBigInt2ᚖint64(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _DPool_MinDepositAmount(ctx context.Context, field graphql.CollectedField, obj *models.DPool) (ret graphql.Marshaler) {
@@ -4180,7 +5095,7 @@ func (ec *executionContext) _DPool_MinDepositAmount(ctx context.Context, field g
 	}
 	res := resTmp.(*float64)
 	fc.Result = res
-	return ec.marshalOFloat2ᚖfloat64(ctx, field.Selections, res)
+	return ec.marshalOBigDecimal2ᚖfloat64(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _DPool_MaxDepositAmount(ctx context.Context, field graphql.CollectedField, obj *models.DPool) (ret graphql.Marshaler) {
@@ -4211,10 +5126,10 @@ func (ec *executionContext) _DPool_MaxDepositAmount(ctx context.Context, field g
 	}
 	res := resTmp.(*float64)
 	fc.Result = res
-	return ec.marshalOFloat2ᚖfloat64(ctx, field.Selections, res)
+	return ec.marshalOBigDecimal2ᚖfloat64(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _DPool_mphMintingMultiplier(ctx context.Context, field graphql.CollectedField, obj *models.DPool) (ret graphql.Marshaler) {
+func (ec *executionContext) _DPool_mphDepositorRewardMintMultiplier(ctx context.Context, field graphql.CollectedField, obj *models.DPool) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -4231,7 +5146,7 @@ func (ec *executionContext) _DPool_mphMintingMultiplier(ctx context.Context, fie
 	ctx = graphql.WithFieldContext(ctx, fc)
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return obj.MphMintingMultiplier, nil
+		return obj.MphDepositorRewardMintMultiplier, nil
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -4242,10 +5157,10 @@ func (ec *executionContext) _DPool_mphMintingMultiplier(ctx context.Context, fie
 	}
 	res := resTmp.(*float64)
 	fc.Result = res
-	return ec.marshalOFloat2ᚖfloat64(ctx, field.Selections, res)
+	return ec.marshalOBigDecimal2ᚖfloat64(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _DPool_mphDepositorRewardMultiplier(ctx context.Context, field graphql.CollectedField, obj *models.DPool) (ret graphql.Marshaler) {
+func (ec *executionContext) _DPool_mphDepositorRewardTakeBackMultiplier(ctx context.Context, field graphql.CollectedField, obj *models.DPool) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -4262,7 +5177,7 @@ func (ec *executionContext) _DPool_mphDepositorRewardMultiplier(ctx context.Cont
 	ctx = graphql.WithFieldContext(ctx, fc)
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return obj.MphDepositorRewardMultiplier, nil
+		return obj.MphDepositorRewardTakeBackMultiplier, nil
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -4273,7 +5188,7 @@ func (ec *executionContext) _DPool_mphDepositorRewardMultiplier(ctx context.Cont
 	}
 	res := resTmp.(*float64)
 	fc.Result = res
-	return ec.marshalOFloat2ᚖfloat64(ctx, field.Selections, res)
+	return ec.marshalOBigDecimal2ᚖfloat64(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _DPool_mphFunderRewardMultiplier(ctx context.Context, field graphql.CollectedField, obj *models.DPool) (ret graphql.Marshaler) {
@@ -4304,7 +5219,7 @@ func (ec *executionContext) _DPool_mphFunderRewardMultiplier(ctx context.Context
 	}
 	res := resTmp.(*float64)
 	fc.Result = res
-	return ec.marshalOFloat2ᚖfloat64(ctx, field.Selections, res)
+	return ec.marshalOBigDecimal2ᚖfloat64(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _DPool_oneYearInterestRate(ctx context.Context, field graphql.CollectedField, obj *models.DPool) (ret graphql.Marshaler) {
@@ -4335,7 +5250,7 @@ func (ec *executionContext) _DPool_oneYearInterestRate(ctx context.Context, fiel
 	}
 	res := resTmp.(*float64)
 	fc.Result = res
-	return ec.marshalOFloat2ᚖfloat64(ctx, field.Selections, res)
+	return ec.marshalOBigDecimal2ᚖfloat64(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _DPool_surplus(ctx context.Context, field graphql.CollectedField, obj *models.DPool) (ret graphql.Marshaler) {
@@ -4364,9 +5279,9 @@ func (ec *executionContext) _DPool_surplus(ctx context.Context, field graphql.Co
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*string)
+	res := resTmp.(*float64)
 	fc.Result = res
-	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
+	return ec.marshalOBigDecimal2ᚖfloat64(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _DPool_moneyMarketIncomeIndex(ctx context.Context, field graphql.CollectedField, obj *models.DPool) (ret graphql.Marshaler) {
@@ -4395,9 +5310,9 @@ func (ec *executionContext) _DPool_moneyMarketIncomeIndex(ctx context.Context, f
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*string)
+	res := resTmp.(*int64)
 	fc.Result = res
-	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
+	return ec.marshalOBigInt2ᚖint64(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _DPool_oracleInterestRate(ctx context.Context, field graphql.CollectedField, obj *models.DPool) (ret graphql.Marshaler) {
@@ -4426,9 +5341,9 @@ func (ec *executionContext) _DPool_oracleInterestRate(ctx context.Context, field
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*string)
+	res := resTmp.(*float64)
 	fc.Result = res
-	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
+	return ec.marshalOBigDecimal2ᚖfloat64(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _DPool_proof(ctx context.Context, field graphql.CollectedField, obj *models.DPool) (ret graphql.Marshaler) {
@@ -4524,6 +5439,37 @@ func (ec *executionContext) _DPoolList_pools(ctx context.Context, field graphql.
 	return ec.marshalODPool2ᚕᚖgithubᚗcomᚋproximaᚑoneᚋproximaᚑdataᚑvertexᚋpkgᚋmodelsᚐDPool(ctx, field.Selections, res)
 }
 
+func (ec *executionContext) _DPoolList_DPoolIDs(ctx context.Context, field graphql.CollectedField, obj *models.DPoolList) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:   "DPoolList",
+		Field:    field,
+		Args:     nil,
+		IsMethod: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.DPoolIDs, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.([]*string)
+	fc.Result = res
+	return ec.marshalOString2ᚕᚖstring(ctx, field.Selections, res)
+}
+
 func (ec *executionContext) _DPoolList_numPools(ctx context.Context, field graphql.CollectedField, obj *models.DPoolList) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
@@ -4550,9 +5496,9 @@ func (ec *executionContext) _DPoolList_numPools(ctx context.Context, field graph
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*int)
+	res := resTmp.(*int64)
 	fc.Result = res
-	return ec.marshalOInt2ᚖint(ctx, field.Selections, res)
+	return ec.marshalOBigInt2ᚖint64(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _DPoolList_numUsers(ctx context.Context, field graphql.CollectedField, obj *models.DPoolList) (ret graphql.Marshaler) {
@@ -4581,9 +5527,9 @@ func (ec *executionContext) _DPoolList_numUsers(ctx context.Context, field graph
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*int)
+	res := resTmp.(*int64)
 	fc.Result = res
-	return ec.marshalOInt2ᚖint(ctx, field.Selections, res)
+	return ec.marshalOBigInt2ᚖint64(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _DPoolList_numActiveUsers(ctx context.Context, field graphql.CollectedField, obj *models.DPoolList) (ret graphql.Marshaler) {
@@ -4612,9 +5558,9 @@ func (ec *executionContext) _DPoolList_numActiveUsers(ctx context.Context, field
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*int)
+	res := resTmp.(*int64)
 	fc.Result = res
-	return ec.marshalOInt2ᚖint(ctx, field.Selections, res)
+	return ec.marshalOBigInt2ᚖint64(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _DPoolList_numFunders(ctx context.Context, field graphql.CollectedField, obj *models.DPoolList) (ret graphql.Marshaler) {
@@ -4643,9 +5589,9 @@ func (ec *executionContext) _DPoolList_numFunders(ctx context.Context, field gra
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*int)
+	res := resTmp.(*int64)
 	fc.Result = res
-	return ec.marshalOInt2ᚖint(ctx, field.Selections, res)
+	return ec.marshalOBigInt2ᚖint64(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _DPoolList_proof(ctx context.Context, field graphql.CollectedField, obj *models.DPoolList) (ret graphql.Marshaler) {
@@ -4736,9 +5682,9 @@ func (ec *executionContext) _Deposit_nftID(ctx context.Context, field graphql.Co
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*string)
+	res := resTmp.(*int64)
 	fc.Result = res
-	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
+	return ec.marshalOBigInt2ᚖint64(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Deposit_user(ctx context.Context, field graphql.CollectedField, obj *models.Deposit) (ret graphql.Marshaler) {
@@ -4772,6 +5718,37 @@ func (ec *executionContext) _Deposit_user(ctx context.Context, field graphql.Col
 	return ec.marshalOUser2ᚖgithubᚗcomᚋproximaᚑoneᚋproximaᚑdataᚑvertexᚋpkgᚋmodelsᚐUser(ctx, field.Selections, res)
 }
 
+func (ec *executionContext) _Deposit_UserID(ctx context.Context, field graphql.CollectedField, obj *models.Deposit) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:   "Deposit",
+		Field:    field,
+		Args:     nil,
+		IsMethod: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.UserID, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*string)
+	fc.Result = res
+	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
+}
+
 func (ec *executionContext) _Deposit_pool(ctx context.Context, field graphql.CollectedField, obj *models.Deposit) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
@@ -4803,6 +5780,37 @@ func (ec *executionContext) _Deposit_pool(ctx context.Context, field graphql.Col
 	return ec.marshalODPool2ᚖgithubᚗcomᚋproximaᚑoneᚋproximaᚑdataᚑvertexᚋpkgᚋmodelsᚐDPool(ctx, field.Selections, res)
 }
 
+func (ec *executionContext) _Deposit_DPoolID(ctx context.Context, field graphql.CollectedField, obj *models.Deposit) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:   "Deposit",
+		Field:    field,
+		Args:     nil,
+		IsMethod: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.DPoolID, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*string)
+	fc.Result = res
+	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
+}
+
 func (ec *executionContext) _Deposit_amount(ctx context.Context, field graphql.CollectedField, obj *models.Deposit) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
@@ -4829,9 +5837,9 @@ func (ec *executionContext) _Deposit_amount(ctx context.Context, field graphql.C
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*string)
+	res := resTmp.(*float64)
 	fc.Result = res
-	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
+	return ec.marshalOBigDecimal2ᚖfloat64(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Deposit_maturationTimestamp(ctx context.Context, field graphql.CollectedField, obj *models.Deposit) (ret graphql.Marshaler) {
@@ -4860,9 +5868,9 @@ func (ec *executionContext) _Deposit_maturationTimestamp(ctx context.Context, fi
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*string)
+	res := resTmp.(*int64)
 	fc.Result = res
-	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
+	return ec.marshalOBigInt2ᚖint64(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Deposit_active(ctx context.Context, field graphql.CollectedField, obj *models.Deposit) (ret graphql.Marshaler) {
@@ -4922,9 +5930,40 @@ func (ec *executionContext) _Deposit_depositTimestamp(ctx context.Context, field
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*string)
+	res := resTmp.(*int64)
 	fc.Result = res
-	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
+	return ec.marshalOBigInt2ᚖint64(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) _Deposit_depositLength(ctx context.Context, field graphql.CollectedField, obj *models.Deposit) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:   "Deposit",
+		Field:    field,
+		Args:     nil,
+		IsMethod: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.DepositLength, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*int64)
+	fc.Result = res
+	return ec.marshalOBigInt2ᚖint64(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Deposit_interestEarned(ctx context.Context, field graphql.CollectedField, obj *models.Deposit) (ret graphql.Marshaler) {
@@ -4953,9 +5992,9 @@ func (ec *executionContext) _Deposit_interestEarned(ctx context.Context, field g
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*string)
+	res := resTmp.(*float64)
 	fc.Result = res
-	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
+	return ec.marshalOBigDecimal2ᚖfloat64(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Deposit_fundingID(ctx context.Context, field graphql.CollectedField, obj *models.Deposit) (ret graphql.Marshaler) {
@@ -4984,9 +6023,9 @@ func (ec *executionContext) _Deposit_fundingID(ctx context.Context, field graphq
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*string)
+	res := resTmp.(*int64)
 	fc.Result = res
-	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
+	return ec.marshalOBigInt2ᚖint64(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Deposit_mintMPHAmount(ctx context.Context, field graphql.CollectedField, obj *models.Deposit) (ret graphql.Marshaler) {
@@ -5015,9 +6054,9 @@ func (ec *executionContext) _Deposit_mintMPHAmount(ctx context.Context, field gr
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*string)
+	res := resTmp.(*float64)
 	fc.Result = res
-	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
+	return ec.marshalOBigDecimal2ᚖfloat64(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Deposit_takeBackMPHAmount(ctx context.Context, field graphql.CollectedField, obj *models.Deposit) (ret graphql.Marshaler) {
@@ -5046,9 +6085,9 @@ func (ec *executionContext) _Deposit_takeBackMPHAmount(ctx context.Context, fiel
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*string)
+	res := resTmp.(*float64)
 	fc.Result = res
-	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
+	return ec.marshalOBigDecimal2ᚖfloat64(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Deposit_initialMoneyMarketIncomeIndex(ctx context.Context, field graphql.CollectedField, obj *models.Deposit) (ret graphql.Marshaler) {
@@ -5077,9 +6116,71 @@ func (ec *executionContext) _Deposit_initialMoneyMarketIncomeIndex(ctx context.C
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*string)
+	res := resTmp.(*int64)
 	fc.Result = res
-	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
+	return ec.marshalOBigInt2ᚖint64(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) _Deposit_fundingInterestPaid(ctx context.Context, field graphql.CollectedField, obj *models.Deposit) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:   "Deposit",
+		Field:    field,
+		Args:     nil,
+		IsMethod: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.FundingInterestPaid, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*float64)
+	fc.Result = res
+	return ec.marshalOBigDecimal2ᚖfloat64(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) _Deposit_fundingRefundAmount(ctx context.Context, field graphql.CollectedField, obj *models.Deposit) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:   "Deposit",
+		Field:    field,
+		Args:     nil,
+		IsMethod: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.FundingRefundAmount, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*float64)
+	fc.Result = res
+	return ec.marshalOBigDecimal2ᚖfloat64(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Deposit_proof(ctx context.Context, field graphql.CollectedField, obj *models.Deposit) (ret graphql.Marshaler) {
@@ -5091,6 +6192,254 @@ func (ec *executionContext) _Deposit_proof(ctx context.Context, field graphql.Co
 	}()
 	fc := &graphql.FieldContext{
 		Object:   "Deposit",
+		Field:    field,
+		Args:     nil,
+		IsMethod: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.Proof, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*models.Proof)
+	fc.Result = res
+	return ec.marshalOProof2ᚖgithubᚗcomᚋproximaᚑoneᚋproximaᚑdataᚑvertexᚋpkgᚋmodelsᚐProof(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) _FractionalDeposit_id(ctx context.Context, field graphql.CollectedField, obj *models.FractionalDeposit) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:   "FractionalDeposit",
+		Field:    field,
+		Args:     nil,
+		IsMethod: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.ID, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*string)
+	fc.Result = res
+	return ec.marshalOID2ᚖstring(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) _FractionalDeposit_address(ctx context.Context, field graphql.CollectedField, obj *models.FractionalDeposit) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:   "FractionalDeposit",
+		Field:    field,
+		Args:     nil,
+		IsMethod: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.Address, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*string)
+	fc.Result = res
+	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) _FractionalDeposit_zeroCouponBondAddress(ctx context.Context, field graphql.CollectedField, obj *models.FractionalDeposit) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:   "FractionalDeposit",
+		Field:    field,
+		Args:     nil,
+		IsMethod: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.ZeroCouponBondAddress, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*string)
+	fc.Result = res
+	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) _FractionalDeposit_ownerAddress(ctx context.Context, field graphql.CollectedField, obj *models.FractionalDeposit) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:   "FractionalDeposit",
+		Field:    field,
+		Args:     nil,
+		IsMethod: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.OwnerAddress, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*string)
+	fc.Result = res
+	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) _FractionalDeposit_active(ctx context.Context, field graphql.CollectedField, obj *models.FractionalDeposit) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:   "FractionalDeposit",
+		Field:    field,
+		Args:     nil,
+		IsMethod: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.Active, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*bool)
+	fc.Result = res
+	return ec.marshalOBoolean2ᚖbool(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) _FractionalDeposit_deposit(ctx context.Context, field graphql.CollectedField, obj *models.FractionalDeposit) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:   "FractionalDeposit",
+		Field:    field,
+		Args:     nil,
+		IsMethod: true,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return ec.resolvers.FractionalDeposit().Deposit(rctx, obj)
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*models.Deposit)
+	fc.Result = res
+	return ec.marshalODeposit2ᚖgithubᚗcomᚋproximaᚑoneᚋproximaᚑdataᚑvertexᚋpkgᚋmodelsᚐDeposit(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) _FractionalDeposit_DepositID(ctx context.Context, field graphql.CollectedField, obj *models.FractionalDeposit) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:   "FractionalDeposit",
+		Field:    field,
+		Args:     nil,
+		IsMethod: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.DepositID, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*string)
+	fc.Result = res
+	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) _FractionalDeposit_proof(ctx context.Context, field graphql.CollectedField, obj *models.FractionalDeposit) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:   "FractionalDeposit",
 		Field:    field,
 		Args:     nil,
 		IsMethod: false,
@@ -5206,6 +6555,37 @@ func (ec *executionContext) _Funder_pools(ctx context.Context, field graphql.Col
 	return ec.marshalODPool2ᚕᚖgithubᚗcomᚋproximaᚑoneᚋproximaᚑdataᚑvertexᚋpkgᚋmodelsᚐDPool(ctx, field.Selections, res)
 }
 
+func (ec *executionContext) _Funder_DPoolIDs(ctx context.Context, field graphql.CollectedField, obj *models.Funder) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:   "Funder",
+		Field:    field,
+		Args:     nil,
+		IsMethod: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.DPoolIDs, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.([]*string)
+	fc.Result = res
+	return ec.marshalOString2ᚕᚖstring(ctx, field.Selections, res)
+}
+
 func (ec *executionContext) _Funder_numPools(ctx context.Context, field graphql.CollectedField, obj *models.Funder) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
@@ -5232,9 +6612,9 @@ func (ec *executionContext) _Funder_numPools(ctx context.Context, field graphql.
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*string)
+	res := resTmp.(*int64)
 	fc.Result = res
-	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
+	return ec.marshalOBigInt2ᚖint64(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Funder_fundings(ctx context.Context, field graphql.CollectedField, obj *models.Funder) (ret graphql.Marshaler) {
@@ -5268,6 +6648,37 @@ func (ec *executionContext) _Funder_fundings(ctx context.Context, field graphql.
 	return ec.marshalOFunding2ᚕᚖgithubᚗcomᚋproximaᚑoneᚋproximaᚑdataᚑvertexᚋpkgᚋmodelsᚐFunding(ctx, field.Selections, res)
 }
 
+func (ec *executionContext) _Funder_FundingIDs(ctx context.Context, field graphql.CollectedField, obj *models.Funder) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:   "Funder",
+		Field:    field,
+		Args:     nil,
+		IsMethod: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.FundingIDs, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.([]*string)
+	fc.Result = res
+	return ec.marshalOString2ᚕᚖstring(ctx, field.Selections, res)
+}
+
 func (ec *executionContext) _Funder_numFundings(ctx context.Context, field graphql.CollectedField, obj *models.Funder) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
@@ -5294,9 +6705,9 @@ func (ec *executionContext) _Funder_numFundings(ctx context.Context, field graph
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*string)
+	res := resTmp.(*int64)
 	fc.Result = res
-	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
+	return ec.marshalOBigInt2ᚖint64(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Funder_totalMPHEarned(ctx context.Context, field graphql.CollectedField, obj *models.Funder) (ret graphql.Marshaler) {
@@ -5325,9 +6736,9 @@ func (ec *executionContext) _Funder_totalMPHEarned(ctx context.Context, field gr
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*string)
+	res := resTmp.(*float64)
 	fc.Result = res
-	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
+	return ec.marshalOBigDecimal2ᚖfloat64(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Funder_totalInterestByPool(ctx context.Context, field graphql.CollectedField, obj *models.Funder) (ret graphql.Marshaler) {
@@ -5359,6 +6770,37 @@ func (ec *executionContext) _Funder_totalInterestByPool(ctx context.Context, fie
 	res := resTmp.([]*models.FunderTotalInterest)
 	fc.Result = res
 	return ec.marshalOFunderTotalInterest2ᚕᚖgithubᚗcomᚋproximaᚑoneᚋproximaᚑdataᚑvertexᚋpkgᚋmodelsᚐFunderTotalInterest(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) _Funder_FunderTotalInterestIDs(ctx context.Context, field graphql.CollectedField, obj *models.Funder) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:   "Funder",
+		Field:    field,
+		Args:     nil,
+		IsMethod: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.FunderTotalInterestIDs, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.([]*string)
+	fc.Result = res
+	return ec.marshalOString2ᚕᚖstring(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Funder_proof(ctx context.Context, field graphql.CollectedField, obj *models.Funder) (ret graphql.Marshaler) {
@@ -5454,6 +6896,37 @@ func (ec *executionContext) _FunderTotalInterest_funder(ctx context.Context, fie
 	return ec.marshalOFunder2ᚖgithubᚗcomᚋproximaᚑoneᚋproximaᚑdataᚑvertexᚋpkgᚋmodelsᚐFunder(ctx, field.Selections, res)
 }
 
+func (ec *executionContext) _FunderTotalInterest_FunderID(ctx context.Context, field graphql.CollectedField, obj *models.FunderTotalInterest) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:   "FunderTotalInterest",
+		Field:    field,
+		Args:     nil,
+		IsMethod: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.FunderID, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*string)
+	fc.Result = res
+	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
+}
+
 func (ec *executionContext) _FunderTotalInterest_pool(ctx context.Context, field graphql.CollectedField, obj *models.FunderTotalInterest) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
@@ -5485,6 +6958,37 @@ func (ec *executionContext) _FunderTotalInterest_pool(ctx context.Context, field
 	return ec.marshalODPool2ᚖgithubᚗcomᚋproximaᚑoneᚋproximaᚑdataᚑvertexᚋpkgᚋmodelsᚐDPool(ctx, field.Selections, res)
 }
 
+func (ec *executionContext) _FunderTotalInterest_DPoolID(ctx context.Context, field graphql.CollectedField, obj *models.FunderTotalInterest) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:   "FunderTotalInterest",
+		Field:    field,
+		Args:     nil,
+		IsMethod: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.DPoolID, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*string)
+	fc.Result = res
+	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
+}
+
 func (ec *executionContext) _FunderTotalInterest_totalDeficitFunded(ctx context.Context, field graphql.CollectedField, obj *models.FunderTotalInterest) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
@@ -5511,9 +7015,9 @@ func (ec *executionContext) _FunderTotalInterest_totalDeficitFunded(ctx context.
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*string)
+	res := resTmp.(*float64)
 	fc.Result = res
-	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
+	return ec.marshalOBigDecimal2ᚖfloat64(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _FunderTotalInterest_totalHistoricalDeficitFunded(ctx context.Context, field graphql.CollectedField, obj *models.FunderTotalInterest) (ret graphql.Marshaler) {
@@ -5542,9 +7046,9 @@ func (ec *executionContext) _FunderTotalInterest_totalHistoricalDeficitFunded(ct
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*string)
+	res := resTmp.(*float64)
 	fc.Result = res
-	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
+	return ec.marshalOBigDecimal2ᚖfloat64(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _FunderTotalInterest_totalInterestEarned(ctx context.Context, field graphql.CollectedField, obj *models.FunderTotalInterest) (ret graphql.Marshaler) {
@@ -5573,9 +7077,9 @@ func (ec *executionContext) _FunderTotalInterest_totalInterestEarned(ctx context
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*string)
+	res := resTmp.(*float64)
 	fc.Result = res
-	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
+	return ec.marshalOBigDecimal2ᚖfloat64(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _FunderTotalInterest_totalHistoricalInterestEarned(ctx context.Context, field graphql.CollectedField, obj *models.FunderTotalInterest) (ret graphql.Marshaler) {
@@ -5604,9 +7108,9 @@ func (ec *executionContext) _FunderTotalInterest_totalHistoricalInterestEarned(c
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*string)
+	res := resTmp.(*float64)
 	fc.Result = res
-	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
+	return ec.marshalOBigDecimal2ᚖfloat64(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _FunderTotalInterest_totalRecordedFundedDepositAmount(ctx context.Context, field graphql.CollectedField, obj *models.FunderTotalInterest) (ret graphql.Marshaler) {
@@ -5635,9 +7139,9 @@ func (ec *executionContext) _FunderTotalInterest_totalRecordedFundedDepositAmoun
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*string)
+	res := resTmp.(*float64)
 	fc.Result = res
-	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
+	return ec.marshalOBigDecimal2ᚖfloat64(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _FunderTotalInterest_proof(ctx context.Context, field graphql.CollectedField, obj *models.FunderTotalInterest) (ret graphql.Marshaler) {
@@ -5728,9 +7232,9 @@ func (ec *executionContext) _Funding_nftID(ctx context.Context, field graphql.Co
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*string)
+	res := resTmp.(*int64)
 	fc.Result = res
-	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
+	return ec.marshalOBigInt2ᚖint64(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Funding_funder(ctx context.Context, field graphql.CollectedField, obj *models.Funding) (ret graphql.Marshaler) {
@@ -5764,6 +7268,37 @@ func (ec *executionContext) _Funding_funder(ctx context.Context, field graphql.C
 	return ec.marshalOFunder2ᚖgithubᚗcomᚋproximaᚑoneᚋproximaᚑdataᚑvertexᚋpkgᚋmodelsᚐFunder(ctx, field.Selections, res)
 }
 
+func (ec *executionContext) _Funding_FunderID(ctx context.Context, field graphql.CollectedField, obj *models.Funding) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:   "Funding",
+		Field:    field,
+		Args:     nil,
+		IsMethod: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.FunderID, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*string)
+	fc.Result = res
+	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
+}
+
 func (ec *executionContext) _Funding_pool(ctx context.Context, field graphql.CollectedField, obj *models.Funding) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
@@ -5795,6 +7330,37 @@ func (ec *executionContext) _Funding_pool(ctx context.Context, field graphql.Col
 	return ec.marshalODPool2ᚖgithubᚗcomᚋproximaᚑoneᚋproximaᚑdataᚑvertexᚋpkgᚋmodelsᚐDPool(ctx, field.Selections, res)
 }
 
+func (ec *executionContext) _Funding_DPoolID(ctx context.Context, field graphql.CollectedField, obj *models.Funding) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:   "Funding",
+		Field:    field,
+		Args:     nil,
+		IsMethod: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.DPoolID, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*string)
+	fc.Result = res
+	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
+}
+
 func (ec *executionContext) _Funding_fromDepositID(ctx context.Context, field graphql.CollectedField, obj *models.Funding) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
@@ -5821,9 +7387,9 @@ func (ec *executionContext) _Funding_fromDepositID(ctx context.Context, field gr
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*string)
+	res := resTmp.(*int64)
 	fc.Result = res
-	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
+	return ec.marshalOBigInt2ᚖint64(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Funding_toDepositID(ctx context.Context, field graphql.CollectedField, obj *models.Funding) (ret graphql.Marshaler) {
@@ -5852,9 +7418,9 @@ func (ec *executionContext) _Funding_toDepositID(ctx context.Context, field grap
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*string)
+	res := resTmp.(*int64)
 	fc.Result = res
-	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
+	return ec.marshalOBigInt2ᚖint64(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Funding_active(ctx context.Context, field graphql.CollectedField, obj *models.Funding) (ret graphql.Marshaler) {
@@ -5914,9 +7480,9 @@ func (ec *executionContext) _Funding_recordedFundedDepositAmount(ctx context.Con
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*string)
+	res := resTmp.(*float64)
 	fc.Result = res
-	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
+	return ec.marshalOBigDecimal2ᚖfloat64(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Funding_recordedMoneyMarketIncomeIndex(ctx context.Context, field graphql.CollectedField, obj *models.Funding) (ret graphql.Marshaler) {
@@ -5945,9 +7511,9 @@ func (ec *executionContext) _Funding_recordedMoneyMarketIncomeIndex(ctx context.
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*string)
+	res := resTmp.(*int64)
 	fc.Result = res
-	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
+	return ec.marshalOBigInt2ᚖint64(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Funding_initialFundedDepositAmount(ctx context.Context, field graphql.CollectedField, obj *models.Funding) (ret graphql.Marshaler) {
@@ -5976,9 +7542,9 @@ func (ec *executionContext) _Funding_initialFundedDepositAmount(ctx context.Cont
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*string)
+	res := resTmp.(*float64)
 	fc.Result = res
-	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
+	return ec.marshalOBigDecimal2ᚖfloat64(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Funding_fundedDeficitAmount(ctx context.Context, field graphql.CollectedField, obj *models.Funding) (ret graphql.Marshaler) {
@@ -6007,9 +7573,9 @@ func (ec *executionContext) _Funding_fundedDeficitAmount(ctx context.Context, fi
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*string)
+	res := resTmp.(*float64)
 	fc.Result = res
-	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
+	return ec.marshalOBigDecimal2ᚖfloat64(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Funding_totalInterestEarned(ctx context.Context, field graphql.CollectedField, obj *models.Funding) (ret graphql.Marshaler) {
@@ -6038,12 +7604,12 @@ func (ec *executionContext) _Funding_totalInterestEarned(ctx context.Context, fi
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*string)
+	res := resTmp.(*float64)
 	fc.Result = res
-	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
+	return ec.marshalOBigDecimal2ᚖfloat64(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Funding_mintMPHAmount(ctx context.Context, field graphql.CollectedField, obj *models.Funding) (ret graphql.Marshaler) {
+func (ec *executionContext) _Funding_creationTimestamp(ctx context.Context, field graphql.CollectedField, obj *models.Funding) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -6060,7 +7626,7 @@ func (ec *executionContext) _Funding_mintMPHAmount(ctx context.Context, field gr
 	ctx = graphql.WithFieldContext(ctx, fc)
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return obj.MintMPHAmount, nil
+		return obj.CreationTimestamp, nil
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -6069,9 +7635,71 @@ func (ec *executionContext) _Funding_mintMPHAmount(ctx context.Context, field gr
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*string)
+	res := resTmp.(*int64)
 	fc.Result = res
-	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
+	return ec.marshalOBigInt2ᚖint64(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) _Funding_mphRewardEarned(ctx context.Context, field graphql.CollectedField, obj *models.Funding) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:   "Funding",
+		Field:    field,
+		Args:     nil,
+		IsMethod: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.MphRewardEarned, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*float64)
+	fc.Result = res
+	return ec.marshalOBigDecimal2ᚖfloat64(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) _Funding_refundAmount(ctx context.Context, field graphql.CollectedField, obj *models.Funding) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:   "Funding",
+		Field:    field,
+		Args:     nil,
+		IsMethod: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.RefundAmount, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*float64)
+	fc.Result = res
+	return ec.marshalOBigDecimal2ᚖfloat64(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Funding_proof(ctx context.Context, field graphql.CollectedField, obj *models.Funding) (ret graphql.Marshaler) {
@@ -6136,68 +7764,6 @@ func (ec *executionContext) _MPH_id(ctx context.Context, field graphql.Collected
 	return ec.marshalOID2ᚖstring(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _MPH_totalSupply(ctx context.Context, field graphql.CollectedField, obj *models.Mph) (ret graphql.Marshaler) {
-	defer func() {
-		if r := recover(); r != nil {
-			ec.Error(ctx, ec.Recover(ctx, r))
-			ret = graphql.Null
-		}
-	}()
-	fc := &graphql.FieldContext{
-		Object:   "MPH",
-		Field:    field,
-		Args:     nil,
-		IsMethod: false,
-	}
-
-	ctx = graphql.WithFieldContext(ctx, fc)
-	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
-		ctx = rctx // use context from middleware stack in children
-		return obj.TotalSupply, nil
-	})
-	if err != nil {
-		ec.Error(ctx, err)
-		return graphql.Null
-	}
-	if resTmp == nil {
-		return graphql.Null
-	}
-	res := resTmp.(*string)
-	fc.Result = res
-	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
-}
-
-func (ec *executionContext) _MPH_totalStakedMPHBalance(ctx context.Context, field graphql.CollectedField, obj *models.Mph) (ret graphql.Marshaler) {
-	defer func() {
-		if r := recover(); r != nil {
-			ec.Error(ctx, ec.Recover(ctx, r))
-			ret = graphql.Null
-		}
-	}()
-	fc := &graphql.FieldContext{
-		Object:   "MPH",
-		Field:    field,
-		Args:     nil,
-		IsMethod: false,
-	}
-
-	ctx = graphql.WithFieldContext(ctx, fc)
-	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
-		ctx = rctx // use context from middleware stack in children
-		return obj.TotalStakedMPHBalance, nil
-	})
-	if err != nil {
-		ec.Error(ctx, err)
-		return graphql.Null
-	}
-	if resTmp == nil {
-		return graphql.Null
-	}
-	res := resTmp.(*string)
-	fc.Result = res
-	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
-}
-
 func (ec *executionContext) _MPH_totalHistoricalReward(ctx context.Context, field graphql.CollectedField, obj *models.Mph) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
@@ -6224,9 +7790,9 @@ func (ec *executionContext) _MPH_totalHistoricalReward(ctx context.Context, fiel
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*string)
+	res := resTmp.(*float64)
 	fc.Result = res
-	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
+	return ec.marshalOBigDecimal2ᚖfloat64(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _MPH_rewardPerSecond(ctx context.Context, field graphql.CollectedField, obj *models.Mph) (ret graphql.Marshaler) {
@@ -6255,9 +7821,9 @@ func (ec *executionContext) _MPH_rewardPerSecond(ctx context.Context, field grap
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*string)
+	res := resTmp.(*float64)
 	fc.Result = res
-	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
+	return ec.marshalOBigDecimal2ᚖfloat64(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _MPH_rewardPerMPHPerSecond(ctx context.Context, field graphql.CollectedField, obj *models.Mph) (ret graphql.Marshaler) {
@@ -6286,9 +7852,9 @@ func (ec *executionContext) _MPH_rewardPerMPHPerSecond(ctx context.Context, fiel
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*string)
+	res := resTmp.(*float64)
 	fc.Result = res
-	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
+	return ec.marshalOBigDecimal2ᚖfloat64(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _MPH_proof(ctx context.Context, field graphql.CollectedField, obj *models.Mph) (ret graphql.Marshaler) {
@@ -6384,68 +7950,6 @@ func (ec *executionContext) _MPHHolder_address(ctx context.Context, field graphq
 	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _MPHHolder_mphBalance(ctx context.Context, field graphql.CollectedField, obj *models.MPHHolder) (ret graphql.Marshaler) {
-	defer func() {
-		if r := recover(); r != nil {
-			ec.Error(ctx, ec.Recover(ctx, r))
-			ret = graphql.Null
-		}
-	}()
-	fc := &graphql.FieldContext{
-		Object:   "MPHHolder",
-		Field:    field,
-		Args:     nil,
-		IsMethod: false,
-	}
-
-	ctx = graphql.WithFieldContext(ctx, fc)
-	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
-		ctx = rctx // use context from middleware stack in children
-		return obj.MphBalance, nil
-	})
-	if err != nil {
-		ec.Error(ctx, err)
-		return graphql.Null
-	}
-	if resTmp == nil {
-		return graphql.Null
-	}
-	res := resTmp.(*string)
-	fc.Result = res
-	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
-}
-
-func (ec *executionContext) _MPHHolder_stakedMPHBalance(ctx context.Context, field graphql.CollectedField, obj *models.MPHHolder) (ret graphql.Marshaler) {
-	defer func() {
-		if r := recover(); r != nil {
-			ec.Error(ctx, ec.Recover(ctx, r))
-			ret = graphql.Null
-		}
-	}()
-	fc := &graphql.FieldContext{
-		Object:   "MPHHolder",
-		Field:    field,
-		Args:     nil,
-		IsMethod: false,
-	}
-
-	ctx = graphql.WithFieldContext(ctx, fc)
-	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
-		ctx = rctx // use context from middleware stack in children
-		return obj.StakedMPHBalance, nil
-	})
-	if err != nil {
-		ec.Error(ctx, err)
-		return graphql.Null
-	}
-	if resTmp == nil {
-		return graphql.Null
-	}
-	res := resTmp.(*string)
-	fc.Result = res
-	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
-}
-
 func (ec *executionContext) _MPHHolder_totalHistoricalReward(ctx context.Context, field graphql.CollectedField, obj *models.MPHHolder) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
@@ -6472,9 +7976,9 @@ func (ec *executionContext) _MPHHolder_totalHistoricalReward(ctx context.Context
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*string)
+	res := resTmp.(*float64)
 	fc.Result = res
-	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
+	return ec.marshalOBigDecimal2ᚖfloat64(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _MPHHolder_proof(ctx context.Context, field graphql.CollectedField, obj *models.MPHHolder) (ret graphql.Marshaler) {
@@ -6508,7 +8012,7 @@ func (ec *executionContext) _MPHHolder_proof(ctx context.Context, field graphql.
 	return ec.marshalOProof2ᚖgithubᚗcomᚋproximaᚑoneᚋproximaᚑdataᚑvertexᚋpkgᚋmodelsᚐProof(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Mutation_updateDPoolList(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+func (ec *executionContext) _Mutation_UpdateDPoolList(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -6524,7 +8028,7 @@ func (ec *executionContext) _Mutation_updateDPoolList(ctx context.Context, field
 
 	ctx = graphql.WithFieldContext(ctx, fc)
 	rawArgs := field.ArgumentMap(ec.Variables)
-	args, err := ec.field_Mutation_updateDPoolList_args(ctx, rawArgs)
+	args, err := ec.field_Mutation_UpdateDPoolList_args(ctx, rawArgs)
 	if err != nil {
 		ec.Error(ctx, err)
 		return graphql.Null
@@ -6546,7 +8050,7 @@ func (ec *executionContext) _Mutation_updateDPoolList(ctx context.Context, field
 	return ec.marshalOBoolean2ᚖbool(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Mutation_updateDPool(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+func (ec *executionContext) _Mutation_UpdateDPool(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -6562,7 +8066,7 @@ func (ec *executionContext) _Mutation_updateDPool(ctx context.Context, field gra
 
 	ctx = graphql.WithFieldContext(ctx, fc)
 	rawArgs := field.ArgumentMap(ec.Variables)
-	args, err := ec.field_Mutation_updateDPool_args(ctx, rawArgs)
+	args, err := ec.field_Mutation_UpdateDPool_args(ctx, rawArgs)
 	if err != nil {
 		ec.Error(ctx, err)
 		return graphql.Null
@@ -6584,7 +8088,7 @@ func (ec *executionContext) _Mutation_updateDPool(ctx context.Context, field gra
 	return ec.marshalOBoolean2ᚖbool(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Mutation_updateUser(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+func (ec *executionContext) _Mutation_UpdateUser(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -6600,7 +8104,7 @@ func (ec *executionContext) _Mutation_updateUser(ctx context.Context, field grap
 
 	ctx = graphql.WithFieldContext(ctx, fc)
 	rawArgs := field.ArgumentMap(ec.Variables)
-	args, err := ec.field_Mutation_updateUser_args(ctx, rawArgs)
+	args, err := ec.field_Mutation_UpdateUser_args(ctx, rawArgs)
 	if err != nil {
 		ec.Error(ctx, err)
 		return graphql.Null
@@ -6622,7 +8126,7 @@ func (ec *executionContext) _Mutation_updateUser(ctx context.Context, field grap
 	return ec.marshalOBoolean2ᚖbool(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Mutation_updateUserTotalDeposit(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+func (ec *executionContext) _Mutation_UpdateUserTotalDeposit(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -6638,7 +8142,7 @@ func (ec *executionContext) _Mutation_updateUserTotalDeposit(ctx context.Context
 
 	ctx = graphql.WithFieldContext(ctx, fc)
 	rawArgs := field.ArgumentMap(ec.Variables)
-	args, err := ec.field_Mutation_updateUserTotalDeposit_args(ctx, rawArgs)
+	args, err := ec.field_Mutation_UpdateUserTotalDeposit_args(ctx, rawArgs)
 	if err != nil {
 		ec.Error(ctx, err)
 		return graphql.Null
@@ -6660,7 +8164,7 @@ func (ec *executionContext) _Mutation_updateUserTotalDeposit(ctx context.Context
 	return ec.marshalOBoolean2ᚖbool(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Mutation_updateDeposit(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+func (ec *executionContext) _Mutation_UpdateDeposit(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -6676,7 +8180,7 @@ func (ec *executionContext) _Mutation_updateDeposit(ctx context.Context, field g
 
 	ctx = graphql.WithFieldContext(ctx, fc)
 	rawArgs := field.ArgumentMap(ec.Variables)
-	args, err := ec.field_Mutation_updateDeposit_args(ctx, rawArgs)
+	args, err := ec.field_Mutation_UpdateDeposit_args(ctx, rawArgs)
 	if err != nil {
 		ec.Error(ctx, err)
 		return graphql.Null
@@ -6698,7 +8202,7 @@ func (ec *executionContext) _Mutation_updateDeposit(ctx context.Context, field g
 	return ec.marshalOBoolean2ᚖbool(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Mutation_updateFunder(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+func (ec *executionContext) _Mutation_UpdateFunder(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -6714,7 +8218,7 @@ func (ec *executionContext) _Mutation_updateFunder(ctx context.Context, field gr
 
 	ctx = graphql.WithFieldContext(ctx, fc)
 	rawArgs := field.ArgumentMap(ec.Variables)
-	args, err := ec.field_Mutation_updateFunder_args(ctx, rawArgs)
+	args, err := ec.field_Mutation_UpdateFunder_args(ctx, rawArgs)
 	if err != nil {
 		ec.Error(ctx, err)
 		return graphql.Null
@@ -6736,7 +8240,7 @@ func (ec *executionContext) _Mutation_updateFunder(ctx context.Context, field gr
 	return ec.marshalOBoolean2ᚖbool(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Mutation_updateFunderTotalInterest(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+func (ec *executionContext) _Mutation_UpdateFunderTotalInterest(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -6752,7 +8256,7 @@ func (ec *executionContext) _Mutation_updateFunderTotalInterest(ctx context.Cont
 
 	ctx = graphql.WithFieldContext(ctx, fc)
 	rawArgs := field.ArgumentMap(ec.Variables)
-	args, err := ec.field_Mutation_updateFunderTotalInterest_args(ctx, rawArgs)
+	args, err := ec.field_Mutation_UpdateFunderTotalInterest_args(ctx, rawArgs)
 	if err != nil {
 		ec.Error(ctx, err)
 		return graphql.Null
@@ -6774,7 +8278,7 @@ func (ec *executionContext) _Mutation_updateFunderTotalInterest(ctx context.Cont
 	return ec.marshalOBoolean2ᚖbool(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Mutation_updateFunding(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+func (ec *executionContext) _Mutation_UpdateFunding(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -6790,7 +8294,7 @@ func (ec *executionContext) _Mutation_updateFunding(ctx context.Context, field g
 
 	ctx = graphql.WithFieldContext(ctx, fc)
 	rawArgs := field.ArgumentMap(ec.Variables)
-	args, err := ec.field_Mutation_updateFunding_args(ctx, rawArgs)
+	args, err := ec.field_Mutation_UpdateFunding_args(ctx, rawArgs)
 	if err != nil {
 		ec.Error(ctx, err)
 		return graphql.Null
@@ -6812,7 +8316,7 @@ func (ec *executionContext) _Mutation_updateFunding(ctx context.Context, field g
 	return ec.marshalOBoolean2ᚖbool(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Mutation_updateMPHHolder(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+func (ec *executionContext) _Mutation_UpdateMPHHolder(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -6828,7 +8332,7 @@ func (ec *executionContext) _Mutation_updateMPHHolder(ctx context.Context, field
 
 	ctx = graphql.WithFieldContext(ctx, fc)
 	rawArgs := field.ArgumentMap(ec.Variables)
-	args, err := ec.field_Mutation_updateMPHHolder_args(ctx, rawArgs)
+	args, err := ec.field_Mutation_UpdateMPHHolder_args(ctx, rawArgs)
 	if err != nil {
 		ec.Error(ctx, err)
 		return graphql.Null
@@ -6850,7 +8354,7 @@ func (ec *executionContext) _Mutation_updateMPHHolder(ctx context.Context, field
 	return ec.marshalOBoolean2ᚖbool(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Mutation_updateMPH(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+func (ec *executionContext) _Mutation_UpdateMPH(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -6866,7 +8370,7 @@ func (ec *executionContext) _Mutation_updateMPH(ctx context.Context, field graph
 
 	ctx = graphql.WithFieldContext(ctx, fc)
 	rawArgs := field.ArgumentMap(ec.Variables)
-	args, err := ec.field_Mutation_updateMPH_args(ctx, rawArgs)
+	args, err := ec.field_Mutation_UpdateMPH_args(ctx, rawArgs)
 	if err != nil {
 		ec.Error(ctx, err)
 		return graphql.Null
@@ -6875,6 +8379,82 @@ func (ec *executionContext) _Mutation_updateMPH(ctx context.Context, field graph
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
 		return ec.resolvers.Mutation().UpdateMph(rctx, args["input"].(models.MPHInput))
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*bool)
+	fc.Result = res
+	return ec.marshalOBoolean2ᚖbool(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) _Mutation_UpdateVest(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:   "Mutation",
+		Field:    field,
+		Args:     nil,
+		IsMethod: true,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	rawArgs := field.ArgumentMap(ec.Variables)
+	args, err := ec.field_Mutation_UpdateVest_args(ctx, rawArgs)
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	fc.Args = args
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return ec.resolvers.Mutation().UpdateVest(rctx, args["input"].(models.VestInput))
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*bool)
+	fc.Result = res
+	return ec.marshalOBoolean2ᚖbool(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) _Mutation_UpdateFractionalDeposit(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:   "Mutation",
+		Field:    field,
+		Args:     nil,
+		IsMethod: true,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	rawArgs := field.ArgumentMap(ec.Variables)
+	args, err := ec.field_Mutation_UpdateFractionalDeposit_args(ctx, rawArgs)
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	fc.Args = args
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return ec.resolvers.Mutation().UpdateFractionalDeposit(rctx, args["input"].(models.FractionalDepositInput))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -8180,6 +9760,252 @@ func (ec *executionContext) _Query_MPHSearch(ctx context.Context, field graphql.
 	return ec.marshalNMPH2ᚕᚖgithubᚗcomᚋproximaᚑoneᚋproximaᚑdataᚑvertexᚋpkgᚋmodelsᚐMph(ctx, field.Selections, res)
 }
 
+func (ec *executionContext) _Query_Vest(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:   "Query",
+		Field:    field,
+		Args:     nil,
+		IsMethod: true,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	rawArgs := field.ArgumentMap(ec.Variables)
+	args, err := ec.field_Query_Vest_args(ctx, rawArgs)
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	fc.Args = args
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return ec.resolvers.Query().Vest(rctx, args["id"].(string), args["prove"].(*bool))
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.(*models.Vest)
+	fc.Result = res
+	return ec.marshalNVest2ᚖgithubᚗcomᚋproximaᚑoneᚋproximaᚑdataᚑvertexᚋpkgᚋmodelsᚐVest(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) _Query_Vests(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:   "Query",
+		Field:    field,
+		Args:     nil,
+		IsMethod: true,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	rawArgs := field.ArgumentMap(ec.Variables)
+	args, err := ec.field_Query_Vests_args(ctx, rawArgs)
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	fc.Args = args
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return ec.resolvers.Query().Vests(rctx, args["where"].(*string), args["order_by"].(*string), args["asc"].(*bool), args["first"].(*int), args["last"].(*int), args["limit"].(*int), args["prove"].(*bool))
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.([]*models.Vest)
+	fc.Result = res
+	return ec.marshalNVest2ᚕᚖgithubᚗcomᚋproximaᚑoneᚋproximaᚑdataᚑvertexᚋpkgᚋmodelsᚐVest(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) _Query_VestSearch(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:   "Query",
+		Field:    field,
+		Args:     nil,
+		IsMethod: true,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	rawArgs := field.ArgumentMap(ec.Variables)
+	args, err := ec.field_Query_VestSearch_args(ctx, rawArgs)
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	fc.Args = args
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return ec.resolvers.Query().VestSearch(rctx, args["queryText"].(string), args["prove"].(*bool))
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.([]*models.Vest)
+	fc.Result = res
+	return ec.marshalNVest2ᚕᚖgithubᚗcomᚋproximaᚑoneᚋproximaᚑdataᚑvertexᚋpkgᚋmodelsᚐVest(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) _Query_FractionalDeposit(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:   "Query",
+		Field:    field,
+		Args:     nil,
+		IsMethod: true,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	rawArgs := field.ArgumentMap(ec.Variables)
+	args, err := ec.field_Query_FractionalDeposit_args(ctx, rawArgs)
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	fc.Args = args
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return ec.resolvers.Query().FractionalDeposit(rctx, args["id"].(string), args["prove"].(*bool))
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.(*models.FractionalDeposit)
+	fc.Result = res
+	return ec.marshalNFractionalDeposit2ᚖgithubᚗcomᚋproximaᚑoneᚋproximaᚑdataᚑvertexᚋpkgᚋmodelsᚐFractionalDeposit(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) _Query_FractionalDeposits(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:   "Query",
+		Field:    field,
+		Args:     nil,
+		IsMethod: true,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	rawArgs := field.ArgumentMap(ec.Variables)
+	args, err := ec.field_Query_FractionalDeposits_args(ctx, rawArgs)
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	fc.Args = args
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return ec.resolvers.Query().FractionalDeposits(rctx, args["where"].(*string), args["order_by"].(*string), args["asc"].(*bool), args["first"].(*int), args["last"].(*int), args["limit"].(*int), args["prove"].(*bool))
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.([]*models.FractionalDeposit)
+	fc.Result = res
+	return ec.marshalNFractionalDeposit2ᚕᚖgithubᚗcomᚋproximaᚑoneᚋproximaᚑdataᚑvertexᚋpkgᚋmodelsᚐFractionalDeposit(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) _Query_FractionalDepositSearch(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:   "Query",
+		Field:    field,
+		Args:     nil,
+		IsMethod: true,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	rawArgs := field.ArgumentMap(ec.Variables)
+	args, err := ec.field_Query_FractionalDepositSearch_args(ctx, rawArgs)
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	fc.Args = args
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return ec.resolvers.Query().FractionalDepositSearch(rctx, args["queryText"].(string), args["prove"].(*bool))
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.([]*models.FractionalDeposit)
+	fc.Result = res
+	return ec.marshalNFractionalDeposit2ᚕᚖgithubᚗcomᚋproximaᚑoneᚋproximaᚑdataᚑvertexᚋpkgᚋmodelsᚐFractionalDeposit(ctx, field.Selections, res)
+}
+
 func (ec *executionContext) _Query___type(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
@@ -8342,6 +10168,37 @@ func (ec *executionContext) _User_pools(ctx context.Context, field graphql.Colle
 	return ec.marshalODPool2ᚕᚖgithubᚗcomᚋproximaᚑoneᚋproximaᚑdataᚑvertexᚋpkgᚋmodelsᚐDPool(ctx, field.Selections, res)
 }
 
+func (ec *executionContext) _User_DPoolIDs(ctx context.Context, field graphql.CollectedField, obj *models.User) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:   "User",
+		Field:    field,
+		Args:     nil,
+		IsMethod: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.DPoolIDs, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.([]*string)
+	fc.Result = res
+	return ec.marshalOString2ᚕᚖstring(ctx, field.Selections, res)
+}
+
 func (ec *executionContext) _User_numPools(ctx context.Context, field graphql.CollectedField, obj *models.User) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
@@ -8368,9 +10225,9 @@ func (ec *executionContext) _User_numPools(ctx context.Context, field graphql.Co
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*string)
+	res := resTmp.(*int64)
 	fc.Result = res
-	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
+	return ec.marshalOBigInt2ᚖint64(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _User_deposits(ctx context.Context, field graphql.CollectedField, obj *models.User) (ret graphql.Marshaler) {
@@ -8404,6 +10261,37 @@ func (ec *executionContext) _User_deposits(ctx context.Context, field graphql.Co
 	return ec.marshalODeposit2ᚕᚖgithubᚗcomᚋproximaᚑoneᚋproximaᚑdataᚑvertexᚋpkgᚋmodelsᚐDeposit(ctx, field.Selections, res)
 }
 
+func (ec *executionContext) _User_DepositIDs(ctx context.Context, field graphql.CollectedField, obj *models.User) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:   "User",
+		Field:    field,
+		Args:     nil,
+		IsMethod: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.DepositIDs, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.([]*string)
+	fc.Result = res
+	return ec.marshalOString2ᚕᚖstring(ctx, field.Selections, res)
+}
+
 func (ec *executionContext) _User_numDeposits(ctx context.Context, field graphql.CollectedField, obj *models.User) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
@@ -8430,9 +10318,9 @@ func (ec *executionContext) _User_numDeposits(ctx context.Context, field graphql
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*string)
+	res := resTmp.(*int64)
 	fc.Result = res
-	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
+	return ec.marshalOBigInt2ᚖint64(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _User_numActiveDeposits(ctx context.Context, field graphql.CollectedField, obj *models.User) (ret graphql.Marshaler) {
@@ -8461,9 +10349,9 @@ func (ec *executionContext) _User_numActiveDeposits(ctx context.Context, field g
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*string)
+	res := resTmp.(*int64)
 	fc.Result = res
-	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
+	return ec.marshalOBigInt2ᚖint64(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _User_totalDepositByPool(ctx context.Context, field graphql.CollectedField, obj *models.User) (ret graphql.Marshaler) {
@@ -8497,6 +10385,37 @@ func (ec *executionContext) _User_totalDepositByPool(ctx context.Context, field 
 	return ec.marshalOUserTotalDeposit2ᚕᚖgithubᚗcomᚋproximaᚑoneᚋproximaᚑdataᚑvertexᚋpkgᚋmodelsᚐUserTotalDeposit(ctx, field.Selections, res)
 }
 
+func (ec *executionContext) _User_UserTotalDepositIDs(ctx context.Context, field graphql.CollectedField, obj *models.User) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:   "User",
+		Field:    field,
+		Args:     nil,
+		IsMethod: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.UserTotalDepositIDs, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.([]*string)
+	fc.Result = res
+	return ec.marshalOString2ᚕᚖstring(ctx, field.Selections, res)
+}
+
 func (ec *executionContext) _User_totalMPHEarned(ctx context.Context, field graphql.CollectedField, obj *models.User) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
@@ -8523,9 +10442,9 @@ func (ec *executionContext) _User_totalMPHEarned(ctx context.Context, field grap
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*string)
+	res := resTmp.(*float64)
 	fc.Result = res
-	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
+	return ec.marshalOBigDecimal2ᚖfloat64(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _User_totalMPHPaidBack(ctx context.Context, field graphql.CollectedField, obj *models.User) (ret graphql.Marshaler) {
@@ -8554,9 +10473,9 @@ func (ec *executionContext) _User_totalMPHPaidBack(ctx context.Context, field gr
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*string)
+	res := resTmp.(*float64)
 	fc.Result = res
-	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
+	return ec.marshalOBigDecimal2ᚖfloat64(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _User_proof(ctx context.Context, field graphql.CollectedField, obj *models.User) (ret graphql.Marshaler) {
@@ -8652,6 +10571,37 @@ func (ec *executionContext) _UserTotalDeposit_user(ctx context.Context, field gr
 	return ec.marshalOUser2ᚖgithubᚗcomᚋproximaᚑoneᚋproximaᚑdataᚑvertexᚋpkgᚋmodelsᚐUser(ctx, field.Selections, res)
 }
 
+func (ec *executionContext) _UserTotalDeposit_UserID(ctx context.Context, field graphql.CollectedField, obj *models.UserTotalDeposit) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:   "UserTotalDeposit",
+		Field:    field,
+		Args:     nil,
+		IsMethod: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.UserID, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*string)
+	fc.Result = res
+	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
+}
+
 func (ec *executionContext) _UserTotalDeposit_pool(ctx context.Context, field graphql.CollectedField, obj *models.UserTotalDeposit) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
@@ -8683,6 +10633,37 @@ func (ec *executionContext) _UserTotalDeposit_pool(ctx context.Context, field gr
 	return ec.marshalODPool2ᚖgithubᚗcomᚋproximaᚑoneᚋproximaᚑdataᚑvertexᚋpkgᚋmodelsᚐDPool(ctx, field.Selections, res)
 }
 
+func (ec *executionContext) _UserTotalDeposit_DPoolID(ctx context.Context, field graphql.CollectedField, obj *models.UserTotalDeposit) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:   "UserTotalDeposit",
+		Field:    field,
+		Args:     nil,
+		IsMethod: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.DPoolID, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*string)
+	fc.Result = res
+	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
+}
+
 func (ec *executionContext) _UserTotalDeposit_totalActiveDeposit(ctx context.Context, field graphql.CollectedField, obj *models.UserTotalDeposit) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
@@ -8709,9 +10690,9 @@ func (ec *executionContext) _UserTotalDeposit_totalActiveDeposit(ctx context.Con
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*string)
+	res := resTmp.(*float64)
 	fc.Result = res
-	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
+	return ec.marshalOBigDecimal2ᚖfloat64(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _UserTotalDeposit_totalHistoricalDeposit(ctx context.Context, field graphql.CollectedField, obj *models.UserTotalDeposit) (ret graphql.Marshaler) {
@@ -8740,9 +10721,9 @@ func (ec *executionContext) _UserTotalDeposit_totalHistoricalDeposit(ctx context
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*string)
+	res := resTmp.(*float64)
 	fc.Result = res
-	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
+	return ec.marshalOBigDecimal2ᚖfloat64(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _UserTotalDeposit_totalInterestEarned(ctx context.Context, field graphql.CollectedField, obj *models.UserTotalDeposit) (ret graphql.Marshaler) {
@@ -8771,9 +10752,9 @@ func (ec *executionContext) _UserTotalDeposit_totalInterestEarned(ctx context.Co
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*string)
+	res := resTmp.(*float64)
 	fc.Result = res
-	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
+	return ec.marshalOBigDecimal2ᚖfloat64(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _UserTotalDeposit_totalHistoricalInterestEarned(ctx context.Context, field graphql.CollectedField, obj *models.UserTotalDeposit) (ret graphql.Marshaler) {
@@ -8802,9 +10783,9 @@ func (ec *executionContext) _UserTotalDeposit_totalHistoricalInterestEarned(ctx 
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*string)
+	res := resTmp.(*float64)
 	fc.Result = res
-	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
+	return ec.marshalOBigDecimal2ᚖfloat64(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _UserTotalDeposit_proof(ctx context.Context, field graphql.CollectedField, obj *models.UserTotalDeposit) (ret graphql.Marshaler) {
@@ -8816,6 +10797,254 @@ func (ec *executionContext) _UserTotalDeposit_proof(ctx context.Context, field g
 	}()
 	fc := &graphql.FieldContext{
 		Object:   "UserTotalDeposit",
+		Field:    field,
+		Args:     nil,
+		IsMethod: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.Proof, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*models.Proof)
+	fc.Result = res
+	return ec.marshalOProof2ᚖgithubᚗcomᚋproximaᚑoneᚋproximaᚑdataᚑvertexᚋpkgᚋmodelsᚐProof(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) _Vest_id(ctx context.Context, field graphql.CollectedField, obj *models.Vest) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:   "Vest",
+		Field:    field,
+		Args:     nil,
+		IsMethod: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.ID, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*string)
+	fc.Result = res
+	return ec.marshalOID2ᚖstring(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) _Vest_index(ctx context.Context, field graphql.CollectedField, obj *models.Vest) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:   "Vest",
+		Field:    field,
+		Args:     nil,
+		IsMethod: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.Index, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*int64)
+	fc.Result = res
+	return ec.marshalOBigInt2ᚖint64(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) _Vest_user(ctx context.Context, field graphql.CollectedField, obj *models.Vest) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:   "Vest",
+		Field:    field,
+		Args:     nil,
+		IsMethod: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.User, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*string)
+	fc.Result = res
+	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) _Vest_amount(ctx context.Context, field graphql.CollectedField, obj *models.Vest) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:   "Vest",
+		Field:    field,
+		Args:     nil,
+		IsMethod: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.Amount, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*float64)
+	fc.Result = res
+	return ec.marshalOBigDecimal2ᚖfloat64(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) _Vest_vestPeriodInSeconds(ctx context.Context, field graphql.CollectedField, obj *models.Vest) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:   "Vest",
+		Field:    field,
+		Args:     nil,
+		IsMethod: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.VestPeriodInSeconds, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*int64)
+	fc.Result = res
+	return ec.marshalOBigInt2ᚖint64(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) _Vest_creationTimestamp(ctx context.Context, field graphql.CollectedField, obj *models.Vest) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:   "Vest",
+		Field:    field,
+		Args:     nil,
+		IsMethod: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.CreationTimestamp, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*int64)
+	fc.Result = res
+	return ec.marshalOBigInt2ᚖint64(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) _Vest_withdrawnAmount(ctx context.Context, field graphql.CollectedField, obj *models.Vest) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:   "Vest",
+		Field:    field,
+		Args:     nil,
+		IsMethod: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.WithdrawnAmount, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*float64)
+	fc.Result = res
+	return ec.marshalOBigDecimal2ᚖfloat64(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) _Vest_proof(ctx context.Context, field graphql.CollectedField, obj *models.Vest) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:   "Vest",
 		Field:    field,
 		Args:     nil,
 		IsMethod: false,
@@ -9939,11 +12168,27 @@ func (ec *executionContext) unmarshalInputDPoolInput(ctx context.Context, obj in
 			if err != nil {
 				return it, err
 			}
+		case "UserIDs":
+			var err error
+
+			ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("UserIDs"))
+			it.UserIDs, err = ec.unmarshalOString2ᚕᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
 		case "numUsers":
 			var err error
 
 			ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("numUsers"))
-			it.NumUsers, err = ec.unmarshalOInt2ᚖint(ctx, v)
+			it.NumUsers, err = ec.unmarshalOBigInt2ᚖint64(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "DepositIDs":
+			var err error
+
+			ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("DepositIDs"))
+			it.DepositIDs, err = ec.unmarshalOString2ᚕᚖstring(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -9951,7 +12196,7 @@ func (ec *executionContext) unmarshalInputDPoolInput(ctx context.Context, obj in
 			var err error
 
 			ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("numDeposits"))
-			it.NumDeposits, err = ec.unmarshalOInt2ᚖint(ctx, v)
+			it.NumDeposits, err = ec.unmarshalOBigInt2ᚖint64(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -9959,7 +12204,7 @@ func (ec *executionContext) unmarshalInputDPoolInput(ctx context.Context, obj in
 			var err error
 
 			ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("numActiveDeposits"))
-			it.NumActiveDeposits, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			it.NumActiveDeposits, err = ec.unmarshalOBigInt2ᚖint64(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -9967,7 +12212,7 @@ func (ec *executionContext) unmarshalInputDPoolInput(ctx context.Context, obj in
 			var err error
 
 			ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("totalActiveDeposit"))
-			it.TotalActiveDeposit, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			it.TotalActiveDeposit, err = ec.unmarshalOBigDecimal2ᚖfloat64(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -9975,7 +12220,7 @@ func (ec *executionContext) unmarshalInputDPoolInput(ctx context.Context, obj in
 			var err error
 
 			ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("totalHistoricalDeposit"))
-			it.TotalHistoricalDeposit, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			it.TotalHistoricalDeposit, err = ec.unmarshalOBigDecimal2ᚖfloat64(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -9983,7 +12228,7 @@ func (ec *executionContext) unmarshalInputDPoolInput(ctx context.Context, obj in
 			var err error
 
 			ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("totalInterestPaid"))
-			it.TotalInterestPaid, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			it.TotalInterestPaid, err = ec.unmarshalOBigDecimal2ᚖfloat64(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -9991,7 +12236,15 @@ func (ec *executionContext) unmarshalInputDPoolInput(ctx context.Context, obj in
 			var err error
 
 			ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("unfundedDepositAmount"))
-			it.UnfundedDepositAmount, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			it.UnfundedDepositAmount, err = ec.unmarshalOBigDecimal2ᚖfloat64(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "FunderIDs":
+			var err error
+
+			ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("FunderIDs"))
+			it.FunderIDs, err = ec.unmarshalOString2ᚕᚖstring(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -9999,7 +12252,15 @@ func (ec *executionContext) unmarshalInputDPoolInput(ctx context.Context, obj in
 			var err error
 
 			ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("numFunders"))
-			it.NumFunders, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			it.NumFunders, err = ec.unmarshalOBigInt2ᚖint64(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "FundingIDs":
+			var err error
+
+			ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("FundingIDs"))
+			it.FundingIDs, err = ec.unmarshalOString2ᚕᚖstring(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -10007,7 +12268,7 @@ func (ec *executionContext) unmarshalInputDPoolInput(ctx context.Context, obj in
 			var err error
 
 			ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("numFundings"))
-			it.NumFundings, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			it.NumFundings, err = ec.unmarshalOBigInt2ᚖint64(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -10015,7 +12276,7 @@ func (ec *executionContext) unmarshalInputDPoolInput(ctx context.Context, obj in
 			var err error
 
 			ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("MinDepositPeriod"))
-			it.MinDepositPeriod, err = ec.unmarshalOFloat2ᚖfloat64(ctx, v)
+			it.MinDepositPeriod, err = ec.unmarshalOBigInt2ᚖint64(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -10023,7 +12284,7 @@ func (ec *executionContext) unmarshalInputDPoolInput(ctx context.Context, obj in
 			var err error
 
 			ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("MaxDepositPeriod"))
-			it.MaxDepositPeriod, err = ec.unmarshalOFloat2ᚖfloat64(ctx, v)
+			it.MaxDepositPeriod, err = ec.unmarshalOBigInt2ᚖint64(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -10031,7 +12292,7 @@ func (ec *executionContext) unmarshalInputDPoolInput(ctx context.Context, obj in
 			var err error
 
 			ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("MinDepositAmount"))
-			it.MinDepositAmount, err = ec.unmarshalOFloat2ᚖfloat64(ctx, v)
+			it.MinDepositAmount, err = ec.unmarshalOBigDecimal2ᚖfloat64(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -10039,23 +12300,23 @@ func (ec *executionContext) unmarshalInputDPoolInput(ctx context.Context, obj in
 			var err error
 
 			ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("MaxDepositAmount"))
-			it.MaxDepositAmount, err = ec.unmarshalOFloat2ᚖfloat64(ctx, v)
+			it.MaxDepositAmount, err = ec.unmarshalOBigDecimal2ᚖfloat64(ctx, v)
 			if err != nil {
 				return it, err
 			}
-		case "mphMintingMultiplier":
+		case "mphDepositorRewardMintMultiplier":
 			var err error
 
-			ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("mphMintingMultiplier"))
-			it.MphMintingMultiplier, err = ec.unmarshalOFloat2ᚖfloat64(ctx, v)
+			ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("mphDepositorRewardMintMultiplier"))
+			it.MphDepositorRewardMintMultiplier, err = ec.unmarshalOBigDecimal2ᚖfloat64(ctx, v)
 			if err != nil {
 				return it, err
 			}
-		case "mphDepositorRewardMultiplier":
+		case "mphDepositorRewardTakeBackMultiplier":
 			var err error
 
-			ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("mphDepositorRewardMultiplier"))
-			it.MphDepositorRewardMultiplier, err = ec.unmarshalOFloat2ᚖfloat64(ctx, v)
+			ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("mphDepositorRewardTakeBackMultiplier"))
+			it.MphDepositorRewardTakeBackMultiplier, err = ec.unmarshalOBigDecimal2ᚖfloat64(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -10063,7 +12324,7 @@ func (ec *executionContext) unmarshalInputDPoolInput(ctx context.Context, obj in
 			var err error
 
 			ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("mphFunderRewardMultiplier"))
-			it.MphFunderRewardMultiplier, err = ec.unmarshalOFloat2ᚖfloat64(ctx, v)
+			it.MphFunderRewardMultiplier, err = ec.unmarshalOBigDecimal2ᚖfloat64(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -10071,7 +12332,7 @@ func (ec *executionContext) unmarshalInputDPoolInput(ctx context.Context, obj in
 			var err error
 
 			ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("oneYearInterestRate"))
-			it.OneYearInterestRate, err = ec.unmarshalOFloat2ᚖfloat64(ctx, v)
+			it.OneYearInterestRate, err = ec.unmarshalOBigDecimal2ᚖfloat64(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -10079,7 +12340,7 @@ func (ec *executionContext) unmarshalInputDPoolInput(ctx context.Context, obj in
 			var err error
 
 			ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("surplus"))
-			it.Surplus, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			it.Surplus, err = ec.unmarshalOBigDecimal2ᚖfloat64(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -10087,7 +12348,7 @@ func (ec *executionContext) unmarshalInputDPoolInput(ctx context.Context, obj in
 			var err error
 
 			ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("moneyMarketIncomeIndex"))
-			it.MoneyMarketIncomeIndex, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			it.MoneyMarketIncomeIndex, err = ec.unmarshalOBigInt2ᚖint64(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -10095,15 +12356,7 @@ func (ec *executionContext) unmarshalInputDPoolInput(ctx context.Context, obj in
 			var err error
 
 			ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("oracleInterestRate"))
-			it.OracleInterestRate, err = ec.unmarshalOString2ᚖstring(ctx, v)
-			if err != nil {
-				return it, err
-			}
-		case "ProofID":
-			var err error
-
-			ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("ProofID"))
-			it.ProofID, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			it.OracleInterestRate, err = ec.unmarshalOBigDecimal2ᚖfloat64(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -10127,11 +12380,19 @@ func (ec *executionContext) unmarshalInputDPoolListInput(ctx context.Context, ob
 			if err != nil {
 				return it, err
 			}
+		case "DPoolIDs":
+			var err error
+
+			ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("DPoolIDs"))
+			it.DPoolIDs, err = ec.unmarshalOString2ᚕᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
 		case "numPools":
 			var err error
 
 			ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("numPools"))
-			it.NumPools, err = ec.unmarshalOInt2ᚖint(ctx, v)
+			it.NumPools, err = ec.unmarshalOBigInt2ᚖint64(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -10139,7 +12400,7 @@ func (ec *executionContext) unmarshalInputDPoolListInput(ctx context.Context, ob
 			var err error
 
 			ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("numUsers"))
-			it.NumUsers, err = ec.unmarshalOInt2ᚖint(ctx, v)
+			it.NumUsers, err = ec.unmarshalOBigInt2ᚖint64(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -10147,7 +12408,7 @@ func (ec *executionContext) unmarshalInputDPoolListInput(ctx context.Context, ob
 			var err error
 
 			ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("numActiveUsers"))
-			it.NumActiveUsers, err = ec.unmarshalOInt2ᚖint(ctx, v)
+			it.NumActiveUsers, err = ec.unmarshalOBigInt2ᚖint64(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -10155,7 +12416,7 @@ func (ec *executionContext) unmarshalInputDPoolListInput(ctx context.Context, ob
 			var err error
 
 			ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("numFunders"))
-			it.NumFunders, err = ec.unmarshalOInt2ᚖint(ctx, v)
+			it.NumFunders, err = ec.unmarshalOBigInt2ᚖint64(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -10183,7 +12444,23 @@ func (ec *executionContext) unmarshalInputDepositInput(ctx context.Context, obj 
 			var err error
 
 			ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("nftID"))
-			it.NftID, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			it.NftID, err = ec.unmarshalOBigInt2ᚖint64(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "UserID":
+			var err error
+
+			ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("UserID"))
+			it.UserID, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "DPoolID":
+			var err error
+
+			ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("DPoolID"))
+			it.DPoolID, err = ec.unmarshalOString2ᚖstring(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -10191,7 +12468,7 @@ func (ec *executionContext) unmarshalInputDepositInput(ctx context.Context, obj 
 			var err error
 
 			ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("amount"))
-			it.Amount, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			it.Amount, err = ec.unmarshalOBigDecimal2ᚖfloat64(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -10199,7 +12476,7 @@ func (ec *executionContext) unmarshalInputDepositInput(ctx context.Context, obj 
 			var err error
 
 			ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("maturationTimestamp"))
-			it.MaturationTimestamp, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			it.MaturationTimestamp, err = ec.unmarshalOBigInt2ᚖint64(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -10215,7 +12492,15 @@ func (ec *executionContext) unmarshalInputDepositInput(ctx context.Context, obj 
 			var err error
 
 			ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("depositTimestamp"))
-			it.DepositTimestamp, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			it.DepositTimestamp, err = ec.unmarshalOBigInt2ᚖint64(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "depositLength":
+			var err error
+
+			ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("depositLength"))
+			it.DepositLength, err = ec.unmarshalOBigInt2ᚖint64(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -10223,7 +12508,7 @@ func (ec *executionContext) unmarshalInputDepositInput(ctx context.Context, obj 
 			var err error
 
 			ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("interestEarned"))
-			it.InterestEarned, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			it.InterestEarned, err = ec.unmarshalOBigDecimal2ᚖfloat64(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -10231,7 +12516,7 @@ func (ec *executionContext) unmarshalInputDepositInput(ctx context.Context, obj 
 			var err error
 
 			ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("fundingID"))
-			it.FundingID, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			it.FundingID, err = ec.unmarshalOBigInt2ᚖint64(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -10239,7 +12524,7 @@ func (ec *executionContext) unmarshalInputDepositInput(ctx context.Context, obj 
 			var err error
 
 			ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("mintMPHAmount"))
-			it.MintMPHAmount, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			it.MintMPHAmount, err = ec.unmarshalOBigDecimal2ᚖfloat64(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -10247,7 +12532,7 @@ func (ec *executionContext) unmarshalInputDepositInput(ctx context.Context, obj 
 			var err error
 
 			ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("takeBackMPHAmount"))
-			it.TakeBackMPHAmount, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			it.TakeBackMPHAmount, err = ec.unmarshalOBigDecimal2ᚖfloat64(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -10255,15 +12540,83 @@ func (ec *executionContext) unmarshalInputDepositInput(ctx context.Context, obj 
 			var err error
 
 			ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("initialMoneyMarketIncomeIndex"))
-			it.InitialMoneyMarketIncomeIndex, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			it.InitialMoneyMarketIncomeIndex, err = ec.unmarshalOBigInt2ᚖint64(ctx, v)
 			if err != nil {
 				return it, err
 			}
-		case "ProofID":
+		case "fundingInterestPaid":
 			var err error
 
-			ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("ProofID"))
-			it.ProofID, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("fundingInterestPaid"))
+			it.FundingInterestPaid, err = ec.unmarshalOBigDecimal2ᚖfloat64(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "fundingRefundAmount":
+			var err error
+
+			ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("fundingRefundAmount"))
+			it.FundingRefundAmount, err = ec.unmarshalOBigDecimal2ᚖfloat64(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		}
+	}
+
+	return it, nil
+}
+
+func (ec *executionContext) unmarshalInputFractionalDepositInput(ctx context.Context, obj interface{}) (models.FractionalDepositInput, error) {
+	var it models.FractionalDepositInput
+	var asMap = obj.(map[string]interface{})
+
+	for k, v := range asMap {
+		switch k {
+		case "id":
+			var err error
+
+			ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("id"))
+			it.ID, err = ec.unmarshalOID2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "address":
+			var err error
+
+			ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("address"))
+			it.Address, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "zeroCouponBondAddress":
+			var err error
+
+			ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("zeroCouponBondAddress"))
+			it.ZeroCouponBondAddress, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "ownerAddress":
+			var err error
+
+			ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("ownerAddress"))
+			it.OwnerAddress, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "active":
+			var err error
+
+			ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("active"))
+			it.Active, err = ec.unmarshalOBoolean2ᚖbool(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "DepositID":
+			var err error
+
+			ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("DepositID"))
+			it.DepositID, err = ec.unmarshalOString2ᚖstring(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -10295,11 +12648,27 @@ func (ec *executionContext) unmarshalInputFunderInput(ctx context.Context, obj i
 			if err != nil {
 				return it, err
 			}
+		case "DPoolIDs":
+			var err error
+
+			ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("DPoolIDs"))
+			it.DPoolIDs, err = ec.unmarshalOString2ᚕᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
 		case "numPools":
 			var err error
 
 			ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("numPools"))
-			it.NumPools, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			it.NumPools, err = ec.unmarshalOBigInt2ᚖint64(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "FundingIDs":
+			var err error
+
+			ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("FundingIDs"))
+			it.FundingIDs, err = ec.unmarshalOString2ᚕᚖstring(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -10307,7 +12676,7 @@ func (ec *executionContext) unmarshalInputFunderInput(ctx context.Context, obj i
 			var err error
 
 			ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("numFundings"))
-			it.NumFundings, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			it.NumFundings, err = ec.unmarshalOBigInt2ᚖint64(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -10315,15 +12684,15 @@ func (ec *executionContext) unmarshalInputFunderInput(ctx context.Context, obj i
 			var err error
 
 			ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("totalMPHEarned"))
-			it.TotalMPHEarned, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			it.TotalMPHEarned, err = ec.unmarshalOBigDecimal2ᚖfloat64(ctx, v)
 			if err != nil {
 				return it, err
 			}
-		case "ProofID":
+		case "FunderTotalInterestIDs":
 			var err error
 
-			ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("ProofID"))
-			it.ProofID, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("FunderTotalInterestIDs"))
+			it.FunderTotalInterestIDs, err = ec.unmarshalOString2ᚕᚖstring(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -10347,11 +12716,27 @@ func (ec *executionContext) unmarshalInputFunderTotalInterestInput(ctx context.C
 			if err != nil {
 				return it, err
 			}
+		case "FunderID":
+			var err error
+
+			ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("FunderID"))
+			it.FunderID, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "DPoolID":
+			var err error
+
+			ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("DPoolID"))
+			it.DPoolID, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
 		case "totalDeficitFunded":
 			var err error
 
 			ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("totalDeficitFunded"))
-			it.TotalDeficitFunded, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			it.TotalDeficitFunded, err = ec.unmarshalOBigDecimal2ᚖfloat64(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -10359,7 +12744,7 @@ func (ec *executionContext) unmarshalInputFunderTotalInterestInput(ctx context.C
 			var err error
 
 			ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("totalHistoricalDeficitFunded"))
-			it.TotalHistoricalDeficitFunded, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			it.TotalHistoricalDeficitFunded, err = ec.unmarshalOBigDecimal2ᚖfloat64(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -10367,7 +12752,7 @@ func (ec *executionContext) unmarshalInputFunderTotalInterestInput(ctx context.C
 			var err error
 
 			ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("totalInterestEarned"))
-			it.TotalInterestEarned, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			it.TotalInterestEarned, err = ec.unmarshalOBigDecimal2ᚖfloat64(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -10375,7 +12760,7 @@ func (ec *executionContext) unmarshalInputFunderTotalInterestInput(ctx context.C
 			var err error
 
 			ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("totalHistoricalInterestEarned"))
-			it.TotalHistoricalInterestEarned, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			it.TotalHistoricalInterestEarned, err = ec.unmarshalOBigDecimal2ᚖfloat64(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -10383,15 +12768,7 @@ func (ec *executionContext) unmarshalInputFunderTotalInterestInput(ctx context.C
 			var err error
 
 			ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("totalRecordedFundedDepositAmount"))
-			it.TotalRecordedFundedDepositAmount, err = ec.unmarshalOString2ᚖstring(ctx, v)
-			if err != nil {
-				return it, err
-			}
-		case "ProofID":
-			var err error
-
-			ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("ProofID"))
-			it.ProofID, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			it.TotalRecordedFundedDepositAmount, err = ec.unmarshalOBigDecimal2ᚖfloat64(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -10419,7 +12796,23 @@ func (ec *executionContext) unmarshalInputFundingInput(ctx context.Context, obj 
 			var err error
 
 			ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("nftID"))
-			it.NftID, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			it.NftID, err = ec.unmarshalOBigInt2ᚖint64(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "FunderID":
+			var err error
+
+			ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("FunderID"))
+			it.FunderID, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "DPoolID":
+			var err error
+
+			ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("DPoolID"))
+			it.DPoolID, err = ec.unmarshalOString2ᚖstring(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -10427,7 +12820,7 @@ func (ec *executionContext) unmarshalInputFundingInput(ctx context.Context, obj 
 			var err error
 
 			ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("fromDepositID"))
-			it.FromDepositID, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			it.FromDepositID, err = ec.unmarshalOBigInt2ᚖint64(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -10435,7 +12828,7 @@ func (ec *executionContext) unmarshalInputFundingInput(ctx context.Context, obj 
 			var err error
 
 			ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("toDepositID"))
-			it.ToDepositID, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			it.ToDepositID, err = ec.unmarshalOBigInt2ᚖint64(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -10451,7 +12844,7 @@ func (ec *executionContext) unmarshalInputFundingInput(ctx context.Context, obj 
 			var err error
 
 			ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("recordedFundedDepositAmount"))
-			it.RecordedFundedDepositAmount, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			it.RecordedFundedDepositAmount, err = ec.unmarshalOBigDecimal2ᚖfloat64(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -10459,7 +12852,7 @@ func (ec *executionContext) unmarshalInputFundingInput(ctx context.Context, obj 
 			var err error
 
 			ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("recordedMoneyMarketIncomeIndex"))
-			it.RecordedMoneyMarketIncomeIndex, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			it.RecordedMoneyMarketIncomeIndex, err = ec.unmarshalOBigInt2ᚖint64(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -10467,7 +12860,7 @@ func (ec *executionContext) unmarshalInputFundingInput(ctx context.Context, obj 
 			var err error
 
 			ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("initialFundedDepositAmount"))
-			it.InitialFundedDepositAmount, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			it.InitialFundedDepositAmount, err = ec.unmarshalOBigDecimal2ᚖfloat64(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -10475,7 +12868,7 @@ func (ec *executionContext) unmarshalInputFundingInput(ctx context.Context, obj 
 			var err error
 
 			ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("fundedDeficitAmount"))
-			it.FundedDeficitAmount, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			it.FundedDeficitAmount, err = ec.unmarshalOBigDecimal2ᚖfloat64(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -10483,23 +12876,31 @@ func (ec *executionContext) unmarshalInputFundingInput(ctx context.Context, obj 
 			var err error
 
 			ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("totalInterestEarned"))
-			it.TotalInterestEarned, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			it.TotalInterestEarned, err = ec.unmarshalOBigDecimal2ᚖfloat64(ctx, v)
 			if err != nil {
 				return it, err
 			}
-		case "mintMPHAmount":
+		case "creationTimestamp":
 			var err error
 
-			ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("mintMPHAmount"))
-			it.MintMPHAmount, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("creationTimestamp"))
+			it.CreationTimestamp, err = ec.unmarshalOBigInt2ᚖint64(ctx, v)
 			if err != nil {
 				return it, err
 			}
-		case "ProofID":
+		case "mphRewardEarned":
 			var err error
 
-			ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("ProofID"))
-			it.ProofID, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("mphRewardEarned"))
+			it.MphRewardEarned, err = ec.unmarshalOBigDecimal2ᚖfloat64(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "refundAmount":
+			var err error
+
+			ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("refundAmount"))
+			it.RefundAmount, err = ec.unmarshalOBigDecimal2ᚖfloat64(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -10531,35 +12932,11 @@ func (ec *executionContext) unmarshalInputMPHHolderInput(ctx context.Context, ob
 			if err != nil {
 				return it, err
 			}
-		case "mphBalance":
-			var err error
-
-			ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("mphBalance"))
-			it.MphBalance, err = ec.unmarshalOString2ᚖstring(ctx, v)
-			if err != nil {
-				return it, err
-			}
-		case "stakedMPHBalance":
-			var err error
-
-			ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("stakedMPHBalance"))
-			it.StakedMPHBalance, err = ec.unmarshalOString2ᚖstring(ctx, v)
-			if err != nil {
-				return it, err
-			}
 		case "totalHistoricalReward":
 			var err error
 
 			ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("totalHistoricalReward"))
-			it.TotalHistoricalReward, err = ec.unmarshalOString2ᚖstring(ctx, v)
-			if err != nil {
-				return it, err
-			}
-		case "ProofID":
-			var err error
-
-			ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("ProofID"))
-			it.ProofID, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			it.TotalHistoricalReward, err = ec.unmarshalOBigDecimal2ᚖfloat64(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -10583,27 +12960,11 @@ func (ec *executionContext) unmarshalInputMPHInput(ctx context.Context, obj inte
 			if err != nil {
 				return it, err
 			}
-		case "totalSupply":
-			var err error
-
-			ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("totalSupply"))
-			it.TotalSupply, err = ec.unmarshalOString2ᚖstring(ctx, v)
-			if err != nil {
-				return it, err
-			}
-		case "totalStakedMPHBalance":
-			var err error
-
-			ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("totalStakedMPHBalance"))
-			it.TotalStakedMPHBalance, err = ec.unmarshalOString2ᚖstring(ctx, v)
-			if err != nil {
-				return it, err
-			}
 		case "totalHistoricalReward":
 			var err error
 
 			ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("totalHistoricalReward"))
-			it.TotalHistoricalReward, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			it.TotalHistoricalReward, err = ec.unmarshalOBigDecimal2ᚖfloat64(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -10611,7 +12972,7 @@ func (ec *executionContext) unmarshalInputMPHInput(ctx context.Context, obj inte
 			var err error
 
 			ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("rewardPerSecond"))
-			it.RewardPerSecond, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			it.RewardPerSecond, err = ec.unmarshalOBigDecimal2ᚖfloat64(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -10619,15 +12980,7 @@ func (ec *executionContext) unmarshalInputMPHInput(ctx context.Context, obj inte
 			var err error
 
 			ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("rewardPerMPHPerSecond"))
-			it.RewardPerMPHPerSecond, err = ec.unmarshalOString2ᚖstring(ctx, v)
-			if err != nil {
-				return it, err
-			}
-		case "ProofID":
-			var err error
-
-			ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("ProofID"))
-			it.ProofID, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			it.RewardPerMPHPerSecond, err = ec.unmarshalOBigDecimal2ᚖfloat64(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -10659,11 +13012,27 @@ func (ec *executionContext) unmarshalInputUserInput(ctx context.Context, obj int
 			if err != nil {
 				return it, err
 			}
+		case "DPoolIDs":
+			var err error
+
+			ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("DPoolIDs"))
+			it.DPoolIDs, err = ec.unmarshalOString2ᚕᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
 		case "numPools":
 			var err error
 
 			ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("numPools"))
-			it.NumPools, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			it.NumPools, err = ec.unmarshalOBigInt2ᚖint64(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "DepositIDs":
+			var err error
+
+			ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("DepositIDs"))
+			it.DepositIDs, err = ec.unmarshalOString2ᚕᚖstring(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -10671,7 +13040,7 @@ func (ec *executionContext) unmarshalInputUserInput(ctx context.Context, obj int
 			var err error
 
 			ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("numDeposits"))
-			it.NumDeposits, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			it.NumDeposits, err = ec.unmarshalOBigInt2ᚖint64(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -10679,7 +13048,15 @@ func (ec *executionContext) unmarshalInputUserInput(ctx context.Context, obj int
 			var err error
 
 			ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("numActiveDeposits"))
-			it.NumActiveDeposits, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			it.NumActiveDeposits, err = ec.unmarshalOBigInt2ᚖint64(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "UserTotalDepositIDs":
+			var err error
+
+			ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("UserTotalDepositIDs"))
+			it.UserTotalDepositIDs, err = ec.unmarshalOString2ᚕᚖstring(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -10687,7 +13064,7 @@ func (ec *executionContext) unmarshalInputUserInput(ctx context.Context, obj int
 			var err error
 
 			ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("totalMPHEarned"))
-			it.TotalMPHEarned, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			it.TotalMPHEarned, err = ec.unmarshalOBigDecimal2ᚖfloat64(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -10695,15 +13072,7 @@ func (ec *executionContext) unmarshalInputUserInput(ctx context.Context, obj int
 			var err error
 
 			ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("totalMPHPaidBack"))
-			it.TotalMPHPaidBack, err = ec.unmarshalOString2ᚖstring(ctx, v)
-			if err != nil {
-				return it, err
-			}
-		case "ProofID":
-			var err error
-
-			ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("ProofID"))
-			it.ProofID, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			it.TotalMPHPaidBack, err = ec.unmarshalOBigDecimal2ᚖfloat64(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -10727,11 +13096,27 @@ func (ec *executionContext) unmarshalInputUserTotalDepositInput(ctx context.Cont
 			if err != nil {
 				return it, err
 			}
+		case "UserID":
+			var err error
+
+			ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("UserID"))
+			it.UserID, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "DPoolID":
+			var err error
+
+			ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("DPoolID"))
+			it.DPoolID, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
 		case "totalActiveDeposit":
 			var err error
 
 			ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("totalActiveDeposit"))
-			it.TotalActiveDeposit, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			it.TotalActiveDeposit, err = ec.unmarshalOBigDecimal2ᚖfloat64(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -10739,7 +13124,7 @@ func (ec *executionContext) unmarshalInputUserTotalDepositInput(ctx context.Cont
 			var err error
 
 			ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("totalHistoricalDeposit"))
-			it.TotalHistoricalDeposit, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			it.TotalHistoricalDeposit, err = ec.unmarshalOBigDecimal2ᚖfloat64(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -10747,7 +13132,7 @@ func (ec *executionContext) unmarshalInputUserTotalDepositInput(ctx context.Cont
 			var err error
 
 			ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("totalInterestEarned"))
-			it.TotalInterestEarned, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			it.TotalInterestEarned, err = ec.unmarshalOBigDecimal2ᚖfloat64(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -10755,15 +13140,75 @@ func (ec *executionContext) unmarshalInputUserTotalDepositInput(ctx context.Cont
 			var err error
 
 			ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("totalHistoricalInterestEarned"))
-			it.TotalHistoricalInterestEarned, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			it.TotalHistoricalInterestEarned, err = ec.unmarshalOBigDecimal2ᚖfloat64(ctx, v)
 			if err != nil {
 				return it, err
 			}
-		case "ProofID":
+		}
+	}
+
+	return it, nil
+}
+
+func (ec *executionContext) unmarshalInputVestInput(ctx context.Context, obj interface{}) (models.VestInput, error) {
+	var it models.VestInput
+	var asMap = obj.(map[string]interface{})
+
+	for k, v := range asMap {
+		switch k {
+		case "id":
 			var err error
 
-			ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("ProofID"))
-			it.ProofID, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("id"))
+			it.ID, err = ec.unmarshalOID2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "index":
+			var err error
+
+			ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("index"))
+			it.Index, err = ec.unmarshalOBigInt2ᚖint64(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "user":
+			var err error
+
+			ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("user"))
+			it.User, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "amount":
+			var err error
+
+			ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("amount"))
+			it.Amount, err = ec.unmarshalOBigDecimal2ᚖfloat64(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "vestPeriodInSeconds":
+			var err error
+
+			ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("vestPeriodInSeconds"))
+			it.VestPeriodInSeconds, err = ec.unmarshalOBigInt2ᚖint64(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "creationTimestamp":
+			var err error
+
+			ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("creationTimestamp"))
+			it.CreationTimestamp, err = ec.unmarshalOBigInt2ᚖint64(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "withdrawnAmount":
+			var err error
+
+			ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithField("withdrawnAmount"))
+			it.WithdrawnAmount, err = ec.unmarshalOBigDecimal2ᚖfloat64(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -10813,6 +13258,8 @@ func (ec *executionContext) _DPool(ctx context.Context, sel ast.SelectionSet, ob
 				res = ec._DPool_users(ctx, field, obj)
 				return res
 			})
+		case "UserIDs":
+			out.Values[i] = ec._DPool_UserIDs(ctx, field, obj)
 		case "numUsers":
 			out.Values[i] = ec._DPool_numUsers(ctx, field, obj)
 		case "deposits":
@@ -10826,6 +13273,8 @@ func (ec *executionContext) _DPool(ctx context.Context, sel ast.SelectionSet, ob
 				res = ec._DPool_deposits(ctx, field, obj)
 				return res
 			})
+		case "DepositIDs":
+			out.Values[i] = ec._DPool_DepositIDs(ctx, field, obj)
 		case "numDeposits":
 			out.Values[i] = ec._DPool_numDeposits(ctx, field, obj)
 		case "numActiveDeposits":
@@ -10849,6 +13298,8 @@ func (ec *executionContext) _DPool(ctx context.Context, sel ast.SelectionSet, ob
 				res = ec._DPool_funders(ctx, field, obj)
 				return res
 			})
+		case "FunderIDs":
+			out.Values[i] = ec._DPool_FunderIDs(ctx, field, obj)
 		case "numFunders":
 			out.Values[i] = ec._DPool_numFunders(ctx, field, obj)
 		case "fundings":
@@ -10862,6 +13313,8 @@ func (ec *executionContext) _DPool(ctx context.Context, sel ast.SelectionSet, ob
 				res = ec._DPool_fundings(ctx, field, obj)
 				return res
 			})
+		case "FundingIDs":
+			out.Values[i] = ec._DPool_FundingIDs(ctx, field, obj)
 		case "numFundings":
 			out.Values[i] = ec._DPool_numFundings(ctx, field, obj)
 		case "MinDepositPeriod":
@@ -10872,10 +13325,10 @@ func (ec *executionContext) _DPool(ctx context.Context, sel ast.SelectionSet, ob
 			out.Values[i] = ec._DPool_MinDepositAmount(ctx, field, obj)
 		case "MaxDepositAmount":
 			out.Values[i] = ec._DPool_MaxDepositAmount(ctx, field, obj)
-		case "mphMintingMultiplier":
-			out.Values[i] = ec._DPool_mphMintingMultiplier(ctx, field, obj)
-		case "mphDepositorRewardMultiplier":
-			out.Values[i] = ec._DPool_mphDepositorRewardMultiplier(ctx, field, obj)
+		case "mphDepositorRewardMintMultiplier":
+			out.Values[i] = ec._DPool_mphDepositorRewardMintMultiplier(ctx, field, obj)
+		case "mphDepositorRewardTakeBackMultiplier":
+			out.Values[i] = ec._DPool_mphDepositorRewardTakeBackMultiplier(ctx, field, obj)
 		case "mphFunderRewardMultiplier":
 			out.Values[i] = ec._DPool_mphFunderRewardMultiplier(ctx, field, obj)
 		case "oneYearInterestRate":
@@ -10923,6 +13376,8 @@ func (ec *executionContext) _DPoolList(ctx context.Context, sel ast.SelectionSet
 				res = ec._DPoolList_pools(ctx, field, obj)
 				return res
 			})
+		case "DPoolIDs":
+			out.Values[i] = ec._DPoolList_DPoolIDs(ctx, field, obj)
 		case "numPools":
 			out.Values[i] = ec._DPoolList_numPools(ctx, field, obj)
 		case "numUsers":
@@ -10970,6 +13425,8 @@ func (ec *executionContext) _Deposit(ctx context.Context, sel ast.SelectionSet, 
 				res = ec._Deposit_user(ctx, field, obj)
 				return res
 			})
+		case "UserID":
+			out.Values[i] = ec._Deposit_UserID(ctx, field, obj)
 		case "pool":
 			field := field
 			out.Concurrently(i, func() (res graphql.Marshaler) {
@@ -10981,6 +13438,8 @@ func (ec *executionContext) _Deposit(ctx context.Context, sel ast.SelectionSet, 
 				res = ec._Deposit_pool(ctx, field, obj)
 				return res
 			})
+		case "DPoolID":
+			out.Values[i] = ec._Deposit_DPoolID(ctx, field, obj)
 		case "amount":
 			out.Values[i] = ec._Deposit_amount(ctx, field, obj)
 		case "maturationTimestamp":
@@ -10989,6 +13448,8 @@ func (ec *executionContext) _Deposit(ctx context.Context, sel ast.SelectionSet, 
 			out.Values[i] = ec._Deposit_active(ctx, field, obj)
 		case "depositTimestamp":
 			out.Values[i] = ec._Deposit_depositTimestamp(ctx, field, obj)
+		case "depositLength":
+			out.Values[i] = ec._Deposit_depositLength(ctx, field, obj)
 		case "interestEarned":
 			out.Values[i] = ec._Deposit_interestEarned(ctx, field, obj)
 		case "fundingID":
@@ -10999,8 +13460,59 @@ func (ec *executionContext) _Deposit(ctx context.Context, sel ast.SelectionSet, 
 			out.Values[i] = ec._Deposit_takeBackMPHAmount(ctx, field, obj)
 		case "initialMoneyMarketIncomeIndex":
 			out.Values[i] = ec._Deposit_initialMoneyMarketIncomeIndex(ctx, field, obj)
+		case "fundingInterestPaid":
+			out.Values[i] = ec._Deposit_fundingInterestPaid(ctx, field, obj)
+		case "fundingRefundAmount":
+			out.Values[i] = ec._Deposit_fundingRefundAmount(ctx, field, obj)
 		case "proof":
 			out.Values[i] = ec._Deposit_proof(ctx, field, obj)
+		default:
+			panic("unknown field " + strconv.Quote(field.Name))
+		}
+	}
+	out.Dispatch()
+	if invalids > 0 {
+		return graphql.Null
+	}
+	return out
+}
+
+var fractionalDepositImplementors = []string{"FractionalDeposit"}
+
+func (ec *executionContext) _FractionalDeposit(ctx context.Context, sel ast.SelectionSet, obj *models.FractionalDeposit) graphql.Marshaler {
+	fields := graphql.CollectFields(ec.OperationContext, sel, fractionalDepositImplementors)
+
+	out := graphql.NewFieldSet(fields)
+	var invalids uint32
+	for i, field := range fields {
+		switch field.Name {
+		case "__typename":
+			out.Values[i] = graphql.MarshalString("FractionalDeposit")
+		case "id":
+			out.Values[i] = ec._FractionalDeposit_id(ctx, field, obj)
+		case "address":
+			out.Values[i] = ec._FractionalDeposit_address(ctx, field, obj)
+		case "zeroCouponBondAddress":
+			out.Values[i] = ec._FractionalDeposit_zeroCouponBondAddress(ctx, field, obj)
+		case "ownerAddress":
+			out.Values[i] = ec._FractionalDeposit_ownerAddress(ctx, field, obj)
+		case "active":
+			out.Values[i] = ec._FractionalDeposit_active(ctx, field, obj)
+		case "deposit":
+			field := field
+			out.Concurrently(i, func() (res graphql.Marshaler) {
+				defer func() {
+					if r := recover(); r != nil {
+						ec.Error(ctx, ec.Recover(ctx, r))
+					}
+				}()
+				res = ec._FractionalDeposit_deposit(ctx, field, obj)
+				return res
+			})
+		case "DepositID":
+			out.Values[i] = ec._FractionalDeposit_DepositID(ctx, field, obj)
+		case "proof":
+			out.Values[i] = ec._FractionalDeposit_proof(ctx, field, obj)
 		default:
 			panic("unknown field " + strconv.Quote(field.Name))
 		}
@@ -11038,6 +13550,8 @@ func (ec *executionContext) _Funder(ctx context.Context, sel ast.SelectionSet, o
 				res = ec._Funder_pools(ctx, field, obj)
 				return res
 			})
+		case "DPoolIDs":
+			out.Values[i] = ec._Funder_DPoolIDs(ctx, field, obj)
 		case "numPools":
 			out.Values[i] = ec._Funder_numPools(ctx, field, obj)
 		case "fundings":
@@ -11051,6 +13565,8 @@ func (ec *executionContext) _Funder(ctx context.Context, sel ast.SelectionSet, o
 				res = ec._Funder_fundings(ctx, field, obj)
 				return res
 			})
+		case "FundingIDs":
+			out.Values[i] = ec._Funder_FundingIDs(ctx, field, obj)
 		case "numFundings":
 			out.Values[i] = ec._Funder_numFundings(ctx, field, obj)
 		case "totalMPHEarned":
@@ -11066,6 +13582,8 @@ func (ec *executionContext) _Funder(ctx context.Context, sel ast.SelectionSet, o
 				res = ec._Funder_totalInterestByPool(ctx, field, obj)
 				return res
 			})
+		case "FunderTotalInterestIDs":
+			out.Values[i] = ec._Funder_FunderTotalInterestIDs(ctx, field, obj)
 		case "proof":
 			out.Values[i] = ec._Funder_proof(ctx, field, obj)
 		default:
@@ -11103,6 +13621,8 @@ func (ec *executionContext) _FunderTotalInterest(ctx context.Context, sel ast.Se
 				res = ec._FunderTotalInterest_funder(ctx, field, obj)
 				return res
 			})
+		case "FunderID":
+			out.Values[i] = ec._FunderTotalInterest_FunderID(ctx, field, obj)
 		case "pool":
 			field := field
 			out.Concurrently(i, func() (res graphql.Marshaler) {
@@ -11114,6 +13634,8 @@ func (ec *executionContext) _FunderTotalInterest(ctx context.Context, sel ast.Se
 				res = ec._FunderTotalInterest_pool(ctx, field, obj)
 				return res
 			})
+		case "DPoolID":
+			out.Values[i] = ec._FunderTotalInterest_DPoolID(ctx, field, obj)
 		case "totalDeficitFunded":
 			out.Values[i] = ec._FunderTotalInterest_totalDeficitFunded(ctx, field, obj)
 		case "totalHistoricalDeficitFunded":
@@ -11163,6 +13685,8 @@ func (ec *executionContext) _Funding(ctx context.Context, sel ast.SelectionSet, 
 				res = ec._Funding_funder(ctx, field, obj)
 				return res
 			})
+		case "FunderID":
+			out.Values[i] = ec._Funding_FunderID(ctx, field, obj)
 		case "pool":
 			field := field
 			out.Concurrently(i, func() (res graphql.Marshaler) {
@@ -11174,6 +13698,8 @@ func (ec *executionContext) _Funding(ctx context.Context, sel ast.SelectionSet, 
 				res = ec._Funding_pool(ctx, field, obj)
 				return res
 			})
+		case "DPoolID":
+			out.Values[i] = ec._Funding_DPoolID(ctx, field, obj)
 		case "fromDepositID":
 			out.Values[i] = ec._Funding_fromDepositID(ctx, field, obj)
 		case "toDepositID":
@@ -11190,8 +13716,12 @@ func (ec *executionContext) _Funding(ctx context.Context, sel ast.SelectionSet, 
 			out.Values[i] = ec._Funding_fundedDeficitAmount(ctx, field, obj)
 		case "totalInterestEarned":
 			out.Values[i] = ec._Funding_totalInterestEarned(ctx, field, obj)
-		case "mintMPHAmount":
-			out.Values[i] = ec._Funding_mintMPHAmount(ctx, field, obj)
+		case "creationTimestamp":
+			out.Values[i] = ec._Funding_creationTimestamp(ctx, field, obj)
+		case "mphRewardEarned":
+			out.Values[i] = ec._Funding_mphRewardEarned(ctx, field, obj)
+		case "refundAmount":
+			out.Values[i] = ec._Funding_refundAmount(ctx, field, obj)
 		case "proof":
 			out.Values[i] = ec._Funding_proof(ctx, field, obj)
 		default:
@@ -11218,10 +13748,6 @@ func (ec *executionContext) _MPH(ctx context.Context, sel ast.SelectionSet, obj 
 			out.Values[i] = graphql.MarshalString("MPH")
 		case "id":
 			out.Values[i] = ec._MPH_id(ctx, field, obj)
-		case "totalSupply":
-			out.Values[i] = ec._MPH_totalSupply(ctx, field, obj)
-		case "totalStakedMPHBalance":
-			out.Values[i] = ec._MPH_totalStakedMPHBalance(ctx, field, obj)
 		case "totalHistoricalReward":
 			out.Values[i] = ec._MPH_totalHistoricalReward(ctx, field, obj)
 		case "rewardPerSecond":
@@ -11256,10 +13782,6 @@ func (ec *executionContext) _MPHHolder(ctx context.Context, sel ast.SelectionSet
 			out.Values[i] = ec._MPHHolder_id(ctx, field, obj)
 		case "address":
 			out.Values[i] = ec._MPHHolder_address(ctx, field, obj)
-		case "mphBalance":
-			out.Values[i] = ec._MPHHolder_mphBalance(ctx, field, obj)
-		case "stakedMPHBalance":
-			out.Values[i] = ec._MPHHolder_stakedMPHBalance(ctx, field, obj)
 		case "totalHistoricalReward":
 			out.Values[i] = ec._MPHHolder_totalHistoricalReward(ctx, field, obj)
 		case "proof":
@@ -11290,26 +13812,30 @@ func (ec *executionContext) _Mutation(ctx context.Context, sel ast.SelectionSet)
 		switch field.Name {
 		case "__typename":
 			out.Values[i] = graphql.MarshalString("Mutation")
-		case "updateDPoolList":
-			out.Values[i] = ec._Mutation_updateDPoolList(ctx, field)
-		case "updateDPool":
-			out.Values[i] = ec._Mutation_updateDPool(ctx, field)
-		case "updateUser":
-			out.Values[i] = ec._Mutation_updateUser(ctx, field)
-		case "updateUserTotalDeposit":
-			out.Values[i] = ec._Mutation_updateUserTotalDeposit(ctx, field)
-		case "updateDeposit":
-			out.Values[i] = ec._Mutation_updateDeposit(ctx, field)
-		case "updateFunder":
-			out.Values[i] = ec._Mutation_updateFunder(ctx, field)
-		case "updateFunderTotalInterest":
-			out.Values[i] = ec._Mutation_updateFunderTotalInterest(ctx, field)
-		case "updateFunding":
-			out.Values[i] = ec._Mutation_updateFunding(ctx, field)
-		case "updateMPHHolder":
-			out.Values[i] = ec._Mutation_updateMPHHolder(ctx, field)
-		case "updateMPH":
-			out.Values[i] = ec._Mutation_updateMPH(ctx, field)
+		case "UpdateDPoolList":
+			out.Values[i] = ec._Mutation_UpdateDPoolList(ctx, field)
+		case "UpdateDPool":
+			out.Values[i] = ec._Mutation_UpdateDPool(ctx, field)
+		case "UpdateUser":
+			out.Values[i] = ec._Mutation_UpdateUser(ctx, field)
+		case "UpdateUserTotalDeposit":
+			out.Values[i] = ec._Mutation_UpdateUserTotalDeposit(ctx, field)
+		case "UpdateDeposit":
+			out.Values[i] = ec._Mutation_UpdateDeposit(ctx, field)
+		case "UpdateFunder":
+			out.Values[i] = ec._Mutation_UpdateFunder(ctx, field)
+		case "UpdateFunderTotalInterest":
+			out.Values[i] = ec._Mutation_UpdateFunderTotalInterest(ctx, field)
+		case "UpdateFunding":
+			out.Values[i] = ec._Mutation_UpdateFunding(ctx, field)
+		case "UpdateMPHHolder":
+			out.Values[i] = ec._Mutation_UpdateMPHHolder(ctx, field)
+		case "UpdateMPH":
+			out.Values[i] = ec._Mutation_UpdateMPH(ctx, field)
+		case "UpdateVest":
+			out.Values[i] = ec._Mutation_UpdateVest(ctx, field)
+		case "UpdateFractionalDeposit":
+			out.Values[i] = ec._Mutation_UpdateFractionalDeposit(ctx, field)
 		default:
 			panic("unknown field " + strconv.Quote(field.Name))
 		}
@@ -11782,6 +14308,90 @@ func (ec *executionContext) _Query(ctx context.Context, sel ast.SelectionSet) gr
 				}
 				return res
 			})
+		case "Vest":
+			field := field
+			out.Concurrently(i, func() (res graphql.Marshaler) {
+				defer func() {
+					if r := recover(); r != nil {
+						ec.Error(ctx, ec.Recover(ctx, r))
+					}
+				}()
+				res = ec._Query_Vest(ctx, field)
+				if res == graphql.Null {
+					atomic.AddUint32(&invalids, 1)
+				}
+				return res
+			})
+		case "Vests":
+			field := field
+			out.Concurrently(i, func() (res graphql.Marshaler) {
+				defer func() {
+					if r := recover(); r != nil {
+						ec.Error(ctx, ec.Recover(ctx, r))
+					}
+				}()
+				res = ec._Query_Vests(ctx, field)
+				if res == graphql.Null {
+					atomic.AddUint32(&invalids, 1)
+				}
+				return res
+			})
+		case "VestSearch":
+			field := field
+			out.Concurrently(i, func() (res graphql.Marshaler) {
+				defer func() {
+					if r := recover(); r != nil {
+						ec.Error(ctx, ec.Recover(ctx, r))
+					}
+				}()
+				res = ec._Query_VestSearch(ctx, field)
+				if res == graphql.Null {
+					atomic.AddUint32(&invalids, 1)
+				}
+				return res
+			})
+		case "FractionalDeposit":
+			field := field
+			out.Concurrently(i, func() (res graphql.Marshaler) {
+				defer func() {
+					if r := recover(); r != nil {
+						ec.Error(ctx, ec.Recover(ctx, r))
+					}
+				}()
+				res = ec._Query_FractionalDeposit(ctx, field)
+				if res == graphql.Null {
+					atomic.AddUint32(&invalids, 1)
+				}
+				return res
+			})
+		case "FractionalDeposits":
+			field := field
+			out.Concurrently(i, func() (res graphql.Marshaler) {
+				defer func() {
+					if r := recover(); r != nil {
+						ec.Error(ctx, ec.Recover(ctx, r))
+					}
+				}()
+				res = ec._Query_FractionalDeposits(ctx, field)
+				if res == graphql.Null {
+					atomic.AddUint32(&invalids, 1)
+				}
+				return res
+			})
+		case "FractionalDepositSearch":
+			field := field
+			out.Concurrently(i, func() (res graphql.Marshaler) {
+				defer func() {
+					if r := recover(); r != nil {
+						ec.Error(ctx, ec.Recover(ctx, r))
+					}
+				}()
+				res = ec._Query_FractionalDepositSearch(ctx, field)
+				if res == graphql.Null {
+					atomic.AddUint32(&invalids, 1)
+				}
+				return res
+			})
 		case "__type":
 			out.Values[i] = ec._Query___type(ctx, field)
 		case "__schema":
@@ -11823,6 +14433,8 @@ func (ec *executionContext) _User(ctx context.Context, sel ast.SelectionSet, obj
 				res = ec._User_pools(ctx, field, obj)
 				return res
 			})
+		case "DPoolIDs":
+			out.Values[i] = ec._User_DPoolIDs(ctx, field, obj)
 		case "numPools":
 			out.Values[i] = ec._User_numPools(ctx, field, obj)
 		case "deposits":
@@ -11836,6 +14448,8 @@ func (ec *executionContext) _User(ctx context.Context, sel ast.SelectionSet, obj
 				res = ec._User_deposits(ctx, field, obj)
 				return res
 			})
+		case "DepositIDs":
+			out.Values[i] = ec._User_DepositIDs(ctx, field, obj)
 		case "numDeposits":
 			out.Values[i] = ec._User_numDeposits(ctx, field, obj)
 		case "numActiveDeposits":
@@ -11851,6 +14465,8 @@ func (ec *executionContext) _User(ctx context.Context, sel ast.SelectionSet, obj
 				res = ec._User_totalDepositByPool(ctx, field, obj)
 				return res
 			})
+		case "UserTotalDepositIDs":
+			out.Values[i] = ec._User_UserTotalDepositIDs(ctx, field, obj)
 		case "totalMPHEarned":
 			out.Values[i] = ec._User_totalMPHEarned(ctx, field, obj)
 		case "totalMPHPaidBack":
@@ -11892,6 +14508,8 @@ func (ec *executionContext) _UserTotalDeposit(ctx context.Context, sel ast.Selec
 				res = ec._UserTotalDeposit_user(ctx, field, obj)
 				return res
 			})
+		case "UserID":
+			out.Values[i] = ec._UserTotalDeposit_UserID(ctx, field, obj)
 		case "pool":
 			field := field
 			out.Concurrently(i, func() (res graphql.Marshaler) {
@@ -11903,6 +14521,8 @@ func (ec *executionContext) _UserTotalDeposit(ctx context.Context, sel ast.Selec
 				res = ec._UserTotalDeposit_pool(ctx, field, obj)
 				return res
 			})
+		case "DPoolID":
+			out.Values[i] = ec._UserTotalDeposit_DPoolID(ctx, field, obj)
 		case "totalActiveDeposit":
 			out.Values[i] = ec._UserTotalDeposit_totalActiveDeposit(ctx, field, obj)
 		case "totalHistoricalDeposit":
@@ -11913,6 +14533,44 @@ func (ec *executionContext) _UserTotalDeposit(ctx context.Context, sel ast.Selec
 			out.Values[i] = ec._UserTotalDeposit_totalHistoricalInterestEarned(ctx, field, obj)
 		case "proof":
 			out.Values[i] = ec._UserTotalDeposit_proof(ctx, field, obj)
+		default:
+			panic("unknown field " + strconv.Quote(field.Name))
+		}
+	}
+	out.Dispatch()
+	if invalids > 0 {
+		return graphql.Null
+	}
+	return out
+}
+
+var vestImplementors = []string{"Vest"}
+
+func (ec *executionContext) _Vest(ctx context.Context, sel ast.SelectionSet, obj *models.Vest) graphql.Marshaler {
+	fields := graphql.CollectFields(ec.OperationContext, sel, vestImplementors)
+
+	out := graphql.NewFieldSet(fields)
+	var invalids uint32
+	for i, field := range fields {
+		switch field.Name {
+		case "__typename":
+			out.Values[i] = graphql.MarshalString("Vest")
+		case "id":
+			out.Values[i] = ec._Vest_id(ctx, field, obj)
+		case "index":
+			out.Values[i] = ec._Vest_index(ctx, field, obj)
+		case "user":
+			out.Values[i] = ec._Vest_user(ctx, field, obj)
+		case "amount":
+			out.Values[i] = ec._Vest_amount(ctx, field, obj)
+		case "vestPeriodInSeconds":
+			out.Values[i] = ec._Vest_vestPeriodInSeconds(ctx, field, obj)
+		case "creationTimestamp":
+			out.Values[i] = ec._Vest_creationTimestamp(ctx, field, obj)
+		case "withdrawnAmount":
+			out.Values[i] = ec._Vest_withdrawnAmount(ctx, field, obj)
+		case "proof":
+			out.Values[i] = ec._Vest_proof(ctx, field, obj)
 		default:
 			panic("unknown field " + strconv.Quote(field.Name))
 		}
@@ -12352,6 +15010,62 @@ func (ec *executionContext) unmarshalNDepositInput2githubᚗcomᚋproximaᚑone�
 	return res, graphql.WrapErrorWithInputPath(ctx, err)
 }
 
+func (ec *executionContext) marshalNFractionalDeposit2githubᚗcomᚋproximaᚑoneᚋproximaᚑdataᚑvertexᚋpkgᚋmodelsᚐFractionalDeposit(ctx context.Context, sel ast.SelectionSet, v models.FractionalDeposit) graphql.Marshaler {
+	return ec._FractionalDeposit(ctx, sel, &v)
+}
+
+func (ec *executionContext) marshalNFractionalDeposit2ᚕᚖgithubᚗcomᚋproximaᚑoneᚋproximaᚑdataᚑvertexᚋpkgᚋmodelsᚐFractionalDeposit(ctx context.Context, sel ast.SelectionSet, v []*models.FractionalDeposit) graphql.Marshaler {
+	ret := make(graphql.Array, len(v))
+	var wg sync.WaitGroup
+	isLen1 := len(v) == 1
+	if !isLen1 {
+		wg.Add(len(v))
+	}
+	for i := range v {
+		i := i
+		fc := &graphql.FieldContext{
+			Index:  &i,
+			Result: &v[i],
+		}
+		ctx := graphql.WithFieldContext(ctx, fc)
+		f := func(i int) {
+			defer func() {
+				if r := recover(); r != nil {
+					ec.Error(ctx, ec.Recover(ctx, r))
+					ret = nil
+				}
+			}()
+			if !isLen1 {
+				defer wg.Done()
+			}
+			ret[i] = ec.marshalOFractionalDeposit2ᚖgithubᚗcomᚋproximaᚑoneᚋproximaᚑdataᚑvertexᚋpkgᚋmodelsᚐFractionalDeposit(ctx, sel, v[i])
+		}
+		if isLen1 {
+			f(i)
+		} else {
+			go f(i)
+		}
+
+	}
+	wg.Wait()
+	return ret
+}
+
+func (ec *executionContext) marshalNFractionalDeposit2ᚖgithubᚗcomᚋproximaᚑoneᚋproximaᚑdataᚑvertexᚋpkgᚋmodelsᚐFractionalDeposit(ctx context.Context, sel ast.SelectionSet, v *models.FractionalDeposit) graphql.Marshaler {
+	if v == nil {
+		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	return ec._FractionalDeposit(ctx, sel, v)
+}
+
+func (ec *executionContext) unmarshalNFractionalDepositInput2githubᚗcomᚋproximaᚑoneᚋproximaᚑdataᚑvertexᚋpkgᚋmodelsᚐFractionalDepositInput(ctx context.Context, v interface{}) (models.FractionalDepositInput, error) {
+	res, err := ec.unmarshalInputFractionalDepositInput(ctx, v)
+	return res, graphql.WrapErrorWithInputPath(ctx, err)
+}
+
 func (ec *executionContext) marshalNFunder2githubᚗcomᚋproximaᚑoneᚋproximaᚑdataᚑvertexᚋpkgᚋmodelsᚐFunder(ctx context.Context, sel ast.SelectionSet, v models.Funder) graphql.Marshaler {
 	return ec._Funder(ctx, sel, &v)
 }
@@ -12774,6 +15488,62 @@ func (ec *executionContext) unmarshalNUserTotalDepositInput2githubᚗcomᚋproxi
 	return res, graphql.WrapErrorWithInputPath(ctx, err)
 }
 
+func (ec *executionContext) marshalNVest2githubᚗcomᚋproximaᚑoneᚋproximaᚑdataᚑvertexᚋpkgᚋmodelsᚐVest(ctx context.Context, sel ast.SelectionSet, v models.Vest) graphql.Marshaler {
+	return ec._Vest(ctx, sel, &v)
+}
+
+func (ec *executionContext) marshalNVest2ᚕᚖgithubᚗcomᚋproximaᚑoneᚋproximaᚑdataᚑvertexᚋpkgᚋmodelsᚐVest(ctx context.Context, sel ast.SelectionSet, v []*models.Vest) graphql.Marshaler {
+	ret := make(graphql.Array, len(v))
+	var wg sync.WaitGroup
+	isLen1 := len(v) == 1
+	if !isLen1 {
+		wg.Add(len(v))
+	}
+	for i := range v {
+		i := i
+		fc := &graphql.FieldContext{
+			Index:  &i,
+			Result: &v[i],
+		}
+		ctx := graphql.WithFieldContext(ctx, fc)
+		f := func(i int) {
+			defer func() {
+				if r := recover(); r != nil {
+					ec.Error(ctx, ec.Recover(ctx, r))
+					ret = nil
+				}
+			}()
+			if !isLen1 {
+				defer wg.Done()
+			}
+			ret[i] = ec.marshalOVest2ᚖgithubᚗcomᚋproximaᚑoneᚋproximaᚑdataᚑvertexᚋpkgᚋmodelsᚐVest(ctx, sel, v[i])
+		}
+		if isLen1 {
+			f(i)
+		} else {
+			go f(i)
+		}
+
+	}
+	wg.Wait()
+	return ret
+}
+
+func (ec *executionContext) marshalNVest2ᚖgithubᚗcomᚋproximaᚑoneᚋproximaᚑdataᚑvertexᚋpkgᚋmodelsᚐVest(ctx context.Context, sel ast.SelectionSet, v *models.Vest) graphql.Marshaler {
+	if v == nil {
+		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	return ec._Vest(ctx, sel, v)
+}
+
+func (ec *executionContext) unmarshalNVestInput2githubᚗcomᚋproximaᚑoneᚋproximaᚑdataᚑvertexᚋpkgᚋmodelsᚐVestInput(ctx context.Context, v interface{}) (models.VestInput, error) {
+	res, err := ec.unmarshalInputVestInput(ctx, v)
+	return res, graphql.WrapErrorWithInputPath(ctx, err)
+}
+
 func (ec *executionContext) marshalN__Directive2githubᚗcomᚋ99designsᚋgqlgenᚋgraphqlᚋintrospectionᚐDirective(ctx context.Context, sel ast.SelectionSet, v introspection.Directive) graphql.Marshaler {
 	return ec.___Directive(ctx, sel, &v)
 }
@@ -13003,6 +15773,36 @@ func (ec *executionContext) marshalN__TypeKind2string(ctx context.Context, sel a
 	return res
 }
 
+func (ec *executionContext) unmarshalOBigDecimal2ᚖfloat64(ctx context.Context, v interface{}) (*float64, error) {
+	if v == nil {
+		return nil, nil
+	}
+	res, err := graphql.UnmarshalFloat(v)
+	return &res, graphql.WrapErrorWithInputPath(ctx, err)
+}
+
+func (ec *executionContext) marshalOBigDecimal2ᚖfloat64(ctx context.Context, sel ast.SelectionSet, v *float64) graphql.Marshaler {
+	if v == nil {
+		return graphql.Null
+	}
+	return graphql.MarshalFloat(*v)
+}
+
+func (ec *executionContext) unmarshalOBigInt2ᚖint64(ctx context.Context, v interface{}) (*int64, error) {
+	if v == nil {
+		return nil, nil
+	}
+	res, err := graphql.UnmarshalInt64(v)
+	return &res, graphql.WrapErrorWithInputPath(ctx, err)
+}
+
+func (ec *executionContext) marshalOBigInt2ᚖint64(ctx context.Context, sel ast.SelectionSet, v *int64) graphql.Marshaler {
+	if v == nil {
+		return graphql.Null
+	}
+	return graphql.MarshalInt64(*v)
+}
+
 func (ec *executionContext) unmarshalOBoolean2bool(ctx context.Context, v interface{}) (bool, error) {
 	res, err := graphql.UnmarshalBoolean(v)
 	return res, graphql.WrapErrorWithInputPath(ctx, err)
@@ -13128,19 +15928,11 @@ func (ec *executionContext) marshalODeposit2ᚖgithubᚗcomᚋproximaᚑoneᚋpr
 	return ec._Deposit(ctx, sel, v)
 }
 
-func (ec *executionContext) unmarshalOFloat2ᚖfloat64(ctx context.Context, v interface{}) (*float64, error) {
-	if v == nil {
-		return nil, nil
-	}
-	res, err := graphql.UnmarshalFloat(v)
-	return &res, graphql.WrapErrorWithInputPath(ctx, err)
-}
-
-func (ec *executionContext) marshalOFloat2ᚖfloat64(ctx context.Context, sel ast.SelectionSet, v *float64) graphql.Marshaler {
+func (ec *executionContext) marshalOFractionalDeposit2ᚖgithubᚗcomᚋproximaᚑoneᚋproximaᚑdataᚑvertexᚋpkgᚋmodelsᚐFractionalDeposit(ctx context.Context, sel ast.SelectionSet, v *models.FractionalDeposit) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
-	return graphql.MarshalFloat(*v)
+	return ec._FractionalDeposit(ctx, sel, v)
 }
 
 func (ec *executionContext) marshalOFunder2ᚕᚖgithubᚗcomᚋproximaᚑoneᚋproximaᚑdataᚑvertexᚋpkgᚋmodelsᚐFunder(ctx context.Context, sel ast.SelectionSet, v []*models.Funder) graphql.Marshaler {
@@ -13344,6 +16136,42 @@ func (ec *executionContext) marshalOString2string(ctx context.Context, sel ast.S
 	return graphql.MarshalString(v)
 }
 
+func (ec *executionContext) unmarshalOString2ᚕᚖstring(ctx context.Context, v interface{}) ([]*string, error) {
+	if v == nil {
+		return nil, nil
+	}
+	var vSlice []interface{}
+	if v != nil {
+		if tmp1, ok := v.([]interface{}); ok {
+			vSlice = tmp1
+		} else {
+			vSlice = []interface{}{v}
+		}
+	}
+	var err error
+	res := make([]*string, len(vSlice))
+	for i := range vSlice {
+		ctx := graphql.WithFieldInputContext(ctx, graphql.NewFieldInputWithIndex(i))
+		res[i], err = ec.unmarshalOString2ᚖstring(ctx, vSlice[i])
+		if err != nil {
+			return nil, graphql.WrapErrorWithInputPath(ctx, err)
+		}
+	}
+	return res, nil
+}
+
+func (ec *executionContext) marshalOString2ᚕᚖstring(ctx context.Context, sel ast.SelectionSet, v []*string) graphql.Marshaler {
+	if v == nil {
+		return graphql.Null
+	}
+	ret := make(graphql.Array, len(v))
+	for i := range v {
+		ret[i] = ec.marshalOString2ᚖstring(ctx, sel, v[i])
+	}
+
+	return ret
+}
+
 func (ec *executionContext) unmarshalOString2ᚖstring(ctx context.Context, v interface{}) (*string, error) {
 	if v == nil {
 		return nil, nil
@@ -13451,6 +16279,13 @@ func (ec *executionContext) marshalOUserTotalDeposit2ᚖgithubᚗcomᚋproxima�
 		return graphql.Null
 	}
 	return ec._UserTotalDeposit(ctx, sel, v)
+}
+
+func (ec *executionContext) marshalOVest2ᚖgithubᚗcomᚋproximaᚑoneᚋproximaᚑdataᚑvertexᚋpkgᚋmodelsᚐVest(ctx context.Context, sel ast.SelectionSet, v *models.Vest) graphql.Marshaler {
+	if v == nil {
+		return graphql.Null
+	}
+	return ec._Vest(ctx, sel, v)
 }
 
 func (ec *executionContext) marshalO__EnumValue2ᚕgithubᚗcomᚋ99designsᚋgqlgenᚋgraphqlᚋintrospectionᚐEnumValueᚄ(ctx context.Context, sel ast.SelectionSet, v []introspection.EnumValue) graphql.Marshaler {

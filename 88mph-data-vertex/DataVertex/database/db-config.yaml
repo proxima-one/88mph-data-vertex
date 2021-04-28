@@ -1,17 +1,17 @@
 name: DefaultDB
-id: 88mph-data-vertex
+id: DefaultDB
 owner: None
 version: 0.0.1
 config:
   cache: 5m
   compression: 36h
-  batching: 5s
+  batching: 5m
   sleep: 10m
   cacheExpiration: 5m
 tables:
   - name: DPoolLists
     id: DefaultDB-DPoolLists
-    version: 0.0.0
+    version: 0.0.1
     blockNum: 0
     header: Root
     compression: 36h
@@ -20,7 +20,7 @@ tables:
     cacheExpiration: 5m
   - name: DPools
     id: DefaultDB-DPools
-    version: 0.0.0
+    version: 0.0.1
     blockNum: 0
     header: Root
     compression: 36h
@@ -29,7 +29,7 @@ tables:
     cacheExpiration: 5m
   - name: Users
     id: DefaultDB-Users
-    version: 0.0.0
+    version: 0.0.1
     blockNum: 0
     header: Root
     compression: 36h
@@ -38,7 +38,7 @@ tables:
     cacheExpiration: 5m
   - name: UserTotalDeposits
     id: DefaultDB-UserTotalDeposits
-    version: 0.0.0
+    version: 0.0.1
     blockNum: 0
     header: Root
     compression: 36h
@@ -47,7 +47,7 @@ tables:
     cacheExpiration: 5m
   - name: Deposits
     id: DefaultDB-Deposits
-    version: 0.0.0
+    version: 0.0.1
     blockNum: 0
     header: Root
     compression: 36h
@@ -56,7 +56,7 @@ tables:
     cacheExpiration: 5m
   - name: Funders
     id: DefaultDB-Funders
-    version: 0.0.0
+    version: 0.0.1
     blockNum: 0
     header: Root
     compression: 36h
@@ -65,7 +65,7 @@ tables:
     cacheExpiration: 5m
   - name: FunderTotalInterests
     id: DefaultDB-FunderTotalInterests
-    version: 0.0.0
+    version: 0.0.1
     blockNum: 0
     header: Root
     compression: 36h
@@ -74,7 +74,7 @@ tables:
     cacheExpiration: 5m
   - name: Fundings
     id: DefaultDB-Fundings
-    version: 0.0.0
+    version: 0.0.1
     blockNum: 0
     header: Root
     compression: 36h
@@ -83,7 +83,7 @@ tables:
     cacheExpiration: 5m
   - name: MPHHolders
     id: DefaultDB-MPHHolders
-    version: 0.0.0
+    version: 0.0.1
     blockNum: 0
     header: Root
     compression: 36h
@@ -92,7 +92,25 @@ tables:
     cacheExpiration: 5m
   - name: MPHs
     id: DefaultDB-MPHs
-    version: 0.0.0
+    version: 0.0.1
+    blockNum: 0
+    header: Root
+    compression: 36h
+    batching: 5s
+    sleep: 10m
+    cacheExpiration: 5m
+  - name: Vests
+    id: DefaultDB-Vests
+    version: 0.0.1
+    blockNum: 0
+    header: Root
+    compression: 36h
+    batching: 5s
+    sleep: 10m
+    cacheExpiration: 5m
+  - name: FractionalDeposits
+    id: DefaultDB-FractionalDeposits
+    version: 0.0.1
     blockNum: 0
     header: Root
     compression: 36h
